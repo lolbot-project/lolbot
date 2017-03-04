@@ -7,6 +7,7 @@ Always WIP, always will be until its death, which I hope will never happen...
 - Python 3.6 (I used pyenv for this, but Ubuntu has python3.6 PPAs. For other distros: YMMV)
 - pip packages in requirements.txt (use `pip install -r requirements.txt` to install them automagically!)
 - token for API ([Get it here](https://discordapp.com/developers/applications))
+
 # Running
 
 Pretty simple.

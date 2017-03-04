@@ -2,7 +2,7 @@
 
 <center>WIP until it dies, hopefully it'll never die!</center>
 
-[<img src="https://discordapp.com/api/guilds/237379086970781698/widget.png&style=shield">](https://discord.gg/DCagZUP)
+[<img src="https://discordapp.com/api/guilds/237379086970781698/widget.png?style=shield">](https://discord.gg/DCagZUP)
 
 # Requirements
 

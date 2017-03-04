@@ -2,7 +2,7 @@
 
 <center>WIP until it dies, hopefully it'll never die!</center>
 
-<center><iframe src="https://discordapp.com/widget?id=237379086970781698&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe></center>
+[<img src="https://discordapp.com/widget?id=237379086970781698&theme=dark">](https://discord.gg/DCagZUP)
 
 # Requirements
 

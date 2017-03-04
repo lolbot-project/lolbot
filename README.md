@@ -1,6 +1,7 @@
-![[official instance site](https://lolbot.banne.club)](https://lold.s-ul.eu/MqKR7DKI)
+![](https://lold.s-ul.eu/MqKR7DKI)
 The only-one-file Discord bot made for fun.
 Always WIP, always will be until its death, which I hope will never happen...
+[lolbot official site](https://lolbot.banne.club) ![](https://discordapp.com/widget?id=237379086970781698&theme=dark)
 
 # Requirements
 

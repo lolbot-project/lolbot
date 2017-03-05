@@ -69,13 +69,14 @@ async def echo(*, message: str):
 
 @bot.command()
 async def httpcat(*, http_id: str):
+  """http.cat images - ^httpcat <http code>"""
   httpcat_em = discord.Embed(title='lolbot', description='http.cat - here is your picture!', colour=0x6906E8)
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await bot.say(embed=httpcat_em)
 
-@bot.command
+@bot.command()
 async def changenick(*, user: str, nick: str):
-  """Optional - ^changenick user nick - needs "Change Nickname" permission"""
+  """^changenick <user> <nick> - needs "Change Nickname" permission"""
   try:
     bot.change_nickname(user, nick)
   except Forbidden:
@@ -86,6 +87,18 @@ async def changenick(*, user: str, nick: str):
     await bot.say(':x: General error (`HTTPException`): Nick change failed.')
   else:
     await bot.say(':white_check_mark Successfully changed nickname.')
-
+@bot.command()
+async def reboot():
+  """Duh."""
+  await bot.say('Second please.')
+  logging.info('Restart requested')
+  await bot.change_presence(game=discord.Game(name='Restarting'))
+  bot.logout()
+  check_output(['python3.6', 'index.py'])
+  await bot.change_presence(game=discord.Game('with APIs. | ^help | 0.0.1'))
+@bot.command()
+async def game(*, game: str):
+  """Changes playing status"""
+  await bot.change_presence(game=discord.Game(name=game + ' | ^help | v0.0.1'))
 config = json.loads(open('config.json').read())
 bot.run(config['token'])

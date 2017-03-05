@@ -9,6 +9,7 @@ import json
 from subprocess import check_output
 logging.basicConfig(level=logging.INFO)
 description = '''beep boop :)'''
+bot = commands.Bot(command_prefix='^', description=description)
 @bot.event
 async def on_ready():
 	print('lolbot - ready')
@@ -53,6 +54,17 @@ async def cat():
     em.set_author(name='lolbot', icon_url=bot.user.default_avatar_url)
     em.set_image(url=js['file'])
     await bot.say(embed=em)
+
+@bot.command()
+async def echo(*, message: str):
+  """Self-explanatory."""
+  await bot.say(message)
+
+@bot.command()
+async def httpcat(*, http_id: str):
+  httpcat_em = discord.Embed(title='lolbot', description='http.cat - here is your picture!', colour=0x6906E8)
+  httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
+  await bot.say(embed=httpcat_em)
 
 config = json.loads(open('config.json').read())
 bot.run(config['token'])

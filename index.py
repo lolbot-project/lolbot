@@ -10,11 +10,18 @@ from subprocess import check_output
 logging.basicConfig(level=logging.INFO)
 description = '''beep boop :)'''
 bot = commands.Bot(command_prefix='^', description=description)
-@bot.event
-async def on_ready():
-	print('lolbot - ready')
-	await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v0.0.1'))
-
+try:
+  @bot.event
+  async def on_ready():
+    print('lolbot - ready')
+    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v0.0.1'))
+except ImportError:
+  logging.error('Please make sure you have all required modules in requirements.txt installed.')
+  logging.error('Run this command:')
+  logging.error('pip install -r requirements.txt')
+  logging.error('to try and fix this error, then relaunch lolbot.')
+else:
+  print('OK - in check')
 @bot.command()
 async def k():
   """k"""
@@ -65,6 +72,20 @@ async def httpcat(*, http_id: str):
   httpcat_em = discord.Embed(title='lolbot', description='http.cat - here is your picture!', colour=0x6906E8)
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await bot.say(embed=httpcat_em)
+
+@bot.command
+async def changenick(*, user: str, nick: str):
+  """Optional - ^changenick user nick - needs "Change Nickname" permission"""
+  try:
+    bot.change_nickname(user, nick)
+  except Forbidden:
+    logging.warning('Exception: Tried to change nick, Discord has forbidden')
+    await bot.say(':x: Tried to change nick, Discord responded with forbidden. Please make sure you have the correct perms for me!')
+  except HTTPException:
+    logging.warning('Exception: General error: Nickname change failed')
+    await bot.say(':x: General error (`HTTPException`): Nick change failed.')
+  else:
+    await bot.say(':white_check_mark Successfully changed nickname.')
 
 config = json.loads(open('config.json').read())
 bot.run(config['token'])

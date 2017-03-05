@@ -1,0 +1,45 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+<!-- Powers buttons and stuff. -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.1/css/bulma.min.css" />
+<script type="text/javascript" src="https://transfer.sh/12F5hF/betterinnerhtml.js"></script>
+<title>lolbot</title>
+<style>
+body {
+	text-align: center;
+	margin: 0 auto;
+	font-family: 'Rubik', sans-serif;
+	font-size: 12px;
+}
+</style>
+</head>
+<body>
+<script type="text/javascript">
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+function loading() {
+	BetterInnerHTML(document.getElementById('button_add'), '<a class="button is-primary is-loading">Loading</a>');
+	sleep(2000);
+	window.open('https://discordapp.com/api/oauth2/authorize?client_id=272549225454239744&scope=bot&permissions=0');
+
+};
+</script>
+<div class="tabs is-centered">
+  <ul>
+  <li><a href="https://www.banne.club">Home</a></li>
+  <li class="is-active"><a>lolbot</a></li> 
+  </ul>
+</div>
+<h1>lolbot - the very simple Discord bot for everyone</h1>
+<hr/>
+<p>lolbot is a frequently updated bot which runs on my Pi.</p>
+<p>It is frequently down because of updates, but restarts are short and will only happen for testing/updates.</p>
+<p>If you'd like to add this little bot to your server, you'll find it pretty quickly.</p>
+<a class="button is-primary is-outlined" id="button_add" onclick="loading()">Add me!</a>
+
+</body>

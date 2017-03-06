@@ -17,5 +17,6 @@ But before you continue to submitting, please read over this:
   
   Once again, thanks for contributing!
   
-  Written by S (@xshotD)
-  Originally made: Sun March 5th, 2017
+  Written by S - @xshotD
+  
+  Originally made on: Sun March 5th, 2017

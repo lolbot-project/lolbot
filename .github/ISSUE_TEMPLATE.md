@@ -1,10 +1,10 @@
 **lolbot - issue report**
 
-- [] The problem is not a ImportError
+- [ ] The problem is not a ImportError
 
-- [] You are running Python 3.6
+- [ ] You are running Python 3.6
 
-- [] You have inputted your API token in `config.json`
+- [ ] You have inputted your API token in `config.json`
 
 Please state your report in the code blocks:
 

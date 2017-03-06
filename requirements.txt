@@ -1,2 +1,4 @@
 discord.py
 requests
+pynacl
+youtube_dl

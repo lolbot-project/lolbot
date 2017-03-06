@@ -14,7 +14,7 @@ try:
   @bot.event
   async def on_ready():
     print('lolbot - ready')
-    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v0.0.1'))
+    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v1.0'))
 except ImportError:
   logging.error('Please make sure you have all required modules in requirements.txt installed.')
   logging.error('Run this command:')
@@ -42,7 +42,7 @@ async def ping():
 @bot.command()
 async def about():
   """Information about lolbot."""
-  em = discord.Embed(title='lolbot version 0.0.1', description='Written by lold. (c) 2017 lold, all rights reserved.\nDiscord.py version: ' + discord.__version__ + '\nPython version: ' + sys.version + '\nWant to support lolbot and other projects? Donate to my ko-fi (https://ko-fi.com/A753OUG) or PayPal.me (https://paypal.me/ynapw)', colour=0x6906E8)
+  em = discord.Embed(title='lolbot version 1.0', description='Written by lold. (c) 2017 lold, all rights reserved.\nDiscord.py version: ' + discord.__version__ + '\nPython version: ' + sys.version + '\nWant to support lolbot and other projects? Donate to my ko-fi (https://ko-fi.com/A753OUG) or PayPal.me (https://paypal.me/ynapw)', colour=0x6906E8)
   em.set_author(name='lolbot, written by lold', icon_url=bot.user.default_avatar_url)
   await bot.say(embed=em)
 
@@ -85,6 +85,11 @@ async def changenick(*, user: str, nick: str):
   except HTTPException:
     logging.warning('Exception: General error: Nickname change failed')
     await bot.say(':x: General error (`HTTPException`): Nick change failed.')
+  except TypeError:
+    logging.error('It appears there is a code error somewhere.')
+    logging.error('Please check the code.')
+    bot.say(':x: Code error encountered.')
+    bot.logout()
   else:
     await bot.say(':white_check_mark Successfully changed nickname.')
 @bot.command()
@@ -95,10 +100,16 @@ async def reboot():
   await bot.change_presence(game=discord.Game(name='Restarting'))
   bot.logout()
   check_output(['python3.6', 'index.py'])
-  await bot.change_presence(game=discord.Game('with APIs. | ^help | 0.0.1'))
+  await bot.change_presence(game=discord.Game('with APIs. | ^help | v1.0'))
+  os.exit(0)
 @bot.command()
 async def game(*, game: str):
   """Changes playing status"""
-  await bot.change_presence(game=discord.Game(name=game + ' | ^help | v0.0.1'))
+  await bot.change_presence(game=discord.Game(name=game + ' | ^help | v1.0'))
+@bot.command()
+async def lmgnapi(*, apiarea: str):
+  """api.thelmgn.com wrapper"""
+  lmgn = requests.get('http://api.thelmgn.com/' + apiarea)
+  await bot.say(lmgn.text)
 config = json.loads(open('config.json').read())
 bot.run(config['token'])

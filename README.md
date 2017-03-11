@@ -17,3 +17,6 @@
 1. Get your token and fill it in config.json
 2. Run `python3.6 index.py`
 3. Profit(?)
+
+### Features probably never added
+I suck ass at music in Python, this will be implemented in a JS bot instead, which makes the chances of a music bot 0.00%.

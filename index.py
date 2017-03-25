@@ -15,6 +15,8 @@ try:
   async def on_ready():
     print('lolbot - ready')
     await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v1.0'))
+  @bot.event
+  async def on_server_join():
 except ImportError:
   logging.error('Please make sure you have all required modules in requirements.txt installed.')
   logging.error('Run this command:')
@@ -85,23 +87,18 @@ async def changenick(*, user: str, nick: str):
   except HTTPException:
     logging.warning('Exception: General error: Nickname change failed')
     await bot.say(':x: General error (`HTTPException`): Nick change failed.')
-  except TypeError:
-    logging.error('It appears there is a code error somewhere.')
-    logging.error('Please check the code.')
-    bot.say(':x: Code error encountered.')
-    bot.logout()
   else:
     await bot.say(':white_check_mark Successfully changed nickname.')
-@bot.command()
-async def reboot():
-  """Duh."""
-  await bot.say('Second please.')
-  logging.info('Restart requested')
-  await bot.change_presence(game=discord.Game(name='Restarting'))
-  bot.logout()
-  check_output(['python3.6', 'index.py'])
-  await bot.change_presence(game=discord.Game('with APIs. | ^help | v1.0'))
-  os.exit(0)
+# Disabled until permissions are implemented
+#@bot.command()
+#async def reboot():
+#  """Duh."""
+#  await bot.say('Second please.')
+#  logging.info('Restart requested')
+#  await bot.change_presence(game=discord.Game(name='Restarting'))
+#  bot.logout()
+#  check_output(['python3.6', 'index.py'])
+#  await bot.change_presence(game=discord.Game('with APIs. | ^help | v1.0'))
 @bot.command()
 async def game(*, game: str):
   """Changes playing status"""
@@ -111,5 +108,19 @@ async def lmgnapi(*, apiarea: str):
   """api.thelmgn.com wrapper"""
   lmgn = requests.get('http://api.thelmgn.com/' + apiarea)
   await bot.say(lmgn.text)
-config = json.loads(open('config.json').read())
-bot.run(config['token'])
+@bot.command()
+async def shibe():
+  """Random shibes, powered by shibe.online"""
+  shibeGet = requests.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true')
+  shibe = shibeGet.json()
+  shibeEmbed = discord.Embed(name='lolbot', description='Here is your shibe.', colour=0x6906E8)
+  shibeEmbed.set_author(name='lolbot', icon_url=bot.user.default_avatar_url)
+  shibeEmbed.set_image(url=shibe[0])
+  await bot.say(embed=shibeEmbed)
+try:
+  config = json.loads(open('config.json').read())
+  bot.run(config['token'])
+except FileNotFoundError:
+  logging.error('I can not find config.json!')
+  logging.error('Are you sure you are in the same folder as it?')
+

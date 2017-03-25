@@ -10,20 +10,11 @@ from subprocess import check_output
 logging.basicConfig(level=logging.INFO)
 description = '''beep boop :)'''
 bot = commands.Bot(command_prefix='^', description=description)
-try:
-  @bot.event
-  async def on_ready():
-    print('lolbot - ready')
-    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v1.0'))
-  @bot.event
-  async def on_server_join():
-except ImportError:
-  logging.error('Please make sure you have all required modules in requirements.txt installed.')
-  logging.error('Run this command:')
-  logging.error('pip install -r requirements.txt')
-  logging.error('to try and fix this error, then relaunch lolbot.')
-else:
-  print('OK - in check')
+
+@bot.event
+async def on_ready():
+  print('lolbot - ready')
+  await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v1.0'))
 @bot.command()
 async def k():
   """k"""
@@ -89,6 +80,7 @@ async def changenick(*, user: str, nick: str):
     await bot.say(':x: General error (`HTTPException`): Nick change failed.')
   else:
     await bot.say(':white_check_mark Successfully changed nickname.')
+
 # Disabled until permissions are implemented
 #@bot.command()
 #async def reboot():
@@ -103,11 +95,13 @@ async def changenick(*, user: str, nick: str):
 async def game(*, game: str):
   """Changes playing status"""
   await bot.change_presence(game=discord.Game(name=game + ' | ^help | v1.0'))
+
 @bot.command()
 async def lmgnapi(*, apiarea: str):
   """api.thelmgn.com wrapper"""
   lmgn = requests.get('http://api.thelmgn.com/' + apiarea)
   await bot.say(lmgn.text)
+
 @bot.command()
 async def shibe():
   """Random shibes, powered by shibe.online"""
@@ -117,6 +111,12 @@ async def shibe():
   shibeEmbed.set_author(name='lolbot', icon_url=bot.user.default_avatar_url)
   shibeEmbed.set_image(url=shibe[0])
   await bot.say(embed=shibeEmbed)
+
+@bot.event
+async def on_server_join():
+  logging.info('Joined server' + str(discord.server.name))
+  logging.info('Server ID' + str(discord.server.id))
+
 try:
   config = json.loads(open('config.json').read())
   bot.run(config['token'])

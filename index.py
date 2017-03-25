@@ -7,14 +7,21 @@ import requests
 import os
 import json
 from subprocess import check_output
+
 logging.basicConfig(level=logging.INFO)
 description = '''beep boop :)'''
 bot = commands.Bot(command_prefix='^', description=description)
 
-@bot.event
-async def on_ready():
-  print('lolbot - ready')
-  await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v1.0'))
+try:
+  @bot.event
+  async def on_ready():
+    print('lolbot - ready')
+    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v1.0'))
+except ImportError:
+  logging.warn('Module(s) could not be found/not installed')
+  logging.warn('Installing automatically')
+  check_output(['pip', 'install', '-r', 'requirements.txt'])
+  sys.exit('Please relaunch lolbot')
 @bot.command()
 async def k():
   """k"""

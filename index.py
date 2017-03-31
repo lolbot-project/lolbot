@@ -7,10 +7,12 @@ import requests
 import os
 import json
 from subprocess import check_output
+from other import ownerchecks
 
 logging.basicConfig(level=logging.INFO)
 description = '''beep boop :)'''
 bot = commands.Bot(command_prefix='^', description=description)
+config = json.loads(open('config.json').read())
 
 try:
   @bot.event
@@ -46,11 +48,14 @@ async def about():
   em.set_author(name='lolbot, written by lold', icon_url=bot.user.default_avatar_url)
   await bot.say(embed=em)
 
-@bot.command()
-async def suggest():
-  """Got suggestions?"""
-  await bot.say('Suggestions? Direct them to lold#4960 for consideration.')
-
+# disabled until I can get this right, lmk if there's a solution for this
+# @bot.command()
+# async def suggest(self, ctx, *, suggestion: str):
+# """Got suggestions?"""    
+#  person = ctx.message.author.id
+#  await bot.say('Feedback has been forwarded on to the mailbox.')
+#  await bot.say(295224292927340547, 'Suggestion submitted: `' + str(suggestion) + '`' + str(person))
+  
 @bot.command()
 async def cat():
   """Random cat images. Awww, so cute! Powered by random.cat"""
@@ -88,17 +93,18 @@ async def changenick(*, user: str, nick: str):
   else:
     await bot.say(':white_check_mark Successfully changed nickname.')
 
-# Disabled until permissions are implemented
-#@bot.command()
-#async def reboot():
-#  """Duh."""
-#  await bot.say('Second please.')
-#  logging.info('Restart requested')
-#  await bot.change_presence(game=discord.Game(name='Restarting'))
-#  bot.logout()
-#  check_output(['python3.6', 'index.py'])
-#  await bot.change_presence(game=discord.Game('with APIs. | ^help | v1.0'))
 @bot.command()
+@ownerchecks.is_owner()
+async def reboot():
+  """Duh. Owner only"""
+  await bot.say('Second please.')
+  logging.info('Restart requested')
+  await bot.change_presence(game=discord.Game(name='Restarting'))
+  check_output(['sh', 'bot.sh'])
+  bot.logout()
+
+@bot.command()
+@ownerchecks.is_owner()
 async def game(*, game: str):
   """Changes playing status"""
   await bot.change_presence(game=discord.Game(name=game + ' | ^help | v1.0'))
@@ -120,12 +126,11 @@ async def shibe():
   await bot.say(embed=shibeEmbed)
 
 @bot.event
-async def on_server_join():
-  logging.info('Joined server' + str(discord.server.name))
-  logging.info('Server ID' + str(discord.server.id))
+async def on_server_join(*, server: discord.Server):
+  logging.info('Joined server' + str(server.name))
+  logging.info('Server ID' + str(server.id))
 
 try:
-  config = json.loads(open('config.json').read())
   bot.run(config['token'])
 except FileNotFoundError:
   logging.error('I can not find config.json!')

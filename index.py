@@ -18,7 +18,7 @@ try:
   @bot.event
   async def on_ready():
     print('lolbot - ready')
-    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v1.0'))
+    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v2.0'))
 except ImportError:
   logging.warn('Module(s) could not be found/not installed')
   logging.warn('Installing automatically')
@@ -107,7 +107,7 @@ async def reboot():
 @ownerchecks.is_owner()
 async def game(*, game: str):
   """Changes playing status"""
-  await bot.change_presence(game=discord.Game(name=game + ' | ^help | v1.0'))
+  await bot.change_presence(game=discord.Game(name=game + ' | ^help | v2.0'))
 
 @bot.command()
 async def lmgnapi(*, apiarea: str):

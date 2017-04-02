@@ -27,7 +27,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 	
-async function loading() {
+async function loading() {;
 	BetterInnerHTML(document.getElementById('button_add'), '<a class="button is-primary is-loading">Loading</a>');
 	window.open('https://discordapp.com/api/oauth2/authorize?client_id=272549225454239744&scope=bot&permissions=0');
 	swal({

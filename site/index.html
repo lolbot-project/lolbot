@@ -21,7 +21,13 @@ body {
 </head>
 <body>
 <script type="text/javascript">
-function loading() {
+// Stolen from Stack Overflow :^)
+// Also, GitHub, your formatting is shit.
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+	
+async function loading() {
 	BetterInnerHTML(document.getElementById('button_add'), '<a class="button is-primary is-loading">Loading</a>');
 	window.open('https://discordapp.com/api/oauth2/authorize?client_id=272549225454239744&scope=bot&permissions=0');
 	swal({
@@ -31,6 +37,8 @@ function loading() {
     timer: 6000,
     confirmButtonText: 'OK'
     });
+      await sleep(6000)
+      BetterInnerHTML(document.getElementById('button_add'), '<a class="button is-primary is-outlined" id="button_add" onclick="loading()">Add me!</a>')
 }
 </script>
 <div class="tabs is-centered">

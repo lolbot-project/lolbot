@@ -21,14 +21,20 @@ body {
 </head>
 <body>
 <script type="text/javascript">
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 function loading() {
 	BetterInnerHTML(document.getElementById('button_add'), '<a class="button is-primary is-loading">Loading</a>');
-	swal("lolbot", "Please close this and refresh after you have added the bot.")
 	window.open('https://discordapp.com/api/oauth2/authorize?client_id=272549225454239744&scope=bot&permissions=0');
-
+	swal({
+    title: "lolbot",
+    type: "success",
+    text: "Congrats, you added lolbot to your server. Enjoy! (press OK to refresh)",
+    timer: 3000,
+    confirmButtonText: 'OK'
+    });
+    function () {
+       location.reload();
+    };
+	
 };
 </script>
 <div class="tabs is-centered">

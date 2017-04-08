@@ -48,13 +48,12 @@ async def about():
   em.set_author(name='lolbot, written by lold', icon_url=bot.user.default_avatar_url)
   await bot.say(embed=em)
 
-# disabled until I can get this right, lmk if there's a solution for this
-# @bot.command()
-# async def suggest(self, ctx, *, suggestion: str):
-# """Got suggestions?"""    
-#  person = ctx.message.author.id
-#  await bot.say('Feedback has been forwarded on to the mailbox.')
-#  await bot.say(295224292927340547, 'Suggestion submitted: `' + str(suggestion) + '`' + str(person))
+@bot.command(name='suggest', pass_context=True)
+async def suggest(self, ctx, *, suggestion: str):
+  """Got suggestions?"""    
+  person = ctx.message.author.id
+  await bot.say('Feedback has been forwarded on to the mailbox.')
+  await bot.say(config['sugchannel'], 'Suggestion submitted: `' + str(suggestion) + '`' + str(person))
   
 @bot.command()
 async def cat():

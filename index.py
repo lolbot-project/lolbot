@@ -79,20 +79,6 @@ async def httpcat(*, http_id: str):
   await bot.say(embed=httpcat_em)
 
 @bot.command()
-async def changenick(*, user: str, nick: str):
-  """^changenick <user> <nick> - needs "Change Nickname" permission"""
-  try:
-    bot.change_nickname(user, nick)
-  except Forbidden:
-    logging.warning('Exception: Tried to change nick, Discord has forbidden')
-    await bot.say(':x: Tried to change nick, Discord responded with forbidden. Please make sure you have the correct perms for me!')
-  except HTTPException:
-    logging.warning('Exception: General error: Nickname change failed')
-    await bot.say(':x: General error (`HTTPException`): Nick change failed.')
-  else:
-    await bot.say(':white_check_mark Successfully changed nickname.')
-
-@bot.command()
 @ownerchecks.is_owner()
 async def reboot():
   """Duh. Owner only"""

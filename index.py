@@ -18,11 +18,10 @@ try:
   async def on_ready():
     print('lolbot - ready')
     await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v2.0'))
-except ImportError:
-  logging.warn('Module(s) could not be found/not installed')
-  logging.warn('Installing automatically')
-  check_output(['pip', 'install', '-r', 'requirements.txt'])
-  sys.exit('Please relaunch lolbot')
+except HTTPException:
+  logging.error('.. or not. Apparently the status change failed.')
+else:
+  print('Status change OK')
 @bot.command()
 async def k():
   """k"""
@@ -90,7 +89,7 @@ async def changenick(*, user: str, nick: str):
     logging.warning('Exception: General error: Nickname change failed')
     await bot.say(':x: General error (`HTTPException`): Nick change failed.')
   else:
-    await bot.say(':white_check_mark Successfully changed nickname.')
+    await bot.say(':white_check_mark: Successfully changed nickname.')
 
 @bot.command()
 @ownerchecks.is_owner()
@@ -128,8 +127,8 @@ async def shibe():
 
 @bot.event
 async def on_server_join( server ):
-  logging.info('Joined server' + str(server.name))
-  logging.info('Server ID' + str(server.id))
+  logging.info('Joined server:' + str(server.name))
+  logging.info('Server ID:' + str(server.id))
 
 try:
   bot.run(config['token'])

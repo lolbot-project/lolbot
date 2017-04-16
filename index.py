@@ -3,7 +3,6 @@ import discord
 from discord.ext import commands
 import sys
 import logging
-import requests
 import os
 import json
 from subprocess import check_output
@@ -48,7 +47,7 @@ async def about():
   em.set_author(name='lolbot, written by lold', icon_url=bot.user.default_avatar_url)
   await bot.say(embed=em)
 
-@bot.command(name='suggest', pass_context=True)
+@bot.command(pass_context=True)
 async def suggest(self, ctx, *, suggestion: str):
   """Got suggestions?"""    
   person = ctx.message.author.id
@@ -57,14 +56,15 @@ async def suggest(self, ctx, *, suggestion: str):
   
 @bot.command()
 async def cat():
-  """Random cat images. Awww, so cute! Powered by random.cat"""
-  r = requests.get('http://random.cat/meow')
-  if r.status_code == 200:
-    js = r.json()
-    em = discord.Embed(title='lolbot', description='Here is your cat image, as requested.', colour=0x6906E8)
-    em.set_author(name='lolbot', icon_url=bot.user.default_avatar_url)
-    em.set_image(url=js['file'])
-    await bot.say(embed=em)
+  with aiohttp.ClientSession() as session:
+    """Random cat images. Awww, so cute! Powered by random.cat"""
+    async with session.get('https://random.cat/meow') as r:
+      if r.status == 200:
+        js = await r.json()
+        em = discord.Embed(title='lolbot', description='Here is your cat image, as requested.', colour=0x6906E8)
+        em.set_author(name='lolbot', icon_url=bot.user.default_avatar_url)
+        em.set_image(url=js['file'])
+        await bot.say(embed=em)
 
 @bot.command()
 async def echo(*, message: str):
@@ -116,16 +116,18 @@ async def lmgnapi(*, apiarea: str):
 
 @bot.command()
 async def shibe():
-  """Random shibes, powered by shibe.online"""
-  shibeGet = requests.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true')
-  shibe = shibeGet.json()
-  shibeEmbed = discord.Embed(name='lolbot', description='Here is your shibe.', colour=0x6906E8)
-  shibeEmbed.set_author(name='lolbot', icon_url=bot.user.default_avatar_url)
-  shibeEmbed.set_image(url=shibe[0])
-  await bot.say(embed=shibeEmbed)
+  with aiohttp.ClientSession() as shibe:
+    """Random shibes, powered by shibe.online"""
+    async with shibe.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
+      if shibeGet.status == 200:
+        shibeJson = shibeGet.json()
+        shibeEmbed = discord.Embed(name='lolbot', description='Here is your shibe.', colour=0x6906E8)
+        shibeEmbed.set_author(name='lolbot', icon_url=bot.user.default_avatar_url)
+        shibeEmbed.set_image(url=shibeJson[0])
+        await bot.say(embed=shibeEmbed)
 
 @bot.event
-async def on_server_join(*, server: discord.Server):
+async def on_server_join( server ):
   logging.info('Joined server' + str(server.name))
   logging.info('Server ID' + str(server.id))
 

@@ -14,7 +14,7 @@
 
 # Running
 
-1. Get your token and fill it in config.json
+1. Get your bot token and fill it in config.json
 2. Run `python3.6 index.py`
 3. Profit(?)
 

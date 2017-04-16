@@ -49,7 +49,7 @@ async def about():
   await bot.say(embed=em)
 
 @bot.command(pass_context=True)
-async def suggest(self, ctx, *, suggestion: str):
+async def suggest( suggestion: str ):
   """Got suggestions?"""    
   await bot.say('Feedback has been forwarded on to the mailbox.')
   await bot.say(config['sugchannel'], 'Suggestion submitted: `' + str(suggestion) + '`' + ctx.message.author.id)
@@ -78,7 +78,7 @@ async def httpcat(*, http_id: str):
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await bot.say(embed=httpcat_em)
 
-@bot.command()
+@bot.command(hidden=True)
 @ownerchecks.is_owner()
 async def reboot():
   """Duh. Owner only"""
@@ -88,7 +88,7 @@ async def reboot():
   check_output(['sh', 'bot.sh'])
   await bot.logout()
 
-@bot.command()
+@bot.command(hidden=True)
 @ownerchecks.is_owner()
 async def game(*, game: str):
   """Changes playing status"""
@@ -107,8 +107,7 @@ async def shibe():
     async with shibe.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
       if shibeGet.status == 200:
         shibeJson = shibeGet.json()
-        shibeEmbed = discord.Embed(name='lolbot', description='Here is your shibe.', colour=0x6906E8)
-        shibeEmbed.set_author(name='lolbot', icon_url=bot.user.default_avatar_url)
+        shibeEmbed = discord.Embed(name='shibe.online', colour=0x6906E8)
         shibeEmbed.set_image(url=shibeJson[0])
         await bot.say(embed=shibeEmbed)
 

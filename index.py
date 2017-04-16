@@ -4,6 +4,7 @@ from discord.ext import commands
 import sys
 import logging
 import os
+import aiohttp
 import json
 from subprocess import check_output
 from other import ownerchecks

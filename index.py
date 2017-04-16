@@ -51,9 +51,8 @@ async def about():
 @bot.command(pass_context=True)
 async def suggest(self, ctx, *, suggestion: str):
   """Got suggestions?"""    
-  person = ctx.message.author.id
   await bot.say('Feedback has been forwarded on to the mailbox.')
-  await bot.say(config['sugchannel'], 'Suggestion submitted: `' + str(suggestion) + '`' + str(person))
+  await bot.say(config['sugchannel'], 'Suggestion submitted: `' + str(suggestion) + '`' + ctx.message.author.id)
   
 @bot.command()
 async def cat():

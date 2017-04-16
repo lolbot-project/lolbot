@@ -100,7 +100,7 @@ async def reboot():
   logging.info('Restart requested')
   await bot.change_presence(game=discord.Game(name='Restarting'))
   check_output(['sh', 'bot.sh'])
-  bot.logout()
+  await bot.logout()
 
 @bot.command()
 @ownerchecks.is_owner()

@@ -106,7 +106,7 @@ async def shibe():
     """Random shibes, powered by shibe.online"""
     async with shibe.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
       if shibeGet.status == 200:
-        shibeJson = shibeGet.json()
+        shibeJson = await shibeGet.json()
         shibeEmbed = discord.Embed(name='shibe.online', colour=0x6906E8)
         shibeEmbed.set_image(url=shibeJson[0])
         await bot.say(embed=shibeEmbed)

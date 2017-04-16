@@ -77,7 +77,6 @@ async def httpcat(*, http_id: str):
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await bot.say(embed=httpcat_em)
 
-<<<<<<< HEAD
 @bot.command()
 async def changenick(*, user: str, nick: str):
   """^changenick <user> <nick> - needs "Change Nickname" permission"""
@@ -92,10 +91,7 @@ async def changenick(*, user: str, nick: str):
   else:
     await bot.say(':white_check_mark: Successfully changed nickname.')
 
-@bot.command()
-=======
 @bot.command(hidden=True)
->>>>>>> f80937536db1c7b2d6de49b1bee25552b6511f16
 @ownerchecks.is_owner()
 async def reboot():
   """Duh. Owner only"""

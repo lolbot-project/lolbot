@@ -95,9 +95,8 @@ async def changenick(*, user: str, nick: str):
 @ownerchecks.is_owner()
 async def eval(*, code: str):
   """Because everyone needs a good eval once in a while."""
-  eresult = eval(str(code))
-  await bot.say('```\n' + str(eresult) + '\n```')
- 
+  await bot.say('```\n' + eval(str(code)) + '\n```')
+
 @bot.command(hidden=True)
 @ownerchecks.is_owner()
 async def reboot():

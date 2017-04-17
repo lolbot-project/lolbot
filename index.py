@@ -77,28 +77,10 @@ async def httpcat(*, http_id: str):
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await bot.say(embed=httpcat_em)
 
-<<<<<<< HEAD
-@bot.command()
-async def changenick(*, user: str, nick: str):
-  """^changenick <user> <nick> - needs "Change Nickname" permission"""
-  try:
-    bot.change_nickname(user, nick)
-  except Forbidden:
-    logging.warning('Exception: Tried to change nick, Discord has forbidden')
-    await bot.say(':x: Tried to change nick, Discord responded with forbidden. Please make sure you have the correct perms for me!')
-  except HTTPException:
-    logging.warning('Exception: General error: Nickname change failed')
-    await bot.say(':x: General error (`HTTPException`): Nick change failed.')
-  else:
-    await bot.say(':white_check_mark: Successfully changed nickname.')
-
-@bot.command(hidden=True)
-=======
 # special thanks to sliceofcode for eval code
 # I'm sure he doesn't mind :P
 # this eval code is (c) 2017 sliceofcode under MIT License
 @bot.command(hidden=True, pass_context=True)
->>>>>>> 3854c503e983b2e2033b9a181b2f60bbbd182d5a
 @ownerchecks.is_owner()
 async def eval(self, ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""

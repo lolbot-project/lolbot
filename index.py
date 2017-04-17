@@ -78,11 +78,42 @@ async def httpcat(*, http_id: str):
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await bot.say(embed=httpcat_em)
 
-@bot.command(hidden=True)
+# special thanks to sliceofcode for eval code
+# I'm sure he doesn't mind :P
+# this eval code is (c) 2017 sliceofcode under MIT License
+@bot.command(hidden=True, pass_context=True)
 @ownerchecks.is_owner()
-async def eval(*, code: str):
+async def eval(self, ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""
-  await bot.say('```\n' + eval(str(code)) + '\n```')
+          env = {
+            'bot': ctx.bot,
+            'ctx': ctx,
+            'msg': ctx.message,
+            'guild': ctx.guild,
+            'channel': ctx.channel,
+            'me': ctx.message.author,
+
+            'get': discord.utils.get,
+            'find': discord.utils.find,
+        }
+
+        fmt_exception = '```py\n>>> {}\n\n{}: {}```'
+
+        env.update(globals())
+
+        indented_code = textwrap.indent(code, '    ')
+        wrapped_code = 'async def _eval_code():\n' + indented_code
+
+        try:
+            exec(wrapped_code, env)
+            return_value = await env['_eval_code']()
+
+            if return_value is not None:
+                await ctx.send(return_value)
+        except Exception as e:
+            name = type(e).__name__
+            await ctx.send(fmt_exception.format(code, name, e))
+            return
 
 @bot.command(hidden=True)
 @ownerchecks.is_owner()

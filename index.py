@@ -19,10 +19,11 @@ try:
   async def on_ready():
     print('lolbot - ready')
     await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v2.0'))
-except HTTPException:
-  logging.error('.. or not. Apparently the status change failed.')
-else:
-  print('Status change OK')
+except ImportError:
+  logging.warn('Module(s) could not be found/not installed')
+  logging.warn('Installing automatically')
+  check_output(['pip', 'install', '-r', 'requirements.txt'])
+  sys.exit('Please relaunch lolbot')
 @bot.command()
 async def k():
   """k"""
@@ -149,8 +150,8 @@ async def shibe():
 
 @bot.event
 async def on_server_join( server ):
-  logging.info('Joined server:' + str(server.name))
-  logging.info('Server ID:' + str(server.id))
+  logging.info('Joined server' + str(server.name))
+  logging.info('Server ID' + str(server.id))
 
 try:
   bot.run(config['token'])

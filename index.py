@@ -85,7 +85,7 @@ async def httpcat(*, http_id: str):
 # Link: https://github.com/Rapptz/RoboDanny/blob/master/cogs/repl.py#L33
 @bot.command(hidden=True, pass_context=True)
 @ownerchecks.is_owner()
-async def eval(self, ctx, *, code: str):
+async def eval(self, ctx, *, body: str):
   """Because everyone needs a good eval once in a while."""
   env = {
     'bot': self.bot,

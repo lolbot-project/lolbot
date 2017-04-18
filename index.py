@@ -6,6 +6,8 @@ import logging
 import os
 import aiohttp
 import json
+import textwrap
+
 from subprocess import check_output
 from other import ownerchecks
 

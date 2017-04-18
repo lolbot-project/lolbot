@@ -112,7 +112,7 @@ async def eval(self, ctx, *, code: str):
   func = env['func']
   try:
     with redirect_stdout(stdout):
-    ret = await func()
+      ret = await func()
   except Exception as e:
     value = stdout.getvalue()
     await self.bot.say('```py\n{}{}\n```'.format(value, traceback.format_exc()))

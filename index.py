@@ -6,6 +6,10 @@ import logging
 import aiohttp
 import json
 import textwrap
+<<<<<<< HEAD
+=======
+
+>>>>>>> a72375925ca55adf5245b9abeaab98d5b5c98b4f
 from subprocess import check_output
 from other import ownerchecks
 
@@ -49,7 +53,7 @@ async def about():
   await bot.say(embed=em)
 
 @bot.command(pass_context=True)
-async def suggest( suggestion: str ):
+async def suggest( ctx, *, suggestion: str ):
   """Got suggestions?"""    
   await bot.say('Feedback has been forwarded on to the mailbox.')
   await bot.say(config['sugchannel'], 'Suggestion submitted: `' + str(suggestion) + '`')
@@ -78,14 +82,15 @@ async def httpcat(*, http_id: str):
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await bot.say(embed=httpcat_em)
 
-# special thanks to sliceofcode for eval code
-# I'm sure he doesn't mind :P
-# this eval code is (c) 2017 sliceofcode under MIT License
+# I pretty much just stole Danny's code here :^)
+# eval code (c) 2017 Rapptz/Danny
+# Link: https://github.com/Rapptz/RoboDanny/blob/master/cogs/repl.py#L33
 @bot.command(hidden=True, pass_context=True)
 @ownerchecks.is_owner()
-async def eval(self, ctx, *, code: str):
+async def eval(self, ctx, *, body: str):
   """Because everyone needs a good eval once in a while."""
   env = {
+<<<<<<< HEAD
             'bot': ctx.bot,
             'ctx': ctx,
             'msg': ctx.message,
@@ -111,6 +116,50 @@ async def eval(self, ctx, *, code: str):
     name = type(e).__name__
     await ctx.send(fmt_exception.format(code, name, e))
     return
+=======
+    'bot': self.bot,
+    'ctx': ctx,
+    'channel': ctx.message.channel,
+    'author': ctx.message.author,
+    'server': ctx.message.server,
+    'message': ctx.message,
+    '_': self._last_result 
+ }
+
+  env.update(globals())
+
+  body = self.cleanup_code(body)
+  stdout = io.StringIO()
+
+  to_compile = 'async def func():\n%s' % textwrap.indent(body, '  ')
+
+  try:
+     exec(to_compile, env)
+  except SyntaxError as e:
+    return await self.bot.say(self.get_syntax_error(e))
+
+  func = env['func']
+  try:
+    with redirect_stdout(stdout):
+      ret = await func()
+  except Exception as e:
+    value = stdout.getvalue()
+    await self.bot.say('```py\n{}{}\n```'.format(value, traceback.format_exc()))
+  else:
+    value = stdout.getvalue()
+  try:
+    await self.bot.add_reaction(ctx.message, '\u2705')
+  except:
+    pass
+
+  if ret is None:
+    if value:
+      await self.bot.say('```py\n%s\n```' % value)
+  else:
+    self._last_result = ret
+    await self.bot.say('```py\n%s%s\n```' % (value, ret))
+
+>>>>>>> a72375925ca55adf5245b9abeaab98d5b5c98b4f
 
 @bot.command(hidden=True)
 @ownerchecks.is_owner()

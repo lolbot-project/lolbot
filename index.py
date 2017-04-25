@@ -3,9 +3,9 @@ import discord
 from discord.ext import commands
 import sys
 import logging
-import os
 import aiohttp
 import json
+import textwrap
 from subprocess import check_output
 from other import ownerchecks
 
@@ -52,7 +52,7 @@ async def about():
 async def suggest( suggestion: str ):
   """Got suggestions?"""    
   await bot.say('Feedback has been forwarded on to the mailbox.')
-  await bot.say(config['sugchannel'], 'Suggestion submitted: `' + str(suggestion) + '`' + ctx.message.author.id)
+  await bot.say(config['sugchannel'], 'Suggestion submitted: `' + str(suggestion) + '`')
   
 @bot.command()
 async def cat():
@@ -85,7 +85,7 @@ async def httpcat(*, http_id: str):
 @ownerchecks.is_owner()
 async def eval(self, ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""
-          env = {
+  env = {
             'bot': ctx.bot,
             'ctx': ctx,
             'msg': ctx.message,
@@ -97,23 +97,20 @@ async def eval(self, ctx, *, code: str):
             'find': discord.utils.find,
         }
 
-        fmt_exception = '```py\n>>> {}\n\n{}: {}```'
+  fmt_exception = '```py\n>>> {}\n\n{}: {}```'
+  env.update(globals())
+  indented_code = textwrap.indent(code, '    ')
+  wrapped_code = 'async def _eval_code():\n' + indented_code
 
-        env.update(globals())
-
-        indented_code = textwrap.indent(code, '    ')
-        wrapped_code = 'async def _eval_code():\n' + indented_code
-
-        try:
-            exec(wrapped_code, env)
-            return_value = await env['_eval_code']()
-
-            if return_value is not None:
-                await ctx.send(return_value)
-        except Exception as e:
-            name = type(e).__name__
-            await ctx.send(fmt_exception.format(code, name, e))
-            return
+  try:
+    exec(wrapped_code, env)
+    return_value = await env['_eval_code']()
+    if return_value is not None:
+        await ctx.send(return_value)
+  except Exception as e:
+    name = type(e).__name__
+    await ctx.send(fmt_exception.format(code, name, e))
+    return
 
 @bot.command(hidden=True)
 @ownerchecks.is_owner()
@@ -130,12 +127,6 @@ async def reboot():
 async def game(*, game: str):
   """Changes playing status"""
   await bot.change_presence(game=discord.Game(name=game + ' | ^help | v2.0'))
-
-@bot.command()
-async def lmgnapi(*, apiarea: str):
-  """api.thelmgn.com wrapper"""
-  lmgn = requests.get('http://api.thelmgn.com/' + apiarea)
-  await bot.say(lmgn.text)
 
 @bot.command()
 async def shibe():

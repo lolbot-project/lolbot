@@ -6,10 +6,6 @@ import logging
 import aiohttp
 import json
 import textwrap
-<<<<<<< HEAD
-=======
-
->>>>>>> a72375925ca55adf5245b9abeaab98d5b5c98b4f
 from subprocess import check_output
 from other import ownerchecks
 
@@ -82,85 +78,37 @@ async def httpcat(*, http_id: str):
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await bot.say(embed=httpcat_em)
 
-# I pretty much just stole Danny's code here :^)
-# eval code (c) 2017 Rapptz/Danny
-# Link: https://github.com/Rapptz/RoboDanny/blob/master/cogs/repl.py#L33
+# slice's eval code :^)
 @bot.command(hidden=True, pass_context=True)
 @ownerchecks.is_owner()
-async def eval(self, ctx, *, body: str):
+async def eval(self, ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""
   env = {
-<<<<<<< HEAD
-            'bot': ctx.bot,
-            'ctx': ctx,
-            'msg': ctx.message,
-            'guild': ctx.guild,
-            'channel': ctx.channel,
-            'me': ctx.message.author,
-
-            'get': discord.utils.get,
-            'find': discord.utils.find,
-        }
+    'bot': ctx.bot,
+    'ctx': ctx,
+    'msg': ctx.message,
+    'guild': ctx.guild,
+    'channel': ctx.channel,
+    'me': ctx.message.author,
+    'get': discord.utils.get,
+    'find': discord.utils.find,
+  }
 
   fmt_exception = '```py\n>>> {}\n\n{}: {}```'
+
   env.update(globals())
+
   indented_code = textwrap.indent(code, '    ')
   wrapped_code = 'async def _eval_code():\n' + indented_code
-
   try:
-    exec(wrapped_code, env)
-    return_value = await env['_eval_code']()
-    if return_value is not None:
+      exec(wrapped_code, env)
+      return_value = await env['_eval_code']()
+      if return_value is not None:
         await ctx.send(return_value)
   except Exception as e:
-    name = type(e).__name__
-    await ctx.send(fmt_exception.format(code, name, e))
-    return
-=======
-    'bot': self.bot,
-    'ctx': ctx,
-    'channel': ctx.message.channel,
-    'author': ctx.message.author,
-    'server': ctx.message.server,
-    'message': ctx.message,
-    '_': self._last_result 
- }
-
-  env.update(globals())
-
-  body = self.cleanup_code(body)
-  stdout = io.StringIO()
-
-  to_compile = 'async def func():\n%s' % textwrap.indent(body, '  ')
-
-  try:
-     exec(to_compile, env)
-  except SyntaxError as e:
-    return await self.bot.say(self.get_syntax_error(e))
-
-  func = env['func']
-  try:
-    with redirect_stdout(stdout):
-      ret = await func()
-  except Exception as e:
-    value = stdout.getvalue()
-    await self.bot.say('```py\n{}{}\n```'.format(value, traceback.format_exc()))
-  else:
-    value = stdout.getvalue()
-  try:
-    await self.bot.add_reaction(ctx.message, '\u2705')
-  except:
-    pass
-
-  if ret is None:
-    if value:
-      await self.bot.say('```py\n%s\n```' % value)
-  else:
-    self._last_result = ret
-    await self.bot.say('```py\n%s%s\n```' % (value, ret))
-
->>>>>>> a72375925ca55adf5245b9abeaab98d5b5c98b4f
-
+      name = type(e).__name__
+      await ctx.send(fmt_exception.format(code, name, e))
+      return
 @bot.command(hidden=True)
 @ownerchecks.is_owner()
 async def reboot():

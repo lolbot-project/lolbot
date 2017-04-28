@@ -24,6 +24,9 @@ except ImportError:
   logging.warn('Installing automatically')
   check_output(['pip', 'install', '-r', 'requirements.txt'])
   sys.exit('Please relaunch lolbot')
+
+
+
 @bot.command()
 async def k():
   """k"""
@@ -50,10 +53,10 @@ async def about():
 
 @bot.command(pass_context=True)
 async def suggest( ctx, *, suggestion: str ):
-  """Got suggestions?"""    
+  """Got suggestions?"""
   await bot.say('Feedback has been forwarded on to the mailbox.')
   await bot.say(config['sugchannel'], 'Suggestion submitted: `' + str(suggestion) + '`')
-  
+
 @bot.command()
 async def cat():
   with aiohttp.ClientSession() as session:
@@ -141,6 +144,26 @@ async def on_server_join( server ):
   logging.info('Joined server' + str(server.name))
   logging.info('Server ID' + str(server.id))
 
+async def botstats(self):
+  payload = json.dumps({
+    'server_count': len(self.bot.servers)
+  })
+
+  headers = {
+    'authorization': config['dbots'],
+    'content-type': 'application/json'
+  }
+  dbl_headers = {
+    'authorization': config['dbl'],
+    'content-type': 'application/json'
+  }
+
+  dbots_url = 'https://bots.discord.pw/api/bots' + config['botid'] + 'stats'
+  dbl_url = 'https://discordbots.org/api/bots' + config['botid'] + 'stats'
+  async with self.session.post(dbl_url, data=payload, headers=dbl_headers) as dbl_resp:
+    logging.info('dbl: posted with code' + await resp.status())
+  async with self.session.post(dbots_url, data=payload, headers=headers) as resp:
+    logging.info('dbots: posted with code' + await resp.status())
 try:
   bot.run(config['token'])
 except FileNotFoundError:

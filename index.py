@@ -131,7 +131,7 @@ async def shibe():
 
 @bot.command()
 async def stats():
-  statEmbed = discord.Embed(name='lolbot stats', description='```\nServers: ' + len(bot.servers) + '\nUsers: ' + len(bot.users) + '', colour=0x690E8)
+  statEmbed = discord.Embed(name='lolbot stats', description='```\nServers: ' + str(len(bot.servers)) + '\nUsers: ' + str(len(bot.users)) + '', colour=0x690E8)
   await bot.say(embed=statEmbed)
 
 @bot.event

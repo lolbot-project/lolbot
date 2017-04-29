@@ -16,9 +16,12 @@ config = json.loads(open('config.json').read())
 
 try:
   @bot.event
-  async def on_ready():
-    print('lolbot - ready')
+  async def on_ready(self):
+    logging.info('lolbot - ready')
+    self.serverpoll = self.loop.create_task(botstats())
+    logging.info('Bot post loop initalized')
     await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v2.0'))
+	logging.info('Playing status changed')
 except ImportError:
   logging.warn('Module(s) could not be found/not installed')
   logging.warn('Installing automatically')
@@ -164,6 +167,7 @@ async def botstats(self):
     logging.info('dbl: posted with code' + await resp.status())
   async with self.session.post(dbots_url, data=payload, headers=headers) as resp:
     logging.info('dbots: posted with code' + await resp.status())
+  await asyncio.sleep(60 * 60) # report to DBL/dbots every hour
 try:
   bot.run(config['token'])
 except FileNotFoundError:

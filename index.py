@@ -10,7 +10,7 @@ import textwrap
 from subprocess import check_output
 from other import ownerchecks
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 description = '''beep boop :)'''
 bot = commands.Bot(command_prefix='^', description=description)
 config = json.loads(open('config.json').read())

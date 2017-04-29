@@ -21,7 +21,7 @@ try:
     self.serverpoll = self.loop.create_task(botstats())
     logging.info('Bot post loop initalized')
     await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v2.0'))
-	logging.info('Playing status changed')
+    logging.info('Playing status changed')
 except ImportError:
   logging.warn('Module(s) could not be found/not installed')
   logging.warn('Installing automatically')

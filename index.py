@@ -15,20 +15,6 @@ description = '''beep boop :)'''
 bot = commands.Bot(command_prefix='^', description=description)
 config = json.loads(open('config.json').read())
 
-try:
-  @bot.event
-  async def on_ready():
-    logging.info('lolbot - ready')
-    loop = asyncio.get_event_loop()
-    serverpoll = loop.create_task(botstats())
-    logging.info('Bot post loop initalized')
-    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v2.0'))
-    logging.info('Playing status changed')
-except ImportError:
-  logging.warn('Module(s) could not be found/not installed')
-  logging.warn('Installing automatically')
-  check_output(['pip', 'install', '-r', 'requirements.txt'])
-  sys.exit('Please relaunch lolbot')
 
 
 
@@ -170,6 +156,22 @@ async def botstats(self):
   async with self.session.post(dbots_url, data=payload, headers=headers) as resp:
     logging.info('dbots: posted with code' + await resp.status())
   await asyncio.sleep(60 * 60) # report to DBL/dbots every hour
+
+try:
+  @bot.event
+  async def on_ready():
+    logging.info('lolbot - ready')
+    loop = asyncio.get_event_loop()
+    serverpoll = loop.create_task(botstats())
+    logging.info('Bot post loop initalized')
+    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v2.0'))
+    logging.info('Playing status changed')
+except ImportError:
+  logging.warn('Module(s) could not be found/not installed')
+  logging.warn('Installing automatically')
+  check_output(['pip', 'install', '-r', 'requirements.txt'])
+  sys.exit('Please relaunch lolbot')
+
 try:
   bot.run(config['token'])
 except FileNotFoundError:

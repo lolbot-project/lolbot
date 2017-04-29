@@ -135,7 +135,7 @@ async def on_server_join( server ):
   logging.info('Joined server' + str(server.name))
   logging.info('Server ID' + str(server.id))
 
-async def botstats():
+async def botstats(self):
   async with aiohttp.ClientSession() as self.session:
     payload = json.dumps({
       'server_count': len(bot.servers)

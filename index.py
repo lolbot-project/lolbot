@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import discord
 from discord.ext import commands
+import asyncio
 import sys
 import logging
 import aiohttp
@@ -16,9 +17,10 @@ config = json.loads(open('config.json').read())
 
 try:
   @bot.event
-  async def on_ready( self ):
+  async def on_ready():
     logging.info('lolbot - ready')
-    self.serverpoll = self.loop.create_task(botstats())
+    loop = asyncio.get_event_loop()
+    serverpoll = loop.create_task(botstats())
     logging.info('Bot post loop initalized')
     await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v2.0'))
     logging.info('Playing status changed')

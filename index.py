@@ -151,9 +151,9 @@ async def botstats():
 
   dbots_url = 'https://bots.discord.pw/api/bots' + config['botid'] + 'stats'
   dbl_url = 'https://discordbots.org/api/bots' + config['botid'] + 'stats'
-  async with self.session.post(dbl_url, data=payload, headers=dbl_headers) as dbl_resp:
+  async with aiohttp.session.post(dbl_url, data=payload, headers=dbl_headers) as dbl_resp:
     logging.info('dbl: posted with code' + await resp.status())
-  async with self.session.post(dbots_url, data=payload, headers=headers) as resp:
+  async with aiohttp.session.post(dbots_url, data=payload, headers=headers) as resp:
     logging.info('dbots: posted with code' + await resp.status())
   await asyncio.sleep(60 * 60) # report to DBL/dbots every hour
 

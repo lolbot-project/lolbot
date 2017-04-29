@@ -129,11 +129,17 @@ async def shibe():
         shibeEmbed.set_image(url=shibeJson[0])
         await bot.say(embed=shibeEmbed)
 
+@bot.command()
+async def stats():
+  statEmbed = discord.Embed(name='lolbot stats', description='```\nServers: ' + len(bot.servers) + '\nUsers: ' + len(bot.users) + '', colour=0x690E8)
+  await bot.say(embed=statEmbed)
+
 @bot.event
 async def on_server_join( server ):
   logging.info('Joined server' + str(server.name))
   logging.info('Server ID' + str(server.id))
 
+# danny code frankenstein :P
 async def botstats():
   while True:
     async with aiohttp.ClientSession() as session:

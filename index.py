@@ -156,7 +156,7 @@ async def botstats():
       logging.info('dbl: posted with code' + str(dbl_resp.status))
     async with session.post(dbots_url, data=payload, headers=headers) as resp:
       logging.info('dbots: posted with code' + str(resp.status))
-    await asyncio.sleep(60 * 60) # report to DBL/dbots every hour
+    await asyncio.sleep(3600) # report to DBL/dbots every hour
 
 try:
   @bot.event

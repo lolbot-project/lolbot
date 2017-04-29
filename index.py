@@ -135,9 +135,9 @@ async def on_server_join( server ):
   logging.info('Joined server' + str(server.name))
   logging.info('Server ID' + str(server.id))
 
-async def botstats(self):
+async def botstats():
   payload = json.dumps({
-    'server_count': len(self.bot.servers)
+    'server_count': len(bot.servers)
   })
 
   headers = {

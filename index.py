@@ -154,7 +154,7 @@ async def botstats():
     dbl_url = 'https://discordbots.org/api/bots' + config['botid'] + 'stats'
     async with session.post(dbl_url, data=payload, headers=dbl_headers) as dbl_resp:
       logging.info('dbl: posted with code')
-      print(await resp.status())
+      print(await dbl_resp.status())
     async with session.post(dbots_url, data=payload, headers=headers) as resp:
       logging.info('dbots: posted with code')
       print(await resp.status())

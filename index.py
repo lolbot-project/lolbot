@@ -16,7 +16,7 @@ config = json.loads(open('config.json').read())
 
 try:
   @bot.event
-  async def on_ready(self):
+  async def on_ready( self ):
     logging.info('lolbot - ready')
     self.serverpoll = self.loop.create_task(botstats())
     logging.info('Bot post loop initalized')

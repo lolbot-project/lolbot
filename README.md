@@ -1,7 +1,7 @@
 ![](https://lold.s-ul.eu/MqKR7DKI)
 
 <center>WIP until it dies, hopefully it'll never die!</center>
-[![Discord](https://discordapp.com/api/guilds/307640404071677962/widget.png?style=shield)](https://discord.gg/PEW4wx9) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/772/badge)](https://bestpractices.coreinfrastructure.org/projects/772)
+![https://img.shields.io/badge/discord-server-7289DA.svg](https://discord.gg/PEW4wx9) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/772/badge)](https://bestpractices.coreinfrastructure.org/projects/772)
 
 [<img src="https://lold.s-ul.eu/OC314kET">](https://discordapp.com/api/oauth2/authorize?client_id=272549225454239744&scope=bot&permissions=0)
 

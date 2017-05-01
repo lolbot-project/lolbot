@@ -7,9 +7,9 @@ But before you continue to submitting, please read over this:
   
   - Credit will be given.
   
-  - Code is written in Sublime Text - and its default settings
+  - Code is written in ~~Sublime Text~~ Geany (right now) - and its default settings
   
-  - Having Sublime Text available is preferred for PRs, 
+  - Having Sublime Text/Geany available is preferred for PRs, 
   
   - but other editors are allowed as well as long as they adhere to the standards.
   

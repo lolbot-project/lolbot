@@ -131,7 +131,7 @@ async def shibe():
 
 @bot.command()
 async def stats():
-  statEmbed = discord.Embed(name='lolbot stats', description='```\nServers: ' + str(len(bot.servers)) + '\nUsers: ' + str(len(bot.users)) + '', colour=0x690E8)
+  statEmbed = discord.Embed(name='lolbot stats', description='```\nServers: ' + str(len(bot.servers)) + '', colour=0x690E8)
   await bot.say(embed=statEmbed)
 
 @bot.event
@@ -184,4 +184,3 @@ try:
 except FileNotFoundError:
   logging.error('I can not find config.json!')
   logging.error('Are you sure you are in the same folder as it?')
-

@@ -1,14 +1,9 @@
 {
-<<<<<<< HEAD
         "token": "MjcyNTQ5MjI1NDU0MjM5NzQ0.C3a5xA.J1hnIjjVfFKlGsTzOgvj9zVDUa4",
-        "owner": "237378015141691392",
-        "sugchannel": "295224292927340547"
-=======
-	"token": "",
-	"ownerid": "",
-	"botid": "",
-	"dbots": "",
-	"dbl": ""
->>>>>>> 3d9240cb8fceb8fc09b18085b9a7880f1e28ee95
+        "ownerid": "237378015141691392",
+        "sugchannel": "295224292927340547",
+	"botid": "272549225454239744",
+	"dbots": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiIyMzczNzgwMTUxNDE2OTEzOTIiLCJyYW5kIjozOSwiaWF0IjoxNDkyMDQzNjQ0fQ.Xf83JDQm4uYxnKWyh6fK_euuP-DoKsbmdfgN4mYQVKI",
+	"dbl": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIzNzM3ODAxNTE0MTY5MTM5MiIsImlhdCI6MTQ5MzQyMDk4MX0.z0EgbdAK7MhBtSLIVGoVmiNXSKyGzNsSw-TeJT5MuvI"
 }
 

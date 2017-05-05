@@ -116,7 +116,7 @@ async def reboot():
 @ownerchecks.is_owner()
 async def game(*, game: str):
   """Changes playing status"""
-  await bot.change_presence(game=discord.Game(name=game + ' | ^help | v2.0'))
+  await bot.change_presence(game=discord.Game(name=game + ' | ^help | v3.0'))
 
 @bot.command()
 async def shibe():
@@ -171,7 +171,7 @@ try:
     loop = asyncio.get_event_loop()
     serverpoll = loop.create_task(botstats())
     logging.info('Bot post loop initalized')
-    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v2.0'))
+    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v3.0'))
     logging.info('Playing status changed')
 except ImportError:
   logging.warn('Module(s) could not be found/not installed')

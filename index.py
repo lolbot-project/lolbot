@@ -9,7 +9,7 @@ import json
 import textwrap
 from subprocess import check_output
 from other import ownerchecks
-
+from random import choice as rchoice
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 description = '''beep boop :)'''
 bot = commands.Bot(command_prefix='^', description=description)
@@ -50,8 +50,8 @@ async def suggest( ctx, *, suggestion: str ):
 
 @bot.command()
 async def cat():
+"""Random cat images. Awww, so cute! Powered by random.cat"""
   with aiohttp.ClientSession() as session:
-    """Random cat images. Awww, so cute! Powered by random.cat"""
     async with session.get('https://random.cat/meow') as r:
       if r.status == 200:
         js = await r.json()
@@ -74,7 +74,7 @@ async def httpcat(*, http_id: str):
 # slice's eval code :^)
 @bot.command(hidden=True, pass_context=True)
 @ownerchecks.is_owner()
-async def eval(self, ctx, *, code: str):
+async def evalboi(self, ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""
   env = {
     'bot': ctx.bot,
@@ -120,8 +120,8 @@ async def game(*, game: str):
 
 @bot.command()
 async def shibe():
+  """Random shibes, powered by shibe.online"""
   with aiohttp.ClientSession() as shibe:
-    """Random shibes, powered by shibe.online"""
     async with shibe.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
       if shibeGet.status == 200:
         shibeJson = await shibeGet.json()
@@ -131,10 +131,20 @@ async def shibe():
 
 @bot.command()
 async def stats():
+  """A few stats."""
   statEmbed = discord.Embed(name='lolbot stats', description='```\nServers: ' + str(len(bot.servers)) + '', colour=0x690E8)
   await bot.say(embed=statEmbed)
+  
+@bot.command()
+async def 8ball(*, question: str):
+  8dict = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later',
+           'Concentrate and ask again', 'Reply hazy, try again', 'My reply is no', 
+           'My sources say no']
+  8answer = rchoice(list(8dict.keys()))
+  8embed = discord.Embed(name='The Magic 8-ball' description='**Question: ' + str(question) + '\nAnswer: ' + str(8answer), colour=0x690E8)
+  await bot.say(embed=8embed)
 
-@bot.event
+@bot.event()
 async def on_server_join( server ):
   logging.info('Joined server' + str(server.name))
   logging.info('Server ID' + str(server.id))

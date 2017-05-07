@@ -50,7 +50,7 @@ async def suggest( ctx, *, suggestion: str ):
 
 @bot.command()
 async def cat():
-"""Random cat images. Awww, so cute! Powered by random.cat"""
+  """Random cat images. Awww, so cute! Powered by random.cat"""
   with aiohttp.ClientSession() as session:
     async with session.get('https://random.cat/meow') as r:
       if r.status == 200:

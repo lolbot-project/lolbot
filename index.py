@@ -111,7 +111,7 @@ async def reboot():
   await bot.change_presence(game=discord.Game(name='Restarting'))
   try:
     check_output(['sh', 'bot.sh'])
-  except subprocess.CalledProcessError:
+  except:
     await bot.say('ERROR: fix your fucking code pls')
   else:
     await bot.logout()
@@ -139,8 +139,8 @@ async def stats():
   statEmbed = discord.Embed(name='lolbot stats', description='```\nServers: ' + str(len(bot.servers)) + '', colour=0x690E8)
   await bot.say(embed=statEmbed)
   
-@bot.command()
-async def 8ball(*, question: str):
+@bot.command(name='8ball')
+async def an8ball(*, question: str):
   8dict = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later',
            'Concentrate and ask again', 'Reply hazy, try again', 'My reply is no', 
            'My sources say no']

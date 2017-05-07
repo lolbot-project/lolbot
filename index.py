@@ -109,8 +109,12 @@ async def reboot():
   await bot.say('Second please.')
   logging.info('Restart requested')
   await bot.change_presence(game=discord.Game(name='Restarting'))
-  check_output(['sh', 'bot.sh'])
-  await bot.logout()
+  try:
+    check_output(['sh', 'bot.sh'])
+  except subprocess.CalledProcessError:
+    await bot.say('ERROR: fix your fucking code pls')
+  else:
+    await bot.logout()
 
 @bot.command(hidden=True)
 @ownerchecks.is_owner()

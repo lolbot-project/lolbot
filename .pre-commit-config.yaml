@@ -1,0 +1,11 @@
+-   id: trailing-whitespace
+    name: Trim Trailing Whitespace
+    description: This hook trims trailing whitespace.
+    entry: trimspace
+    language: python
+    files: \.(js|rb|md|py|sh|txt|yaml|yml|html)$
+-   id: lint
+    name: Lint Python Files
+    entry: pylint
+    language: system
+    files: \.py$

@@ -15,9 +15,6 @@ description = '''beep boop :)'''
 bot = commands.Bot(command_prefix='^', description=description)
 config = json.loads(open('config.json').read())
 
-
-
-
 @bot.command()
 async def k():
   """k"""
@@ -138,15 +135,13 @@ async def stats():
   """A few stats."""
   statEmbed = discord.Embed(name='lolbot stats', description='```\nServers: ' + str(len(bot.servers)) + '', colour=0x690E8)
   await bot.say(embed=statEmbed)
-  
+
 @bot.command(name='8ball')
 async def an8ball(*, question: str):
-  8dict = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later',
-           'Concentrate and ask again', 'Reply hazy, try again', 'My reply is no', 
-           'My sources say no']
-  8answer = rchoice(list(8dict.keys()))
-  8embed = discord.Embed(name='The Magic 8-ball' description='**Question: ' + str(question) + '\nAnswer: ' + str(8answer), colour=0x690E8)
-  await bot.say(embed=8embed)
+  pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later', 'Concentrate and ask again', 'Reply hazy, try again', 'My reply is no', 'My sources say no']
+  ans = rchoice(pool)
+  emb = discord.Embed(name='The Magic 8-ball' description='**Question: ' + str(question) + '\nAnswer: ' + str(8answer), colour=0x690E8)
+  await bot.say(embed=emb)
 
 @bot.event()
 async def on_server_join( server ):

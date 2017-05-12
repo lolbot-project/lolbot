@@ -133,7 +133,7 @@ async def shibe():
 @bot.command()
 async def stats():
   """A few stats."""
-  statEmbed = discord.Embed(title='lolbot stats', description='```\nServers: ' + str(len(bot.servers)) + '', colour=0x690E8)
+  statEmbed = discord.Embed(title='lolbot stats', description='```\nServers: ' + str(len(bot.servers)) + '\n```', colour=0x690E8)
   await bot.say(embed=statEmbed)
 
 @bot.command(name='8ball')

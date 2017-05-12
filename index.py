@@ -28,14 +28,14 @@ async def fuck():
 @bot.command()
 async def ping():
   """Ping? Pong."""
-  em = discord.Embed(title='Pong!', description='I am currently alive.', colour=0x6906E8)
+  em = discord.Embed(title='Pong!', description='I am currently alive.', colour=0x690E8)
   em.set_author(name='lolbot')
   await bot.say(embed=em)
 
 @bot.command()
 async def about():
   """Information about lolbot."""
-  em = discord.Embed(title='lolbot', description='Written by lold. (c) 2017 lold, all rights reserved.\nDiscord.py version: ' + discord.__version__ + '\nPython version: ' + sys.version + '\nWant to support lolbot and other projects? Donate to my ko-fi (https://ko-fi.com/A753OUG) or PayPal.me (https://paypal.me/ynapw)', colour=0x6906E8)
+  em = discord.Embed(title='lolbot', description='Written by lold. (c) 2017 lold, all rights reserved.\nDiscord.py version: ' + discord.__version__ + '\nPython version: ' + sys.version + '\nWant to support lolbot and other projects? Donate to my ko-fi (https://ko-fi.com/A753OUG) or PayPal.me (https://paypal.me/ynapw)', colour=0x690E8)
   em.set_author(name='lolbot, written by lold')
   await bot.say(embed=em)
 
@@ -52,7 +52,7 @@ async def cat():
     async with session.get('https://random.cat/meow') as r:
       if r.status == 200:
         js = await r.json()
-        em = discord.Embed(name='random.cat', colour=0x6906E8)
+        em = discord.Embed(name='random.cat', colour=0x690E8)
         em.set_image(url=js['file'])
         await bot.say(embed=em)
 
@@ -64,7 +64,7 @@ async def echo(*, message: str):
 @bot.command()
 async def httpcat(*, http_id: str):
   """http.cat images - ^httpcat <http code>"""
-  httpcat_em = discord.Embed(name='http.cat', colour=0x6906E8)
+  httpcat_em = discord.Embed(name='http.cat', colour=0x690E8)
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await bot.say(embed=httpcat_em)
 
@@ -126,7 +126,7 @@ async def shibe():
     async with shibe.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
       if shibeGet.status == 200:
         shibeJson = await shibeGet.json()
-        shibeEmbed = discord.Embed(name='shibe.online', colour=0x6906E8)
+        shibeEmbed = discord.Embed(name='shibe.online', colour=0x690E8)
         shibeEmbed.set_image(url=shibeJson[0])
         await bot.say(embed=shibeEmbed)
 

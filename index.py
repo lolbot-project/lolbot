@@ -1,3 +1,8 @@
+"""
+lolbot - by S Stewart
+Under MIT License
+Copyright (c) S Stewart 2017
+"""
 # -*- coding: utf-8 -*-
 import discord
 from discord.ext import commands

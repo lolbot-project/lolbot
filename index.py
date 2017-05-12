@@ -143,7 +143,7 @@ async def an8ball(*, question: str):
   emb = discord.Embed(title='The Magic 8-ball', description='**Question: ' + str(question) + '\nAnswer: ' + str(ans), colour=0x690E8)
   await bot.say(embed=emb)
 
-@bot.event()
+@bot.event
 async def on_server_join( server ):
   logging.info('Joined server' + str(server.name))
   logging.info('Server ID' + str(server.id))

@@ -140,7 +140,7 @@ async def stats():
 async def an8ball(*, question: str):
   pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later', 'Concentrate and ask again', 'Reply hazy, try again', 'My reply is no', 'My sources say no']
   ans = rchoice(pool)
-  emb = discord.Embed(title='The Magic 8-ball', description='**Question: ' + str(question) + '\nAnswer: ' + str(8answer), colour=0x690E8)
+  emb = discord.Embed(title='The Magic 8-ball', description='**Question: ' + str(question) + '\nAnswer: ' + str(ans), colour=0x690E8)
   await bot.say(embed=emb)
 
 @bot.event()

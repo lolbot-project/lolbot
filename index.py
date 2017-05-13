@@ -74,12 +74,11 @@ async def httpcat(*, http_id: str):
   await bot.say(embed=httpcat_em)
 
 # slice's eval code :^)
-@bot.command(hidden=True, pass_context=True)
+@bot.command(hidden=True, pass_context=True, name='eval')
 @ownerchecks.is_owner()
 async def evalboi(self, ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""
   env = {
-    'bot': ctx.bot,
     'ctx': ctx,
     'msg': ctx.message,
     'guild': ctx.guild,

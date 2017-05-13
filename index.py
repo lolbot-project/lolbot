@@ -94,7 +94,7 @@ async def reboot():
   await bot.change_presence(game=discord.Game(name='Restarting'))
   try:
     check_output(['sh', 'bot.sh'])
-  except:
+  except Exception as e:
     await bot.say('ERROR: fix your fucking code pls')
   else:
     await bot.logout()

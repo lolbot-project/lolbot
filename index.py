@@ -11,7 +11,6 @@ import sys
 import logging
 import aiohttp
 import json
-import textwrap
 from subprocess import check_output
 from other import ownerchecks
 from random import choice as rchoice
@@ -73,36 +72,19 @@ async def httpcat(*, http_id: str):
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await bot.say(embed=httpcat_em)
 
-# slice's eval code :^)
 @bot.command(hidden=True, pass_context=True, name='eval')
 @ownerchecks.is_owner()
-async def evalboi(self, ctx, *, code: str):
+async def evalboi(*, code: str):
   """Because everyone needs a good eval once in a while."""
-  env = {
-    'ctx': ctx,
-    'msg': ctx.message,
-    'guild': ctx.guild,
-    'channel': ctx.channel,
-    'me': ctx.message.author,
-    'get': discord.utils.get,
-    'find': discord.utils.find,
-  }
-
-  fmt_exception = '```py\n>>> {}\n\n{}: {}```'
-
-  env.update(globals())
-
-  indented_code = textwrap.indent(code, '    ')
-  wrapped_code = 'async def _eval_code():\n' + indented_code
   try:
-      exec(wrapped_code, env)
-      return_value = await env['_eval_code']()
-      if return_value is not None:
-        await ctx.send(return_value)
+    result = eval(str(code))
   except Exception as e:
-      name = type(e).__name__
-      await ctx.send(fmt_exception.format(code, name, e))
-      return
+    evalError = discord.Embed(title='Error', description='You made non-working code, congrats you fucker.\n**Error:**\n```' + str(result) + ' ```', colour=0x690E8)
+    await bot.say(embed=evalError)
+  else:
+    evalDone = discord.Embed(title='Eval', description='Okay, I evaluated that for you.\n**Results:**\n```' + str(result) + '```', colour=0x690E8)
+    await bot.say(embed=evalDone)
+
 @bot.command(hidden=True)
 @ownerchecks.is_owner()
 async def reboot():

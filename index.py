@@ -71,19 +71,6 @@ async def httpcat(ctx, *, http_id: str):
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await ctx.send(embed=httpcat_em)
 
-@bot.command(hidden=True, name='eval')
-@bot.is_owner(config['ownerid'])
-async def evalboi(ctx, *, code: str):
-  """Because everyone needs a good eval once in a while."""
-  try:
-    result = eval(str(code))
-  except Exception as e:
-    evalError = discord.Embed(title='Error', description='You made non-working code, congrats you fucker.\n**Error:**\n```' + str(result) + ' ```', colour=0x690E8)
-    await ctx.send(embed=evalError)
-  else:
-    evalDone = discord.Embed(title='Eval', description='Okay, I evaluated that for you.\n**Results:**\n```' + str(result) + '```', colour=0x690E8)
-    await ctx.send(embed=evalDone)
-
 @bot.command(hidden=True)
 @bot.is_owner(config['ownerid'])
 async def reboot(ctx):

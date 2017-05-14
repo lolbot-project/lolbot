@@ -40,7 +40,7 @@ async def ping(ctx):
 @bot.command()
 async def about(ctx):
   """Information about lolbot."""
-  em = discord.Embed(title='lolbot', description='Written by lold. (c) 2017 lold, all rights reserved.\nDiscord.py version: ' + discord.__version__ + '\nPython version: ' + sys.version + '\nWant to support lolbot and other projects? Donate to my ko-fi (https://ko-fi.com/A753OUG) or PayPal.me (https://paypal.me/ynapw)', colour=0x690E8)
+  em = discord.Embed(title='lolbot', description='Written by lold. (c) 2017 lold, all rights reserved. \nWant to support lolbot and other projects? Donate to my ko-fi (https://ko-fi.com/A753OUG) or PayPal.me (https://paypal.me/ynapw)', colour=0x690E8)
   em.set_author(name='lolbot, written by lold')
   await ctx.send(embed=em)
 
@@ -120,12 +120,23 @@ async def shibe(ctx):
 @bot.command()
 async def stats(ctx):
   """A few stats."""
-  statEmbed = discord.Embed(title='lolbot stats', description='```\nServers: ' + str(len(bot.guilds)) + '\n```', colour=0x690E8)
+  get_owner = bot.get_user_info(self.bot.settings.owner)
+  statEmbed = discord.Embed(title='lolbot stats', description='This bot is powered by [lolbot](https://github.com/memework/lolbot),'
+  ' a fast and powerful Python bot.', colour=0x690E8)
+  statEmbed.add_field(name='Owner', value=str(get_owner))
+  statEmbed.add_field(name='Python', value=sys.version)
+  statEmbed.add_field(name='Servers', value=len(bot.guilds))
+  statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',
+  'Where did the RAM go?', 'grumble grumble', 'Please hold.', 'You're fired..',
+  'No, please, no.', 'Have you tried rebooting?', 'memework makes the dreamwo'
+  'rk']
+  statEmbed.set_footer(text=rchoice(statPool))
   await ctx.send(embed=statEmbed)
 
 @bot.command(name='8ball')
 async def an8ball(ctx, *, question: str):
-  pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later', 'Concentrate and ask again', 'Reply hazy, try again', 'My reply is no', 'My sources say no']
+  pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later', 'Concentrate and ask again',
+  'Reply hazy, try again', 'My reply is no', 'My sources say no']
   ans = rchoice(pool)
   emb = discord.Embed(title='The Magic 8-ball', description='**Question: ' + str(question) + '**\nAnswer: ' + str(ans), colour=0x690E8)
   await ctx.send(embed=emb)

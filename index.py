@@ -18,7 +18,7 @@ config = json.loads(open('config.json').read())
 description = '''beep boop :)'''
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
 def owneronly(ctx):
-    return ctx.message.author.id == config['ownerid']
+  return ctx.message.author.id == config['ownerid']
 
 @bot.command()
 async def k(ctx):

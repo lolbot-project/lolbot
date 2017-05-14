@@ -16,7 +16,7 @@ from random import choice as rchoice
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 config = json.loads(open('config.json').read())
 description = '''beep boop :)'''
-bot = commands.AutoShardedBot(command_prefix='^', description=description, owner_id=config['ownerid'])
+bot = commands.AutoShardedBot(command_prefix='^', description=description)
 
 @bot.command()
 async def k(ctx):
@@ -72,7 +72,7 @@ async def httpcat(*, http_id: str):
   await ctx.send(embed=httpcat_em)
 
 @bot.command(hidden=True, pass_context=True, name='eval')
-@bot.is_owner()
+@bot.is_owner(config['owner'])
 async def evalboi(*, code: str):
   """Because everyone needs a good eval once in a while."""
   try:
@@ -85,7 +85,7 @@ async def evalboi(*, code: str):
     await ctx.send(embed=evalDone)
 
 @bot.command(hidden=True)
-@bot.is_owner()
+@bot.is_owner(config['owner'])
 async def reboot(ctx):
   """Duh. Owner only"""
   await ctx.send('Second please.')
@@ -99,7 +99,7 @@ async def reboot(ctx):
     await bot.logout()
 
 @bot.command(hidden=True)
-@bot.is_owner()
+@bot.is_owner(config['owner'])
 async def game(*, game: str):
   """Changes playing status"""
   await bot.change_presence(game=discord.Game(name=game + ' | ^help | v3.0'))

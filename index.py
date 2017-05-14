@@ -19,37 +19,37 @@ bot = commands.AutoShardedBot(command_prefix='^', description=description)
 config = json.loads(open('config.json').read())
 
 @bot.command()
-async def k():
+async def k(ctx):
   """k"""
-  await bot.say('k')
+  await ctx.send('k')
 
 @bot.command()
-async def fuck():
+async def fuck(ctx):
   """fuck"""
-  await bot.say('fuck')
+  await ctx.send('fuck')
 
 @bot.command()
-async def ping():
+async def ping(ctx):
   """Ping? Pong."""
   em = discord.Embed(title='Pong!', description='I am currently alive.', colour=0x690E8)
   em.set_author(name='lolbot')
-  await bot.say(embed=em)
+  await ctx.send(embed=em)
 
 @bot.command()
-async def about():
+async def about(ctx):
   """Information about lolbot."""
   em = discord.Embed(title='lolbot', description='Written by lold. (c) 2017 lold, all rights reserved.\nDiscord.py version: ' + discord.__version__ + '\nPython version: ' + sys.version + '\nWant to support lolbot and other projects? Donate to my ko-fi (https://ko-fi.com/A753OUG) or PayPal.me (https://paypal.me/ynapw)', colour=0x690E8)
   em.set_author(name='lolbot, written by lold')
-  await bot.say(embed=em)
+  await ctx.send(embed=em)
 
 @bot.command(pass_context=True)
 async def suggest( ctx, *, suggestion: str ):
   """Got suggestions?"""
-  await bot.say('Feedback has been forwarded on to the mailbox.')
-  await bot.say(config['sugchannel'], 'Suggestion submitted: `' + str(suggestion) + '`')
+  await ctx.send('Feedback has been forwarded on to the mailbox.')
+  await ctx.send(config['sugchannel'], 'Suggestion submitted: `' + str(suggestion) + '`')
 
 @bot.command()
-async def cat():
+async def cat(ctx):
   """Random cat images. Awww, so cute! Powered by random.cat"""
   with aiohttp.ClientSession() as session:
     async with session.get('https://random.cat/meow') as r:
@@ -57,19 +57,19 @@ async def cat():
         js = await r.json()
         em = discord.Embed(name='random.cat', colour=0x690E8)
         em.set_image(url=js['file'])
-        await bot.say(embed=em)
+        await ctx.send(embed=em)
 
 @bot.command()
 async def echo(*, message: str):
   """Self-explanatory."""
-  await bot.say(message)
+  await ctx.send(message)
 
 @bot.command()
 async def httpcat(*, http_id: str):
   """http.cat images - ^httpcat <http code>"""
   httpcat_em = discord.Embed(name='http.cat', colour=0x690E8)
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
-  await bot.say(embed=httpcat_em)
+  await ctx.send(embed=httpcat_em)
 
 @bot.command(hidden=True, pass_context=True, name='eval')
 @ownerchecks.is_owner()
@@ -79,22 +79,22 @@ async def evalboi(*, code: str):
     result = eval(str(code))
   except Exception as e:
     evalError = discord.Embed(title='Error', description='You made non-working code, congrats you fucker.\n**Error:**\n```' + str(result) + ' ```', colour=0x690E8)
-    await bot.say(embed=evalError)
+    await ctx.send(embed=evalError)
   else:
     evalDone = discord.Embed(title='Eval', description='Okay, I evaluated that for you.\n**Results:**\n```' + str(result) + '```', colour=0x690E8)
-    await bot.say(embed=evalDone)
+    await ctx.send(embed=evalDone)
 
 @bot.command(hidden=True)
 @bot.is_owner()
-async def reboot():
+async def reboot(ctx):
   """Duh. Owner only"""
-  await bot.say('Second please.')
+  await ctx.send('Second please.')
   logging.info('Restart requested')
   await bot.change_presence(game=discord.Game(name='Restarting'))
   try:
     check_output(['sh', 'bot.sh'])
   except Exception as e:
-    await bot.say('ERROR: fix your fucking code pls')
+    await ctx.send('ERROR: fix your fucking code pls')
   else:
     await bot.logout()
 
@@ -105,7 +105,7 @@ async def game(*, game: str):
   await bot.change_presence(game=discord.Game(name=game + ' | ^help | v3.0'))
 
 @bot.command()
-async def shibe():
+async def shibe(ctx):
   """Random shibes, powered by shibe.online"""
   with aiohttp.ClientSession() as shibe:
     async with shibe.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
@@ -113,20 +113,20 @@ async def shibe():
         shibeJson = await shibeGet.json()
         shibeEmbed = discord.Embed(name='shibe.online', colour=0x690E8)
         shibeEmbed.set_image(url=shibeJson[0])
-        await bot.say(embed=shibeEmbed)
+        await ctx.send(embed=shibeEmbed)
 
 @bot.command()
-async def stats():
+async def stats(ctx):
   """A few stats."""
   statEmbed = discord.Embed(title='lolbot stats', description='```\nServers: ' + str(len(bot.guilds)) + '\n```', colour=0x690E8)
-  await bot.say(embed=statEmbed)
+  await ctx.send(embed=statEmbed)
 
 @bot.command(name='8ball')
-async def an8ball(*, question: str):
+async def an8ball(ctx, *, question: str):
   pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later', 'Concentrate and ask again', 'Reply hazy, try again', 'My reply is no', 'My sources say no']
   ans = rchoice(pool)
   emb = discord.Embed(title='The Magic 8-ball', description='**Question: ' + str(question) + '**\nAnswer: ' + str(ans), colour=0x690E8)
-  await bot.say(embed=emb)
+  await ctx.send(embed=emb)
 
 @bot.event
 async def on_guild_join( guild ):

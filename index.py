@@ -132,8 +132,8 @@ async def an8ball(ctx, *, question: str):
 
 @bot.event
 async def on_guild_join( guild ):
-  logging.info('Joined guild' + str(guild.name))
-  logging.info('guild ID' + str(guild.id))
+  logging.info('Joined guild ' + str(guild.name))
+  logging.info('guild ID ' + str(guild.id))
 
 # danny code frankenstein :P
 async def botstats():

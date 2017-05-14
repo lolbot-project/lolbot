@@ -14,9 +14,9 @@ import json
 from subprocess import check_output
 from random import choice as rchoice
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
-description = '''beep boop :)'''
-bot = commands.AutoShardedBot(command_prefix='^', description=description)
 config = json.loads(open('config.json').read())
+description = '''beep boop :)'''
+bot = commands.AutoShardedBot(command_prefix='^', description=description, owner_id=config['ownerid'])
 
 @bot.command()
 async def k(ctx):

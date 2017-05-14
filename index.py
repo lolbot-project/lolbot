@@ -12,7 +12,6 @@ import logging
 import aiohttp
 import json
 from subprocess import check_output
-from other import ownerchecks
 from random import choice as rchoice
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 description = '''beep boop :)'''
@@ -86,7 +85,7 @@ async def evalboi(*, code: str):
     await bot.say(embed=evalDone)
 
 @bot.command(hidden=True)
-@ownerchecks.is_owner()
+@bot.is_owner()
 async def reboot():
   """Duh. Owner only"""
   await bot.say('Second please.')

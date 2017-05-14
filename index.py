@@ -71,7 +71,7 @@ async def httpcat(ctx, *, http_id: str):
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await ctx.send(embed=httpcat_em)
 
-@bot.command(hidden=True, pass_context=True, name='eval')
+@bot.command(hidden=True, name='eval')
 @bot.is_owner(config['ownerid'])
 async def evalboi(ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""

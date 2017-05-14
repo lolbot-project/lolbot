@@ -17,8 +17,14 @@ logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 config = json.loads(open('config.json').read())
 description = '''beep boop :)'''
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
+# you will need to change None to your ID
+# do NOT remove ownerid in config.json, or else you will have a broken stats
 def owneronly(ctx):
+<<<<<<< HEAD
   return ctx.message.author.id == '' + config['ownerid']
+=======
+    return ctx.message.author.id == None
+>>>>>>> 6cc97d3f19a84dede8870afd52b480f0dcbde035
 
 @bot.command()
 async def k(ctx):

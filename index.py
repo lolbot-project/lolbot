@@ -71,8 +71,6 @@ async def httpcat(ctx, *, http_id: str):
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await ctx.send(embed=httpcat_em)
 
-<<<<<<< HEAD
-=======
 @bot.command(hidden=True, name='eval')
 @bot.is_owner()
 async def evalboi(ctx, *, code: str):
@@ -86,7 +84,6 @@ async def evalboi(ctx, *, code: str):
     evalDone = discord.Embed(title='Eval', description='Okay, I evaluated that for you.\n**Results:**\n```' + str(result) + '```', colour=0x690E8)
     await ctx.send(embed=evalDone)
 
->>>>>>> 32febede06f6d8d35aca91d25731206934aead6a
 @bot.command(hidden=True)
 @bot.is_owner()
 async def reboot(ctx):

@@ -72,7 +72,7 @@ async def httpcat(*, http_id: str):
   await ctx.send(embed=httpcat_em)
 
 @bot.command(hidden=True, pass_context=True, name='eval')
-@ownerchecks.is_owner()
+@bot.is_owner()
 async def evalboi(*, code: str):
   """Because everyone needs a good eval once in a while."""
   try:
@@ -99,7 +99,7 @@ async def reboot(ctx):
     await bot.logout()
 
 @bot.command(hidden=True)
-@ownerchecks.is_owner()
+@bot.is_owner()
 async def game(*, game: str):
   """Changes playing status"""
   await bot.change_presence(game=discord.Game(name=game + ' | ^help | v3.0'))

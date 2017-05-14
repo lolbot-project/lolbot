@@ -12,7 +12,7 @@ from other import ownerchecks
 from random import choice as rchoice
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 description = '''beep boop :)'''
-bot = commands.Bot(command_prefix='^', description=description)
+bot = commands.AutoShardedBot(command_prefix='^', description=description)
 config = json.loads(open('config.json').read())
 
 @bot.command()

@@ -119,7 +119,7 @@ async def shibe():
 @bot.command()
 async def stats():
   """A few stats."""
-  statEmbed = discord.Embed(title='lolbot stats', description='```\nServers: ' + str(len(bot.servers)) + '\n```', colour=0x690E8)
+  statEmbed = discord.Embed(title='lolbot stats', description='```\nServers: ' + str(len(bot.guilds)) + '\n```', colour=0x690E8)
   await bot.say(embed=statEmbed)
 
 @bot.command(name='8ball')
@@ -130,16 +130,16 @@ async def an8ball(*, question: str):
   await bot.say(embed=emb)
 
 @bot.event
-async def on_server_join( server ):
-  logging.info('Joined server' + str(server.name))
-  logging.info('Server ID' + str(server.id))
+async def on_guild_join( guild ):
+  logging.info('Joined guild' + str(guild.name))
+  logging.info('guild ID' + str(guild.id))
 
 # danny code frankenstein :P
 async def botstats():
   while True:
     async with aiohttp.ClientSession() as session:
       payload = json.dumps({
-        'server_count': len(bot.servers)
+        'server_count': len(bot.guilds)
       })
 
       headers = {

@@ -1,3 +1,8 @@
+"""
+lolbot - by S Stewart
+Under MIT License
+Copyright (c) S Stewart 2017
+"""
 # -*- coding: utf-8 -*-
 import discord
 from discord.ext import commands
@@ -6,7 +11,6 @@ import sys
 import logging
 import aiohttp
 import json
-import textwrap
 from subprocess import check_output
 from other import ownerchecks
 from random import choice as rchoice
@@ -28,14 +32,14 @@ async def fuck():
 @bot.command()
 async def ping():
   """Ping? Pong."""
-  em = discord.Embed(title='Pong!', description='I am currently alive.', colour=0x6906E8)
+  em = discord.Embed(title='Pong!', description='I am currently alive.', colour=0x690E8)
   em.set_author(name='lolbot')
   await bot.say(embed=em)
 
 @bot.command()
 async def about():
   """Information about lolbot."""
-  em = discord.Embed(title='lolbot', description='Written by lold. (c) 2017 lold, all rights reserved.\nDiscord.py version: ' + discord.__version__ + '\nPython version: ' + sys.version + '\nWant to support lolbot and other projects? Donate to my ko-fi (https://ko-fi.com/A753OUG) or PayPal.me (https://paypal.me/ynapw)', colour=0x6906E8)
+  em = discord.Embed(title='lolbot', description='Written by lold. (c) 2017 lold, all rights reserved.\nDiscord.py version: ' + discord.__version__ + '\nPython version: ' + sys.version + '\nWant to support lolbot and other projects? Donate to my ko-fi (https://ko-fi.com/A753OUG) or PayPal.me (https://paypal.me/ynapw)', colour=0x690E8)
   em.set_author(name='lolbot, written by lold')
   await bot.say(embed=em)
 
@@ -52,7 +56,7 @@ async def cat():
     async with session.get('https://random.cat/meow') as r:
       if r.status == 200:
         js = await r.json()
-        em = discord.Embed(name='random.cat', colour=0x6906E8)
+        em = discord.Embed(name='random.cat', colour=0x690E8)
         em.set_image(url=js['file'])
         await bot.say(embed=em)
 
@@ -64,41 +68,23 @@ async def echo(*, message: str):
 @bot.command()
 async def httpcat(*, http_id: str):
   """http.cat images - ^httpcat <http code>"""
-  httpcat_em = discord.Embed(name='http.cat', colour=0x6906E8)
+  httpcat_em = discord.Embed(name='http.cat', colour=0x690E8)
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await bot.say(embed=httpcat_em)
 
-# slice's eval code :^)
-@bot.command(hidden=True, pass_context=True)
+@bot.command(hidden=True, pass_context=True, name='eval')
 @ownerchecks.is_owner()
-async def evalboi(self, ctx, *, code: str):
+async def evalboi(*, code: str):
   """Because everyone needs a good eval once in a while."""
-  env = {
-    'bot': ctx.bot,
-    'ctx': ctx,
-    'msg': ctx.message,
-    'guild': ctx.guild,
-    'channel': ctx.channel,
-    'me': ctx.message.author,
-    'get': discord.utils.get,
-    'find': discord.utils.find,
-  }
-
-  fmt_exception = '```py\n>>> {}\n\n{}: {}```'
-
-  env.update(globals())
-
-  indented_code = textwrap.indent(code, '    ')
-  wrapped_code = 'async def _eval_code():\n' + indented_code
   try:
-      exec(wrapped_code, env)
-      return_value = await env['_eval_code']()
-      if return_value is not None:
-        await ctx.send(return_value)
+    result = eval(str(code))
   except Exception as e:
-      name = type(e).__name__
-      await ctx.send(fmt_exception.format(code, name, e))
-      return
+    evalError = discord.Embed(title='Error', description='You made non-working code, congrats you fucker.\n**Error:**\n```' + str(result) + ' ```', colour=0x690E8)
+    await bot.say(embed=evalError)
+  else:
+    evalDone = discord.Embed(title='Eval', description='Okay, I evaluated that for you.\n**Results:**\n```' + str(result) + '```', colour=0x690E8)
+    await bot.say(embed=evalDone)
+
 @bot.command(hidden=True)
 @ownerchecks.is_owner()
 async def reboot():
@@ -108,7 +94,7 @@ async def reboot():
   await bot.change_presence(game=discord.Game(name='Restarting'))
   try:
     check_output(['sh', 'bot.sh'])
-  except:
+  except Exception as e:
     await bot.say('ERROR: fix your fucking code pls')
   else:
     await bot.logout()
@@ -126,24 +112,24 @@ async def shibe():
     async with shibe.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
       if shibeGet.status == 200:
         shibeJson = await shibeGet.json()
-        shibeEmbed = discord.Embed(name='shibe.online', colour=0x6906E8)
+        shibeEmbed = discord.Embed(name='shibe.online', colour=0x690E8)
         shibeEmbed.set_image(url=shibeJson[0])
         await bot.say(embed=shibeEmbed)
 
 @bot.command()
 async def stats():
   """A few stats."""
-  statEmbed = discord.Embed(name='lolbot stats', description='```\nServers: ' + str(len(bot.servers)) + '', colour=0x690E8)
+  statEmbed = discord.Embed(title='lolbot stats', description='```\nServers: ' + str(len(bot.servers)) + '\n```', colour=0x690E8)
   await bot.say(embed=statEmbed)
 
 @bot.command(name='8ball')
 async def an8ball(*, question: str):
-  8list = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later', 'Concentrate and ask again', 'Reply hazy, try again', 'My reply is no', 'My sources say no']
-  8answer = rchoice(8list)
-  8embed = discord.Embed(name='The Magic 8-ball' description='**Question: ' + str(question) + '\nAnswer: ' + str(8answer), colour=0x690E8)
-  await bot.say(embed=8embed)
+  pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later', 'Concentrate and ask again', 'Reply hazy, try again', 'My reply is no', 'My sources say no']
+  ans = rchoice(pool)
+  emb = discord.Embed(title='The Magic 8-ball', description='**Question: ' + str(question) + '**\nAnswer: ' + str(ans), colour=0x690E8)
+  await bot.say(embed=emb)
 
-@bot.event()
+@bot.event
 async def on_server_join( server ):
   logging.info('Joined server' + str(server.name))
   logging.info('Server ID' + str(server.id))

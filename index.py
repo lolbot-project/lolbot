@@ -72,7 +72,7 @@ async def httpcat(*, http_id: str):
   await ctx.send(embed=httpcat_em)
 
 @bot.command(hidden=True, pass_context=True, name='eval')
-@bot.is_owner(config['owner'])
+@bot.is_owner(config['ownerid'])
 async def evalboi(*, code: str):
   """Because everyone needs a good eval once in a while."""
   try:
@@ -85,7 +85,7 @@ async def evalboi(*, code: str):
     await ctx.send(embed=evalDone)
 
 @bot.command(hidden=True)
-@bot.is_owner(config['owner'])
+@bot.is_owner(config['ownerid'])
 async def reboot(ctx):
   """Duh. Owner only"""
   await ctx.send('Second please.')
@@ -99,7 +99,7 @@ async def reboot(ctx):
     await bot.logout()
 
 @bot.command(hidden=True)
-@bot.is_owner(config['owner'])
+@bot.is_owner(config['ownerid'])
 async def game(*, game: str):
   """Changes playing status"""
   await bot.change_presence(game=discord.Game(name=game + ' | ^help | v3.0'))

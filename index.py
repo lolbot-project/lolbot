@@ -71,8 +71,24 @@ async def httpcat(ctx, *, http_id: str):
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
   await ctx.send(embed=httpcat_em)
 
+<<<<<<< HEAD
+=======
+@bot.command(hidden=True, name='eval')
+@bot.is_owner()
+async def evalboi(ctx, *, code: str):
+  """Because everyone needs a good eval once in a while."""
+  try:
+    result = eval(str(code))
+  except Exception as e:
+    evalError = discord.Embed(title='Error', description='You made non-working code, congrats you fucker.\n**Error:**\n```' + str(result) + ' ```', colour=0x690E8)
+    await ctx.send(embed=evalError)
+  else:
+    evalDone = discord.Embed(title='Eval', description='Okay, I evaluated that for you.\n**Results:**\n```' + str(result) + '```', colour=0x690E8)
+    await ctx.send(embed=evalDone)
+
+>>>>>>> 32febede06f6d8d35aca91d25731206934aead6a
 @bot.command(hidden=True)
-@bot.is_owner(config['ownerid'])
+@bot.is_owner()
 async def reboot(ctx):
   """Duh. Owner only"""
   await ctx.send('Second please.')
@@ -86,7 +102,7 @@ async def reboot(ctx):
     await bot.logout()
 
 @bot.command(hidden=True)
-@bot.is_owner(config['ownerid'])
+@bot.is_owner()
 async def game(*, game: str):
   """Changes playing status"""
   await bot.change_presence(game=discord.Game(name=game + ' | ^help | v3.0'))

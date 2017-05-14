@@ -60,12 +60,12 @@ async def cat(ctx):
         await ctx.send(embed=em)
 
 @bot.command()
-async def echo(*, message: str):
+async def echo(ctx, *, message: str):
   """Self-explanatory."""
   await ctx.send(message)
 
 @bot.command()
-async def httpcat(*, http_id: str):
+async def httpcat(ctx, *, http_id: str):
   """http.cat images - ^httpcat <http code>"""
   httpcat_em = discord.Embed(name='http.cat', colour=0x690E8)
   httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
@@ -73,7 +73,7 @@ async def httpcat(*, http_id: str):
 
 @bot.command(hidden=True, pass_context=True, name='eval')
 @bot.is_owner(config['ownerid'])
-async def evalboi(*, code: str):
+async def evalboi(ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""
   try:
     result = eval(str(code))

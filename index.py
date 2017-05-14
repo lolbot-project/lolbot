@@ -122,10 +122,10 @@ async def shibe(ctx):
 @bot.command()
 async def stats(ctx):
   """A few stats."""
-  get_owner = bot.get_user_info(config['ownerid'])
+  # get_owner = bot.get_user_info(config['ownerid'])
   statEmbed = discord.Embed(title='lolbot stats', description='This bot is powered by [lolbot](https://github.com/memework/lolbot),'
   ' a fast and powerful Python bot.', colour=0x690E8)
-  statEmbed.add_field(name='Owner', value=str(get_owner))
+  statEmbed.add_field(name='Owner', value=discord.AppInfo[5])
   statEmbed.add_field(name='Python', value=sys.version)
   statEmbed.add_field(name='Servers', value=len(bot.guilds))
   statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',

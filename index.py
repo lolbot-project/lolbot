@@ -125,7 +125,7 @@ async def stats(ctx):
   # get_owner = bot.get_user_info(config['ownerid'])
   statEmbed = discord.Embed(title='lolbot stats', description='This bot is powered by [lolbot](https://github.com/memework/lolbot),'
   ' a fast and powerful Python bot.', colour=0x690E8)
-  statEmbed.add_field(name='Owner', value=discord.AppInfo[5])
+  statEmbed.add_field(name='Owner', value=await ctx.bot.application_info())
   statEmbed.add_field(name='Python', value=sys.version)
   statEmbed.add_field(name='Servers', value=len(bot.guilds))
   statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',

@@ -100,11 +100,13 @@ async def evalboi(ctx, *, code: str):
 async def reboot(ctx):
   """Duh. Owner only"""
   rebootPend = discord.Embed(title='Rebooting', description='Rebooting...', colour=0xE690E8)
-  ctx.send(embed=rebootPend)
+  await ctx.send(embed=rebootPend)
   try:
     check_output(['sh', 'bot.sh'])
+    logging.info('reboot requested')
+    logging.info('hoping it goes well now')
   except:
-    logging.error('wtf fix your code man')
+    logging.error('pls tell lold to fix his code')
   else:
     await bot.logout()
 

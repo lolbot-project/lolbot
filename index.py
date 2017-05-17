@@ -21,6 +21,7 @@ import sys
 import logging
 import aiohttp
 import json
+from datetime import datetime
 from subprocess import check_output
 from random import choice as rchoice
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
@@ -98,13 +99,14 @@ async def evalboi(ctx, *, code: str):
 @commands.is_owner()
 async def reboot(ctx):
   """Duh. Owner only"""
-  await ctx.send('Second please.')
-  logging.info('Restart requested')
-  await bot.change_presence(game=discord.Game(name='Restarting'))
+  rebootPend = discord.Embed(title='Rebooting', description='Rebooting...', colour=0xE690E8)
+  await ctx.send(embed=rebootPend)
   try:
     check_output(['sh', 'bot.sh'])
-  except Exception as e:
-    await ctx.send('ERROR: fix your fucking code pls')
+    logging.info('reboot requested')
+    logging.info('hoping it goes well now')
+  except:
+    logging.error('pls tell lold to fix his code')
   else:
     await bot.logout()
 
@@ -129,6 +131,10 @@ async def shibe(ctx):
 async def stats(ctx):
   """A few stats."""
   # get_owner = bot.get_user_info(config['ownerid'])
+<<<<<<< HEAD
+=======
+  statUptime = str(datetime.now() - ctx.bot.time_started).split(".")[0]
+>>>>>>> 516a8daa3c7266d1871ddba995adf29be74327db
   statInfo = await ctx.bot.application_info()
   statEmbed = discord.Embed(title='lolbot stats', description='This bot is powered by [lolbot](https://github.com/memework/lolbot),'
   ' a fast and powerful Python bot.', colour=0x690E8)

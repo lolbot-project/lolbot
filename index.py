@@ -17,10 +17,13 @@ logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 config = json.loads(open('config.json').read())
 description = '''beep boop :)'''
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
+<<<<<<< HEAD
 # you will need to change None to your ID
 # do NOT remove ownerid in config.json, or else you will have a broken stats
 def owneronly(ctx):
     return ctx.message.author.id == 237378015141691392
+=======
+>>>>>>> 979f4566ca1117cd0b726115a5e315f392307984
 
 @bot.command()
 async def k(ctx):
@@ -76,7 +79,7 @@ async def httpcat(ctx, *, http_id: str):
   await ctx.send(embed=httpcat_em)
 
 @bot.command(hidden=True, name='eval')
-@commands.check(owneronly)
+@commands.is_owner()
 async def evalboi(ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""
   try:
@@ -89,7 +92,7 @@ async def evalboi(ctx, *, code: str):
     await ctx.send(embed=evalDone)
 
 @bot.command(hidden=True)
-@commands.check(owneronly)
+@commands.is_owner()
 async def reboot(ctx):
   """Duh. Owner only"""
   await ctx.send('Second please.')
@@ -103,7 +106,7 @@ async def reboot(ctx):
     await bot.logout()
 
 @bot.command(hidden=True)
-@commands.check(owneronly)
+@commands.is_owner()
 async def game(*, game: str):
   """Changes playing status"""
   await bot.change_presence(game=discord.Game(name=game + ' | ^help | v3.0'))
@@ -125,7 +128,7 @@ async def stats(ctx):
   # get_owner = bot.get_user_info(config['ownerid'])
   statEmbed = discord.Embed(title='lolbot stats', description='This bot is powered by [lolbot](https://github.com/memework/lolbot),'
   ' a fast and powerful Python bot.', colour=0x690E8)
-  statEmbed.add_field(name='Owner', value=discord.AppInfo[5])
+  statEmbed.add_field(name='Owner', value=await ctx.bot.application_info())
   statEmbed.add_field(name='Python', value=sys.version)
   statEmbed.add_field(name='Servers', value=len(bot.guilds))
   statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',

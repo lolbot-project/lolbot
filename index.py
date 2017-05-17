@@ -17,10 +17,6 @@ logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 config = json.loads(open('config.json').read())
 description = '''beep boop :)'''
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
-# you will need to change None to your ID
-# do NOT remove ownerid in config.json, or else you will have a broken stats
-def owneronly(ctx):
-    return ctx.message.author.id == None
 
 @bot.command()
 async def k(ctx):
@@ -76,7 +72,7 @@ async def httpcat(ctx, *, http_id: str):
   await ctx.send(embed=httpcat_em)
 
 @bot.command(hidden=True, name='eval')
-@commands.check(owneronly)
+@commands.is_owner()
 async def evalboi(ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""
   try:
@@ -89,7 +85,7 @@ async def evalboi(ctx, *, code: str):
     await ctx.send(embed=evalDone)
 
 @bot.command(hidden=True)
-@commands.check(owneronly)
+@commands.is_owner()
 async def reboot(ctx):
   """Duh. Owner only"""
   await ctx.send('Second please.')
@@ -103,7 +99,7 @@ async def reboot(ctx):
     await bot.logout()
 
 @bot.command(hidden=True)
-@commands.check(owneronly)
+@commands.is_owner()
 async def game(*, game: str):
   """Changes playing status"""
   await bot.change_presence(game=discord.Game(name=game + ' | ^help | v3.0'))

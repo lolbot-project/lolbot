@@ -98,13 +98,12 @@ async def evalboi(ctx, *, code: str):
 @commands.is_owner()
 async def reboot(ctx):
   """Duh. Owner only"""
-  await ctx.send('Second please.')
-  logging.info('Restart requested')
-  await bot.change_presence(game=discord.Game(name='Restarting'))
+  rebootPend = discord.Embed(title='Rebooting', description='Rebooting...', colour=0xE690E8)
+  ctx.send(embed=rebootPend)
   try:
     check_output(['sh', 'bot.sh'])
-  except Exception as e:
-    await ctx.send('ERROR: fix your fucking code pls')
+  except:
+    logging.error('wtf fix your code man')
   else:
     await bot.logout()
 

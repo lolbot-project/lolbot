@@ -21,6 +21,7 @@ import sys
 import logging
 import aiohttp
 import json
+from datetime import datetime
 from subprocess import check_output
 from random import choice as rchoice
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
@@ -128,7 +129,7 @@ async def shibe(ctx):
 async def stats(ctx):
   """A few stats."""
   # get_owner = bot.get_user_info(config['ownerid'])
-  statUptime = str(datetime.datetime.now() - ctx.bot.time_started).split(".")[0]
+  statUptime = str(datetime.now() - ctx.bot.time_started).split(".")[0]
   statInfo = await ctx.bot.application_info()
   statEmbed = discord.Embed(title='lolbot stats', description='This bot is powered by [lolbot](https://github.com/memework/lolbot),'
   ' a fast and powerful Python bot.', colour=0x690E8)

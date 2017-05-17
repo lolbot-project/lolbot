@@ -129,12 +129,14 @@ async def shibe(ctx):
 async def stats(ctx):
   """A few stats."""
   # get_owner = bot.get_user_info(config['ownerid'])
-  uptime = str(datetime.datetime.now() - ctx.bot.time_started).split(".")[0]
+  statUptime = str(datetime.datetime.now() - ctx.bot.time_started).split(".")[0]
+  statInfo = await ctx.bot.application_info()
   statEmbed = discord.Embed(title='lolbot stats', description='This bot is powered by [lolbot](https://github.com/memework/lolbot),'
   ' a fast and powerful Python bot.', colour=0x690E8)
-  statEmbed.add_field(name='Owner', value=await ctx.bot.application_info())
+  statEmbed.add_field(name='Owner', value='' + statInfo.owner.mention + '\nUser ID:' + statInfo.owner.user.id)
   statEmbed.add_field(name='Python', value=sys.version)
   statEmbed.add_field(name='Servers', value=len(bot.guilds))
+  statEmbed.add_field(name='Uptime', value=statUptime)
   statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',
   'Where did the RAM go?', 'grumble grumble', 'Please hold.', 'No, just, no.',
   'Have you tried rebooting?', 'memework makes the dreamwork!']

@@ -100,11 +100,13 @@ async def evalboi(ctx, *, code: str):
 async def reboot(ctx):
   """Duh. Owner only"""
   rebootPend = discord.Embed(title='Rebooting', description='Rebooting...', colour=0xE690E8)
-  ctx.send(embed=rebootPend)
+  await ctx.send(embed=rebootPend)
   try:
     check_output(['sh', 'bot.sh'])
+    logging.info('reboot requested')
+    logging.info('hoping it goes well now')
   except:
-    logging.error('wtf fix your code man')
+    logging.error('pls tell lold to fix his code')
   else:
     await bot.logout()
 
@@ -129,15 +131,13 @@ async def shibe(ctx):
 async def stats(ctx):
   """A few stats."""
   # get_owner = bot.get_user_info(config['ownerid'])
-  statUptime = str(datetime.now() - ctx.bot.time_started).split(".")[0]
   statInfo = await ctx.bot.application_info()
   statEmbed = discord.Embed(title='lolbot stats', description='This bot is powered by [lolbot](https://github.com/memework/lolbot),'
   ' a fast and powerful Python bot.', colour=0x690E8)
-  statEmbed.add_field(name='Owner', value='' + statInfo.owner.mention + '\nUser ID:' + statInfo.owner.user.id)
+  statEmbed.add_field(name='Owner', value=statInfo.owner.mention)
   statEmbed.add_field(name='Python', value=sys.version)
   statEmbed.add_field(name='Servers', value=len(bot.guilds))
-  statEmbed.add_field(name='Uptime', value=statUptime)
-  statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',
+   statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',
   'Where did the RAM go?', 'grumble grumble', 'Please hold.', 'No, just, no.',
   'Have you tried rebooting?', 'memework makes the dreamwork!']
   statEmbed.set_footer(text=rchoice(statPool))

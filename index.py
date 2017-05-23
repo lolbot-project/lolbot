@@ -87,7 +87,7 @@ async def httpcat(ctx, *, http_id: str):
 async def evalboi(ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""
   try:
-    result = eval(str(code))
+    result = eval(code)
   except Exception as e:
     evalError = discord.Embed(title='Error', description='You made non-working code, congrats you fucker.\n**Error:**\n```' + str(result) + ' ```', colour=0x690E8)
     await ctx.send(embed=evalError)
@@ -99,7 +99,7 @@ async def evalboi(ctx, *, code: str):
 @commands.is_owner()
 async def reboot(ctx):
   """Duh. Owner only"""
-  rebootPend = discord.Embed(title='Rebooting', description='Rebooting...', colour=0xE690E8)
+  rebootPend = discord.Embed(title='Rebooting', description='Rebooting...', colour=0x690E8)
   await ctx.send(embed=rebootPend)
   try:
     check_output(['sh', 'bot.sh'])
@@ -141,8 +141,9 @@ async def stats(ctx):
   'Where did the RAM go?', 'grumble grumble', 'Please hold.', 'No, just, no.',
   'Have you tried rebooting?', 'memework makes the dreamwork!']
   statEmbed.set_footer(text=rchoice(statPool))
-  await ctx.send(embed=statEmbed)
-
+  try:
+    await ctx.send(embed=statEmbed)
+  except
 @bot.command(name='8ball')
 async def an8ball(ctx, *, question: str):
   pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later', 'Concentrate and ask again',

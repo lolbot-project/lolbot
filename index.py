@@ -3,15 +3,14 @@ lolbot - by S Stewart
 Under MIT License
 Copyright (c) S Stewart 2017
 
-I would like to make credit to a few
-bot makers that have helped me over
-the past few months to make lolbot
-what it is now.
+I am looking for developers.
+Make a PR if you can help.
 
-slice
-fn230
-
-Both have provided good help to me.
+Hall of fame:
+- Discord API - #python_discord-py
+- Discord Bots - #development
+and lastly, the Discord.py docs.
+I wouldn't be here without them.
 """
 # -*- coding: utf-8 -*-
 import discord

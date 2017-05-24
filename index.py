@@ -13,17 +13,26 @@ and lastly, the Discord.py docs.
 I wouldn't be here without them.
 """
 # -*- coding: utf-8 -*-
-import discord
-from discord.ext import commands
+import logging
+logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
+from subprocess import check_output
+try:
+  import discord
+  from discord.ext import commands
+except ImportError:
+  logging.warn('Module(s) could not be found/not installed')
+  logging.warn('Installing automatically')
+  check_output(['pip', 'install', '-r', 'requirements.txt'])
+  sys.exit('Please relaunch lolbot')
+else:
+  logging.info('Found library, continuing')
 import asyncio
 import sys
-import logging
 import aiohttp
 import json
 from datetime import datetime
-from subprocess import check_output
+
 from random import choice as rchoice
-logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 config = json.loads(open('config.json').read())
 description = '''beep boop :)'''
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
@@ -181,20 +190,16 @@ async def botstats():
         logging.info('dbots: posted with code' + str(resp.status))
       await asyncio.sleep(3600) # report to DBL/dbots every hour
 
-try:
-  @bot.event
-  async def on_ready():
-    logging.info('lolbot - ready')
-    loop = asyncio.get_event_loop()
-    serverpoll = loop.create_task(botstats())
-    logging.info('Bot post loop initalized')
-    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v3.0'))
-    logging.info('Playing status changed')
-except ImportError:
-  logging.warn('Module(s) could not be found/not installed')
-  logging.warn('Installing automatically')
-  check_output(['pip', 'install', '-r', 'requirements.txt'])
-  sys.exit('Please relaunch lolbot')
+
+@bot.event
+async def on_ready():
+  logging.info('lolbot - ready')
+  loop = asyncio.get_event_loop()
+  serverpoll = loop.create_task(botstats())
+  logging.info('Bot post loop initalized')
+  await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v3.0'))
+  logging.info('Playing status changed')
+
 
 try:
   bot.run(config['token'])

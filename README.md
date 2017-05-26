@@ -17,7 +17,7 @@ I highly suggest you don't run your own instance as lolbot's official instance i
 ## Running
 
 1. Get your bot token and fill it in config.json
-2. Get your ID and place it in config.json and `owneronly()` in index.py
+2. Get your ID and place it in config.json and in index.py
 3. Run `python3.6 index.py`
 4. Profit(?)
 

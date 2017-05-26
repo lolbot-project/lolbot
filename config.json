@@ -1,7 +1,11 @@
 {
+	"//1": "Enter your token down below",
         "token": "",
+	"//2": "Enter your ID for stats to work",
         "ownerid": "",
+	"//3": "For suggest command",
         "sugchannel": "",
+	"//4": "For bot list submissions to work",
 	"botid": "",
 	"dbots": "",
 	"dbl": ""

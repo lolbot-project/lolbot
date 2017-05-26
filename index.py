@@ -3,28 +3,35 @@ lolbot - by S Stewart
 Under MIT License
 Copyright (c) S Stewart 2017
 
-I would like to make credit to a few
-bot makers that have helped me over
-the past few months to make lolbot
-what it is now.
+I am looking for developers.
+Make a PR if you can help.
 
-slice
-fn230
-
-Both have provided good help to me.
+Hall of fame:
+- Discord API - #python_discord-py
+- Discord Bots - #development
+and lastly, the Discord.py docs.
+I wouldn't be here without them.
 """
 # -*- coding: utf-8 -*-
-import discord
-from discord.ext import commands
+import logging
+logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
+from subprocess import check_output
+try:
+  import discord
+  from discord.ext import commands
+except ImportError:
+  logging.warn('Module(s) could not be found/not installed')
+  logging.warn('Installing automatically')
+  check_output(['pip', 'install', '-r', 'requirements.txt'])
+  sys.exit('Please relaunch lolbot')
+else:
+  logging.info('Found library, continuing')
 import asyncio
 import sys
-import logging
 import aiohttp
 import json
 from datetime import datetime
-from subprocess import check_output
 from random import choice as rchoice
-logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 config = json.loads(open('config.json').read())
 description = '''beep boop :)'''
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
@@ -87,7 +94,7 @@ async def httpcat(ctx, *, http_id: str):
 async def evalboi(ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""
   try:
-    result = eval(str(code))
+    result = eval(code)
   except Exception as e:
     evalError = discord.Embed(title='Error', description='You made non-working code, congrats you fucker.\n**Error:**\n```' + str(result) + ' ```', colour=0x690E8)
     await ctx.send(embed=evalError)
@@ -99,7 +106,7 @@ async def evalboi(ctx, *, code: str):
 @commands.is_owner()
 async def reboot(ctx):
   """Duh. Owner only"""
-  rebootPend = discord.Embed(title='Rebooting', description='Rebooting...', colour=0xE690E8)
+  rebootPend = discord.Embed(title='Rebooting', description='Rebooting...', colour=0x690E8)
   await ctx.send(embed=rebootPend)
   try:
     check_output(['sh', 'bot.sh'])
@@ -132,7 +139,7 @@ async def stats(ctx):
   """A few stats."""
   # get_owner = bot.get_user_info(config['ownerid'])
   statInfo = await ctx.bot.application_info()
-  statEmbed = discord.Embed(title='lolbot stats', description='This bot is powered by [lolbot](https://github.com/memework/lolbot),'
+  statEmbed = discord.Embed(title='lolbot stats', description='This bot is powered by [lolbot](https://github.com/xshotD/lolbot),'
   ' a fast and powerful Python bot.', colour=0x690E8)
   statEmbed.add_field(name='Owner', value=statInfo.owner.mention)
   statEmbed.add_field(name='Python', value=sys.version)
@@ -141,8 +148,9 @@ async def stats(ctx):
   'Where did the RAM go?', 'grumble grumble', 'Please hold.', 'No, just, no.',
   'Have you tried rebooting?', 'memework makes the dreamwork!']
   statEmbed.set_footer(text=rchoice(statPool))
-  await ctx.send(embed=statEmbed)
-
+  try:
+    await ctx.send(embed=statEmbed)
+  except
 @bot.command(name='8ball')
 async def an8ball(ctx, *, question: str):
   pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later', 'Concentrate and ask again',
@@ -181,20 +189,16 @@ async def botstats():
         logging.info('dbots: posted with code' + str(resp.status))
       await asyncio.sleep(3600) # report to DBL/dbots every hour
 
-try:
-  @bot.event
-  async def on_ready():
-    logging.info('lolbot - ready')
-    loop = asyncio.get_event_loop()
-    serverpoll = loop.create_task(botstats())
-    logging.info('Bot post loop initalized')
-    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v3.0'))
-    logging.info('Playing status changed')
-except ImportError:
-  logging.warn('Module(s) could not be found/not installed')
-  logging.warn('Installing automatically')
-  check_output(['pip', 'install', '-r', 'requirements.txt'])
-  sys.exit('Please relaunch lolbot')
+
+@bot.event
+async def on_ready():
+  logging.info('lolbot - ready')
+  loop = asyncio.get_event_loop()
+  serverpoll = loop.create_task(botstats())
+  logging.info('Bot post loop initalized')
+  await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v3.0'))
+  logging.info('Playing status changed')
+
 
 try:
   bot.run(config['token'])

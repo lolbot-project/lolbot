@@ -150,13 +150,18 @@ async def stats(ctx):
   statEmbed.set_footer(text=rchoice(statPool))
   try:
     await ctx.send(embed=statEmbed)
-  except
+  except:
+    await ctx.send('Sorry, I can\'t send the Embed.')
+    await ctx.send('Maybe I don\'t have Embed Links permission?')
+  else:
+    pass
 @bot.command(name='8ball')
 async def an8ball(ctx, *, question: str):
   pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later', 'Concentrate and ask again',
   'Reply hazy, try again', 'My reply is no', 'My sources say no']
   ans = rchoice(pool)
-  emb = discord.Embed(title='The Magic 8-ball', description='**Question: ' + str(question) + '**\nAnswer: ' + str(ans), colour=0x690E8)
+  emb = discord.Embed(title='The Magic 8-ball', description='**Question: ' +
+   str(question) + '**\nAnswer: ' + str(ans), colour=0x690E8)
   await ctx.send(embed=emb)
 
 @bot.event

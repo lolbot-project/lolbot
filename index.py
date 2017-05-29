@@ -146,12 +146,16 @@ async def shibe(ctx):
 
 @bot.command()
 async def uptime(ctx):
+  """Shows uptime of lolbot"""
   upEm = discord.Embed(title='Uptime', colour=0x690E8)
   startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(startepoch))
   timeUp = get_up()
   upEm.add_field(name='Started on', value=startedOn)
   upEm.add_field(name='Uptime', value=timeUp)
-  await ctx.send(embed=upEm)
+  try:
+    await ctx.send(embed=upEm)
+  except:
+    await ctx.send('Could not send due to a error. Tell lold to fix it pls')
 
 @bot.command()
 async def stats(ctx):

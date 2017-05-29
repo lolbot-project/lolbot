@@ -149,9 +149,9 @@ async def uptime(ctx):
   """Shows uptime of lolbot"""
   upEm = discord.Embed(title='Uptime', colour=0x690E8)
   startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(startepoch))
-  timeUp = get_up()
+  #timeUp = get_up()
   upEm.add_field(name='Started on', value=startedOn)
-  upEm.add_field(name='Uptime', value=timeUp)
+  #upEm.add_field(name='Uptime', value=timeUp)
   try:
     await ctx.send(embed=upEm)
   except:
@@ -221,7 +221,8 @@ async def botstats():
     async with session.post(dbots_url, data=payload, headers=headers) as resp:
       logging.info('dbots: posted with code' + str(resp.status))
 
-"""Stolen from Red which was stolen from R. Danny"""
+"""Stolen from Red which was stolen from R. Danny
+Currently not working so commented out
 def get_up(self, *, brief=False):
   now = datetime.datetime.utcnow()
   delta = now - self.bot.uptime
@@ -240,7 +241,7 @@ def get_up(self, *, brief=False):
       fmt = '{d}d ' + fmt
 
   return fmt.format(d=days, h=hours, m=minutes, s=seconds)
-
+"""
 @bot.event
 async def on_ready():
   logging.info('lolbot - ready')

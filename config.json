@@ -1,12 +1,4 @@
 {
-<<<<<<< HEAD
-        "token": "MjcyNTQ5MjI1NDU0MjM5NzQ0.C--7Yg.vMqUm-MVvxxYt9HSEjxUij981xs",
-        "ownerid": "237378015141691392",
-        "sugchannel": "295224292927340547",
-	"botid": "272549225454239744",
-	"dbots": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiIyMzczNzgwMTUxNDE2OTEzOTIiLCJyYW5kIjo4MjQsImlhdCI6MTQ5NDEwMDU5NX0.5mjbiIQpJZdPPrREG1-b7I7uHAp2dQMm1H4sHMvU8RA",
-	"dbl": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIzNzM3ODAxNTE0MTY5MTM5MiIsImlhdCI6MTQ5NDEwMDUzNn0.dCIhB-sXoAT8SIBYYAAlQ2UU5wkKYpaF41zAVh49GG4"
-=======
 	"//1": "Enter your token down below",
         "token": "",
 	"//2": "Enter your ID for stats to work",
@@ -17,6 +9,5 @@
 	"botid": "",
 	"dbots": "",
 	"dbl": ""
->>>>>>> b67d775b4aaaec3f76c88e27f36b88302ed5812f
 }
 

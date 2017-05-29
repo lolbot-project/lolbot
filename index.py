@@ -200,7 +200,6 @@ async def on_guild_remove( guild ):
 
 # danny code frankenstein :P
 async def botstats():
-  while True:
     payload = json.dumps({
       'server_count': len(bot.guilds)
     })

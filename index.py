@@ -36,10 +36,10 @@ from random import choice as rchoice
 try:
   config = json.loads(open('config.json').read())
 except FileNotFoundError:
-  logging.debug('Can't open config to start bot..')
+  logging.debug('Can\'t open config to start bot..')
   sys.exit('Fatal error')
 except IOError:
-  logging.debug('Can't open config to start bot..')
+  logging.debug('Can\'t open config to start bot..')
   sys.exit('Fatal error')
 description = '''beep boop :)'''
 bot = commands.AutoShardedBot(command_prefix='^', description=description)

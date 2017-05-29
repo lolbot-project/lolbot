@@ -16,6 +16,7 @@ I wouldn't be here without them.
 import logging
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 from subprocess import check_output
+import sys
 try:
   import discord
   from discord.ext import commands
@@ -26,8 +27,6 @@ except ImportError:
   sys.exit('Please relaunch lolbot')
 else:
   logging.info('Found library, continuing')
-import asyncio
-import sys
 import aiohttp
 import json
 import time

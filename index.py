@@ -30,11 +30,22 @@ import asyncio
 import sys
 import aiohttp
 import json
-from datetime import datetime
+import time
+import datetime
 from random import choice as rchoice
-config = json.loads(open('config.json').read())
+try:
+  config = json.loads(open('config.json').read())
+except FileNotFoundError:
+  logging.debug('Can't open config to start bot..')
+  sys.exit('Fatal error')
+except IOError:
+  logging.debug('Can't open config to start bot..')
+  sys.exit('Fatal error')
 description = '''beep boop :)'''
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
+startepoch = int(time.time())
+
+session = aiohttp.ClientSession()
 
 @bot.command()
 async def k(ctx):
@@ -69,13 +80,12 @@ async def suggest( ctx, *, suggestion: str ):
 @bot.command()
 async def cat(ctx):
   """Random cat images. Awww, so cute! Powered by random.cat"""
-  with aiohttp.ClientSession() as session:
-    async with session.get('https://random.cat/meow') as r:
-      if r.status == 200:
-        js = await r.json()
-        em = discord.Embed(name='random.cat', colour=0x690E8)
-        em.set_image(url=js['file'])
-        await ctx.send(embed=em)
+  async with session.get('https://random.cat/meow') as r:
+    if r.status == 200:
+      js = await r.json()
+      em = discord.Embed(name='random.cat', colour=0x690E8)
+      em.set_image(url=js['file'])
+      await ctx.send(embed=em)
 
 @bot.command()
 async def echo(ctx, *, message: str):
@@ -96,6 +106,7 @@ async def evalboi(ctx, *, code: str):
   try:
     result = eval(code)
   except Exception as e:
+    result = eval(code)
     evalError = discord.Embed(title='Error', description='You made non-working code, congrats you fucker.\n**Error:**\n```' + str(result) + ' ```', colour=0x690E8)
     await ctx.send(embed=evalError)
   else:
@@ -126,13 +137,21 @@ async def game(*, game: str):
 @bot.command()
 async def shibe(ctx):
   """Random shibes, powered by shibe.online"""
-  with aiohttp.ClientSession() as shibe:
-    async with shibe.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
+    async with session.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
       if shibeGet.status == 200:
         shibeJson = await shibeGet.json()
         shibeEmbed = discord.Embed(name='shibe.online', colour=0x690E8)
         shibeEmbed.set_image(url=shibeJson[0])
         await ctx.send(embed=shibeEmbed)
+
+@bot.command()
+async def uptime(ctx):
+  upEm = discord.Embed(title='Uptime', description='Here\'s some uptime info.', '
+  startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(startepoch))
+  timeUp = get_up()
+  upEm.add_field(name='Started on', value=startedOn)
+  upEm.add_field(name='Uptime', value=timeUp)
+  await ctx.send(embed=upEm)
 
 @bot.command()
 async def stats(ctx):
@@ -155,6 +174,7 @@ async def stats(ctx):
     await ctx.send('Maybe I don\'t have Embed Links permission?')
   else:
     pass
+
 @bot.command(name='8ball')
 async def an8ball(ctx, *, question: str):
   pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later', 'Concentrate and ask again',
@@ -166,47 +186,64 @@ async def an8ball(ctx, *, question: str):
 
 @bot.event
 async def on_guild_join( guild ):
-  logging.info('Joined guild ' + str(guild.name))
-  logging.info('guild ID ' + str(guild.id))
+  logging.info('Joined guild ' + str(guild.name) + 'ID: ' + str(guild.id))
+  await botstats()
+
+@bot.event
+async def on_guild_remove( guild ):
+  logging.info('Left ' + str(guild.name))
+  await bot.stats()
 
 # danny code frankenstein :P
 async def botstats():
   while True:
-    async with aiohttp.ClientSession() as session:
-      payload = json.dumps({
-        'server_count': len(bot.guilds)
-      })
+    payload = json.dumps({
+      'server_count': len(bot.guilds)
+    })
 
-      headers = {
-        'authorization': config['dbots'],
-        'content-type': 'application/json'
-      }
-      dbl_headers = {
-        'authorization': config['dbl'],
-        'content-type': 'application/json'
-      }
+    headers = {
+      'authorization': config['dbots'],
+      'content-type': 'application/json'
+    }
+    dbl_headers = {
+      'authorization': config['dbl'],
+      'content-type': 'application/json'
+    }
 
-      dbots_url = 'https://bots.discord.pw/api/bots/' + config['botid'] + '/stats'
-      dbl_url = 'https://discordbots.org/api/bots/' + config['botid'] + '/stats'
-      async with session.post(dbl_url, data=payload, headers=dbl_headers) as dbl_resp:
-        logging.info('dbl: posted with code' + str(dbl_resp.status))
-      async with session.post(dbots_url, data=payload, headers=headers) as resp:
-        logging.info('dbots: posted with code' + str(resp.status))
-      await asyncio.sleep(3600) # report to DBL/dbots every hour
+    dbots_url = 'https://bots.discord.pw/api/bots/' + config['botid'] + '/stats'
+    dbl_url = 'https://discordbots.org/api/bots/' + config['botid'] + '/stats'
+    async with session.post(dbl_url, data=payload, headers=dbl_headers) as dbl_resp:
+      logging.info('dbl: posted with code' + str(dbl_resp.status))
+    async with session.post(dbots_url, data=payload, headers=headers) as resp:
+      logging.info('dbots: posted with code' + str(resp.status))
 
+"""Stolen from Red which was stolen from R. Danny"""
+def get_up(self, *, brief=False):
+  now = datetime.datetime.utcnow()
+  delta = now - self.bot.uptime
+  hours, remainder = divmod(int(delta.total_seconds()), 3600)
+  minutes, seconds = divmod(remainder, 60)
+  days, hours = divmod(hours, 24)
+
+  if not brief:
+    if days:
+      fmt = '{d} days, {h} hours, {m} minutes, and {s} seconds'
+    else:
+      fmt = '{h} hours, {m} minutes, and {s} seconds'
+    else:
+      fmt = '{h}h {m}m {s}s'
+    if days:
+      fmt = '{d}d ' + fmt
+
+  return fmt.format(d=days, h=hours, m=minutes, s=seconds)
 
 @bot.event
 async def on_ready():
   logging.info('lolbot - ready')
-  loop = asyncio.get_event_loop()
-  serverpoll = loop.create_task(botstats())
-  logging.info('Bot post loop initalized')
   await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v3.0'))
   logging.info('Playing status changed')
 
 
-try:
-  bot.run(config['token'])
-except FileNotFoundError:
-  logging.error('I can not find config.json!')
-  logging.error('Are you sure you are in the same folder as it?')
+bot.run(config['token'])
+
+

@@ -137,7 +137,7 @@ async def game(*, game: str):
 @bot.command()
 async def shibe(ctx):
   """Random shibes, powered by shibe.online"""
-    async with session.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
+   async with session.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
       if shibeGet.status == 200:
         shibeJson = await shibeGet.json()
         shibeEmbed = discord.Embed(name='shibe.online', colour=0x690E8)

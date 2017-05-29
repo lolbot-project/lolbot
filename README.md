@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-# moved
-Away to [lolbot's new home](https://github.com/xshotD/lolbot)
-=======
+
 ![](https://file.house/QS6w.png)
 
 [![](https://img.shields.io/badge/discord-server-7289DA.svg)](https://discord.gg/PEW4wx9) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/772/badge)](https://bestpractices.coreinfrastructure.org/projects/772)

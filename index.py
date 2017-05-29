@@ -146,7 +146,7 @@ async def shibe(ctx):
 
 @bot.command()
 async def uptime(ctx):
-  upEm = discord.Embed(title='Uptime', description='Here\'s some uptime info.', '
+  upEm = discord.Embed(title='Uptime', colour=0x690E8)
   startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(startepoch))
   timeUp = get_up()
   upEm.add_field(name='Started on', value=startedOn)

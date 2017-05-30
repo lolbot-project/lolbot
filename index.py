@@ -195,7 +195,7 @@ async def on_guild_join( guild ):
 @bot.event
 async def on_guild_remove( guild ):
   logging.info('Left ' + str(guild.name))
-  await bot.stats()
+  await botstats()
 
 # danny code frankenstein :P
 async def botstats():

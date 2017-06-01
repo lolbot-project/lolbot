@@ -166,7 +166,9 @@ async def stats(ctx):
   statEmbed = discord.Embed(title='lolbot stats', description='This bot is'
    'powered by [lolbot](https://github.com/xshotD/lolbot),'
   ' a fast and powerful Python bot.', colour=0x690E8)
-  statEmbed.add_field(name='Owner', value=statInfo.owner.mention)
+  statEmbed.add_field(name='Owner', value=statInfo.owner.mention + ' ('
+  statInfo.owner.name + '#' + statInfo.owner.discriminator + '- ID: '
+  + statInfo.owner.id)
   statEmbed.add_field(name='Python', value=sys.version)
   statEmbed.add_field(name='Servers', value=len(bot.guilds))
   statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',
@@ -192,7 +194,7 @@ async def an8ball(ctx, *, question: str):
 
 @bot.event
 async def on_guild_join( guild ):
-  logging.info('Joined guild ' + str(guild.name) + 'ID: ' + str(guild.id))
+  logging.info('Joined guild ' + str(guild.name) + ' ID: ' + str(guild.id))
   await botstats()
 
 @bot.event
@@ -243,6 +245,7 @@ def get_up(self, *, brief=False):
 
   return fmt.format(d=days, h=hours, m=minutes, s=seconds)
 """
+
 @bot.event
 async def on_ready():
   logging.info('lolbot - ready')

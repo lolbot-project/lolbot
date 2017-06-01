@@ -152,7 +152,7 @@ async def uptime(ctx):
   #timeUp = get_up()
   upEpoch = int(time.time) - startepoch
   upEm.add_field(name='Started on', value=startedOn)
-  upEm.add_field(name='Uptime', time.strftime('%a, %d %b %Y %H:%M:%S', time.localtime(upEpoch)))
+  upEm.add_field(name='Uptime', value=time.strftime('%a, %d %b %Y %H:%M:%S', time.localtime(upEpoch)))
   try:
     await ctx.send(embed=upEm)
   except Exception as ex:

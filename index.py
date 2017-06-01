@@ -166,9 +166,8 @@ async def stats(ctx):
   statEmbed = discord.Embed(title='lolbot stats', description='This bot is'
    'powered by [lolbot](https://github.com/xshotD/lolbot),'
   ' a fast and powerful Python bot.', colour=0x690E8)
-  statEmbed.add_field(name='Owner', value=statInfo.owner.mention + ' ('
-  statInfo.owner.name + '#' + statInfo.owner.discriminator + '- ID: '
-  + statInfo.owner.id)
+  statEmbed.add_field(name='Owner', value=statInfo.owner.mention + '('
+  + str(statInfo.owner) + ' - ID: ' + statInfo.owner.id + ')')
   statEmbed.add_field(name='Python', value=sys.version)
   statEmbed.add_field(name='Servers', value=len(bot.guilds))
   statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',

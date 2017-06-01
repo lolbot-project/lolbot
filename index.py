@@ -150,7 +150,8 @@ async def uptime(ctx):
   upEm = discord.Embed(title='Uptime', colour=0x690E8)
   startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(startepoch))
   #timeUp = get_up()
-  upEpoch = int(time.time) - startepoch
+  nowEpoch = int(time.time)
+  upEpoch = nowEpoch - startepoch 
   upEm.add_field(name='Started on', value=startedOn)
   upEm.add_field(name='Uptime', value=time.strftime('%a, %d %b %Y %H:%M:%S', time.localtime(upEpoch)))
   try:

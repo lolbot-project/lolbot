@@ -150,12 +150,13 @@ async def uptime(ctx):
   upEm = discord.Embed(title='Uptime', colour=0x690E8)
   startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(startepoch))
   #timeUp = get_up()
+  upEpoch = int(time.time) - startepoch
   upEm.add_field(name='Started on', value=startedOn)
-  #upEm.add_field(name='Uptime', value=timeUp)
+  upEm.add_field(name='Uptime', time.strftime('%a, %d %b %Y %H:%M:%S', time.localtime(upEpoch)))
   try:
     await ctx.send(embed=upEm)
-  except:
-    await ctx.send('Could not send due to a error. Tell lold to fix it pls')
+  except Exception as ex:
+    await ctx.send('**ERROR** Please report this to lold#6978\n```' + ex + '\n```')
 
 @bot.command()
 async def stats(ctx):
@@ -163,7 +164,7 @@ async def stats(ctx):
   # get_owner = bot.get_user_info(config['ownerid'])
   statInfo = await ctx.bot.application_info()
   statEmbed = discord.Embed(title='lolbot stats', description='This bot is'
-  'powered by [lolbot](https://github.com/xshotD/lolbot),'
+   'powered by [lolbot](https://github.com/xshotD/lolbot),'
   ' a fast and powerful Python bot.', colour=0x690E8)
   statEmbed.add_field(name='Owner', value=statInfo.owner.mention)
   statEmbed.add_field(name='Python', value=sys.version)

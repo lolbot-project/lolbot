@@ -157,7 +157,7 @@ async def uptime(ctx):
   try:
     await ctx.send(embed=upEm)
   except Exception as ex:
-    await ctx.send('**ERROR** Please report this to lold#6978\n```' + str(ex) + '\n```')
+    await ctx.send('**ERROR** Please report this to lold#1915\n```' + str(ex) + '\n```')
 
 @bot.command()
 async def stats(ctx):

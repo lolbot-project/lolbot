@@ -23,4 +23,5 @@ I highly suggest you don't run your own instance as lolbot's official instance i
 4. Profit(?)
 
 ### Features probably never added
-I suck ass at music in Python, this will be implemented in a JS bot instead, which makes the chances of a music bot 0.00%.
+- music
+- something else (???)

@@ -151,7 +151,7 @@ async def uptime(ctx):
   startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(startepoch))
   #timeUp = get_up()
   nowEpoch = int(time.time)
-  upEpoch = nowEpoch - startepoch 
+  upEpoch = int(nowEpoch) - int(startepoch) 
   upEm.add_field(name='Started on', value=startedOn)
   upEm.add_field(name='Uptime', value=time.strftime('%a, %d %b %Y %H:%M:%S', time.localtime(upEpoch)))
   try:

@@ -174,6 +174,7 @@ async def pull(ctx):
   else:
     pullDone = discord.Embed(title='Pulled successfully',
     description='Please reboot the bot with the reboot command.')
+    await ctx.send(embed=pullDone)
 @bot.command()
 async def stats(ctx):
   """A few stats."""

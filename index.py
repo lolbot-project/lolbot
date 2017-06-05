@@ -24,8 +24,12 @@ try:
 except ImportError:
   logging.warn('Module(s) could not be found/not installed')
   logging.warn('Installing automatically')
-  check_output(['pip', 'install', '-Ur', 'requirements.txt'])
-  sys.exit('Please relaunch lolbot')
+  try:
+    check_output(['pip', 'install', '-Ur', 'requirements.txt'])
+  except Exception:
+    logging.error('Fatal error: pip failed to install dependencies')
+  else:
+    sys.exit('Please relaunch lolbot')
 else:
   logging.info('Found requirements, continuing')
 import aiohttp

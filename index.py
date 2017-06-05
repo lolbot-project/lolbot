@@ -159,6 +159,21 @@ async def uptime(ctx):
   except Exception as ex:
     await ctx.send('**ERROR** Please report this to lold#1915\n```' + str(ex) + '\n```')
 
+@bot.command(hidden=True)
+@commands.is_owner()
+async def pull(ctx):
+  """Pulls from git then restarts bot."""
+  try:
+    pullEmb = discord.Embed(title='Pulling from git...', 
+    description='Please wait - we are pulling from git.')
+    await ctx.end(embed=pullEmb)
+    puller = check_output(['git', 'pull', '--rebase'])
+  except Exception:
+    pullFail = discord.Embed(title='Pull failed',
+    description='Check your console for more information.')
+  else:
+    pullDone = discord.Embed(title='Pulled successfully',
+    description='Please reboot the bot with the reboot command.')
 @bot.command()
 async def stats(ctx):
   """A few stats."""

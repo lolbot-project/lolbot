@@ -108,7 +108,12 @@ async def httpcat(ctx, *, http_id: str):
 async def evalboi(ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""
   try:
-    result = eval(code)
+    if str(code) == 'config[\'token\']':
+      evalNiceTry = discord.Embed(title='Haha...', description='Really? I obvio'
+      'usly don\'t need eval to leak private info.', colour=0x690E8)
+      await ctx.send(embed=evalNiceTry)
+    else:
+      result = eval(code)
   except Exception as e:
     evalError = discord.Embed(title='Error', description='You made non-working '
     'code, congrats you fucker.\n**Error:**\n```' + str(e) + ' ```', colour=0x690E8)
@@ -206,8 +211,9 @@ async def stats(ctx):
 
 @bot.command(name='8ball')
 async def an8ball(ctx, *, question: str):
-  pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again later', 'Concentrate and ask again',
-  'Reply hazy, try again', 'My reply is no', 'My sources say no']
+  pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again '
+  'later', 'Concentrate and ask again', 'Reply hazy, try again', 'My reply is '
+  'no', 'My sources say no']
   ans = rchoice(pool)
   emb = discord.Embed(title='The Magic 8-ball', description='**Question: ' +
    str(question) + '**\nAnswer: ' + str(ans), colour=0x690E8)

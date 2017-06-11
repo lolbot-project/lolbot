@@ -13,13 +13,18 @@ and lastly, the Discord.py docs.
 I wouldn't be here without them.
 """
 # -*- coding: utf-8 -*-
+# obviously, logging
 import logging
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
+# execute some commands, may be deprecated later in favor of specific libraries
 from subprocess import check_output
+# a few things for stats
 import sys
 try:
+  # discord.py has the core tools
   import discord
   from discord.ext import commands
+  # git is also a module we need, for pulling
   import git
 except ImportError:
   logging.warn('Module(s) could not be found/not installed')
@@ -35,7 +40,7 @@ else:
 import aiohttp
 import json
 import time
-import datetime
+from contentlib import redirect_stdout
 from random import choice as rchoice
 try:
   config = json.loads(open('config.json').read())
@@ -46,10 +51,17 @@ except IOError:
   logging.debug('Can\'t open config to start bot..')
   sys.exit('Fatal error')
 description = '''beep boop :)'''
-bot = commands.AutoShardedBot(command_prefix='^', description=description)
-startepoch = int(time.time())
+class lolbot(commands.AutoShardedBot):
+  def __init__(*args, **kwargs):
+    super.__init__(*args, **kwargs)
+    session = aiohttp.ClientSession()
+    startepoch = time.time()
+  async def on_ready():
+    logging.info('lolbot - ready')
+    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v3.0'))
+    logging.info('Playing status changed')
 
-session = aiohttp.ClientSession()
+bot = lolbot(command_prefix='^', description=description)
 
 @bot.command()
 async def k(ctx):
@@ -69,11 +81,14 @@ async def ping(ctx):
   await ctx.send(embed=em)
 
 @bot.command()
-async def about(ctx):
+async def donate(ctx):
   """Information about lolbot."""
-  em = discord.Embed(title='lolbot', description='Written by lold. (c) 2017 lold, all rights reserved. \nWant to support lolbot and other projects? Donate to my ko-fi (https://ko-fi.com/A753OUG) or PayPal.me (https://paypal.me/ynapw)', colour=0x690E8)
-  em.set_author(name='lolbot, written by lold')
-  await ctx.send(embed=em)
+  aboutEm = discord.Embed(description='lolbot is free and I want it to be'
+  ', but I need donations to continue this thing.', colour=0x690E8)
+  aboutEm.add_field(name='Patreon', value='https://patreon.com/lold')
+  aboutEm.add_field(name='Ko-fi', value='https://ko-fi.com/A753OUG')
+  aboutEm.add_field(name='PayPal', value='https://paypal.me/ynapw')
+  await ctx.send(embed=aboutEm)
 
 @bot.command(pass_context=True)
 async def suggest( ctx, *, suggestion: str ):
@@ -113,7 +128,7 @@ async def evalboi(ctx, *, code: str):
       'usly don\'t need eval to leak private info.', colour=0x690E8)
       await ctx.send(embed=evalNiceTry)
     else:
-      result = exec(code)
+      result = eval(code)
   except Exception as e:
     evalError = discord.Embed(title='Error', description='You made non-working '
     'code, congrats you fucker.\n**Error:**\n```' + str(e) + ' ```', colour=0x690E8)
@@ -250,28 +265,6 @@ async def botstats():
       logging.info('dbl: posted with code' + str(dbl_resp.status))
     async with session.post(dbots_url, data=payload, headers=headers) as resp:
       logging.info('dbots: posted with code' + str(resp.status))
-
-"""Stolen from Red which was stolen from R. Danny
-Currently not working so commented out
-def get_up(self, *, brief=False):
-  now = datetime.datetime.utcnow()
-  delta = now - self.bot.uptime
-  hours, remainder = divmod(int(delta.total_seconds()), 3600)
-  minutes, seconds = divmod(remainder, 60)
-  days, hours = divmod(hours, 24)
-
-  if not brief:
-    if days:
-      fmt = '{d} days, {h} hours, {m} minutes, and {s} seconds'
-    else:
-      fmt = '{h} hours, {m} minutes, and {s} seconds'
-    else:
-      fmt = '{h}h {m}m {s}s'
-    if days:
-      fmt = '{d}d ' + fmt
-
-  return fmt.format(d=days, h=hours, m=minutes, s=seconds)
-"""
 
 @bot.event
 async def on_ready():

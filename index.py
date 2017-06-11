@@ -130,11 +130,11 @@ async def evalboi(ctx, *, code: str):
     else:
       result = eval(code)
   except Exception as e:
-    evalError = discord.Embed(title='Error', description='You made non-working '
+    evalError = discord.Embed(title='Error', description='You made non-working'
     'code, congrats you fucker.\n**Error:**\n```' + str(e) + ' ```', colour=0x690E8)
     await ctx.send(embed=evalError)
   else:
-    evalDone = discord.Embed(title='Eval', description='Okay, I evaluated that '
+    evalDone = discord.Embed(title='Eval', description='Okay, I evaluated that'
     'for you.\n**Results:**\n```' + str(result) + '```', colour=0x690E8)
     await ctx.send(embed=evalDone)
 

@@ -40,7 +40,7 @@ else:
 import aiohttp
 import json
 import time
-from contentlib import redirect_stdout
+from contextlib import redirect_stdout as outredir
 from random import choice as rchoice
 try:
   config = json.loads(open('config.json').read())

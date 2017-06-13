@@ -58,7 +58,8 @@ class lolbot(commands.AutoShardedBot):
     startepoch = time.time()
   async def on_ready():
     logging.info('lolbot - ready')
-    await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v3.0'))
+    await bot.change_presence(game=discord.Game(name='^help'
+    ' | v3.0'))
     logging.info('Playing status changed')
 
 bot = lolbot(command_prefix='^', description=description)

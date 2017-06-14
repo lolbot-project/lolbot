@@ -59,7 +59,7 @@ except IOError:
 description = '''beep boop :)'''
 class lolbot(commands.AutoShardedBot):
   def __init__(*args, **kwargs):
-    super().__init__(*args, **kwargs)
+    super.__init__(*args, **kwargs)
     session = aiohttp.ClientSession()
     startepoch = time.time()
   async def on_ready():

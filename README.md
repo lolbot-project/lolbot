@@ -24,6 +24,7 @@ I highly suggest you don't run your own instance as lolbot's official instance i
 4. `python3.6 index.py` 
 
 Addendum 4a: use screen: `screen -DmS python3.6 index.py`
+
 Addendum 4b: use pm2: `pm2 start index.py --name lolbot --interpreter python3.6` (this is currently used in production)
 
 ### Features probably never added

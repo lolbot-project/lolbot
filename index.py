@@ -145,7 +145,13 @@ async def evalboi(ctx, *, code: str):
     else:
       stdout = io.StringIO()
       with outredir(stdout):
-        eval(code, env)
+        lol = eval(code, env)
+        if str(lol) == '':
+          evalNone = discord.Embed(title='No output', description='Code was '
+          'executed successfully but no output was detected.', colour=0x690E8)
+          await ctx.send(embed=evalNone)
+        else:
+          continue
   except Exception as e:
     evalError = discord.Embed(title='Error', description='You made non-working'
     'code, congrats you fucker.\n**Error:**\n```' + str(e) + ' ```',

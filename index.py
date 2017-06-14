@@ -57,17 +57,8 @@ except IOError:
   logging.debug('Can\'t open config to start bot..')
   sys.exit('Fatal error')
 description = '''beep boop :)'''
-class lolbot(commands.AutoShardedBot):
-  def __init__(*args, **kwargs):
-    session = aiohttp.ClientSession()
-    startepoch = time.time()
-  async def on_ready():
-    logging.info('lolbot - ready')
-    await bot.change_presence(game=discord.Game(name='^help'
-    ' | v4.3'))
-    logging.info('Playing status changed')
 
-bot = lolbot(prefix='^', description=description)
+bot = commands.AutoShardedBot(prefix='^', description=description)
 
 @bot.command()
 async def k(ctx):
@@ -292,12 +283,13 @@ async def botstats():
     async with session.post(dbots_url, data=payload, headers=headers) as resp:
       logging.info('dbots: posted with code' + str(resp.status))
 
-# Keeping as backup in case of fail of custom lolbot class
-#@bot.event
-#async def on_ready():
-#  logging.info('lolbot - ready')
-#  await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v3.0'))
-#  logging.info('Playing status changed')
+@bot.event
+async def on_ready():
+  session = aiohttp.ClientSession()
+  startepoch = time.time()
+  logging.info('lolbot - ready')
+  await bot.change_presence(game=discord.Game(name='^help | v5.0'))
+  logging.info('Playing status changed')
 
 
 bot.run(config['token'])

@@ -139,7 +139,7 @@ async def evalboi(ctx, *, code: str):
   env.update(globals())
   try:
     if 'config[\'token\']' in str(code):
-      no = discord.Embed(title='No', description='Bitch please', 
+      no = discord.Embed(title='No', description='Fuck off you :b:enis', 
       colour=0x690E8)
       await ctx.send(embed=no)
     else:

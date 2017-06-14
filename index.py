@@ -58,7 +58,7 @@ except IOError:
   sys.exit('Fatal error')
 description = '''beep boop :)'''
 
-bot = commands.AutoShardedBot(prefix='^', description=description)
+bot = commands.AutoShardedBot(command_prefix='^', description=description)
 
 @bot.command()
 async def k(ctx):

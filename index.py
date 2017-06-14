@@ -13,6 +13,7 @@ and lastly, the Discord.py docs.
 I wouldn't be here without them.
 """
 # -*- coding: utf-8 -*-
+
 # obviously, logging
 import logging
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
@@ -33,13 +34,18 @@ except ImportError:
     check_output(['pip', 'install', '-Ur', 'requirements.txt'])
   except Exception:
     logging.error('Fatal error: pip failed to install dependencies')
+    logging.error('Cannot continue run, exiting')
+    logging.error('Try running this command:')
+    sys.exit('pip install -Ur requirements.txt')
   else:
     sys.exit('Please relaunch lolbot')
 else:
   logging.info('Found requirements, continuing')
+# http, config, uptime
 import aiohttp
 import json
 import time
+# eval redir, 8ball
 from contextlib import redirect_stdout as outredir
 from random import choice as rchoice
 try:
@@ -53,7 +59,7 @@ except IOError:
 description = '''beep boop :)'''
 class lolbot(commands.AutoShardedBot):
   def __init__(*args, **kwargs):
-    super.__init__(*args, **kwargs)
+    super().__init__(*args, **kwargs)
     session = aiohttp.ClientSession()
     startepoch = time.time()
   async def on_ready():
@@ -123,20 +129,35 @@ async def httpcat(ctx, *, http_id: str):
 @commands.is_owner()
 async def evalboi(ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""
+  # env code is (c) Rapptz/Danny 2016
+  # the rest is (c) xshotD/S Stewart 2017
+  # both of these are under MIT License
+  env = {
+    'bot': bot,
+    'ctx': ctx,
+    'message': ctx.message,
+    'server': ctx.message.server,
+    'channel': ctx.message.channel,
+    'author': ctx.message.author
+  }
+  env.update(globals())
   try:
-    if str(code) == 'config[\'token\']':
-      evalNiceTry = discord.Embed(title='Haha...', description='Really? I obvio'
-      'usly don\'t need eval to leak private info.', colour=0x690E8)
-      await ctx.send(embed=evalNiceTry)
+    if 'config[\'token\']' in str(code):
+      no = discord.Embed(title='No', description='Bitch please', 
+      colour=0x690E8)
+      await ctx.send(embed=no)
     else:
-      result = eval(code)
+      stdout = io.StringIO()
+      with outredir(stdout):
+        eval(code, env)
   except Exception as e:
     evalError = discord.Embed(title='Error', description='You made non-working'
-    'code, congrats you fucker.\n**Error:**\n```' + str(e) + ' ```', colour=0x690E8)
+    'code, congrats you fucker.\n**Error:**\n```' + str(e) + ' ```',
+     colour=0x690E8)
     await ctx.send(embed=evalError)
   else:
     evalDone = discord.Embed(title='Eval', description='Okay, I evaluated that'
-    'for you.\n**Results:**\n```' + str(result) + '```', colour=0x690E8)
+    'for you.\n**Results:**\n```'+ str(stdout.getvalue()) + '```', colour=0x690E8)
     await ctx.send(embed=evalDone)
 
 @bot.command(hidden=True)
@@ -207,8 +228,8 @@ async def stats(ctx):
   # get_owner = bot.get_user_info(config['ownerid'])
   statInfo = await ctx.bot.application_info()
   statEmbed = discord.Embed(title='lolbot stats', description='This bot is'
-   'powered by [lolbot](https://github.com/xshotD/lolbot),'
-  ' a fast and powerful Python bot.', colour=0x690E8)
+   'powered by [lolbot](https://github.com/xshotD/lolbot), a fast and powerful '
+   'Python bot.', colour=0x690E8)
   statEmbed.add_field(name='Owner', value=statInfo.owner.mention + '('
   + str(statInfo.owner) + ' - ID: ' + str(statInfo.owner.id) + ')')
   statEmbed.add_field(name='Python', value=sys.version)
@@ -267,11 +288,12 @@ async def botstats():
     async with session.post(dbots_url, data=payload, headers=headers) as resp:
       logging.info('dbots: posted with code' + str(resp.status))
 
-@bot.event
-async def on_ready():
-  logging.info('lolbot - ready')
-  await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v3.0'))
-  logging.info('Playing status changed')
+# Keeping as backup in case of fail of custom lolbot class
+#@bot.event
+#async def on_ready():
+#  logging.info('lolbot - ready')
+#  await bot.change_presence(game=discord.Game(name='with APIs. | ^help | v3.0'))
+#  logging.info('Playing status changed')
 
 
 bot.run(config['token'])

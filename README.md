@@ -12,15 +12,19 @@ I highly suggest you don't run your own instance as lolbot's official instance i
 ## Requirements
 
 - Python 3.6
-- pip packages in requirements.txt (`pip install -r requirements.txt`)
-- API token from [here](https://discordapp.com/developers/applications)
+- Some python modules (`pip install -Ur requirements.txt`)
+- A text editor
+- Knowledge on how to maintain the bot
 
 ## Running
 
-1. Get your bot token and fill it in config.json
-2. Get your ID and place it in config.json and in index.py
-3. Run `python3.6 index.py`
-4. Profit(?)
+1. `git clone https://github.com/xshotD/lolbot`
+2. `cd lolbot`
+3. `nano config.json` (follow the comments beginning with `//`)
+4. `python3.6 index.py` 
+
+Addendum 4a: use screen: `screen -DmS python3.6 index.py`
+Addendum 4b: use pm2: `pm2 start index.py --name lolbot --interpreter python3.6` (this is currently used in production)
 
 ### Features probably never added
 - music

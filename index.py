@@ -65,7 +65,7 @@ class lolbot(commands.AutoShardedBot):
   async def on_ready():
     logging.info('lolbot - ready')
     await bot.change_presence(game=discord.Game(name='^help'
-    ' | v3.0'))
+    ' | v4.0'))
     logging.info('Playing status changed')
 
 bot = lolbot(command_prefix='^', description=description)
@@ -90,8 +90,8 @@ async def ping(ctx):
 @bot.command()
 async def donate(ctx):
   """Information about lolbot."""
-  aboutEm = discord.Embed(description='lolbot is free and I want it to be'
-  ', but I need donations to continue this thing.', colour=0x690E8)
+  aboutEm = discord.Embed(description='lolbot is free and I want it to be, but'
+  ' I need donations to continue this thing.', colour=0x690E8)
   aboutEm.add_field(name='Patreon', value='https://patreon.com/lold')
   aboutEm.add_field(name='Ko-fi', value='https://ko-fi.com/A753OUG')
   aboutEm.add_field(name='PayPal', value='https://paypal.me/ynapw')
@@ -112,6 +112,11 @@ async def cat(ctx):
       em = discord.Embed(name='random.cat', colour=0x690E8)
       em.set_image(url=js['file'])
       await ctx.send(embed=em)
+
+@bot.command(hidden=True)
+async def about(ctx):
+  await ctx.send('These commands have been moved.')
+  await ctx.send('Info to `^stats` and donate links to `^donate`.')
 
 @bot.command()
 async def echo(ctx, *, message: str):
@@ -228,7 +233,7 @@ async def stats(ctx):
   # get_owner = bot.get_user_info(config['ownerid'])
   statInfo = await ctx.bot.application_info()
   statEmbed = discord.Embed(title='lolbot stats', description='This bot is'
-   'powered by [lolbot](https://github.com/xshotD/lolbot), a fast and powerful '
+   ' powered by [lolbot](https://github.com/xshotD/lolbot), a fast and powerful '
    'Python bot.', colour=0x690E8)
   statEmbed.add_field(name='Owner', value=statInfo.owner.mention + '('
   + str(statInfo.owner) + ' - ID: ' + str(statInfo.owner.id) + ')')

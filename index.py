@@ -46,6 +46,7 @@ import aiohttp
 import json
 import time
 # eval redir, 8ball
+import io
 from contextlib import redirect_stdout as outredir
 from random import choice as rchoice
 try:

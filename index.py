@@ -67,7 +67,7 @@ class lolbot(commands.AutoShardedBot):
     ' | v4.3'))
     logging.info('Playing status changed')
 
-bot = lolbot(command_prefix='^', description=description)
+bot = lolbot(prefix='^', description=description)
 
 @bot.command()
 async def k(ctx):

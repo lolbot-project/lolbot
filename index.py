@@ -65,7 +65,7 @@ class lolbot(commands.AutoShardedBot):
   async def on_ready():
     logging.info('lolbot - ready')
     await bot.change_presence(game=discord.Game(name='^help'
-    ' | v4.0'))
+    ' | v4.1'))
     logging.info('Playing status changed')
 
 bot = lolbot(command_prefix='^', description=description)

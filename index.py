@@ -59,7 +59,8 @@ except IOError:
   sys.exit('Fatal error')
 description = '''beep boop :)'''
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
-startepoch = time.time()
+bot.session = aiohttp.ClientSession(loop=bot.loop)
+bot.startepoch = time.time()
 
 @bot.command()
 async def k(ctx):
@@ -97,7 +98,7 @@ async def suggest( ctx, *, suggestion: str ):
 @bot.command()
 async def cat(ctx):
   """Random cat images. Awww, so cute! Powered by random.cat"""
-  async with session.get('https://random.cat/meow') as r:
+  async with ctx.bot.session.get('https://random.cat/meow') as r:
     if r.status == 200:
       js = await r.json()
       em = discord.Embed(name='random.cat', colour=0x690E8)
@@ -181,12 +182,12 @@ async def reboot(ctx):
 @commands.is_owner()
 async def game(*, game: str):
   """Changes playing status"""
-  await bot.change_presence(game=discord.Game(name=game + ' | ^help | v3.0'))
+  await bot.change_presence(game=discord.Game(name=game + ' | ^help | v5.0'))
 
 @bot.command()
 async def shibe(ctx):
   """Random shibes, powered by shibe.online"""
-  async with session.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
+  async with ctx.bot.session.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
       if shibeGet.status == 200:
         shibeJson = await shibeGet.json()
         shibeEmbed = discord.Embed(name='shibe.online', colour=0x690E8)
@@ -285,15 +286,13 @@ async def botstats():
 
     dbots_url = 'https://bots.discord.pw/api/bots/' + config['botid'] + '/stats'
     dbl_url = 'https://discordbots.org/api/bots/' + config['botid'] + '/stats'
-    async with session.post(dbl_url, data=payload, headers=dbl_headers) as dbl_resp:
+    async with ctx.bot.session.post(dbl_url, data=payload, headers=dbl_headers) as dbl_resp:
       logging.info('dbl: posted with code' + str(dbl_resp.status))
-    async with session.post(dbots_url, data=payload, headers=headers) as resp:
+    async with ctx.bot.session.post(dbots_url, data=payload, headers=headers) as resp:
       logging.info('dbots: posted with code' + str(resp.status))
 
 @bot.event
 async def on_ready():
-  session = aiohttp.ClientSession()
-  startepoch = time.time()
   logging.info('lolbot - ready')
   await bot.change_presence(game=discord.Game(name='^help | v5.0'))
   logging.info('Playing status changed')

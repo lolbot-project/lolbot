@@ -58,8 +58,8 @@ except IOError:
   logging.debug('Can\'t open config to start bot..')
   sys.exit('Fatal error')
 description = '''beep boop :)'''
-
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
+startepoch = time.time()
 
 @bot.command()
 async def k(ctx):

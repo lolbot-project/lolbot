@@ -49,6 +49,8 @@ import time
 import io
 from contextlib import redirect_stdout as outredir
 from random import choice as rchoice
+# async def indenter
+import textwrap
 try:
   config = json.loads(open('config.json').read())
 except FileNotFoundError:
@@ -126,9 +128,10 @@ async def httpcat(ctx, *, http_id: str):
 @commands.is_owner()
 async def evalboi(ctx, *, code: str):
   """Because everyone needs a good eval once in a while."""
+  # async run code is by sliceofcode (c) sliceofcode 2017
   # env code is (c) Rapptz/Danny 2016
   # the rest is (c) xshotD/S Stewart 2017
-  # both of these are under MIT License
+  # all of these are under MIT License
   env = {
     'bot': bot,
     'ctx': ctx,
@@ -146,13 +149,8 @@ async def evalboi(ctx, *, code: str):
     else:
       stdout = io.StringIO()
       with outredir(stdout):
-        lol = eval(code, env)
-        if str(lol) == '':
-          evalNone = discord.Embed(title='No output', description='Code was '
-          'executed successfully but no output was detected.', colour=0x690E8)
-          await ctx.send(embed=evalNone)
-        else:
-          pass
+        wrapped_code = 'async def func():\n' + textwrap.indent(code, '  ')
+        lol = exec(compile(wrapped_code, '<exec>', 'exec'), env)
   except Exception as e:
     evalError = discord.Embed(title='Error', description='You made non-working'
     'code, congrats you fucker.\n**Error:**\n```' + str(e) + ' ```',

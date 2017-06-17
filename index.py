@@ -268,7 +268,7 @@ async def on_guild_remove( guild ):
   await botstats()
 
 # danny code frankenstein :P
-async def botstats(ctx):
+async def botstats():
     payload = json.dumps({
       'server_count': len(bot.guilds)
     })

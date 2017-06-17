@@ -39,7 +39,7 @@ except ImportError:
     sys.exit('pip install -Ur requirements.txt')
   else:
     sys.exit('Please relaunch lolbot')
-else:
+else: 
   logging.info('Found requirements, continuing')
 # http, config, uptime
 import aiohttp
@@ -61,7 +61,7 @@ except IOError:
   sys.exit('Fatal error')
 description = '''beep boop :)'''
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
-bot.session = aiohttp.ClientSession(loop=bot.loop)
+session = aiohttp.ClientSession(loop=bot.loop)
 bot.startepoch = time.time()
 
 @bot.command()
@@ -199,7 +199,7 @@ async def uptime(ctx):
   startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(startepoch))
   #timeUp = get_up()
   nowEpoch = time.time()
-  upEpoch = nowEpoch - startepoch 
+  upEpoch = nowEpoch - ctx.bot.startepoch 
   upEm.add_field(name='Started on', value=startedOn)
   upEm.add_field(name='Uptime', value=time.strftime('%H:%M:%S', time.localtime(upEpoch)))
   try:

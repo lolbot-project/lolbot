@@ -195,6 +195,8 @@ async def shibe(ctx):
         shibeEmbed = discord.Embed(name='shibe.online', colour=0x690E8)
         shibeEmbed.set_image(url=shibeJson[0])
         await ctx.send(embed=shibeEmbed)
+      else:
+        await ctx.send('Uh oh, I failed to get the picture for some reason')
 
 @bot.command()
 async def uptime(ctx):

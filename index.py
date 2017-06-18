@@ -62,7 +62,7 @@ except IOError:
 description = '''beep boop :)'''
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
 session = aiohttp.ClientSession(loop=bot.loop)
-bot.startepoch = time.time()
+startepoch = time.time()
 
 @bot.command()
 async def k(ctx):

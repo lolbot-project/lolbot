@@ -149,6 +149,7 @@ async def evalboi(ctx, *, code: str):
     else:
       stdout = io.StringIO()
       with outredir(stdout):
+        wrapped_code = 'async def func():\n' + textwrap.indent(code, '  ')
         lol = exec(compile(code, '<exec>', 'exec'), env)
   except Exception as e:
     evalError = discord.Embed(title='Error', description='You made non-working'

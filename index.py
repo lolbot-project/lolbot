@@ -240,6 +240,7 @@ async def stats(ctx):
   statEmbed.add_field(name='Owner', value=statInfo.owner.mention + '('
   + str(statInfo.owner) + ' - ID: ' + str(statInfo.owner.id) + ')')
   statEmbed.add_field(name='Python', value=sys.version)
+  statEmbed.add_field(name='discord.py', value=discord.__version)
   statEmbed.add_field(name='Servers', value=len(bot.guilds))
   statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',
   'Where did the RAM go?', 'grumble grumble', 'Please hold.', 'No, just, no.',

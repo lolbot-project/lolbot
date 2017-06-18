@@ -178,10 +178,14 @@ async def reboot(ctx):
 
 @bot.command(hidden=True)
 @commands.is_owner()
-async def game(*, game: str):
+async def game(ctx, *, game: str):
   """Changes playing status"""
-  await bot.change_presence(game=discord.Game(name=game + ' | ^help | v5.0'))
-
+  try:
+    await bot.change_presence(game=discord.Game(name=game + ' | ^help | v5.0'))
+  except:
+    await ctx.send('Something went wrong - check the console for details')
+  else:
+    await ctx.send(':white_check_mark: Changed game')
 @bot.command()
 async def shibe(ctx):
   """Random shibes, powered by shibe.online"""

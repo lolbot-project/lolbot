@@ -6,6 +6,7 @@ from random import choice as rchoice
 class Utility:
   def __init__(self, bot):
     self.bot = bot
+
   @commands.command()
   async def uptime(self, ctx):
     """Shows uptime of lolbot"""

@@ -7,6 +7,7 @@ import logging
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 import json
 import aiohttp
+import time
 try:
   config = json.loads(open('config.json').read())
 except:

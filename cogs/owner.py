@@ -62,7 +62,7 @@ class Owner:
   async def game(ctx, *, game: str):
     """Changes playing status"""
     try:
-      await bot.change_presence(game=discord.Game(name=game + ' | ^help | v5.0'))
+      await bot.change_presence(game=discord.Game(name=game + ' | ^help | v6.0'))
     except:
       await ctx.send('Something went wrong - check the console for details')
     else:

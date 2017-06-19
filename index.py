@@ -14,6 +14,7 @@ except:
   logging.debug('Something happened...')
 description = '''Just a bot :)'''
 exts = ['cogs.donate', 'cogs.fun', 'cogs.owner', 'cogs.stats', 'cogs.utility']
+import discord
 from discord.ext import commands
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
 bot.session = aiohttp.ClientSession(loop=bot.loop)

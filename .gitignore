@@ -1,3 +1,8 @@
 # Python cache
 __pycache__
+# Config
 config.json
+# VIM temp file
+*~
+.*.sw*
+

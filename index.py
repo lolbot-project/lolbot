@@ -21,7 +21,7 @@ bot.startepoch = time.time()
 @bot.event
 async def on_ready():
   logging.info('lolbot - ready')
-  await bot.change_presence(game=discord.Game(name='^help | v5.0'))
+  await bot.change_presence(game=discord.Game(name='^help | v6.0'))
   logging.info('Playing status changed')
 for ext in exts:
   try:

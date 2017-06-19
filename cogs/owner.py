@@ -3,11 +3,17 @@ import io
 import textwrap
 import discord
 from subprocess import check_output
-
+from contextlib import redirect_stdout as outredir
+from discord.ext import commands
+import logging
+logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 class Owner:
-  @bot.command(hidden=True, name='eval')
+  def __init__(self, bot):
+    self.bot = bot
+
+  @commands.command(hidden=True, name='eval')
   @commands.is_owner()
-  async def evalboi(ctx, *, code: str):
+  async def evalboi(self, ctx, *, code: str):
     """Because everyone needs a good eval once in a while."""
     # async run code is by sliceofcode (c) sliceofcode 2017
     # env code is (c) Rapptz/Danny 2016
@@ -31,7 +37,7 @@ class Owner:
         stdout = io.StringIO()
         with outredir(stdout):
           wrapped_code = 'async def func():\n' + textwrap.indent(code, '  ')
-          lol = exec(compile(code, '<exec>', 'exec'), env)
+          exec(compile(wrapped_code, '<exec>', 'exec'), env)
     except Exception as e:
       evalError = discord.Embed(title='Error', description='You made non-working'
       'code, congrats you fucker.\n**Error:**\n```' + str(e) + ' ```',
@@ -42,9 +48,9 @@ class Owner:
       'for you.\n**Results:**\n```'+ str(stdout.getvalue()) + '```', colour=0x690E8)
       await ctx.send(embed=evalDone)
 
-  @bot.command(hidden=True)
+  @commands.command(hidden=True)
   @commands.is_owner()
-  async def reboot(ctx):
+  async def reboot(self, ctx):
     """Duh. Owner only"""
     rebootPend = discord.Embed(title='Rebooting', description='Rebooting...', colour=0x690E7)
     await ctx.send(embed=rebootPend)
@@ -57,34 +63,16 @@ class Owner:
     else:
       await bot.logout()
 
-  @bot.command(hidden=True)
+  @commands.command(hidden=True)
   @commands.is_owner()
-  async def game(ctx, *, game: str):
+  async def game(self, ctx, *, game: str):
     """Changes playing status"""
     try:
-      await bot.change_presence(game=discord.Game(name=game + ' | ^help | v6.0'))
+      await bot.change_presence(game=discord.Game(name=game + ' | ^help | v6.1'))
     except:
       await ctx.send('Something went wrong - check the console for details')
     else:
       await ctx.send(':white_check_mark: Changed game')
-
-  @bot.command(hidden=True)
-  @commands.is_owner()
-  async def pull(ctx):
-    """Pulls from git then restarts bot."""
-    try:
-      pullEmb = discord.Embed(title='Pulling from git...', 
-      description='Please wait - we are pulling from git.')
-      await ctx.end(embed=pullEmb)
-      puller = check_output(['git', 'pull', '--rebase'])
-    except Exception:
-      pullFail = discord.Embed(title='Pull failed',
-      description='Check your console for more information.')
-    else:
-      pullDone = discord.Embed(title='Pulled successfully',
-      description='Please reboot the bot with the reboot command.')
-      await ctx.send(embed=pullDone)
-
 
 def setup(bot):
     bot.add_cog(Owner(bot))

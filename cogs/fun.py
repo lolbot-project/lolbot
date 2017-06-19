@@ -1,8 +1,11 @@
 import discord
+from discord.ctx import commands
 from random import choice as rchoice
 class Fun:
-  @bot.command()
-  async def cat(ctx):
+  def __init__(self, bot):
+    self.bot = bot
+  @commands.command()
+  async def cat(self, ctx):
     """Random cat images. Awww, so cute! Powered by random.cat"""
     async with ctx.bot.session.get('https://random.cat/meow') as r:
       if r.status == 200:
@@ -11,15 +14,15 @@ class Fun:
         em.set_image(url=js['file'])
         await ctx.send(embed=em)
 
-  @bot.command()
-  async def httpcat(ctx, *, http_id: str):
+  @commands.command()
+  async def httpcat(self, ctx, *, http_id: str):
     """http.cat images - ^httpcat <http code>"""
     httpcat_em = discord.Embed(name='http.cat', colour=0x690E8)
     httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
     await ctx.send(embed=httpcat_em)
 
-  @bot.command()
-  async def shibe(ctx):
+  @commands.command()
+  async def shibe(self, ctx):
     """Random shibes, powered by shibe.online"""
     async with ctx.bot.session.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
       if shibeGet.status == 200:
@@ -31,18 +34,18 @@ class Fun:
         await ctx.send('Uh oh, I failed to get the picture for some reason')
 
 
-  @bot.command()
-  async def k(ctx):
+  @commands.command()
+  async def k(self, ctx):
     """k"""
     await ctx.send('k')
 
-  @bot.command()
-  async def fuck(ctx):
+  @commands.command()
+  async def fuck(self, ctx):
     """fuck"""
     await ctx.send('fuck')
 
-  @bot.command(name='8ball')
-  async def an8ball(ctx, *, question: str):
+  @commands.command(name='8ball')
+  async def an8ball(self, ctx, *, question: str):
     pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again '
     'later', 'Concentrate and ask again', 'Reply hazy, try again', 'My reply is '
     'no', 'My sources say no']

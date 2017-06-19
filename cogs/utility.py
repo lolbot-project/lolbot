@@ -1,9 +1,13 @@
 import sys
 import time
 import discord
+from discord.ext import commands
+from random import choice as rchoice
 class Utility:
-  @bot.command()
-  async def uptime(ctx):
+  def __init__(self, bot):
+    self.bot = bot
+  @commands.command()
+  async def uptime(self, ctx):
     """Shows uptime of lolbot"""
     upEm = discord.Embed(title='Uptime', colour=0x690E8)
     startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(startepoch))
@@ -17,8 +21,8 @@ class Utility:
     except Exception as ex:
       await ctx.send('**ERROR** Please report this to lold#1915\n```' + str(ex) + '\n```')
 
-  @bot.command()
-  async def stats(ctx):
+  @commands.command()
+  async def stats(self, ctx):
     """A few stats."""
     # get_owner = bot.get_user_info(config['ownerid'])
     statInfo = await ctx.bot.application_info()

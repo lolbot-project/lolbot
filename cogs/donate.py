@@ -1,5 +1,8 @@
+import discord
+from discord.ctx import commands
 class Donate:
-
+  def __init__(self, bot):
+    self.bot = bot
   @bot.command()
   async def donate(ctx):
     """Information about lolbot."""

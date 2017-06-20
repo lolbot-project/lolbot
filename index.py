@@ -21,7 +21,7 @@ bot.session = aiohttp.ClientSession(loop=bot.loop)
 
 @bot.command(hidden=True)
 @commands.is_owner()
-async def reboot(self, ctx):
+async def reboot(ctx):
   """Duh. Owner only"""
   rebootPend = discord.Embed(title='Rebooting', description='Rebooting...', colour=0x690E7)
   await ctx.send(embed=rebootPend)
@@ -36,7 +36,7 @@ async def reboot(self, ctx):
 
 @bot.command(hidden=True)
 @commands.is_owner()
-async def game(self, ctx, *, game: str):
+async def game(ctx, *, game: str):
   """Changes playing status"""
   try:
      await bot.change_presence(game=discord.Game(name=game + ' | ^help | v6.1'))

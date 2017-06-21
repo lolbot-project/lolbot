@@ -1,22 +1,15 @@
-Thank you for deciding to contribute to lolbot's development, it will possibly help me a lot.
-But before you continue to submitting, please read over this:
+# Contributing
 
-  - Your code will become licensed under MIT.
-  
-  - I will pretty much kinda own your code now.
-  
-  - Credit will be given.
-  
-  - Code is written in ~~Sublime Text~~ Geany (right now) - and its default settings
-  
-  - Having Sublime Text/Geany available is preferred for PRs, 
-  
-  - but other editors are allowed as well as long as they adhere to the standards.
-  
-  If you agree to all of these, move on.
-  
-  Once again, thanks for contributing!
-  
+Thank you for contributing! But first, agree on some stuff before:
+
+- Your code will be under MIT
+
+- Your code will be under my possession/technically mine
+
+- Code will be credited to you
+
   Written by S - @xshotD
   
   Originally made on: Sun March 5th, 2017
+  
+  Rewritten on: Weds June 21st, 2017

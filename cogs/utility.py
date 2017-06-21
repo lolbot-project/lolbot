@@ -3,10 +3,11 @@ import time
 import discord
 from discord.ext import commands
 from random import choice as rchoice
+startepoch = time.time()
+
 class Utility:
   def __init__(self, bot):
     self.bot = bot
-    startepoch = time.time()
 
   @commands.command()
   async def uptime(self, ctx):

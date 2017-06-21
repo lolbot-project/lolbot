@@ -36,7 +36,7 @@ class Utility:
     + str(statInfo.owner) + ' - ID: ' + str(statInfo.owner.id) + ')')
     statEmbed.add_field(name='Python', value=sys.version)
     statEmbed.add_field(name='discord.py', value=discord.__version__)
-    statEmbed.add_field(name='Servers', value=len(bot.guilds))
+    statEmbed.add_field(name='Servers', value=len(self.bot.guilds))
     statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',
     'Where did the RAM go?', 'grumble grumble', 'Please hold.', 'No, just, no.',
     'Have you tried rebooting?', 'memework makes the dreamwork!']

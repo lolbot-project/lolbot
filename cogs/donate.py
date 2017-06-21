@@ -1,5 +1,5 @@
 import discord
-from discord.ctx import commands
+from discord.ext import commands
 class Donate:
   def __init__(self, bot):
     self.bot = bot

@@ -1,9 +1,11 @@
+import random
 import discord
-from discord.ctx import commands
-from random import choice as rchoice
+from discord.ext import commands
+
 class Fun:
   def __init__(self, bot):
     self.bot = bot
+
   @commands.command()
   async def cat(self, ctx):
     """Random cat images. Awww, so cute! Powered by random.cat"""
@@ -49,7 +51,7 @@ class Fun:
     pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again '
     'later', 'Concentrate and ask again', 'Reply hazy, try again', 'My reply is '
     'no', 'My sources say no']
-    ans = rchoice(pool)
+    ans = random.choice(pool)
     emb = discord.Embed(title='The Magic 8-ball', description='**Question: ' +
     str(question) + '**\nAnswer: ' + str(ans), colour=0x690E8)
     await ctx.send(embed=emb)

@@ -5,7 +5,7 @@ class Donate:
   def __init__(self, bot):
     self.bot = bot
 
-  @bot.command()
+  @commands.command()
   async def donate(self, ctx):
     """Information about lolbot."""
     aboutEm = discord.Embed(description='lolbot is free and I want it to be, but'

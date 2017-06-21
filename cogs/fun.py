@@ -24,13 +24,14 @@ class Fun:
     await ctx.send(embed=httpcat_em)
 
   @commands.command()
-  async def shibe(self, ctx):
-    """Random shibes, powered by shibe.online"""
-    async with ctx.bot.session.get('http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true') as shibeGet:
+  async def dog(self, ctx):
+    """Random dogs, by random.dog"""
+    async with ctx.bot.session.get('https://random.dog/woof') as shibeGet:
       if shibeGet.status == 200:
-        shibeJson = await shibeGet.json()
+        shibeImg = await resp.text()
+        shibeURL = 'https://random.dog' + shibeImg
         shibeEmbed = discord.Embed(name='shibe.online', colour=0x690E8)
-        shibeEmbed.set_image(url=shibeJson[0])
+        shibeEmbed.set_image(url=shibeURL)
         await ctx.send(embed=shibeEmbed)
       else:
         await ctx.send('Uh oh, I failed to get the picture for some reason')

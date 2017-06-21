@@ -1,12 +1,14 @@
 # import modules
+import logging
 import io
 import textwrap
-import discord
-from subprocess import check_output
-from contextlib import redirect_stdout as outredir
+import subprocess
+import contextlib
+
 from discord.ext import commands
-import logging
-logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
+
+log = logging.getLogger(__name__)
+
 class Owner:
   def __init__(self, bot):
     self.bot = bot
@@ -35,7 +37,7 @@ class Owner:
         await ctx.send(embed=no)
       else:
         stdout = io.StringIO()
-        with outredir(stdout):
+        with contextlib.redirect_stdout(stdout):
           wrapped_code = 'async def func():\n' + textwrap.indent(code, '  ')
           exec(compile(wrapped_code, '<exec>', 'exec'), env)
     except Exception as e:
@@ -55,20 +57,20 @@ class Owner:
     rebootPend = discord.Embed(title='Rebooting', description='Rebooting...', colour=0x690E7)
     await ctx.send(embed=rebootPend)
     try:
-      check_output(['sh', 'bot.sh'])
+      subprocess.check_output(['sh', 'bot.sh'])
       logging.info('reboot requested')
       logging.info('hoping it goes well now')
     except:
       logging.error('pls tell lold to fix his code')
     else:
-      await bot.logout()
+      await self.bot.logout()
 
   @commands.command(hidden=True)
   @commands.is_owner()
   async def game(self, ctx, *, game: str):
     """Changes playing status"""
     try:
-      await bot.change_presence(game=discord.Game(name=game + ' | ^help | v6.1'))
+      await self.bot.change_presence(game=discord.Game(name=game + ' | ^help | v6.1'))
     except:
       await ctx.send('Something went wrong - check the console for details')
     else:

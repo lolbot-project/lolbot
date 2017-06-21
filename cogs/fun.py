@@ -28,7 +28,7 @@ class Fun:
     """Random dogs, by random.dog"""
     async with ctx.bot.session.get('https://random.dog/woof') as shibeGet:
       if shibeGet.status == 200:
-        shibeImg = await resp.text()
+        shibeImg = await shibeGet.text()
         shibeURL = 'https://random.dog/' + shibeImg
         shibeEmbed = discord.Embed(name='shibe.online', colour=0x690E8)
         shibeEmbed.set_image(url=shibeURL)

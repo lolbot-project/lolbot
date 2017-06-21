@@ -21,9 +21,9 @@ class Stats:
     }
     dbots_url = 'https://bots.discord.pw/api/bots/' + config['botid'] + '/stats'
     dbl_url = 'https://discordbots.org/api/bots/' + config['botid'] + '/stats'
-    async with ctx.bot.session.post(dbl_url, data=payload, headers=dbl_headers) as dbl_resp:
+    async with self.bot.session.post(dbl_url, data=payload, headers=dbl_headers) as dbl_resp:
       logging.info('dbl: posted with code' + str(dbl_resp.status))
-    async with ctx.bot.session.post(dbots_url, data=payload, headers=headers) as resp:
+    async with self.bot.session.post(dbots_url, data=payload, headers=headers) as resp:
       logging.info('dbots: posted with code' + str(resp.status))
  
   async def on_guild_join( self, guild ):

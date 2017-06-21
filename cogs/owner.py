@@ -4,6 +4,7 @@ import io
 import textwrap
 import subprocess
 import contextlib
+import discord
 
 from discord.ext import commands
 
@@ -22,7 +23,7 @@ class Owner:
     # the rest is (c) xshotD/S Stewart 2017
     # all of these are under MIT License
     env = {
-      'bot': bot,
+      'bot': self.bot,
       'ctx': ctx,
       'message': ctx.message,
       'server': ctx.message.guild,

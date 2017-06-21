@@ -1,22 +1,19 @@
-**lolbot - pull request**
+**lolbot**
 
-  - [] You have tested your code and have maken sure it works
-  - [] You followed Sublime Text Python standards (2 space indents)
-  - [] You pulled the latest code before editing
-  
-  Please answer these honestly:
-  
-  What does your code addition do?
-  
-  ```
-  
-  ```
-  
-  Does it fix something?
-  
-  ` `
-  
-  Will it implement a major feature?
-  
-  ` `
-  
+**What does this PR do?**
+[] Major feature
+[] Code fix
+[] Typo fix
+[] Other
+
+**Which area are you going to work on?**
+[] README
+[] core
+[] cogs
+[] config
+[] other
+
+**Please acknowledge the following:**
+[] 2 space indents in your changes
+[] You have tested code before then
+[] This code does not conflict with recently pushed code in the repo

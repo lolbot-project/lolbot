@@ -26,7 +26,6 @@ description = '''Just a bot :)'''
 exts = ['donate', 'fun', 'owner', 'stats', 'utility']
 
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
-bot.session = aiohttp.ClientSession(loop=bot.loop)
 
 @bot.event
 async def on_ready():

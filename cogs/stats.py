@@ -9,6 +9,7 @@ class Stats:
   def __init__(self, bot):
     self.bot = bot
     self.session = aiohttp.ClientSession(loop=self.bot.loop)
+
   # danny code frankenstein :P
   async def botstats(self):
     payload = json.dumps({

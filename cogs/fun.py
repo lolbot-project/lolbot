@@ -5,11 +5,12 @@ from discord.ext import commands
 class Fun:
   def __init__(self, bot):
     self.bot = bot
+    self.session = aiohttp.ClientSession(loop=self.bot.loop)
 
   @commands.command()
   async def cat(self, ctx):
     """Random cat images. Awww, so cute! Powered by random.cat"""
-    async with ctx.bot.session.get('https://random.cat/meow') as r:
+    async with self.session.get('https://random.cat/meow') as r:
       if r.status == 200:
         js = await r.json()
         em = discord.Embed(name='random.cat', colour=0x690E8)
@@ -26,7 +27,7 @@ class Fun:
   @commands.command()
   async def dog(self, ctx):
     """Random dogs, by random.dog"""
-    async with ctx.bot.session.get('https://random.dog/woof') as shibeGet:
+    async with self.session.get('https://random.dog/woof') as shibeGet:
       if shibeGet.status == 200:
         shibeImg = await shibeGet.text()
         shibeURL = 'https://random.dog/' + shibeImg

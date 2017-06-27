@@ -12,7 +12,7 @@ class Stats:
   # danny code frankenstein :P
   async def botstats(self):
     payload = json.dumps({
-      'server_count': len(bot.guilds)
+      'server_count': len(self.bot.guilds)
     })
     headers = {
       'Authorization': config['dbots'],

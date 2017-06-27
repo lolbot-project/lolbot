@@ -2,12 +2,13 @@
 # (c) 2017 S Stewart under MIT License
 
 # -*- coding: utf-8 -*-
-# obviously, logging
 
+# built in modules go first.
 import json
 import logging
 import time
-import subprocess
+
+# import the rest 
 
 import aiohttp
 import discord

@@ -8,6 +8,7 @@ startepoch = time.time()
 class Utility:
   def __init__(self, bot):
     self.bot = bot
+    self.support = 'https://discord.gg/PEW4wx9'
 
   @commands.command()
   async def uptime(self, ctx):
@@ -22,14 +23,14 @@ class Utility:
     try:
       await ctx.send(embed=upEm)
     except Exception as ex:
-      await ctx.send('**ERROR** Please report this to lold#1915\n```' + str(ex) + '\n```')
+      await ctx.send('Something broke - sorry!')
 
   @commands.command()
   async def stats(self, ctx):
     """A few stats."""
     # get_owner = bot.get_user_info(config['ownerid'])
     statInfo = await ctx.bot.application_info()
-    statEmbed = discord.Embed(title='lolbot stats', description='This bot is'
+    statEmbed = discord.Embed(title='Stats', description='This bot is'
    ' powered by [lolbot](https://github.com/xshotD/lolbot), a fast and powerful '
    'Python bot.', colour=0x690E8)
     statEmbed.add_field(name='Owner', value=statInfo.owner.mention + '('
@@ -48,6 +49,16 @@ class Utility:
       await ctx.send('Maybe I don\'t have Embed Links permission?')
     else:
       pass
+
+  @commands.command()
+  async def invite(self, ctx):
+      """Gives a invite for the bot (and also the official server)"""
+      invEmb = discord.Embed(colour=0x690E8)
+      invEmb.add_field(name='Bot Invite', value='[Click here](
+      ' + discord.utils.oauth_url(config['botid'] + ')')
+      invEmb.add_field(name='Official server', value='[Click here]'
+      '(' + str(self.support) + ')')
+      await ctx.send(embed=invEmb)
 
 def setup(bot):
   bot.add_cog(Utility(bot))

@@ -6,7 +6,6 @@ from discord.ext import commands
 from random import choice as rchoice
 startepoch = time.time()
 config = json.load(open('config.json'))
-
 class Utility:
   def __init__(self, bot):
     self.bot = bot
@@ -58,8 +57,10 @@ class Utility:
       before = time.monotonic()
       ping = await ctx.send('ping')
       after = time.monotonic()
-      ms = round((after - before) * 1000, 2)
-      await ping.edit(content=f'`{ms}ms`')
+      msLogic = round((after - before) * 1000, 2)
+      ms = discord.Embed(title='Pong.', description='Response time was'
+      'a nice' + f'{msLogic}ms' + '!')
+      await ping.edit(embed=ms)
 
   @commands.command()
   async def invite(self, ctx):

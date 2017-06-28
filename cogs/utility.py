@@ -59,7 +59,7 @@ class Utility:
       after = time.monotonic()
       msLogic = round((after - before) * 1000, 2)
       ms = discord.Embed(title='Pong.', description='Response time was'
-      'a nice' + f'{msLogic}ms ' + '!', colour=0x690E8)
+      'a nice' + f'{msLogic}ms ' + ' !', colour=0x690E8)
       await ping.delete()
       await ctx.send(embed=ms)
 

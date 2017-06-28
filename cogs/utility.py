@@ -52,7 +52,7 @@ class Utility:
     else:
       pass
 
-  @commmands.command()
+  @commands.command()
   async def ping(self, ctx):
       """Does exactly what you think it does"""
       before = time.monotonic()

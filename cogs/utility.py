@@ -60,7 +60,8 @@ class Utility:
       msLogic = round((after - before) * 1000, 2)
       ms = discord.Embed(title='Pong.', description='Response time was'
       'a nice' + f'{msLogic}ms' + ' !', colour=0x690E8)
-      await ping.edit(embed=ms)
+      await ping.delete()
+      await ctx.send(embed=ms)
 
   @commands.command()
   async def invite(self, ctx):

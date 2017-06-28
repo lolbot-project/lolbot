@@ -1,9 +1,11 @@
 import sys
 import time
+import json
 import discord
 from discord.ext import commands
 from random import choice as rchoice
 startepoch = time.time()
+config = json.load(open('config.json'))
 
 class Utility:
   def __init__(self, bot):
@@ -54,8 +56,8 @@ class Utility:
   async def invite(self, ctx):
       """Gives a invite for the bot (and also the official server)"""
       invEmb = discord.Embed(colour=0x690E8)
-      invEmb.add_field(name='Bot Invite', value='[Click here](
-      ' + discord.utils.oauth_url(config['botid'] + ')')
+      invEmb.add_field(name='Invite lolbot', value='[Click here]'
+      '(' + discord.utils.oauth_url(config['botid']) + ')')
       invEmb.add_field(name='Official server', value='[Click here]'
       '(' + str(self.support) + ')')
       await ctx.send(embed=invEmb)

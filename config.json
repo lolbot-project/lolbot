@@ -3,7 +3,7 @@
         "token": "",
 	"//2": "Enter your ID for stats to work",
         "ownerid": "",
-	"//4": "For bot list submissions to work",
+	"//4": "For bot list submissions to work (Bot's ID is also for invite command)",
 	"botid": "",
 	"dbots": "",
 	"dbl": ""

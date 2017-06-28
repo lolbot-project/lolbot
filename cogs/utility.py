@@ -52,6 +52,15 @@ class Utility:
     else:
       pass
 
+  @commmands.command()
+  async def ping(self, ctx):
+      """Does exactly what you think it does"""
+      before = time.monotonic()
+      ping = await ctx.send('ping')
+      after = time.monotonic()
+      ms = round((after - before) * 1000, 2)
+      await ping.edit(content=f'`{ms}ms`')
+
   @commands.command()
   async def invite(self, ctx):
       """Gives a invite for the bot (and also the official server)"""

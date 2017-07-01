@@ -40,6 +40,8 @@ if __name__ == '__main__':
       bot.load_extension(f'cogs.{ext}')
     except Exception:
       logging.error(f'Error while loading {ext}', exc_info=True)
+    else:
+        logging.info(f'Successfully loaded {ext}')
 
-  bot.run(config['token'])
+bot.run(config['token'])
 

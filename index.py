@@ -23,7 +23,8 @@ except:
   logging.debug('Something happened...')
 
 description = '''Just a bot :)'''
-
+checkfail = ['heck off', 'You died! ~~because you didn\'t have perms.~~',
+'succ my rod', 'no u', 'lol no', 'me too thanks', 'are you kidding me', 'kek']
 exts = ['donate', 'fun', 'owner', 'stats', 'utility']
 
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
@@ -41,7 +42,7 @@ if __name__ == '__main__':
     except Exception:
       logging.error(f'Error while loading {ext}', exc_info=True)
     else:
-        logging.info(f'Successfully loaded {ext}')
+      logging.info(f'Successfully loaded {ext}')
 
 bot.run(config['token'])
 

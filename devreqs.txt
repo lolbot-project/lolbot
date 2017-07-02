@@ -1,2 +1,4 @@
 pyflakes
 coverage
+codecov
+tox

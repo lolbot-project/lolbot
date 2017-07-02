@@ -3,6 +3,7 @@ box: "python:3"
 build: 
   steps: 
     - 
+     script:
       code: |
           echo "Installing requirements..."
           pip install -Ur requirements.txt

@@ -7,6 +7,7 @@
 import json
 import logging
 import time
+import random
 
 # import the rest 
 
@@ -23,8 +24,10 @@ except:
   logging.debug('Something happened...')
 
 description = '''Just a bot :)'''
-checkfail = ['heck off', 'You died! ~~because you didn\'t have perms.~~',
+checkfail = ['heck off', 'You died! ~~because you didn\'t have perms.~~', 
 'succ my rod', 'no u', 'lol no', 'me too thanks', 'are you kidding me', 'kek']
+badarg = ['You need to put more info than this!', 'I didn\'t understand that.',
+'Sorry, can\'t process that.', 'Read ^help <command> for instructions.', 'Hmm?']
 exts = ['donate', 'fun', 'owner', 'stats', 'utility']
 
 bot = commands.AutoShardedBot(command_prefix='^', description=description)
@@ -34,6 +37,13 @@ async def on_ready():
   logging.info('lolbot - ready')
   await bot.change_presence(game=discord.Game(name='^help | v6.2'))
   logging.info('Playing status changed')
+
+@bot.event
+async def on_command_error(ctx):
+  if isinstance(error, commands.errors.CheckFailure):
+    await ctx.send(f'{random.choice(checkfail)}')
+  elif isinstance(error, commands.errors.BadArgument):
+    await ctx.send(f'{random.choice(badargs)}')
 
 if __name__ == '__main__':
   for ext in exts:

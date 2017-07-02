@@ -1,0 +1,20 @@
+box: python:3
+# This is the build pipeline. Pipelines are the core of wercker
+# Read more about pipelines on our dev center
+# http://devcenter.wercker.com/docs/pipelines/index.html
+build:
+  steps:
+    - virtualenv
+        name: setup virtual environment
+        python_location: /usr/bin/python3.6
+     - script:
+       name: install requirements
+       code: |
+         echo "Installing requirements..."
+         pip install -Ur requirements.txt
+         pip install -Ur devreqs.txt
+     - script:
+        name: Run tests
+        code: |
+          echo "Running tox tests..."
+          tox

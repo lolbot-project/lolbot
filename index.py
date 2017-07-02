@@ -41,7 +41,7 @@ async def on_command_error(ctx, error):
   if isinstance(error, commands.errors.CheckFailure):
       await ctx.send(f'Permissions error: {random.choice(checkfail)}')
   elif isinstance(error, commands.errors.BadArgument):
-      await ctx.send(f'Bad argument error: {random.choice(badargs)}')
+      await ctx.send(f'Bad argument error: {random.choice(badarg)}')
 
 if __name__ == '__main__':
   for ext in exts:

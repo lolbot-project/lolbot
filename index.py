@@ -24,8 +24,8 @@ except:
   logging.debug('Something happened...')
 
 description = '''Just a bot :)'''
-checkfail = ['heck off', 'You died! [REAL] [Not clickbait]', 
-'succ my rod', 'no u', 'lol no', 'me too thanks', 'are you kidding me', 'kek']
+checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 
+'no u', 'lol no', 'me too thanks', 'are you kidding me', 'kek']
 badarg = ['You need to put more info than this!', 'I didn\'t understand that.',
 'Sorry, can\'t process that.', 'Read ^help <command> for instructions.', 'Hmm?']
 exts = ['donate', 'fun', 'owner', 'stats', 'utility']

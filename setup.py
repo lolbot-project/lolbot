@@ -1,6 +1,5 @@
 setup(name='lolbot', version='6.2', description='A fun bot',
       url='https://github.com/xshotD/lolbot', author='S Stewart',
-      python_requires='>=3.6', install_requires=['git+https://github.com/rapptz'
-      '/discord.py@rewrite')
+      python_requires='>=3.6', install_requires=['git+https://github.com/rapptz/discord.py@rewrite')
 
 

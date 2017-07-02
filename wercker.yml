@@ -14,5 +14,5 @@ build:
       script: 
         code: |-
             echo "Running tox tests..."
-            tox -- --token $codecov_token
+            tox
         name: "Run tests"

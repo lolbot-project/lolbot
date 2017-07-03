@@ -32,8 +32,9 @@ class Owner:
     }
     env.update(globals())
     try:
-      if 'config[\'token\']' in str(code):
-        no = discord.Embed(title='No', description='Fuck off you :b:enis', 
+      if 'config[\'token\']' or 'config[\"token\"]' or 'self.bot.http.token' 
+      in str(code):
+        no = discord.Embed(title='No', description='Just... no. Why are you even trying?', 
         colour=0x690E8)
         await ctx.send(embed=no)
       else:

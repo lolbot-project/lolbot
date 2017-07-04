@@ -32,15 +32,10 @@ class Owner:
     }
     env.update(globals())
     try:
-      if 'config[\'token\']' or 'config[\"token\"]' or 'self.bot.http.token' in str(code):
-        no = discord.Embed(title='No', description='Just... no. Why are you even trying?', 
-        colour=0x690E8)
-        await ctx.send(embed=no)
-      else:
-        stdout = io.StringIO()
-        with contextlib.redirect_stdout(stdout):
-          wrapped_code = 'async def func():\n' + textwrap.indent(code, '  ')
-          exec(compile(wrapped_code, '<exec>', 'exec'), env)
+      stdout = io.StringIO()
+      with contextlib.redirect_stdout(stdout):
+        wrapped_code = 'async def func():\n' + textwrap.indent(code, '  ')
+        exec(compile(wrapped_code, '<exec>', 'exec'), env)
     except Exception as e:
       evalError = discord.Embed(title='Error', description='You made non-working'
       'code, congrats you fucker.\n**Error:**\n```' + str(e) + ' ```',

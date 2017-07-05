@@ -15,6 +15,7 @@ class DBots:
 
   @commands.group()
   async def dbots(self, ctx):
+    """Does stuff with bots.discord.pw"""
     if ctx.invoked_subcommand is None:
       await ctx.send('You must provide a subcommand! Subcommands:'
       '`count, info, owner, invite`')
@@ -22,9 +23,16 @@ class DBots:
   @dbots.command(name='owner')
   async def dbots_owner(self, ctx, wanted: discord.Member):
     async with self.session.get('https://bots.discord.pw/api/bots/' + str(wanted.id), headers=self.headers) as info:
+      """Gets the owner of a bot   ub Duscird Bots"""
       if info.status == 200:
         botinfo = await info.json()
-        await ctx.send('The owner of ' + str(wanted.mention) + ' is ' + str(botinfo['owner_ids'][0]))
+        if botinfo['owner_ids'][1] is None:
+          await ctx.send(f'The owner {wanted.mention} is {botinfo[\'owner_ids\'][0]}')
+        else:
+          if botinfo['owner_ids'][2] is None:
+            await ctx.send(f'The owner of {wanted.mention} is {botinfo[\'owner_ids\'][0]} and {botinfo[\'owner_ids\'][1]}')
+          else:
+            await ctx.send(f'The owner of {wanted.mention} is {(botinfo[\'owner_ids\'][0])}, {botinfo[\'owner_ids\'][1]} and {botinfo[\'owner_ids\'][0]}')
       elif info.status == 404:
         await ctx.send('That bot is not in Discord Bots!')
       else:

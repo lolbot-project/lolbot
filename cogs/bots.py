@@ -27,12 +27,18 @@ class DBots:
       if info.status == 200:
         botinfo = await info.json()
         if botinfo['owner_ids'][1] is None:
-          await ctx.send(f'The owner {wanted.mention} is {botinfo['owner_ids'][0]}')
+          owner1 = botinfo['owner_ids'][0]
+          await ctx.send(f'The owner {wanted.mention} is {owner1}')
         else:
           if botinfo['owner_ids'][2] is None:
-            await ctx.send(f'The owner of {wanted.mention} is {botinfo['owner_ids'][0]} and {botinfo['owner_ids'][1]}')
+            owner1 = botinfo['owner_ids'][0]
+            owner2 = botinfo['owner_ids'][1]
+            await ctx.send(f'The owner of {wanted.mention} is {owner1} and {owner2}')
           else:
-            await ctx.send(f'The owner of {wanted.mention} is {(botinfo['owner_ids'][0])}, {botinfo['owner_ids'][1]} and {botinfo['owner_ids'][0]}')
+            owner1 = botinfo['owner_ids'][0]
+            owner2 = botinfo['owner_ids'][1]
+            owner3 = botinfo['owner_ids'][2]
+            await ctx.send(f'The owner of {wanted.mention} is {owner1}, {owner2} and {owner3}')
       elif info.status == 404:
         await ctx.send('That bot is not in Discord Bots!')
       else:

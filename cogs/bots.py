@@ -25,7 +25,7 @@ class DBots:
       if info.status == 200:
         botinfo = await info.json()
         await ctx.send('The owner of ' + str(wanted.mention) + ' is ' + str(botinfo['owner_ids'][0]))
-      else if info.status == 404:
+      elif info.status == 404:
         await ctx.send('That bot is not in Discord Bots!')
       else:
         await ctx.send('A error happened somewhere - sorry about that.')

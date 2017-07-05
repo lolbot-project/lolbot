@@ -8,7 +8,7 @@ class DBots:
     self.session = aiohttp.ClientSession(loop=self.bot.loop)
     self.config = json.load(open('config.json'))
     self.headers = {
-      'Authorization': self.config['dbots']
+      'Authorization': self.config['dbots'],
       'Content-Type': 'application/json'
     }
 

@@ -23,16 +23,16 @@ class DBots:
   @dbots.command(name='owner')
   async def dbots_owner(self, ctx, wanted: discord.Member):
     async with self.session.get('https://bots.discord.pw/api/bots/' + str(wanted.id), headers=self.headers) as info:
-      """Gets the owner of a bot   ub Duscird Bots"""
+      """Gets the owner of a bot"""
       if info.status == 200:
         botinfo = await info.json()
         if botinfo['owner_ids'][1] is None:
-          await ctx.send(f'The owner {wanted.mention} is {botinfo[\'owner_ids\'][0]}')
+          await ctx.send(f'The owner {wanted.mention} is {botinfo['owner_ids'][0]}')
         else:
           if botinfo['owner_ids'][2] is None:
-            await ctx.send(f'The owner of {wanted.mention} is {botinfo[\'owner_ids\'][0]} and {botinfo[\'owner_ids\'][1]}')
+            await ctx.send(f'The owner of {wanted.mention} is {botinfo['owner_ids'][0]} and {botinfo['owner_ids'][1]}')
           else:
-            await ctx.send(f'The owner of {wanted.mention} is {(botinfo[\'owner_ids\'][0])}, {botinfo[\'owner_ids\'][1]} and {botinfo[\'owner_ids\'][0]}')
+            await ctx.send(f'The owner of {wanted.mention} is {(botinfo['owner_ids'][0])}, {botinfo['owner_ids'][1]} and {botinfo['owner_ids'][0]}')
       elif info.status == 404:
         await ctx.send('That bot is not in Discord Bots!')
       else:

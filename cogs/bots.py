@@ -23,10 +23,7 @@ class DBots:
   async def dbots_owner(self, ctx, wanted: discord.Member):
     async with self.session.get('https://bots.discord.pw/api/bots/' + str(wanted.id), headers=self.headers) as info:
       botinfo = await info.json()
-      def getowners():
-        owners = json.loads(botinfo['owner_ids'])
-        return str(owners)
-      await ctx.send('The owner of ' + botinfo['name'] + ' is ' + getowners())
+      await ctx.send('The owner of ' + str(wanted.mention) + 'is ' + str(botinfo['owner_ids'][0]))
 
 def setup(bot):
   bot.add_cog(DBots(bot))

@@ -41,6 +41,8 @@ class DBots:
             await ctx.send(f'The owner of {wanted.mention} is {owner1}, {owner2} and {owner3}')
       elif info.status == 404:
         await ctx.send('That bot is not in Discord Bots!')
+      elif info.status == 504:
+        await ctx.send('Server timed out - this is a fault with Discord Bots. Sorry!')
       else:
         await ctx.send('A error happened somewhere - sorry about that.')
 

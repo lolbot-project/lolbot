@@ -1,9 +1,14 @@
 {
 	"//1": "Enter your token down below",
         "token": "",
-	"//2": "Enter your ID for stats to work",
+	"//2": "Enter your prefix (default: ^)",
+	"prefix": "^",
+	"//2": "Enter your ID for stats, etc to work",
         "ownerid": "",
-	"//4": "For bot list submissions to work (Bot's ID is also for invite command)",
+	"//3": "For bot list submissions to work (Bot's ID is also for invite command)",
+	"//4": "note that bot list reporting is usually disabled - to enable it change false to true.",
+	"dbotspw": false,
+	"dbotsorg": false,
 	"botid": "",
 	"dbots": "",
 	"dbl": ""

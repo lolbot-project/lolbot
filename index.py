@@ -28,7 +28,7 @@ badarg = ['You need to put more info than this!', 'I didn\'t understand that.',
 'Sorry, can\'t process that.', 'Read ^help <command> for instructions.', 'Hmm?']
 exts = ['bots', 'donate', 'fun', 'owner', 'stats', 'utility']
 
-bot = commands.AutoShardedBot(command_prefix='^', description=description)
+bot = commands.AutoShardedBot(command_prefix=config['prefix'], description=description)
 
 @bot.event
 async def on_ready():

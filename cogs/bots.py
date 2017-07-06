@@ -28,7 +28,7 @@ class DBots:
         botinfo = await info.json()
         if len(botinfo['owner_ids']) == 1:
             owner = str(self.bot.get_user(botinfo['owner_ids'][0]))
-            await ctx.send(f'The bot {str(wanted.mention)} is owned by {str(owner)}')
+            await ctx.send(f'The bot {str(wanted.mention)} is owned by {owner}')
       elif info.status == 404:
         await ctx.send('That bot is not in Discord Bots!')
       elif info.status == 504:

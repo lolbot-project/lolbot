@@ -18,7 +18,7 @@ class Stats:
     async with self.session.post(dbl_url, data=payload, headers=dbl_headers) as dbl_resp:
       logging.info('dbl: posted with code' + str(dbl_resp.status))
 
-async def dbotspw(self):
+  async def dbotspw(self):
     headers = {
       'Authorization': config['dbots'],
       'Content-Type': 'application/json'

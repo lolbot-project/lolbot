@@ -35,7 +35,7 @@ class Fun:
         if '.mp4' in str(shibeURL):
             await ctx.send('mp4 file: ' + shibeURL)
         else:
-          shibeEmbed = discord.Embed(name='shibe.online', colour=0x690E8)
+          shibeEmbed = discord.Embed(colour=0x690E8)
           shibeEmbed.set_image(url=shibeURL)
           await ctx.send(embed=shibeEmbed)
       else:

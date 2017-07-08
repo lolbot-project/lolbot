@@ -39,9 +39,13 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
   if isinstance(error, commands.errors.CheckFailure):
-      await ctx.send(f'Permissions error: {random.choice(checkfail)}')
+    await ctx.send(f'Permissions error: {random.choice(checkfail)}')
   elif isinstance(error, commands.errors.BadArgument):
-      await ctx.send(f'Bad argument error: {random.choice(badarg)}')
+    await ctx.send(f'Bad argument error: {random.choice(badarg)}')
+  elif isinstance(error, commands.errors.NotOwner):
+    await ctx.send(f'Not owner: {random.choice(checkfail)}')
+  elif isinstance(error, commands.errors.MissingRequiredArgument):
+    await ctx.send(f'Missing argument: {random.choice(badarg)}')
 
 if __name__ == '__main__':
   for ext in exts:

@@ -55,7 +55,7 @@ def format_syntax_error(e: SyntaxError) -> str:
     return '```py\n{0.text}{1:>{0.offset}}\n{2}: {0}```'.format(e, '^', type(e).__name__)
 
 
-class Exec(Cog):
+class Exec:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.last_result = None

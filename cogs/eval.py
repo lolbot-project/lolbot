@@ -29,7 +29,7 @@ import aiohttp
 import discord
 from discord.ext import commands
 
-from cogs.utils import haste
+from cogs.utils import paste
 
 log = logging.getLogger(__name__)
 

@@ -57,7 +57,6 @@ def format_syntax_error(e: SyntaxError) -> str:
 
 class Exec:
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
         self.last_result = None
 
     @commands.command(name='eval', aliases=['exec', 'debug'])

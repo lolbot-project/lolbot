@@ -16,24 +16,22 @@ from discord.ext import commands
 
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 
-try:
-  config = json.load(open('config.json'))
-except:
-  logging.debug('Something happened...')
-
 description = '''Just a bot :)'''
 checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 
 'no u', 'lol no', 'me too thanks', 'are you kidding me', 'kek']
 badarg = ['You need to put more info than this!', 'I didn\'t understand that.',
-'Sorry, can\'t process that.', 'Read ^help <command> for instructions.', 'Hmm?']
+'Sorry, can\'t process that.', 'Read {}help <command> for instructions.', 'Hmm?'].format(config['prefix'])
 exts = ['bots', 'donate', 'eval', 'fun', 'owner', 'stats', 'utility']
 
 class Lul(commands.AutoShardedBot):
+  def __init__(self, bot):
+    self.bot = bot
+    self.config = json.load(open('config.json')
   async def on_ready():
     logging.info('lolbot - ready')
     # note that we use " instead of ' here
     # this is a limitation of the fstring parser
-    await bot.change_presence(game=discord.Game(name=f'{config["prefix"]}help | v6.2'))
+    await bot.change_presence(game=discord.Game(name=f'{self.config["prefix"]}help | v6.2'))
     logging.info('Playing status changed')
 
   async def on_command_error(ctx, error):

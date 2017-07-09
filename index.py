@@ -17,16 +17,17 @@ from discord.ext import commands
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 
 description = '''Just a bot :)'''
-checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 
-'no u', 'lol no', 'me too thanks', 'are you kidding me', 'kek']
-badarg = ['You need to put more info than this!', 'I didn\'t understand that.',
-'Sorry, can\'t process that.', 'Read {}help <command> for instructions.', 'Hmm?'].format(config['prefix'])
 exts = ['bots', 'donate', 'eval', 'fun', 'owner', 'stats', 'utility']
 
 class Lul(commands.AutoShardedBot):
   def __init__(self, bot):
     self.bot = bot
     self.config = json.load(open('config.json'))
+    self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 
+    'no u', 'lol no', 'me too thanks', 'are you kidding me', 'kek']
+    self.badarg = ['You need to put more info than this!', 'I didn\'t understand that.',
+    'Sorry, can\'t process that.', 'Read {}help <command> for instructions.', 'Hmm?'].format(config['prefix'])
+
 
   async def on_ready():
     logging.info('lolbot - ready')
@@ -45,6 +46,7 @@ class Lul(commands.AutoShardedBot):
     elif isinstance(error, commands.errors.MissingRequiredArgument):
       await ctx.send(f'Missing argument: {random.choice(badarg)}')
 
+config = json.load(open('config.json'))
 bot = Lul(command_prefix=config['prefix'], description=description)
 
 if __name__ == '__main__':

@@ -31,7 +31,9 @@ exts = ['bots', 'donate', 'eval', 'fun', 'owner', 'stats', 'utility']
 class Lul(commands.AutoShardedBot):
   async def on_ready():
     logging.info('lolbot - ready')
-    await bot.change_presence(game=discord.Game(name='{}help | v6.2').format(config['prefix']))
+    # note that we use " instead of ' here
+    # this is a limitation of the fstring parser
+    await bot.change_presence(game=discord.Game(name=f'{config["prefix"]}help | v6.2'))
     logging.info('Playing status changed')
 
   async def on_command_error(ctx, error):

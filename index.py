@@ -28,24 +28,23 @@ badarg = ['You need to put more info than this!', 'I didn\'t understand that.',
 'Sorry, can\'t process that.', 'Read ^help <command> for instructions.', 'Hmm?']
 exts = ['bots', 'donate', 'eval', 'fun', 'owner', 'stats', 'utility']
 
-bot = commands.AutoShardedBot(command_prefix=config['prefix'], description=description)
+class Lul(commands.AutoShardedBot):
+  async def on_ready():
+    logging.info('lolbot - ready')
+    await bot.change_presence(game=discord.Game(name='{}help | v6.2').format(config['prefix']))
+    logging.info('Playing status changed')
 
-@bot.event
-async def on_ready():
-  logging.info('lolbot - ready')
-  await bot.change_presence(game=discord.Game(name='^help | v6.2'))
-  logging.info('Playing status changed')
+  async def on_command_error(ctx, error):
+    if isinstance(error, commands.errors.CheckFailure):
+      await ctx.send(f'Permissions error: {random.choice(checkfail)}')
+    elif isinstance(error, commands.errors.BadArgument):
+      await ctx.send(f'Bad argument error: {random.choice(badarg)}')
+    elif isinstance(error, commands.errors.NotOwner):
+      await ctx.send(f'Not owner: {random.choice(checkfail)}')
+    elif isinstance(error, commands.errors.MissingRequiredArgument):
+      await ctx.send(f'Missing argument: {random.choice(badarg)}')
 
-@bot.event
-async def on_command_error(ctx, error):
-  if isinstance(error, commands.errors.CheckFailure):
-    await ctx.send(f'Permissions error: {random.choice(checkfail)}')
-  elif isinstance(error, commands.errors.BadArgument):
-    await ctx.send(f'Bad argument error: {random.choice(badarg)}')
-  elif isinstance(error, commands.errors.NotOwner):
-    await ctx.send(f'Not owner: {random.choice(checkfail)}')
-  elif isinstance(error, commands.errors.MissingRequiredArgument):
-    await ctx.send(f'Missing argument: {random.choice(badarg)}')
+bot = Lul(command_prefix=config['prefix'], description=description)
 
 if __name__ == '__main__':
   for ext in exts:

@@ -1,3 +1,4 @@
+
 # lolbot dockerfile
 # licensed under MIT License
 # (c) 2017 S Stewart
@@ -6,8 +7,6 @@
 FROM python:3
 # obvs I need credit inside the file
 MAINTAINER "S Stewart <iamtheworst@programmer.net>"
-# Run the mkdir to make some place for it
-RUN mkdir /srv
 # The moment you've been waiting for... actually installing lolbot
 RUN cd /srv
 VOLUME ["/srv/lolbot"]

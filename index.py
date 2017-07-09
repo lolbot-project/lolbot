@@ -26,7 +26,7 @@ exts = ['bots', 'donate', 'eval', 'fun', 'owner', 'stats', 'utility']
 class Lul(commands.AutoShardedBot):
   def __init__(self, bot):
     self.bot = bot
-    self.config = json.load(open('config.json')
+    self.config = json.load(open('config.json'))
 
   async def on_ready():
     logging.info('lolbot - ready')

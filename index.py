@@ -26,8 +26,7 @@ class Lul(commands.AutoShardedBot):
     self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 
     'no u', 'lol no', 'me too thanks', 'are you kidding me', 'kek']
     self.badarg = ['You need to put more info than this!', 'I didn\'t understand that.',
-    'Sorry, can\'t process that.', 'Read {}help <command> for instructions.', 'Hmm?'].format(config['prefix'])
-
+    'Sorry, can\'t process that.', f'Read {config["prefix"]}help <command> for instructions.', 'Hmm?']
 
   async def on_ready():
     logging.info('lolbot - ready')

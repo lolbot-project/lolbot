@@ -38,13 +38,11 @@ class Lul(commands.AutoShardedBot):
 
   async def on_command_error(ctx, error):
     if isinstance(error, commands.errors.CheckFailure):
-      await ctx.send(f'Permissions error: {random.choice(checkfail)}')
+      await ctx.send(f'Permissions error: {random.choice(self.checkfail)}')
     elif isinstance(error, commands.errors.BadArgument):
-      await ctx.send(f'Bad argument error: {random.choice(badarg)}')
-    elif isinstance(error, commands.errors.NotOwner):
-      await ctx.send(f'Not owner: {random.choice(checkfail)}')
+      await ctx.send(f'Bad argument error: {random.choice(self.badarg)}')
     elif isinstance(error, commands.errors.MissingRequiredArgument):
-      await ctx.send(f'Missing argument: {random.choice(badarg)}')
+      await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
 
 config = json.load(open('config.json'))
 bot = Lul(command_prefix=config['prefix'], description=description)

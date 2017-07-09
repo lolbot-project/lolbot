@@ -28,14 +28,14 @@ class Lul(commands.AutoShardedBot):
     self.badarg = ['You need to put more info than this!', 'I didn\'t understand that.',
     'Sorry, can\'t process that.', f'Read {config["prefix"]}help <command> for instructions.', 'Hmm?']
 
-  async def on_ready():
+  async def on_ready(self):
     logging.info('lolbot - ready')
     # note that we use " instead of ' here
     # this is a limitation of the fstring parser
     await bot.change_presence(game=discord.Game(name=f'{self.config["prefix"]}help | v6.2'))
     logging.info('Playing status changed')
 
-  async def on_command_error(ctx, error):
+  async def on_command_error(self, ctx, error):
     if isinstance(error, commands.errors.CheckFailure):
       await ctx.send(f'Permissions error: {random.choice(self.checkfail)}')
     elif isinstance(error, commands.errors.BadArgument):

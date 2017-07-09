@@ -1,9 +1,6 @@
 # import modules
 import logging
-import io
-import textwrap
 import subprocess
-import contextlib
 import discord
 
 from discord.ext import commands
@@ -13,12 +10,13 @@ log = logging.getLogger(__name__)
 class Owner:
   def __init__(self, bot):
     self.bot = bot
+    self.config = json.load(open('config.json'))
 
   @commands.command(hidden=True)
   @commands.is_owner()
   async def reboot(self, ctx):
     """Duh. Owner only"""
-    rebootPend = discord.Embed(title='Rebooting', description='Rebooting...', colour=0x690E7)
+    rebootPend = discord.Embed(title='Rebooting', description='Rebooting...', colour=0x690E8)
     await ctx.send(embed=rebootPend)
     try:
       subprocess.check_output(['sh', 'bot.sh'])
@@ -34,7 +32,7 @@ class Owner:
   async def game(self, ctx, *, game: str):
     """Changes playing status"""
     try:
-      await self.bot.change_presence(game=discord.Game(name=game + ' | ^help | v6.2'))
+      await self.bot.change_presence(game=discord.Game(name=game + ' | {}help | v6.2').format(self.config['prefix']))
     except:
       await ctx.send('Something went wrong - check the console for details')
     else:

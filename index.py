@@ -20,8 +20,8 @@ description = '''Just a bot :)'''
 exts = ['bots', 'donate', 'eval', 'fun', 'owner', 'stats', 'utility']
 
 class Lul(commands.AutoShardedBot):
-  def __init__(self, bot):
-    self.bot = bot
+  def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
     self.config = json.load(open('config.json'))
     self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 
     'no u', 'lol no', 'me too thanks', 'are you kidding me', 'kek']

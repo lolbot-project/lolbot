@@ -1,5 +1,6 @@
 # import modules
 import logging
+import json
 import subprocess
 import discord
 

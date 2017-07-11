@@ -11,6 +11,10 @@
 	"dbotsorg": false,
 	"botid": "",
 	"dbots": "",
-	"dbl": ""
+	"dbl": "",
+	"//5": "This enables Sentry error reporting. Usually useless for selfhost instances - false by default",
+	"//6": "Place your Sentry string in sentryKey if sentry is true.",
+	"sentry": false,
+	"sentryKey": ""
 }
 

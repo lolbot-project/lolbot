@@ -58,7 +58,7 @@ class Lul(commands.AutoShardedBot):
       await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
     elif isinstance(error, commands.errors.CommandInvokeError):
       if self.config['sentry']:
-        self.bot.reporter.captureException()
+        self.reporter.captureException()
         await ctx.send('A error occured - sorry! This has been reported.')
       else:
         await ctx.send('A error occured - sorry!')

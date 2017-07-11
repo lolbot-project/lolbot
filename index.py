@@ -11,8 +11,8 @@ import random
 # import the rest 
 
 import discord
-
 from discord.ext import commands
+from raven import Client
 
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 
@@ -21,8 +21,20 @@ exts = ['bots', 'donate', 'eval', 'fun', 'owner', 'stats', 'utility']
 
 class Lul(commands.AutoShardedBot):
   def __init__(self, *args, **kwargs):
+    logging.info('sentry: init')
     super().__init__(*args, **kwargs)
     self.config = json.load(open('config.json'))
+    if self.config['sentry'] == True:
+      try:
+        self.reporter = Client(config['sentryKey'])
+      except:
+        logging.error('sentry: a error occured - sentry reporting is now disabled.', exc_info=True)
+        self.sentryEnabled = False
+      else:
+        self.sentryEnabled = True
+    else:
+      self.sentryEnabled = False
+       
     self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 
     'no u', 'lol no', 'me too thanks', 'are you kidding me', 'kek']
     self.badarg = ['You need to put more info than this!', 'I didn\'t understan'

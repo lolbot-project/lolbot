@@ -33,8 +33,6 @@ class DBots:
         await ctx.send('That bot is not in Discord Bots!')
       elif info.status == 504:
         await ctx.send('Server timed out - this is a fault with Discord Bots. Sorry!')
-      else:
-        await ctx.send('A error happened somewhere - sorry about that.')
 
 def setup(bot):
   bot.add_cog(DBots(bot))

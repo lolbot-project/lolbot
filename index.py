@@ -24,7 +24,7 @@ class Lul(commands.AutoShardedBot):
     logging.info('sentry: init')
     super().__init__(*args, **kwargs)
     self.config = json.load(open('config.json'))
-    if self.config['sentry'] == True:
+    if self.config['sentry']:
       try:
         self.reporter = Client(config['sentryKey'])
       except:
@@ -56,7 +56,12 @@ class Lul(commands.AutoShardedBot):
       await ctx.send(f'Bad argument error: {random.choice(self.badarg)}')
     elif isinstance(error, commands.errors.MissingRequiredArgument):
       await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
-
+    elif isinstance(error, commands.errors.CommandInvokeError):
+      if self.config['sentry']:
+        self.reporter.captureException()
+        await ctx.send('A error occured - sorry! This has been reported.')
+      else:
+        await ctx.send('A error occured - sorry!')
 config = json.load(open('config.json'))
 bot = Lul(command_prefix=config['prefix'], description=description)
 

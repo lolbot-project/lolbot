@@ -56,7 +56,8 @@ def format_syntax_error(e: SyntaxError) -> str:
 
 
 class Exec:
-    def __init__(self, *args, **kwargs):
+    def __init__(self, bot, *args, **kwargs):
+        self.bot = bot
         self.last_result = None
 
     @commands.command(name='eval', aliases=['exec', 'debug'])
@@ -71,6 +72,7 @@ class Exec:
             await ctx.send(*args, **kwargs)
 
         env = {
+            'self': self,
             'bot': ctx.bot,
             'ctx': ctx,
             'msg': ctx.message,
@@ -134,7 +136,7 @@ class Exec:
             except discord.HTTPException:
                 # too long
                 try:
-                    url = await haste(ctx.bot.session, stream + repr(ret))
+                    url = await paste(ctx.bot.session, stream + repr(ret))
                     await ctx.send('Result was too long. ' + url)
                 except KeyError:
                     # even hastebin couldn't handle it

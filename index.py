@@ -20,9 +20,7 @@ description = '''Just a bot :)'''
 exts = ['bots', 'donate', 'eval', 'fun', 'owner', 'stats', 'utility']
 
 class Lul(commands.AutoShardedBot):
-  def __init__(self, bot, *args, **kwargs):
-    # this is just for memes, making sure raven doesn't go boom
-    self.bot = bot
+  def __init__(self, *args, **kwargs):
     logging.info('sentry: init')
     super().__init__(*args, **kwargs)
     self.config = json.load(open('config.json'))

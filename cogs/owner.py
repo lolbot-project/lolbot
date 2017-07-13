@@ -11,6 +11,7 @@ log = logging.getLogger(__name__)
 class Owner:
   def __init__(self, bot):
     self.bot = bot
+    self.reporter = self.bot.reporter
     self.config = json.load(open('config.json'))
 
   @commands.command(hidden=True)
@@ -35,6 +36,7 @@ class Owner:
     try:
       await self.bot.change_presence(game=discord.Game(name=game + ' | {}help | v6.2').format(self.config['prefix']))
     except:
+      
       await ctx.send('Something went wrong - check the console for details')
     else:
       await ctx.send(':white_check_mark: Changed game')

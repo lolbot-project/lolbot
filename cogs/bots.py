@@ -6,6 +6,7 @@ import aiohttp
 class DBots:
   def __init__(self, bot):
     self.bot = bot
+    self.reporter = self.bot.reporter
     self.session = aiohttp.ClientSession(loop=self.bot.loop)
     self.config = json.load(open('config.json'))
     self.headers = {

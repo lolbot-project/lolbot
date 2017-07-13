@@ -6,6 +6,7 @@ from discord.ext import commands
 class Fun:
   def __init__(self, bot):
     self.bot = bot
+    self.reporter = self.bot.reporter
     self.session = aiohttp.ClientSession(loop=self.bot.loop)
 
   @commands.command()

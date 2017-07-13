@@ -31,8 +31,11 @@ class Lul(commands.AutoShardedBot):
         logging.error('sentry: a error occured - sentry reporting is now disabled.', exc_info=True)
         self.sentryEnabled = False
       else:
-        logging.info('sentry: init success, reporting enabled')
-        self.sentryEnabled = True
+        if self.reporter == None:
+          logging.error('sentry: oh fuck sentry machine broke')
+        else:
+          logging.info('sentry: init success, reporting enabled')
+          self.sentryEnabled = True
     else:
       self.sentryEnabled = False
        

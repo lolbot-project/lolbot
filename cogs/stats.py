@@ -8,7 +8,7 @@ config = json.load(open('config.json'))
 class Stats:
   def __init__(self, bot):
     self.bot = bot
-    session = aiohttp.ClientSession()
+    self.session = aiohttp.ClientSession()
     self.payload = json.dumps({
       'server_count': len(self.bot.guilds)
     })

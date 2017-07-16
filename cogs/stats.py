@@ -8,7 +8,7 @@ config = json.load(open('config.json'))
 class Stats:
   def __init__(self, bot):
     self.bot = bot
-    payload = json.dumps({
+    self.payload = json.dumps({
       'server_count': len(self.bot.guilds)
     })
   async def listpost(self):
@@ -21,7 +21,7 @@ class Stats:
         'Content-Type': 'application/json'
       }
       dbl_url = 'https://discordbots.org/api/bots/' + config['botid'] + '/stats'
-      async with session.post(dbl_url, data=payload, headers=dbl_headers) as dbl_resp:
+      async with session.post(dbl_url, data=self.payload, headers=dbl_headers) as dbl_resp:
         if dbl_resp.status == 200:
           logging.info('dbl: posted!')
         else:
@@ -35,7 +35,7 @@ class Stats:
         'Content-Type': 'application/json'
       }
       dbots_url = 'https://bots.discord.pw/api/bots/' + config['botid'] + '/stats'
-      async with session.post(dbots_url, data=payload, headers=headers) as resp:
+      async with session.post(dbots_url, data=self.payload, headers=headers) as resp:
         assert resp.status == 200
         logging.info('dbots: posted!')
 

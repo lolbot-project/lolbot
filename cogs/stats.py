@@ -6,7 +6,10 @@ logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 config = json.load(open('config.json'))
 
 class Stats:
-  async def listpost(self):
+  async def listpost(self, bot):
+    payload = json.dumps({
+      'server_count': len(bot.guilds)
+    })
     session = aiohttp.ClientSession()
     if config['dbotsorg'] == False:
       logging.info('not posting to discordbots.org')
@@ -30,15 +33,14 @@ class Stats:
         'Content-Type': 'application/json'
       }
       dbots_url = 'https://bots.discord.pw/api/bots/' + config['botid'] + '/stats'
-      async with session.post(dbots_url, data=self.payload, headers=headers) as resp:
+      async with session.post(dbots_url, data=payload, headers=headers) as resp:
         assert resp.status == 200
         logging.info('dbots: posted!')
 
   def __init__(self, bot):
     self.bot = bot
-    self.payload = json.dumps({
-      'server_count': len(self.bot.guilds)
-    })
+    self.post = listpost
+
   async def on_guild_join( self, guild ):
     logging.info('Joined guild "' + str(guild.name) + '" ID: ' + str(guild.id))
     await listpost()

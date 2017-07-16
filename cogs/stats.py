@@ -6,12 +6,6 @@ logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 config = json.load(open('config.json'))
 
 class Stats:
-  def __init__(self, bot):
-    self.bot = bot
-    self.session = aiohttp.ClientSession()
-    self.payload = json.dumps({
-      'server_count': len(self.bot.guilds)
-    })
   async def dbotspost(self):
     if config['dbotsorg'] == False:
       logging.info('not posting to discordbots.org')
@@ -40,15 +34,24 @@ class Stats:
           if resp.status == 200:
             logging.info('dbots: posted!')
 
+  def __init__(self, bot):
+    self.bot = bot
+    self.session = aiohttp.ClientSession()
+    self.payload = json.dumps({
+      'server_count': len(self.bot.guilds)
+    })
+    self.dbotspost = dbotspost
+    self.dblpost = dblpost
+
   async def on_guild_join( self, guild ):
     logging.info('Joined guild "' + str(guild.name) + '" ID: ' + str(guild.id))
-    await dbotspost()
-    await dblpost()
+    await self.dbotspost()
+    await self.dblpost()
 
   async def on_guild_remove( self, guild ):
     logging.info('Left ' + str(guild.name))
-    await dbotspost()
-    await dblpost()
+    await self.dbotspost()
+    await self.dblpost()
 
 def setup(bot):
   bot.add_cog(Stats(bot))

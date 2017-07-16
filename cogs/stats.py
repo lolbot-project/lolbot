@@ -6,11 +6,6 @@ logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 config = json.load(open('config.json'))
 
 class Stats:
-  def __init__(self, bot):
-    self.bot = bot
-    self.payload = json.dumps({
-      'server_count': len(self.bot.guilds)
-    })
   async def listpost(self):
     session = aiohttp.ClientSession()
     if config['dbotsorg'] == False:
@@ -39,6 +34,11 @@ class Stats:
         assert resp.status == 200
         logging.info('dbots: posted!')
 
+  def __init__(self, bot):
+    self.bot = bot
+    self.payload = json.dumps({
+      'server_count': len(self.bot.guilds)
+    })
   async def on_guild_join( self, guild ):
     logging.info('Joined guild "' + str(guild.name) + '" ID: ' + str(guild.id))
     await listpost()

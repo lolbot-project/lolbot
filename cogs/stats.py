@@ -8,12 +8,11 @@ config = json.load(open('config.json'))
 class Stats:
   def __init__(self, bot):
     self.bot = bot
- 
-  async def listpost():
-    session = aiohttp.ClientSession()
     payload = json.dumps({
       'server_count': len(self.bot.guilds)
     })
+  async def listpost(self):
+    session = aiohttp.ClientSession()
     if config['dbotsorg'] == False:
       logging.info('not posting to discordbots.org')
     else:
@@ -26,7 +25,7 @@ class Stats:
         if dbl_resp.status == 200:
           logging.info('dbl: posted!')
         else:
-          logging.info(f'dbl: something weird happened: code {dbl_resp.statu}.')                                                   
+          logging.info(f'dbl: something weird happened: code {dbl_resp.status}.')                                                   
 
     if config['dbotspw'] == False:
       logging.info('not posting to bots.discord.pw')

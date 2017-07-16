@@ -7,14 +7,30 @@
 import json
 import logging
 import random
+logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 
 # import the rest 
 
 import discord
 from discord.ext import commands
-from raven import Client
-
-logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
+# Make raven a optional dep
+try:
+  from raven import Client
+except ImportError:
+  logging.warning('sentry: raven not found, no sentry reporting')
+  sentryImported = False
+else:
+  logging.info('sentry: import success')
+  sentryImported = True
+# Make datadog also a optional dep
+try:
+  from datadog import statsd
+except ImportError:
+  logging.warning('datadog: datadog not found, no data collection')
+  datadogImported = False
+else:
+  logging.info('datadog: import success')
+  datadogImported = True
 
 description = '''Just a bot :)'''
 exts = ['bots', 'donate', 'eval', 'fun', 'owner', 'stats', 'utility']
@@ -24,21 +40,23 @@ class Lul(commands.AutoShardedBot):
     logging.info('sentry: init')
     super().__init__(*args, **kwargs)
     self.config = json.load(open('config.json'))
-    if self.config['sentry']:
-      try:
-        self.reporter = Client(config['sentryKey'])
-      except:
-        logging.error('sentry: a error occured - sentry reporting is now disabled.', exc_info=True)
-        self.sentryEnabled = False
-      else:
-        if self.reporter == None:
-          logging.error('sentry: oh fuck sentry machine broke')
+    if sentryImported == True:
+      if self.config['sentry']:
+        try:
+          self.reporter = Client(config['sentryKey'])
+        except:
+          logging.error('sentry: a error occured - sentry reporting is now disabled.', exc_info=True)
+          self.sentryEnabled = False
         else:
-          logging.info('sentry: init success, reporting enabled')
-          self.sentryEnabled = True
+          if self.reporter == None:
+            logging.error('sentry: oh fuck sentry machine broke')
+          else:
+            logging.info('sentry: init success, reporting enabled')
+            self.sentryEnabled = True
+      else:
+        self.sentryEnabled = False
     else:
       self.sentryEnabled = False
-       
     self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 
     'no u', 'lol no', 'me too thanks', 'are you kidding me', 'kek']
     self.badarg = ['You need to put more info than this!', 'I didn\'t understan'

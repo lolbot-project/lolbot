@@ -8,13 +8,12 @@ config = json.load(open('config.json'))
 class Stats:
   def __init__(self, bot):
     self.bot = bot
-    self.session = aiohttp.ClientSession(loop=self.bot.loop)
-    self.payload = json.dumps({
+ 
+  async def listpost():
+    session = aiohttp.ClientSession()
+    payload = json.dumps({
       'server_count': len(self.bot.guilds)
     })
-
- 
-  async def listpost(self):
     if config['dbotsorg'] == False:
       logging.info('not posting to discordbots.org')
     else:
@@ -23,9 +22,11 @@ class Stats:
         'Content-Type': 'application/json'
       }
       dbl_url = 'https://discordbots.org/api/bots/' + config['botid'] + '/stats'
-      async with self.session.post(dbl_url, data=self.payload, headers=dbl_headers) as dbl_resp:
-        assert dbl_resp.status == 200
-        logging.info('dbl: posted!')
+      async with session.post(dbl_url, data=payload, headers=dbl_headers) as dbl_resp:
+        if dbl_resp.status == 200:
+          logging.info('dbl: posted!')
+        else:
+          logging.info(f'dbl: something weird happened: code {dbl_resp.statu}.')                                                   
 
     if config['dbotspw'] == False:
       logging.info('not posting to bots.discord.pw')
@@ -35,7 +36,7 @@ class Stats:
         'Content-Type': 'application/json'
       }
       dbots_url = 'https://bots.discord.pw/api/bots/' + config['botid'] + '/stats'
-      async with self.session.post(dbots_url, data=self.payload, headers=headers) as resp:
+      async with session.post(dbots_url, data=payload, headers=headers) as resp:
         assert resp.status == 200
         logging.info('dbots: posted!')
 

@@ -11,7 +11,6 @@ log = logging.getLogger(__name__)
 class Owner:
   def __init__(self, bot):
     self.bot = bot
-    self.reporter = self.bot.reporter
     self.config = json.load(open('config.json'))
 
   @commands.command(hidden=True)

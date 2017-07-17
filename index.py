@@ -13,15 +13,7 @@ logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 
 import discord
 from discord.ext import commands
-# Make raven a optional dep
-try:
-  from raven import Client
-except ImportError:
-  logging.warning('sentry: raven not found, no sentry reporting')
-  sentryImported = False
-else:
-  logging.info('sentry: import success')
-  sentryImported = True
+
 # Make datadog also a optional dep
 try:
   from datadog import statsd

@@ -9,7 +9,6 @@ config = json.load(open('config.json'))
 class Utility:
   def __init__(self, bot):
     self.bot = bot
-    self.reporter = self.bot.reporter
     self.support = 'https://discord.gg/PEW4wx9'
 
   @commands.command()

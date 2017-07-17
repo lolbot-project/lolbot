@@ -32,23 +32,7 @@ class Lul(commands.AutoShardedBot):
     logging.info('sentry: init')
     super().__init__(*args, **kwargs)
     self.config = json.load(open('config.json'))
-    if sentryImported == True:
-      if self.config['sentry']:
-        try:
-          self.reporter = Client(config['sentryKey'])
-        except:
-          logging.error('sentry: a error occured - sentry reporting is now disabled.', exc_info=True)
-          self.sentryEnabled = False
-        else:
-          if self.reporter == None:
-            logging.error('sentry: oh fuck sentry machine broke')
-          else:
-            logging.info('sentry: init success, reporting enabled')
-            self.sentryEnabled = True
-      else:
-        self.sentryEnabled = False
-    else:
-      self.sentryEnabled = False
+
     self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 
     'no u', 'lol no', 'me too thanks', 'are you kidding me', 'kek']
     self.badarg = ['You need to put more info than this!', 'I didn\'t understan'

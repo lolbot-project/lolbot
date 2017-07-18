@@ -9,7 +9,7 @@ import logging
 import random
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 
-# import the rest 
+# import the rest
 
 import discord
 from discord.ext import commands
@@ -33,10 +33,10 @@ class Lul(commands.AutoShardedBot):
     super().__init__(*args, **kwargs)
     self.config = json.load(open('config.json'))
 
-    self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 
+    self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod',
     'no u', 'lol no', 'me too thanks', 'are you kidding me', 'kek']
     self.badarg = ['You need to put more info than this!', 'I didn\'t understan'
-    'd that.', 'Sorry, can\'t process that.', 
+    'd that.', 'Sorry, can\'t process that.',
     'Read ' + self.config['prefix'] + 'help <command> for instructions.', 'Hmm?']
 
   async def on_ready(self):
@@ -54,11 +54,7 @@ class Lul(commands.AutoShardedBot):
     elif isinstance(error, commands.errors.MissingRequiredArgument):
       await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
     elif isinstance(error, commands.errors.CommandInvokeError):
-      if self.config['sentry']:
-        self.reporter.captureException()
-        await ctx.send('A error occured - sorry! This has been reported.')
-      else:
-        await ctx.send('A error occured - sorry!')
+      await ctx.send('A error occured, sorry... I\'ve gone ahead and reported it.')
 config = json.load(open('config.json'))
 bot = Lul(command_prefix=config['prefix'], description=description)
 

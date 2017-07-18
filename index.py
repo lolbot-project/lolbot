@@ -34,10 +34,10 @@ class Lul(commands.AutoShardedBot):
         self.config = json.load(open('config.json'))
         if self.config['debug']:
             if self.config['channel'] == "":
-                logging.error('debug: you need a channel for debug mode!')
+                logging.error('debug: you need a channel for debug mode! are you dumb?')
                 sys.exit(1)
             else:
-                pass
+                self.debugOK = True
         else:
             pass
         self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 'no u', 
@@ -61,7 +61,11 @@ class Lul(commands.AutoShardedBot):
         elif isinstance(error, commands.errors.MissingRequiredArgument):
             await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
         elif isinstance(error, commands.errors.CommandInvokeError):
-            await ctx.send('A error occured, sorry... I\'ve gone ahead and reported it.')
+            if self.debugOK == True:
+                await ctx.send('A error occured, sorry... This issue has been reported.')
+                await bot.
+            else:
+                await ctx.send('A error occured, sorry...')
 
 config = json.load(open('config.json'))
 bot = Lul(command_prefix=config['prefix'], description=description)

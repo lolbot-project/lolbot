@@ -32,7 +32,7 @@ class Utility:
     # get_owner = bot.get_user_info(config['ownerid'])
     statInfo = await ctx.bot.application_info()
     statEmbed = discord.Embed(title='Stats', description='This bot is'
-   ' powered by [lolbot](https://github.com/xshotD/lolbot), a fast and powerful '
+   ' powered by [lolbot](https://github.com/tilda/lolbot), a fast and powerful '
    'Python bot.', colour=0x690E8)
     statEmbed.add_field(name='Owner', value=statInfo.owner.mention + '('
     + str(statInfo.owner) + ' - ID: ' + str(statInfo.owner.id) + ')')

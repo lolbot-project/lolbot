@@ -31,7 +31,7 @@ class Lul(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         logging.info('sentry: init')
         super().__init__(*args, **kwargs)
-        self.config = json.load(open('config.json'))
+       self.config = json.load(open('config.json'))
         if self.config['debug']:
             if self.config['channel'] == "":
                 logging.error('debug: you need a channel for debug mode! are you dumb?')
@@ -39,7 +39,7 @@ class Lul(commands.AutoShardedBot):
             else:
                 self.debugOK = True
         else:
-            pass
+            self.debugOK = False
         self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 'no u', 
         'lol no', 'me too thanks', 'are you kidding me', 'kek']
         self.badarg = ['You need to put more info than this!', 'I didn\'t understan'
@@ -62,8 +62,13 @@ class Lul(commands.AutoShardedBot):
             await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
         elif isinstance(error, commands.errors.CommandInvokeError):
             if self.debugOK == True:
+                # thanks jose
+                tb = ''.join(traceback.format_exception(
+                    type(error.original), error.original,
+                    error.original.__traceback__
+                ))
                 await ctx.send('A error occured, sorry... This issue has been reported.')
-                await bot.
+                await bot.get_channel(self.config['channel']).send(f'Something happened - Logs: ```\n{tb}\n```')
             else:
                 await ctx.send('A error occured, sorry...')
 

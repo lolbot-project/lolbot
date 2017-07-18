@@ -31,7 +31,7 @@ class Lul(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         logging.info('sentry: init')
         super().__init__(*args, **kwargs)
-       self.config = json.load(open('config.json'))
+        self.config = json.load(open('config.json'))
         if self.config['debug']:
             if self.config['channel'] == "":
                 logging.error('debug: you need a channel for debug mode! are you dumb?')

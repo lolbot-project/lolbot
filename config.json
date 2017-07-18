@@ -3,18 +3,17 @@
         "token": "",
 	"//2": "Enter your prefix (default: ^)",
 	"prefix": "^",
-	"//2": "Enter your ID for stats, etc to work",
+	"//3": "Enter your ID for stats, etc to work",
         "ownerid": "",
-	"//3": "For bot list submissions to work (Bot's ID is also for invite command)",
-	"//4": "note that bot list reporting is usually disabled - to enable it change false to true.",
+	"//4": "For bot list submissions to work (Bot's ID is also for invite command)",
+	"//5": "note that bot list reporting is usually disabled - to enable it change false to true.",
 	"dbotspw": false,
 	"dbotsorg": false,
 	"botid": "",
 	"dbots": "",
 	"dbl": "",
-	"//5": "This enables Sentry error reporting. Usually useless for selfhost instances - false by default",
-	"//6": "Place your Sentry string in sentryKey if sentry is true.",
-	"sentry": false,
-	"sentryKey": ""
+	"//6": "This is simply to report errors. This should probably only be turned on in development.",
+	"//7": "If debug is set to true, you need to input a channel ID for the bot to send to.",
+	"debug": false,
+        "channel": ""	
 }
-

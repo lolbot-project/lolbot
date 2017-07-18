@@ -12,8 +12,8 @@
 	"botid": "",
 	"dbots": "",
 	"dbl": "",
-	"//6": "This is solely for development purposes and should normally not be tuned on.",
-	"//7": "If debug is set to true, you must input a channel ID for log sending.",
+	"//6": "This setting should only be turned on in development",
+	"//7": "If enabled you must provide a channel ID",
 	"debug": false,
 	"channel": ""
 }

@@ -11,9 +11,8 @@ RUN echo "We are going to start in a few seconds."
 RUN echo "Please make sure your config.json is setup"
 RUN sleep 3
 # The moment you've been waiting for... actually installing lolbot
-RUN cd /srv
 VOLUME ["/srv/lolbot"]
-RUN cd lolbot
+WORKDIR /srv/lolbot
 RUN pip install -Ur requirements.txt
 # and we're gonna run it!
 CMD ["python", "/srv/lolbot/index.py"]

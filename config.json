@@ -1,10 +1,10 @@
 {
 	"//1": "Enter your token down below",
-        "token": "",
+	"token": "",
 	"//2": "Enter your prefix (default: ^)",
 	"prefix": "^",
 	"//3": "Enter your ID for stats, etc to work",
-        "ownerid": "",
+	"ownerid": "",
 	"//4": "For bot list submissions to work (Bot's ID is also for invite command)",
 	"//5": "note that bot list reporting is usually disabled - to enable it change false to true.",
 	"dbotspw": false,
@@ -15,5 +15,5 @@
 	"//6": "This is simply to report errors. This should probably only be turned on in development.",
 	"//7": "If debug is set to true, you need to input a channel ID for the bot to send to.",
 	"debug": false,
-        "channel": ""	
+	"channel": ""
 }

@@ -22,12 +22,12 @@ class Stats:
                 'Authorization': config['dbl'],
                 'Content-Type': 'application/json'
             }
-        dbl_url = 'https://discordbots.org/api/bots/' + config['botid'] + '/stats'
-        async with self.session.post(dbl_url, data=self.payload, headers=dbl_headers) as dbl_resp:
-            if dbl_resp.status == 200:
-                logging.info('dbl: posted!')
-            else:
-                logging.info(f'dbl: something weird happened: code {dbl_resp.status}.')
+            dbl_url = 'https://discordbots.org/api/bots/' + config['botid'] + '/stats'
+            async with self.session.post(dbl_url, data=self.payload, headers=dbl_headers) as dbl_resp:
+                if dbl_resp.status == 200:
+                    logging.info('dbl: posted!')
+                else:
+                    logging.info(f'dbl: something weird happened: code {dbl_resp.status}.')
 
     async def dblpost(self):
         if config['dbotspw'] == False:

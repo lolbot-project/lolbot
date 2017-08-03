@@ -12,8 +12,10 @@
 	"botid": "",
 	"dbots": "",
 	"dbl": "",
-	"//6": "This setting should only be turned on in development",
-	"//7": "If enabled you must provide a channel ID",
+	"//6": "Enable the HTTP API for stats on the site if you're running it",
+	"api": true,
+	"//7": "This setting should only be turned on in development",
+	"//8": "If enabled you must provide a channel ID",
 	"debug": false,
 	"channel": ""
 }

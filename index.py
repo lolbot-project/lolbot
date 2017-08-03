@@ -7,6 +7,7 @@
 import json
 import logging
 import random
+import time
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 
 # import the rest
@@ -45,6 +46,8 @@ class Lul(commands.AutoShardedBot):
         self.badarg = ['You need to put more info than this!', 'I didn\'t understan'
         'd that.', 'Sorry, can\'t process that.',
         'Read ' + self.config['prefix'] + 'help <command> for instructions.', 'Hmm?']
+        # To be fair, we should record the init time after everything is ready
+        self.init_time = time.time()
 
     async def on_ready(self):
         logging.info('lolbot - ready')

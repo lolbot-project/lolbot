@@ -14,17 +14,15 @@ class Utility:
   @commands.command()
   async def uptime(self, ctx):
     """Shows uptime of lolbot"""
+    # Thanks Luna you make good code lul
+    sec = round(time.time() - self.bot.init_time)
+    m, s = divmod(sec, 60)
+    h, m = divmod(m, 60)
+    d, h = divmod(h, 24)
     upEm = discord.Embed(title='Uptime', colour=0x690E8)
-    startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(startepoch))
-    #timeUp = get_up()
-    nowEpoch = time.time()
-    upEpoch = nowEpoch - startepoch 
+    startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(startepoch) + ' ')
     upEm.add_field(name='Started on', value=startedOn)
-    upEm.add_field(name='Uptime', value=time.strftime('%H:%M:%S', time.localtime(upEpoch)))
-    try:
-      await ctx.send(embed=upEm)
-    except Exception as ex:
-      await ctx.send('Something broke - sorry!')
+    upEm.add_field(name='Uptime', value=f'{d}:{h}:{m}:{s}')
 
   @commands.command()
   async def stats(self, ctx):

@@ -7,6 +7,7 @@
 import json
 import logging
 import random
+import sys
 import time
 import traceback
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
@@ -30,10 +31,9 @@ description = '''Just a bot :)'''
 exts = ['bots', 'donate', 'eval', 'fun', 'owner', 'stats', 'utility']
 
 class Lul(commands.AutoShardedBot):
-    def __init__(self, bot, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config = json.load(open('config.json'))
-        self.bot = bot
         if self.config['debug']:
             if self.config['channel'] == "":
                 logging.error('debug: you need a channel for debug mode! are you dumb?')
@@ -72,7 +72,7 @@ class Lul(commands.AutoShardedBot):
                     error.original.__traceback__
                 ))
                 await ctx.send('A error occured, sorry... This issue has been reported.')
-                await self.bot.get_channel(self.config['channel']).send(f'Something happened - Logs: ```\n{tb}\n```')
+                await self.get_channel(self.config['channel']).send(f'Something happened - Logs: ```\n{tb}\n```')
             else:
                 await ctx.send('A error occured, sorry...')
 

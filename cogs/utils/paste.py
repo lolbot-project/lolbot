@@ -1,5 +1,5 @@
-""" Yet another steal from Dogbot. :) """
-""" Source: https://github.com/sliceofcode/dogbot/blob/master/dog/haste.py """
+# Yet another steal from Dogbot. :) 
+# Source: https://github.com/slice/dogbot/blob/master/dog/haste.py
 
 """ Facilities for pasting things to Hastebin. """
 

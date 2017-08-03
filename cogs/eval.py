@@ -1,6 +1,6 @@
-"""The following code is (c) sliceofcode 2017."""
-"""Source: https://github.com/sliceofcode/dogbot/blob/master/dog/core/ext/exec.py """
-
+# The following code is a version of woof/dogbot's eval command
+# Most code in this is (c) 2017 slice
+# Some bits and pieces (c) 2017 tilda
 """
 Handy exec (eval, debug) cog. Allows you to run code on the bot during runtime. This cog
 is a combination of the exec commands of other bot authors:
@@ -126,7 +126,7 @@ class Exec:
 
             try:
                 await ctx.message.add_reaction('\u2705')
-            except:
+            except discord.Forbidden:
                 # couldn't add the reaction, ignore
                 log.warning('Failed to add reaction to eval message, ignoring.')
 

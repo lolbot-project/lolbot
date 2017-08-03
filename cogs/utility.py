@@ -4,7 +4,6 @@ import json
 import discord
 from discord.ext import commands
 from random import choice as rchoice
-startepoch = time.time()
 config = json.load(open('config.json'))
 class Utility:
   def __init__(self, bot):

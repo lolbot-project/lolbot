@@ -40,14 +40,7 @@ class Utility:
     'Where did the RAM go?', 'grumble grumble', 'Please hold.', 'No, just, no.',
     'Have you tried rebooting?', 'memework makes the dreamwork!']
     statEmbed.set_footer(text=rchoice(statPool))
-    try:
-      await ctx.send(embed=statEmbed)
-    except:
-      await ctx.send('Sorry, I can\'t send the Embed.')
-      await ctx.send('Maybe I don\'t have Embed Links permission?')
-    else:
-      pass
-
+    await ctx.send(embed=statEmbed)
   @commands.command()
   async def ping(self, ctx):
       """Does exactly what you think it does"""

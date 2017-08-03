@@ -72,7 +72,7 @@ class Lul(commands.AutoShardedBot):
                     error.original.__traceback__
                 ))
                 await ctx.send('A error occured, sorry... This issue has been reported.')
-                await bot.get_channel(self.config['channel']).send(f'Something happened - Logs: ```\n{tb}\n```')
+                await self.bot.get_channel(self.config['channel']).send(f'Something happened - Logs: ```\n{tb}\n```')
             else:
                 await ctx.send('A error occured, sorry...')
 

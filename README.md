@@ -13,8 +13,8 @@ I highly suggest you don't run your own instance as lolbot's official instance i
 
 - Python 3.6
 - Some python modules (`pip install -Ur requirements.txt`)
-- A text editor
-- Knowledge on how to maintain the bot
+- A text editor that isn't notepad or something
+- Knowing how to actually maintain a bot
 
 ## Running
 

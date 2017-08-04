@@ -4,21 +4,21 @@ import discord
 import aiohttp
 
 class DBots:
-  def __init__(self, bot):
-    self.bot = bot
-    self.session = aiohttp.ClientSession(loop=self.bot.loop)
-    self.config = json.load(open('config.json'))
-    self.headers = {
-      'Authorization': self.config['dbots'],
-      'Content-Type': 'application/json'
-    }
+    def __init__(self, bot):
+      self.bot = bot
+      self.session = aiohttp.ClientSession(loop=self.bot.loop)
+      self.config = json.load(open('config.json'))
+      self.headers = {
+        'Authorization': self.config['dbots'],
+        'Content-Type': 'application/json'
+      }
 
-  @commands.group()
-  async def dbots(self, ctx):
-    """Does stuff with bots.discord.pw"""
-    if ctx.invoked_subcommand is None:
-      await ctx.send('You must provide a subcommand! Subcommands:'
-      '`count, info, owner, invite`')
+    @commands.group()
+    async def dbots(self, ctx):
+        """Does stuff with bots.discord.pw"""
+        if ctx.invoked_subcommand is None:
+          await ctx.send('You must provide a subcommand! Subcommands:'
+       '  `count, info, owner, invite`')
 
   @dbots.command(name='owner')
   async def dbots_owner(self, ctx, wanted: discord.Member):
@@ -28,13 +28,15 @@ class DBots:
         await ctx.send('This bot does not have a DBots API key set up.')
       else:
         if info.status == 200:
-          botinfo = await info.json()
-          if len(botinfo['owner_ids']) == 1:
-            owner = self.bot.get_user(botinfo['owner_ids'][0])
-            await ctx.send(f'The bot {wanted.mention} is owned by {owner.name}#{owner.discriminator}')
-          elif info.status == 404:
+            botinfo = await info.json()
+            bot = await self.bot.get_user(botinfo['user_id'])
+            # No multi-owner bot support yet
+            # Because doing that is hard for me tbh
+            owner = await self.bot.get_user(botinfo['owner_ids'][0])
+            ownerbed = discord.Embed(title=f'Who owns {bot.mention}?', description=f'{owner.mention} does!', colour=0x690E8)
+        elif info.status == 404:
             await ctx.send('That bot is not in Discord Bots!')
-          elif info.status == 504:
+        elif info.status == 504:
             await ctx.send('Server timed out - this is a fault with Discord Bots. Sorry!')
 
 def setup(bot):

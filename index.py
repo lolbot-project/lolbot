@@ -14,6 +14,7 @@ logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 
 # import the rest
 
+import aiohttp
 import discord
 from discord.ext import commands
 
@@ -35,6 +36,7 @@ class Lul(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config = json.load(open('config.json'))
+        self.session = aiohttp.ClientSession()
         if self.config['debug']:
             if self.config['channel'] == "":
                 logging.error('debug: you need a channel for debug mode! are you dumb?')

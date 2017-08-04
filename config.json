@@ -1,10 +1,10 @@
 {
 	"//1": "Enter your token down below",
-	"token": "MzMzNjg1NjA2MjkzMDQ1MjU5.DGRmRA.-iN2NyxUEeZxLIlF_87C-XGPQeA",
+	"token": "",
 	"//2": "Enter your prefix (default: ^)",
-	"prefix": "^^",
+	"prefix": "^",
 	"//3": "Enter your ID for stats, etc to work",
-	"ownerid": "237378015141691392",
+	"ownerid": "",
 	"//4": "For bot list submissions to work (Bot's ID is also for invite command)",
 	"//5": "note that bot list reporting is usually disabled - to enable it change false to true.",
 	"dbotspw": false,
@@ -16,6 +16,6 @@
 	"api": true,
 	"//7": "This setting is mostly ideal for development",
 	"//8": "If enabled you must provide a channel ID",
-	"debug": true,
-	"channel": "295224292927340547"
+	"debug": false,
+	"channel": ""
 }

@@ -21,10 +21,11 @@ from discord.ext import commands
 try:
     from datadog import statsd
 except ImportError:
-    logging.warning('datadog: datadog not found, no data collection')
+    logging.warning('datadog: datadog not installed')
+    logging.warning('datadog: disabled data sending')
     datadogImported = False
 else:
-    logging.info('datadog: import success')
+    logging.info('datadog: enabled data sending')
     datadogImported = True
 
 description = '''Just a bot :)'''
@@ -42,7 +43,7 @@ class Lul(commands.AutoShardedBot):
                 self.debugOK = True
         else:
             self.debugOK = False
-        self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 'no u', 
+        self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 'no u',
         'lol no', 'me too thanks', 'are you kidding me', 'kek']
         self.badarg = ['You need to put more info than this!', 'I didn\'t understan'
         'd that.', 'Sorry, can\'t process that.',
@@ -74,8 +75,8 @@ class Lul(commands.AutoShardedBot):
                 await ctx.send('A error occured, sorry... This issue has been reported.')
                 await self.get_channel(self.config['channel']).send(f'Something happened - Logs: ```\n{tb}\n```')
             else:
+                logging.error('A error occured.', exc_info=True)
                 await ctx.send('A error occured, sorry...')
-
 config = json.load(open('config.json'))
 bot = Lul(command_prefix=config['prefix'], description=description)
 
@@ -89,4 +90,3 @@ if __name__ == '__main__':
             logging.info(f'Successfully loaded {ext}')
 
 bot.run(config['token'])
-

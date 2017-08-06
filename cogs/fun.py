@@ -1,5 +1,5 @@
 import random
-import aiohttp
+
 import discord
 from discord.ext import commands
 
@@ -39,9 +39,9 @@ class Fun:
             if '.mp4' in str(shibeURL):
                 await ctx.send('mp4 file: ' + shibeURL)
             else:
-            shibeEmbed = discord.Embed(colour=0x690E8)
-            shibeEmbed.set_image(url=shibeURL)
-            await ctx.send(embed=shibeEmbed)
+                shibeEmbed = discord.Embed(colour=0x690E8)
+                shibeEmbed.set_image(url=shibeURL)
+                await ctx.send(embed=shibeEmbed)
         else:
             load.delete()
             await ctx.send(f'Something happened while fetching the picture (HTTP code {shibeGet.status})')

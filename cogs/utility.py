@@ -22,6 +22,7 @@ class Utility:
     startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(self.bot.init_time))
     upEm.add_field(name='Started on', value=startedOn + '')
     upEm.add_field(name='Uptime', value=f'{d}:{h}:{m}:{s}')
+    await ctx.send(embed=upEm)
 
   @commands.command()
   async def stats(self, ctx):

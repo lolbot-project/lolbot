@@ -34,6 +34,7 @@ class DBots:
                     # Because doing that is hard for me tbh
                     owner = await self.bot.get_user(botinfo['owner_ids'][0])
                     ownerbed = discord.Embed(title=f'Who owns {bot.mention}?', description=f'{owner.mention} does!', colour=0x690E8)
+                    await ctx.send(embed=ownerbed)
                 elif info.status == 404:
                     await ctx.send('That bot is not in Discord Bots!')
                 elif info.status == 504:

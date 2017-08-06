@@ -30,7 +30,7 @@ else:
     datadogImported = True
 
 description = '''Just a bot :)'''
-exts = ['bots', 'donate', 'eval', 'fun', 'owner', 'stats', 'utility']
+exts = ['bots', 'donate', 'eval', 'fun', 'nekos', 'owner', 'stats', 'utility']
 
 class Lul(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):

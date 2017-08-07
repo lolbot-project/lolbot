@@ -7,9 +7,6 @@ class Animemes:
     def __init__(self, bot):
         self.bot = bot
         self.config = json.load(open('config.json'))
-        self.base = 'https://nekos.life/api/'
-        self.nekos = 'neko'
-        self.nlewd = 'lewd/neko'
         self.header = {
                 'User-Agent': 'lolbot (discord.py/aiohttp)'
         }
@@ -17,14 +14,14 @@ class Animemes:
     @commands.command()
     async def neko(self, ctx):
         """Shows a random neko picture"""
-        load = await ctx.send('Fetching a neko...')
-        async with self.bot.session.get(f'{self.base}{self.nekos}', headers=self.header) as neko:
-            load.delete()
+        async with self.bot.session.get('https://nekos.life/api/neko', headers=self.header) as neko:
             if neko.status == 200:
                 img = await neko.json()
                 nekoEm = discord.Embed(colour=0x690E8)
-                nekoEm.set_image(img['neko'])
+                url = img['neko']
+                nekoEm.set_image(url=url)
                 nekoEm.set_footer(f'nekos.life | *For lewd nekos use {self.config["prefix"]}lneko*')
+                await ctx.send(embed=nekoEm)
             else:
                 lol = await ctx.send('Something weird happened when I tried to fetch your neko.'
                         f'(HTTP code {neko.status})')
@@ -33,13 +30,11 @@ class Animemes:
     async def lneko(self, ctx):
         """Shows a random lewd neko pic"""
         if ctx.channel.is_nsfw():
-            load = await ctx.send('Fetching a lewd neko...')
-            async with self.bot.session.get(f'{self.base}{self.nlewd}', headers=self.header) as lneko:
-                load.delete()
+            async with self.bot.session.get('https://nekos.life/api/lewd/neko', headers=self.header) as lneko:
                 if lneko.status == 200:
                     img = await lneko.json()
                     lnekoEm = discord.Embed(colour=0x690E8)
-                    lnekoEm.set_image(img['neko'])
+                    lnekoEm.set_image(url=img['neko'])
                     lnekoEm.set_footer(f'nekos.life | *For normal nekos use {self.config["prefix"]}neko*')
                 else:
                     await ctx.send('Something weird happened when I tried to fetch your neko.'

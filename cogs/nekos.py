@@ -22,6 +22,7 @@ class Animemes:
                 await ctx.send(embed=nekoEm)
             else:
                 await ctx.send(f'Oops. (code {neko.status})')
+
     @commands.command()
     async def lneko(self, ctx):
         """Shows a random lewd neko pic"""
@@ -36,7 +37,7 @@ class Animemes:
                     await ctx.send(f'Oops. (code {lneko.status})')
         else:
             await ctx.send('You\'re not in a NSFW channel. Therefore, I cannot post a'
-                    'lewd neko to this channel.')
+                    ' lewd neko to this channel.')
 
 def setup(bot):
     bot.add_cog(Animemes(bot))

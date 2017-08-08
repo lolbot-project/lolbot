@@ -6,13 +6,6 @@ config = json.load(open('config.json'))
 
 class Stats:
 
-    def __init__(self, bot):
-        self.bot = bot
-        self.config = json.load(open('config.json'))
-        self.dbl = dblpost
-        self.dpw = dpwpost
-        self.post = post
-
     async def dblpost(self):
         headers = {
             'Authorization': self.config['dbl'],
@@ -56,6 +49,13 @@ class Stats:
         await self.dbl()
         await self.dpw()
         logging.info('poster: done')
+
+    def __init__(self, bot):
+        self.bot = bot
+        self.config = json.load(open('config.json'))
+        self.dbl = dblpost
+        self.dpw = dpwpost
+        self.post = post
 
     async def on_guild_join( self, guild ):
         logging.info('Joined guild "' + str(guild.name) + '" ID: ' + str(guild.id))

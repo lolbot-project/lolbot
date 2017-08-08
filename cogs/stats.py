@@ -1,6 +1,5 @@
 import json
 import logging
-import aiohttp
 
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 config = json.load(open('config.json'))
@@ -10,6 +9,8 @@ class Stats:
     def __init__(self, bot):
         self.bot = bot
         self.config = json.load(open('config.json'))
+        self.dbl = dblpost
+        self.dpw = dpwpost
 
     async def dblpost(self):
         headers = {
@@ -51,8 +52,8 @@ class Stats:
 
     async def post(self):
         logging.info('poster: starting post')
-        await dblpost()
-        await dpwpost()
+        await self.dbl()
+        await self.dpw()
         logging.info('poster: done')
 
     async def on_guild_join( self, guild ):

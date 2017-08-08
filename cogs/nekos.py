@@ -18,14 +18,10 @@ class Animemes:
             if neko.status == 200:
                 img = await neko.json()
                 nekoEm = discord.Embed(colour=0x690E8)
-                url = img['neko']
-                nekoEm.set_image(url=url)
-                nekoEm.set_footer(f'nekos.life | *For lewd nekos use {self.config["prefix"]}lneko*')
+                nekoEm.set_image(url=img['neko'])
                 await ctx.send(embed=nekoEm)
             else:
-                lol = await ctx.send('Something weird happened when I tried to fetch your neko.'
-                        f'(HTTP code {neko.status})')
-
+                await ctx.send(f'Oops. (code {neko.status})')
     @commands.command()
     async def lneko(self, ctx):
         """Shows a random lewd neko pic"""
@@ -35,10 +31,9 @@ class Animemes:
                     img = await lneko.json()
                     lnekoEm = discord.Embed(colour=0x690E8)
                     lnekoEm.set_image(url=img['neko'])
-                    lnekoEm.set_footer(f'nekos.life | *For normal nekos use {self.config["prefix"]}neko*')
+                    await ctx.send(embed=lnekoEm)
                 else:
-                    await ctx.send('Something weird happened when I tried to fetch your neko.'
-                            f'(HTTP code {lneko.status})')
+                    await ctx.send(f'Oops. (code {lneko.status})')
         else:
             await ctx.send('You\'re not in a NSFW channel. Therefore, I cannot post a'
                     'lewd neko to this channel.')

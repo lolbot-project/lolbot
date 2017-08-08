@@ -30,17 +30,17 @@ class Owner:
         else:
             await self.bot.logout()
 
-  @commands.command(hidden=True)
-  @commands.is_owner()
-  async def game(self, ctx, *, game: str):
-    """Changes playing status"""
-    try:
-      await self.bot.change_presence(game=discord.Game(name=game + ' | {}help | v6.2').format(self.config['prefix']))
-    except Exception:
-      logging.error('A error occured.', exc_info=True)
-      await ctx.send('Something went wrong - check the console for details')
-    else:
-      await ctx.send(':white_check_mark: Changed game')
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def game(self, ctx, *, game: str):
+        """Changes playing status"""
+        try:
+            await self.bot.change_presence(game=discord.Game(name=game + ' | {}help | v6.2').format(self.config['prefix']))
+        except Exception:
+            logging.error('A error occured.', exc_info=True)
+            await ctx.send('Something went wrong - check the console for details')
+        else:
+            await ctx.send(':white_check_mark: Changed game')
 
     @commands.command(hidden=True)
     @commands.is_owner()

@@ -36,7 +36,7 @@ class Animemes:
                 else:
                     await ctx.send(f'Oops. (code {lneko.status})')
         else:
-            await ctx.send('You\'re not in a NSFW channel. Therefore, I cannot post a'
+            await ctx.send('You\'re not in a NSFW channel. Therefore, I cannot post a '
                     ' lewd neko to this channel.')
 
 def setup(bot):

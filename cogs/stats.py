@@ -53,17 +53,14 @@ class Stats:
     def __init__(self, bot):
         self.bot = bot
         self.config = json.load(open('config.json'))
-        self.dbl = dblpost
-        self.dpw = dpwpost
-        self.post = post
 
     async def on_guild_join( self, guild ):
         logging.info('Joined guild "' + str(guild.name) + '" ID: ' + str(guild.id))
-        await self.post()
+        await post()
 
     async def on_guild_remove( self, guild ):
         logging.info('Left ' + str(guild.name))
-        await post()
+        awaitpost()
 
 def setup(bot):
     bot.add_cog(Stats(bot))

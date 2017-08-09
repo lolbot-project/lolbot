@@ -55,11 +55,11 @@ class Stats:
 
     async def on_guild_join( self, guild ):
         logging.info('Joined guild "' + str(guild.name) + '" ID: ' + str(guild.id))
-        await post()
+        await self.post()
 
     async def on_guild_remove( self, guild ):
         logging.info('Left ' + str(guild.name))
-        awaitpost()
+        await self.post()
 
 def setup(bot):
     bot.add_cog(Stats(bot))

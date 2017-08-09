@@ -2,9 +2,12 @@ import json
 import logging
 
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
-config = json.load(open('config.json'))
 
 class Stats:
+
+    def __init__(self, bot):
+        self.bot = bot
+        self.config = json.load(open('config.json'))
 
     async def dblpost(self):
         headers = {
@@ -49,10 +52,6 @@ class Stats:
         await self.dblpost()
         await self.dpwpost()
         logging.info('poster: done')
-
-    def __init__(self, bot):
-        self.bot = bot
-        self.config = json.load(open('config.json'))
 
     async def on_guild_join( self, guild ):
         logging.info('Joined guild "' + str(guild.name) + '" ID: ' + str(guild.id))

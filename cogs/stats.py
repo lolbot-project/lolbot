@@ -46,8 +46,8 @@ class Stats:
 
     async def post(self):
         logging.info('poster: starting post')
-        await self.dbl()
-        await self.dpw()
+        await self.dblpost()
+        await self.dpwpost()
         logging.info('poster: done')
 
     def __init__(self, bot):

@@ -10,6 +10,10 @@ class Stats:
         self.config = json.load(open('config.json'))
 
     async def dblpost(self):
+        """
+        This async function does a post of server and shard count to discordbots.org.
+        You should not have to call this yourself, post() is a wrapper and does it for you.
+        """
         if self.config['dbl'] != "":
             headers = {
                 'Authorization': self.config['dbl'],
@@ -32,6 +36,10 @@ class Stats:
             pass
 
     async def dpwpost(self):
+        """
+        This async function does a post of server and shard count to bots.discord.pw.
+        You should not have to call this yourself, post() is a wrapper and does it for you.
+        """
         if self.config['dbots'] != "":
             headers = {
                 'Authorization': self.config['dbots'],
@@ -52,6 +60,10 @@ class Stats:
                 logging.error(f'poster[dbots]: response: {resp}')
 
     async def post(self):
+        """
+        This async function is a wrapper for dblpost() and dpwpost().
+        You shouldn't need to call this yourself, the guild events do this for you.
+        """
         logging.info('poster: starting')
         if self.config['dbotsorg']:
             await self.dblpost()
@@ -64,10 +76,18 @@ class Stats:
         logging.info('poster: done')
 
     async def on_guild_join( self, guild ):
+        """
+        This async function is called whenever a guild adds a lolbot instance.
+        You shouldn't need to call this yourself, discord.py does this automatically.
+        """
         logging.info('Joined guild "' + str(guild.name) + '" ID: ' + str(guild.id))
         await self.post()
 
     async def on_guild_remove( self, guild ):
+        """
+        This async function is called whenever a guild removes a lolbot instance (rip).
+        You shouldn't need to call this yourself, discord.py does this automatically.
+        """
         logging.info('Left ' + str(guild.name))
         await self.post()
 

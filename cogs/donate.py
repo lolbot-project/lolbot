@@ -7,7 +7,7 @@ class Donate:
 
   @commands.command()
   async def donate(self, ctx):
-    """Information about lolbot."""
+    """Support lolbot into the future!"""
     aboutEm = discord.Embed(description='lolbot is free and I want it to be, but'
                                         ' I need donations to continue this thing.',
                                         colour=0x690E8)

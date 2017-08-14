@@ -5,7 +5,7 @@
 	"prefix": "^",
 	"//3": "Enter your ID for stats, etc to work",
 	"ownerid": "",
-	"//4": "For bot list submissions to work (Bot's ID is also for invite command)",
+	"//4": "For bot list submissions to work",
 	"//5": "note that bot list reporting is usually disabled - to enable it change false to true.",
 	"dbotspw": false,
 	"dbotsorg": false,

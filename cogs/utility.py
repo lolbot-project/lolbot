@@ -58,9 +58,10 @@ class Utility:
   @commands.command()
   async def invite(self, ctx):
       """Gives a invite for the bot (and also the official server)"""
+      info = await ctx.bot.application_info()
       invEmb = discord.Embed(colour=0x690E8)
       invEmb.add_field(name='Invite lolbot', value='[Click here]'
-      '(' + discord.utils.oauth_url(config['botid']) + ')')
+      '(' + discord.utils.oauth_url(info.id) + ')')
       invEmb.add_field(name='Official server', value=str(self.support))
       await ctx.send(embed=invEmb)
 

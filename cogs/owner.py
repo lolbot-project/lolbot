@@ -54,5 +54,26 @@ class Owner:
         else:
             pendReload.edit(content=f'Reloaded {str(ext)}.')
 
+    @commands.command()
+    @commands.is_owner()
+    async def shell(self, ctx, *, command: str):
+        """Actually running bash commands! Yes, finally!"""
+        with ctx.typing():
+            p = await asyncio.create_subprocess_shell(command,
+                stderr=asyncio.subprocess.PIPE,
+                stdout=asyncio.subprocess.PIPE,
+            )
+
+            out, err = map(lambda s: s.decode('utf-8'), await p.communicate())
+
+        result = f'{out}{err}'
+        await ctx.send(f"`{command}`: ```{result}```\n")
+
+    @commands.command()
+    @commands.is_owner()
+    async def update(self, ctx):
+        """The laziest way to update your bot."""
+        await ctx.invoke(self.bot.get_command('shell'), command='git pull')
+
 def setup(bot):
     bot.add_cog(Owner(bot))

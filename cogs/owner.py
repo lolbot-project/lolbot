@@ -44,18 +44,6 @@ class Owner:
 
     @commands.command(hidden=True)
     @commands.is_owner()
-    async def reload(self, ctx, ext: str):
-        pendReload = await ctx.send(f'Attempting to reload *{ext}*...')
-        try:
-            self.bot.unload_extension(str(ext))
-            self.bot.load_extension(str(ext))
-        except Exception:
-            pendReload.edit(content='... shit. Fix your code! ```\n{traceback.format_exc()}\n```')
-        else:
-            pendReload.edit(content=f'Reloaded {str(ext)}.')
-
-    @commands.command()
-    @commands.is_owner()
     async def shell(self, ctx, *, command: str):
         """Actually running bash commands! Yes, finally!"""
         with ctx.typing():
@@ -69,7 +57,7 @@ class Owner:
         result = f'{out}{err}'
         await ctx.send(f"`{command}`: ```{result}```\n")
 
-    @commands.command()
+    @commands.command(hidden=True)
     @commands.is_owner()
     async def update(self, ctx):
         """The laziest way to update your bot."""

@@ -6,10 +6,23 @@ Originally made by luna for Jose, the best bot
 import traceback
 import asyncio
 import logging
+import json
+config = json.load(open('config.json'))
 
 from discord.ext import commands
 
 class Owner:
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def game(self, ctx, *, game: str):
+        """Change playing status"""
+        try:
+            await self.bot.change_presence(game=discord.Game(name=f'{game} | {config.prefix}help | v6.2', type=1, url='https://twitch.tv/monstercat'))
+        except Exception:
+            await ctx.send(f'```\n{traceback.format_exc()}\n```')
+        else:
+            await ctx.send(':white_check_mark: Successfully changed game')
+
     @commands.command(hidden=True)
     @commands.is_owner()
     async def shutdown(self, ctx):

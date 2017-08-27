@@ -18,7 +18,7 @@ I highly suggest you don't run your own instance as lolbot's official instance i
 
 ## Running
 
-1. `git clone https://github.com/xshotD/lolbot`
+1. `git clone https://github.com/tilda/lolbot`
 2. `cd lolbot`
 3. `nano config.json` (follow the comments beginning with `//`)
 4. `python3.6 index.py` 

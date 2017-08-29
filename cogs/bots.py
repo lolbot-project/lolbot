@@ -6,7 +6,6 @@ import aiohttp
 class DBots:
     def __init__(self, bot):
       self.bot = bot
-      self.session = aiohttp.ClientSession(loop=self.bot.loop)
       self.config = json.load(open('config.json'))
       self.headers = {
         'Authorization': self.config['dbots'],
@@ -22,7 +21,7 @@ class DBots:
 
     @dbots.command(name='owner')
     async def dbots_owner(self, ctx, wanted: discord.Member):
-        async with self.session.get('https://bots.discord.pw/api/bots/' + str(wanted.id), headers=self.headers) as info:
+        async with self.bot.session.get('https://bots.discord.pw/api/bots/' + str(wanted.id), headers=self.headers) as info:
             """Gets the owner of a bot"""
             if self.config['dbots'] == '':
                 await ctx.send('This bot does not have a DBots API key set up.')

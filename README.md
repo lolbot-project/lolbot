@@ -5,8 +5,7 @@
 [<img src="https://lold.s-ul.eu/OC314kET">](https://discordapp.com/api/oauth2/authorize?client_id=272549225454239744&scope=bot&permissions=0)
 
 # Warning
-I don't know if you want to run this. This code is highly unstable most of the time and there may be random crashes or who knows what. **NO SUPPORT WILL BE PROVIDED FOR SELFHOSTS UNLESS IT'S A LEGIT ISSUE WITH THE CODE. YOU ARE RESPONSIBLE FOR KEEPING YOUR BOT UP AND RUNNING.**
-
+Usually you shouldn't run a selfhost instance or clone of this bot. It requires some setup and this isn't a 1-2-3 bot. **Support will be limited. There is only so much I can do to support people. You may have to fix things yourself. Be warned.**
 So... do you wanna run it anyways?
 
 If so... here's the little guide I put together.
@@ -30,5 +29,5 @@ Addendum 4a: use screen: `screen -DmS python3.6 index.py`
 Addendum 4b: use pm2: `pm2 start index.py --name lolbot --interpreter python3.6` (this is currently used in production)
 
 ### Features probably never added
-- music
+- music (maybe soon? - note from 8/28/17)
 - something else (???)

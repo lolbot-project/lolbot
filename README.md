@@ -6,6 +6,10 @@
 
 # Warning
 Usually you shouldn't run a selfhost instance or clone of this bot. It requires some setup and this isn't a 1-2-3 bot. **Support will be limited. There is only so much I can do to support people. You may have to fix things yourself. Be warned.**
+
+Also a tip:
+  - Don't put selfhosts on Discord Bots. They're not your own bots and you shouldn't treat them like such. You only host it
+
 So... do you wanna run it anyways?
 
 If so... here's the little guide I put together.

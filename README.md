@@ -5,9 +5,11 @@
 [<img src="https://lold.s-ul.eu/OC314kET">](https://discordapp.com/api/oauth2/authorize?client_id=272549225454239744&scope=bot&permissions=0)
 
 # Warning
-I highly suggest you don't run your own instance as lolbot's official instance is 24/7 and there is no place for a self-hosted instance. However,
+I don't know if you want to run this. This code is highly unstable most of the time and there may be random crashes or who knows what. **NO SUPPORT WILL BE PROVIDED FOR SELFHOSTS UNLESS IT'S A LEGIT ISSUE WITH THE CODE. YOU ARE RESPONSIBLE FOR KEEPING YOUR BOT UP AND RUNNING.**
 
-# if you wanna run it...
+So... do you wanna run it anyways?
+
+If so... here's the little guide I put together.
 
 ## Requirements
 

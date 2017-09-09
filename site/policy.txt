@@ -1,0 +1,24 @@
+# lolbot Privacy Policy
+### Effective August 23rd, 2017
+When using lolbot, we collect specific data to improve your experience within the Bot.
+
+# What information do we collect when the Bot is used?
+
+- Public information about your Discord Guild. This is your Guild ID, Guild name, Guild icon, channel names, channel IDs, member IDs and role IDs.
+- Public information about the Discord Guild owner. This is their user ID, username and discriminator.
+- Any errors that have occured while using commands and what event from your Discord Guild triggered it.
+
+Some information listed above may only be stored when specific commands to configure the Bot is used.
+
+# How do we use your information?
+
+Your information is used within the Bot for features which require said information.
+
+# Notes
+
+`Guild` refers to a Discord server (in technical speak).
+`Bot` refers to... the bot.
+
+# Agreement
+
+By using lolbot, you agree to the terms of this Privacy Policy. If you do not agree to these terms you must not use this Bot (the Service).

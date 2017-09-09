@@ -94,7 +94,7 @@ ENV/
 .ropeproject
 
 # mkdocs documentation
-/site
+#/site
 
 # VIM temp files
 *~

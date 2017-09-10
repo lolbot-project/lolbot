@@ -25,6 +25,7 @@ class Fun:
     """http.cat images - ^httpcat <http code>"""
     httpcat_em = discord.Embed(name='http.cat', colour=0x690E8)
     httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
+    httpcat_em.set_footer(text='If there is no image, it doesn\'t exist.')
     await ctx.send(embed=httpcat_em)
 
   @commands.command()

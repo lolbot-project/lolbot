@@ -1,4 +1,4 @@
-# Yet another steal from Dogbot. :) 
+# Yet another steal from Dogbot. :)
 # Source: https://github.com/slice/dogbot/blob/master/dog/haste.py
 
 """ Facilities for pasting things to Hastebin. """

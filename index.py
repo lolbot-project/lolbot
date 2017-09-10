@@ -18,17 +18,6 @@ import aiohttp
 import discord
 from discord.ext import commands
 
-# Make datadog also a optional dep
-try:
-    from datadog import statsd
-except ImportError:
-    logging.warning('datadog: datadog not installed')
-    logging.warning('datadog: disabled data sending')
-    datadogImported = False
-else:
-    logging.info('datadog: enabled data sending')
-    datadogImported = True
-
 description = '''Just a bot :)'''
 exts = ['bots', 'donate', 'eval', 'fun', 'nekos', 'owner', 'stats', 'utility']
 

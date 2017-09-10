@@ -51,7 +51,7 @@ class Fun:
             if lizard.status == 200:
                 lizJS = await lizard.json()
                 lizEm = discord.Embed(colour=0x690E8)
-                lizEm.set_image(url=lizJS['lizard'])
+                lizEm.set_image(url=lizJS['url'])
                 await ctx.send(embed=lizEm)
             else:
                 await ctx.send(f'Something happened while fetching the lizard (HTTP code {lizard.status})')

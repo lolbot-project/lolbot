@@ -51,30 +51,24 @@ class Fun:
     async def lizard(self, ctx):
         """Gets a random lizard"""
         async with self.bot.session.get('https://nekos.life/api/lizard', headers=self.ua) as lizard:
-            load = await ctx.send('Fetching a lizard...')
             if lizard.status == 200:
-                load.delete()
                 lizJS = lizard.json()
                 lizEm = discord.Embed(colour=0x690E8)
                 lizEm.set_image(lizJS['lizard'])
                 await ctx.send(embed=lizEm)
             else:
-                load.delete()
                 await ctx.send(f'Something happened while fetching the lizard (HTTP code {lizard.status})')
 
     @commands.command()
     async def why(self, ctx):
         """Why _____?"""
-        load = await ctx.send('Fetching sentence...')
         async with self.bot.session.get('https://nekos.life/api/why', headers=self.ua) as why:
             if why.status == 200:
-                load.delete()
                 whyJS = why.json()
                 whyEm = discord.Embed(title=f'{ctx.author.name} wonders...',
                         description=whyJS['why'], colour=0x690E8)
                 await ctx.send(embed=whyEm)
             else:
-                load.delete()
                 await ctx.send(f'I wasn\'t able to fetch the sentence. (HTTP code {why.status})')
 
     @commands.command()

@@ -5,8 +5,8 @@ Originally made by luna for Jose, the best bot
 """
 import traceback
 import asyncio
-import logging
 import json
+import discord
 
 from discord.ext import commands
 
@@ -30,7 +30,7 @@ class Owner:
     @commands.is_owner()
     async def shutdown(self, ctx):
         await ctx.send(":wave:")
-        #await self.bot.session.close()        
+        await self.bot.session.close()
         await self.bot.logout()
 
     @commands.command(hidden=True)
@@ -39,7 +39,7 @@ class Owner:
         """Loads an extension."""
         try:
             self.bot.load_extension('cogs.' + extension_name)
-        except Exception as e: 
+        except Exception:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
             return
         await ctx.send(f':ok_hand: `{extension_name}` loaded.')
@@ -58,7 +58,7 @@ class Owner:
         try:
             self.bot.unload_extension('cogs.' + extension_name)
             self.bot.load_extension('cogs.' + extension_name)
-        except Exception as err:
+        except Exception:
             await ctx.send(f'```{traceback.format_exc()}```')
             return
         await ctx.send(f':ok_hand: Reloaded `{extension_name}`')
@@ -75,7 +75,7 @@ class Owner:
 
             out, err = map(lambda s: s.decode('utf-8'), await p.communicate())
 
-        result = f'{out}{err}' 
+        result = f'{out}{err}'
         await ctx.send(f"`{command}`: ```{result}```\n")
 
     @commands.command(hidden=True)

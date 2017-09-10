@@ -32,9 +32,7 @@ class Fun:
   async def dog(self, ctx):
     """Random dogs, by random.dog"""
     async with self.bot.session.get('https://random.dog/woof', headers=self.ua) as shibeGet:
-        load = await ctx.send('Fetching a dog...')
         if shibeGet.status == 200:
-            load.delete()
             shibeImg = await shibeGet.text()
             shibeURL = 'https://random.dog/' + shibeImg
             if '.mp4' in str(shibeURL):
@@ -44,7 +42,6 @@ class Fun:
                 shibeEmbed.set_image(url=shibeURL)
                 await ctx.send(embed=shibeEmbed)
         else:
-            load.delete()
             await ctx.send(f'Something happened while fetching the picture (HTTP code {shibeGet.status})')
 
     @commands.command()

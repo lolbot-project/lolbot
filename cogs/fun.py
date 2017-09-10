@@ -45,16 +45,16 @@ class Fun:
             await ctx.send(f'Something happened while fetching the picture (HTTP code {shibeGet.status})')
 
     @commands.command()
-    async def lizard(self, ctx):
-        """Gets a random lizard"""
-        async with self.bot.session.get('https://nekos.life/api/lizard', headers=self.ua) as lizard:
-            if lizard.status == 200:
-                lizJS = await lizard.json()
-                lizEm = discord.Embed(colour=0x690E8)
-                lizEm.set_image(url=lizJS['url'])
-                await ctx.send(embed=lizEm)
+    async def neko(self, ctx):
+        """Shows a random neko picture"""
+        async with self.bot.session.get('https://nekos.life/api/lizard', headers=self.ua) as lizr:
+            if neko.status == 200:
+                img = await lizr.json()
+                nekoEm = discord.Embed(colour=0x690E8)
+                nekoEm.set_image(url=img['url'])
+                await ctx.send(embed=nekoEm)
             else:
-                await ctx.send(f'Something happened while fetching the lizard (HTTP code {lizard.status})')
+                await ctx.send(f'Oops. (code {lizr.status})')
 
     @commands.command()
     async def why(self, ctx):

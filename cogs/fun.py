@@ -49,7 +49,7 @@ class Fun:
         """Gets a random lizard"""
         async with self.bot.session.get('https://nekos.life/api/lizard', headers=self.ua) as lizard:
             if lizard.status == 200:
-                lizJS = lizard.json()
+                lizJS = await lizard.json()
                 lizEm = discord.Embed(colour=0x690E8)
                 lizEm.set_image(url=lizJS['lizard'])
                 await ctx.send(embed=lizEm)
@@ -61,7 +61,7 @@ class Fun:
         """Why _____?"""
         async with self.bot.session.get('https://nekos.life/api/why', headers=self.ua) as why:
             if why.status == 200:
-                whyJS = why.json()
+                whyJS = await why.json()
                 whyEm = discord.Embed(title=f'{ctx.author.name} wonders...',
                         description=whyJS['why'], colour=0x690E8)
                 await ctx.send(embed=whyEm)

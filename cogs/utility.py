@@ -10,8 +10,6 @@ class Utility:
     self.bot = bot
     self.support = 'https://discord.gg/PEW4wx9'
 
-    
-
     @commands.command()
     async def uptime(self, ctx):
         """Shows uptime of lolbot"""

@@ -1,7 +1,16 @@
 import json
 import logging
-
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
+try:
+    logging.info('stats[datadog] initalized')
+    from datadog import statsd
+except ImportError:
+    logging.info('stats[datadog]: datadog not installed')
+    logging.info('stats[datadog]: disabling datadog')
+    datadog_enabled = False
+else:
+    logging.info('stats[datadog]: success')
+    datadog_enabled = True
 
 class Stats:
 
@@ -9,10 +18,18 @@ class Stats:
         self.bot = bot
         self.config = json.load(open('config.json'))
 
+    async def ddgpost(self):
+        """
+        This async function does a post of server and shard count to Datadog
+        You should not have to call this yourself, post() is a wrapper and
+        does it for you.
+        """
+
     async def dblpost(self):
         """
         This async function does a post of server and shard count to discordbots.org.
-        You should not have to call this yourself, post() is a wrapper and does it for you.
+        You should not have to call this yourself, post() is a wrapper and
+        does it for you.
         """
         if self.config['dbl'] != "":
             headers = {
@@ -37,8 +54,10 @@ class Stats:
 
     async def dpwpost(self):
         """
-        This async function does a post of server and shard count to bots.discord.pw.
-        You should not have to call this yourself, post() is a wrapper and does it for you.
+        This async function does a post of server and shard count
+        to bots.discord.pw.
+        You should not have to call this yourself, post() is a wrapper and
+        does it for you.
         """
         if self.config['dbots'] != "":
             headers = {

@@ -85,7 +85,7 @@ class Stats:
 
     async def post(self):
         """
-        This async function is a wrapper for dblpost() and dpwpost().
+        This async function is a wrapper for post functions.
         You shouldn't need to call this yourself, the guild events do this for you.
         """
         logging.info('poster: starting')

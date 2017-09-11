@@ -2,7 +2,7 @@ import json
 import logging
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 try:
-    logging.info('stats[datadog] initalized')
+    logging.info('stats[datadog]: initalized')
     from datadog import statsd
 except ImportError:
     logging.info('stats[datadog]: datadog not installed')
@@ -18,12 +18,17 @@ class Stats:
         self.bot = bot
         self.config = json.load(open('config.json'))
 
-    async def ddgpost(self):
+    async def dogpost(self):
         """
-        This async function does a post of server and shard count to Datadog
+        This async function does a post of server and shard count to Datadog.
         You should not have to call this yourself, post() is a wrapper and
         does it for you.
         """
+        if datadog_enabled:
+            statsd.gauge('servers', len(self.bot.guilds))
+            statsd.gauge('shards', len(self.bot.shards))
+        else:
+            pass
 
     async def dblpost(self):
         """
@@ -90,6 +95,10 @@ class Stats:
             pass
         if self.config['dbotspw']:
             await self.dpwpost()
+        else:
+            pass
+        if datadog_enabled:
+            await self.dogpost()
         else:
             pass
         logging.info('poster: done')

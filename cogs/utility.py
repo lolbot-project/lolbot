@@ -7,7 +7,7 @@ from random import choice as rchoice
 
 config = json.load(open('config.json'))
 
-class Utility:
+class Etc:
     def __init__(self, bot):
         self.bot = bot
         self.support = 'https://discord.gg/PEW4wx9'
@@ -69,4 +69,4 @@ class Utility:
         await ctx.send(embed=invEmb)
 
 def setup(bot):
-  bot.add_cog(Utility(bot))
+  bot.add_cog(Etc(bot))

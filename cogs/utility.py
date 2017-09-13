@@ -8,9 +8,9 @@ from random import choice as rchoice
 config = json.load(open('config.json'))
 
 class Utility:
-  def __init__(self, bot):
-    self.bot = bot
-    self.support = 'https://discord.gg/PEW4wx9'
+    def __init__(self, bot):
+        self.bot = bot
+        self.support = 'https://discord.gg/PEW4wx9'
 
     @commands.command()
     async def uptime(self, ctx):

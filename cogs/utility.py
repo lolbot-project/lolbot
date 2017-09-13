@@ -4,7 +4,9 @@ import json
 import discord
 from discord.ext import commands
 from random import choice as rchoice
+
 config = json.load(open('config.json'))
+
 class Utility:
   def __init__(self, bot):
     self.bot = bot
@@ -24,8 +26,8 @@ class Utility:
         upEm.add_field(name='Uptime', value=f'{d} days, {h} hours, {m} minutes and {s} seconds')
         await ctx.send(embed=upEm)
 
-    @commands.command()
-    async def ping(self, ctx):
+    @bot.command()
+    async def ping(ctx):
         """Well... you know this"""
         one = time.monotonic()
         a = await ctx.send('wew dude')
@@ -35,7 +37,8 @@ class Utility:
         meme = discord.Embed(title='Pong!', colour=0x690E8)
         meme.add_field(name='Normal ping', value=f'**{ms}**ms')
         meme.add_field(name='Gateway ping', value=f'**{gw}**ms')
-        await a.edit(content=None, embed=meme)
+        await a.delete()
+        await ctx.send(embed=meme)
 
     @commands.command()
     async def stats(self, ctx):

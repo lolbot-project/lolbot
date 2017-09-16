@@ -27,7 +27,7 @@ class Etc:
         await ctx.send(embed=upEm)
 
     @commands.command()
-    async def ping(ctx):
+    async def ping(self, ctx):
         """Well... you know this"""
         one = time.monotonic()
         a = await ctx.send('wew dude')

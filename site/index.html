@@ -46,6 +46,10 @@ body, h1, h2, h3, h4, h5, small {
 	margin: 0 auto;
 	text-align: center;
 }
+
+#usage {
+	color: black;
+}
 </style>
 </head>
 <body>
@@ -69,8 +73,21 @@ body, h1, h2, h3, h4, h5, small {
 	</div>
 </div>
 <hr/>
-<a href="/invite" class="uk-button uk-button-primary">Add me!</a>
-<br/><br/><br/>
+<a href="/invite" class="uk-button uk-button-primary">Add me!</a><br/><br/>
+<a href="#usage" class="uk-button uk-button-secondary" uk-toggle>Usage</a>
+<div id="usage" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Usage</h2>
+        <p>You probably came here because you were wondering how to use lolbot. In that case, it's easy!
+	<br/>Just say ^help and the bot will say a list of commands in the chat.
+	<br/>The prefix for all commands is ^ as well. (Example: ^cat brings up a cat)
+	<br/>TL;DR: ^help</p>
+    </div>
+        <p class="uk-text-center">
+            <button class="uk-button uk-button-primary uk-modal-close" type="button">Got it!</button>
+        </p>
+</div>
+<br/><br/>
 <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
 	<div id="feedback">
 		<div class="uk-card uk-card-secondary uk-card-body">

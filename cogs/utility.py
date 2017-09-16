@@ -26,7 +26,7 @@ class Etc:
         upEm.add_field(name='Uptime', value=f'{d} days, {h} hours, {m} minutes and {s} seconds')
         await ctx.send(embed=upEm)
 
-    @bot.command()
+    @commands.command()
     async def ping(ctx):
         """Well... you know this"""
         one = time.monotonic()

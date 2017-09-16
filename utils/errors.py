@@ -1,6 +1,6 @@
 # File for custom exceptions
 
-class PostException:
+class PostException(Exception):
     """
     Raised when there's a error in the post()
     wrapper

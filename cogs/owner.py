@@ -20,7 +20,7 @@ class Owner:
     async def game(self, ctx, *, game: str):
         """Change playing status"""
         try:
-            await self.bot.change_presence(game=discord.Game(name=f'{game} | {config.prefix}help | v6.2', type=1, url='https://twitch.tv/monstercat'))
+            await self.bot.change_presence(game=discord.Game(name=f'{game} | {config.prefix}help | v1.0', type=1, url='https://twitch.tv/monstercat'))
         except Exception:
             await ctx.send(f'```\n{traceback.format_exc()}\n```')
         else:

@@ -8,10 +8,6 @@
         	<script src="/js/jquery.js"></script>
         	<script src="/js/uikit.min.js"></script>
         	<script src="/js/uikit-icons.min.js"></script>
-		<!-- Load SweetAlert/ES6 Polyfill -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css" />
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 		<title>lolbot - invite</title>
 	</head>
 	<body>
@@ -25,21 +21,27 @@
 		</style>
 		<script>
 			function acceptPolicy() {
-				swal({
-        				title: 'Before inviting lolbot...',
-					html: 'Do you agree to the <a href="https://gist.github.com/tilda/e99c606421ffe1aac7432549df50eb34">privacy policy?</a>',
-        				type: 'question',
-        				showCancelButton: true,
-        				confirmButtonText: 'Agree',
-        				cancelButtonText: 'Disagree'
-				}).then (function () {
-					swal('Opening invite link', 'You should see the Discord bot invite screen in a few seconds', 'success')
-					window.location = 'https://discordapp.com/oauth2/authorize?client_id=272549225454239744&scope=bot'
+				e.preventDefault();
+				$(this).blur();
+				UIkit.modal.confirm('<i>By clicking OK, you agree to the <a href="https://gist.github.com/tilda/e99c606421ffe1aac7432549df50eb34">lolbot Privacy Policy</a>.</i>').then(function() {
+					console.log('[debug] User agreed to policy')
+					console.log('[debug] Showing success modal')
+					UIkit.modal.dialog('Success! Please wait while we redirect you to the invite.').then(function() {
+						console.log('[debug] Redirecting to invite link')
+						window.location = 'https://discordapp.com/oauth2/authorize?client_id=272549225454239744&scope=bot'
+					}, function() {
+						undefined
+					})
+				}, function() {
+					console.log('[debug] User disagreed to policy')
+					console.log('[debug] Showing failure modal')
+					UIkit.modal.dialog('You can\'t invite lolbot without agreeing to the Privacy Policy. Sorry!').then(function() {
+						undefined
+					}, function() {
+						undefined
+					})})}
 
-				}, function () {
-					swal('You cannot invite lolbot,', 'unless you agree to the Privacy Policy.', 'error')
-				})
-		}
+			}
 		</script>
 		<div uk-spinner id="load" style="margin:0 auto;text-align:center;" class="loader uk-align-center"></div>
 		<script>

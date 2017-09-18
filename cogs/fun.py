@@ -35,14 +35,14 @@ class Fun:
             if shibeGet.status == 200:
                 shibeImg = await shibeGet.text()
                 shibeURL = 'https://random.dog/' + shibeImg
-            if '.mp4' in str(shibeURL):
-                await ctx.send('mp4 file: ' + shibeURL)
+                if '.mp4' in shibeURL:
+                    await ctx.send('mp4 file: ' + shibeURL)
+                else:
+                    shibeEmbed = discord.Embed(colour=0x690E8)
+                    shibeEmbed.set_image(url=shibeURL)
+                    await ctx.send(embed=shibeEmbed)
             else:
-                shibeEmbed = discord.Embed(colour=0x690E8)
-                shibeEmbed.set_image(url=shibeURL)
-                await ctx.send(embed=shibeEmbed)
-        else:
-            await ctx.send(f'Something happened while fetching the picture (HTTP code {shibeGet.status})')
+                await ctx.send(f'Something happened while fetching the picture (HTTP code {shibeGet.status})')
 
     @commands.command()
     async def lizard(self, ctx):

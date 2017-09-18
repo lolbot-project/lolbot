@@ -7,18 +7,18 @@ class Fun:
     def __init__(self, bot):
         self.bot = bot
         self.ua = {
-                'User-Agent': 'lolbot (discord.py/aiohttp)'
+            'User-Agent': 'lolbot (discord.py/aiohttp)'
         }
 
     @commands.command()
     async def cat(self, ctx):
         """Random cat images. Awww, so cute! Powered by random.cat"""
         async with self.bot.session.get('https://random.cat/meow', headers=self.ua) as r:
-        if r.status == 200:
-            js = await r.json()
-            em = discord.Embed(name='random.cat', colour=0x690E8)
-            em.set_image(url=js['file'])
-            await ctx.send(embed=em)
+            if r.status == 200:
+                js = await r.json()
+                em = discord.Embed(name='random.cat', colour=0x690E8)
+                em.set_image(url=js['file'])
+                await ctx.send(embed=em)
 
     @commands.command()
     async def httpcat(self, ctx, *, http_id: str):

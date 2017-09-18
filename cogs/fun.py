@@ -4,37 +4,37 @@ import discord
 from discord.ext import commands
 
 class Fun:
-  def __init__(self, bot):
-    self.bot = bot
-    self.ua = {
-            'User-Agent': 'lolbot (discord.py/aiohttp)'
+    def __init__(self, bot):
+        self.bot = bot
+        self.ua = {
+                'User-Agent': 'lolbot (discord.py/aiohttp)'
         }
 
-  @commands.command()
-  async def cat(self, ctx):
-    """Random cat images. Awww, so cute! Powered by random.cat"""
-    async with self.bot.session.get('https://random.cat/meow', headers=self.ua) as r:
-      if r.status == 200:
-        js = await r.json()
-        em = discord.Embed(name='random.cat', colour=0x690E8)
-        em.set_image(url=js['file'])
-        await ctx.send(embed=em)
+    @commands.command()
+    async def cat(self, ctx):
+        """Random cat images. Awww, so cute! Powered by random.cat"""
+        async with self.bot.session.get('https://random.cat/meow', headers=self.ua) as r:
+        if r.status == 200:
+            js = await r.json()
+            em = discord.Embed(name='random.cat', colour=0x690E8)
+            em.set_image(url=js['file'])
+            await ctx.send(embed=em)
 
-  @commands.command()
-  async def httpcat(self, ctx, *, http_id: str):
-    """http.cat images - ^httpcat <http code>"""
-    httpcat_em = discord.Embed(name='http.cat', colour=0x690E8)
-    httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
-    httpcat_em.set_footer(text='If there is no image, it doesn\'t exist.')
-    await ctx.send(embed=httpcat_em)
+    @commands.command()
+    async def httpcat(self, ctx, *, http_id: str):
+        """http.cat images - ^httpcat <http code>"""
+        httpcat_em = discord.Embed(name='http.cat', colour=0x690E8)
+        httpcat_em.set_image(url='https://http.cat/' + http_id + '.jpg')
+        httpcat_em.set_footer(text='If there is no image, it doesn\'t exist.')
+        await ctx.send(embed=httpcat_em)
 
-  @commands.command()
-  async def dog(self, ctx):
-    """Random dogs, by random.dog"""
-    async with self.bot.session.get('https://random.dog/woof', headers=self.ua) as shibeGet:
-        if shibeGet.status == 200:
-            shibeImg = await shibeGet.text()
-            shibeURL = 'https://random.dog/' + shibeImg
+    @commands.command()
+    async def dog(self, ctx):
+        """Random dogs, by random.dog"""
+        async with self.bot.session.get('https://random.dog/woof', headers=self.ua) as shibeGet:
+            if shibeGet.status == 200:
+                shibeImg = await shibeGet.text()
+                shibeURL = 'https://random.dog/' + shibeImg
             if '.mp4' in str(shibeURL):
                 await ctx.send('mp4 file: ' + shibeURL)
             else:

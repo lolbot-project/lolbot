@@ -5,7 +5,6 @@ Originally made by luna for Jose, the best bot
 """
 import traceback
 import asyncio
-import json
 import discord
 
 from discord.ext import commands
@@ -13,8 +12,6 @@ from discord.ext import commands
 class Owner:
     def __init__(self, bot):
         self.bot = bot
-        self.config = json.load(open('config.json'))
-
     @commands.command(hidden=True)
     @commands.is_owner()
     async def game(self, ctx, *, game: str):

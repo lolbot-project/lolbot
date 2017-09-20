@@ -27,13 +27,9 @@
 				$(this).blur()
 				UIkit.modal.confirm('<i>By clicking OK, you agree to the <a href="https://gist.github.com/tilda/e99c606421ffe1aac7432549df50eb34">lolbot Privacy Policy</a>.</i>').then(function() {
 					console.log('[debug] User agreed to policy')
-					console.log('[debug] Showing success modal')
-					UIkit.modal.dialog('Success! Please wait while we redirect you to the invite.').then(function() {
-						console.log('[debug] Redirecting to invite link')
-						redirect()
-					}, function() {
-						undefined
-					})
+					console.log('[debug] Redirecting user to invite link')
+					console.log('[debug] Bye!')
+					redirect()
 				}, function() {
 					console.log('[debug] User disagreed to policy')
 					console.log('[debug] Showing failure modal')

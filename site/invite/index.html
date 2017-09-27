@@ -35,11 +35,9 @@
 				}, function() {
 					console.log('[debug] User disagreed to policy')
 					console.log('[debug] Showing failure modal')
-					UIkit.modal.dialog('<p class="uk-modal-body">You can\'t invite lolbot without agreeing to the Privacy Policy. Sorry!</p>').then(function() {
-						window.close()
-					}, function() {
-						window.close()
-					})})}
+					UIkit.modal.dialog('<p class="uk-modal-body">You can\'t invite lolbot without agreeing to the Privacy Policy. Sorry!</p>')
+				}
+			}
 		</script>
 		<div uk-spinner id="load" style="margin:0 auto;text-align:center;" class="loader uk-align-center"></div>
 		<script>

@@ -60,22 +60,13 @@ class Lul(commands.AutoShardedBot):
         elif isinstance(error, uerrs.ServiceError):
             await ctx.send(f'Service error: `{error}`')
         elif isinstance(error, commands.errors.CommandInvokeError):
-            if self.debugOK == True:
-                # thanks jose
-                tb = ''.join(traceback.format_exception(
-                    type(error.original), error.original,
-                    error.original.__traceback__
+            tb = ''.join(traceback.format_exception(
+                type(error.original), error.original,
+                error.original.__traceback__
                 ))
-                await ctx.send('A error occured, sorry... This issue has been reported.')
-                await self.get_channel(self.config['channel']).send(f'Something happened - Logs: ```\n{tb}\n```')
-            else:
-                tb = ''.join(traceback.format_exception(
-                    type(error.original), error.original,
-                    error.original.__traceback__
-                    ))
-                logging.error('A error occured.')
-                logging.error(tb)
-                await ctx.send('A error occured, sorry...')
+            logging.error('A error occured.')
+            logging.error(tb)
+            await ctx.send('A error occured, sorry...')
 config = json.load(open('config.json'))
 bot = Lul(command_prefix=config['prefix'], description=description, pm_help=True)
 

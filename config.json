@@ -15,10 +15,6 @@
 	"dbl": "",
 	"//6": "Enable the HTTP API for stats on the site if you're running it",
 	"api": true,
-	"//7": "This setting is mostly ideal for development",
-	"//8": "If enabled you must provide a channel ID",
-	"debug": false,
-	"channel": "",
 	"//9": "Your weeb.sh token. If you don't have this, don't worry! It's not required",
 	"weeb": ""
 }

@@ -136,7 +136,7 @@ class Exec:
             except discord.HTTPException:
                 # too long
                 try:
-                    url = await paste(ctx.bot.session, stream + repr(ret))
+                    url = await paste.haste(ctx.bot.session, stream + repr(ret))
                     await ctx.send('Result was too long. ' + url)
                 except KeyError:
                     # even hastebin couldn't handle it

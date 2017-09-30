@@ -28,6 +28,7 @@ OWM_ICONS = {
 class Weather:
     def __init__(self, bot):
         self.bot = bot
+        self.loop = self.bot.loop
         self.config = self.bot.config
         if self.config['owm']:
             self.owm = pyowm.OWM(self.config['owm'])

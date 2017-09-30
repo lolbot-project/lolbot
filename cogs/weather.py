@@ -58,7 +58,7 @@ class Weather:
             em.add_field(name='Temperature', value=f'`{_wg("celsius")} °C, {_wg("fahrenheit")} °F`')
             await ctx.send(embed=em)
         else:
-            return raise uerrs.ServiceError('This instance does not have a OpenWeatherMap API key configured.')
+            raise uerrs.ServiceError('This instance does not have a OpenWeatherMap API key configured.')
 
 def setup(bot):
     bot.add_cog(Weather(bot))

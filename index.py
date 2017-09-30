@@ -7,7 +7,6 @@
 import json
 import logging
 import random
-import sys
 import time
 import traceback
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)

@@ -38,32 +38,25 @@ class Weather:
     async def weather(self, ctx, *, loc: str):
         if self.owm:
             try:
-                wex = await self.loop.run_in_executor(None,
-                        self.owm.weather_at_place, location)
-                obv = await wex
-            except Exception as e:
-                raise uerrs.ServiceError('OWM didn\'t wanna cooperate. Maybe try again later?')
+                future = self.loop.run_in_executor(None, \
+                    self.owm.weather_at_place, location)
+                observation = await future
+            except:
+                await ctx.send('Error retrieving weather data')
                 return
-
-            w = obv.get_weather()
+            w = observation.get_weather()
             _wg = lambda t: w.get_temperature(t)['temp']
-
             _icon = w.get_weather_icon_name()
-            icon = OWM_ICONS.get(_icon, '*no icon*')
+            icon = OWM_ICONS.get(_icon, '*<no icon>*')
             status = w.get_detailed_status()
-
-            em = discord.Embed(title=f'Current weather in {location}')
-
-            o_location = obv.get_location()
-
+            em = discord.Embed(title=f"Weather for '{location}'")
+            o_location = observation.get_location()
             em.add_field(name='Location', value=f'{o_location.get_name()}')
             em.add_field(name='Situation', value=f'{status} {icon}')
             em.add_field(name='Temperature', value=f'`{_wg("celsius")} °C, {_wg("fahrenheit")} °F`')
-            em.add_footer(text='Powered by OpenWeatherMap')
-
             await ctx.send(embed=em)
         else:
-            raise uerrs.ServiceError('This instance does not have a OpenWeatherMap API key configured.')
+            await ctx.send('This instance does not have a OpenWeatherMap API key configured.')
             return
 
 def setup(bot):

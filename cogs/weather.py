@@ -65,3 +65,5 @@ class Weather:
             raise ServiceError('This instance does not have a OpenWeatherMap API key configured.')
             return
 
+def setup(bot):
+    bot.add_cog(Weather(bot))

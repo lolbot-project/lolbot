@@ -4,10 +4,7 @@ engines:
     enabled: true
     config:
       languages:
-      - ruby
-      - javascript
       - python
-      - php
   fixme:
     enabled: true
   radon:
@@ -17,11 +14,6 @@ engines:
         enabled: false
 ratings:
   paths:
-  - "**.inc"
-  - "**.js"
-  - "**.jsx"
-  - "**.module"
-  - "**.php"
   - "**.py"
-  - "**.rb"
-exclude_paths: []
+exclude_paths:
+- "site/js/**"

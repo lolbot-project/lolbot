@@ -27,14 +27,6 @@ class Lul(commands.AutoShardedBot):
         super().__init__(*args, **kwargs)
         self.config = json.load(open('config.json'))
         self.session = aiohttp.ClientSession()
-        if self.config['debug']:
-            if self.config['channel'] == "":
-                logging.error('debug: you need a channel for debug mode! are you dumb?')
-                sys.exit(1)
-            else:
-                self.debugOK = True
-        else:
-            self.debugOK = False
         self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 'no u',
         'lol no', 'me too thanks', 'are you kidding me', 'kek']
         self.badarg = ['You need to put more info than this!', 'I didn\'t understan'

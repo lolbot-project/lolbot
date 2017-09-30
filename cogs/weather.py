@@ -41,8 +41,8 @@ class Weather:
                 future = self.loop.run_in_executor(None, \
                     self.owm.weather_at_place, location)
                 observation = await future
-            except:
-                await ctx.send('Error retrieving weather data')
+            except Exception as e:
+                raise uerrs.ServiceError(e)
                 return
             w = observation.get_weather()
             _wg = lambda t: w.get_temperature(t)['temp']
@@ -56,7 +56,7 @@ class Weather:
             em.add_field(name='Temperature', value=f'`{_wg("celsius")} °C, {_wg("fahrenheit")} °F`')
             await ctx.send(embed=em)
         else:
-            await ctx.send('This instance does not have a OpenWeatherMap API key configured.')
+            throw uerrs.ServiceError('This instance does not have a OpenWeatherMap API key configured.')
             return
 
 def setup(bot):

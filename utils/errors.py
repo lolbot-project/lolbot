@@ -30,3 +30,10 @@ class DogException(PostException):
     Datadog
     """
     pass
+
+class ServiceError(Exception):
+    """
+    Raised whenever a request to a service
+    returns a failure of some sort.
+    """
+    pass

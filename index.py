@@ -17,6 +17,7 @@ logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 import aiohttp
 import discord
 from discord.ext import commands
+import utils.errors as uerrs
 
 description = '''Just a bot :)'''
 exts = ['bots', 'donate', 'eval', 'fun', 'nekos', 'owner', 'stats', 'utility']
@@ -56,6 +57,8 @@ class Lul(commands.AutoShardedBot):
             await ctx.send(f'Bad arg: `{random.choice(self.badarg)}`')
         elif isinstance(error, commands.errors.MissingRequiredArgument):
             await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
+        elif isinstance(error, uerrs.ServiceError):
+            await ctx.send(f'Service error: `{error}`')
         elif isinstance(error, commands.errors.CommandInvokeError):
             if self.debugOK == True:
                 # thanks jose

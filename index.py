@@ -49,7 +49,7 @@ class Lul(commands.AutoShardedBot):
         elif isinstance(error, commands.errors.MissingRequiredArgument):
             await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
         elif isinstance(error, utils.errors.ServiceError):
-            await ctx.send(f'Service error: `{error}`')
+            await ctx.send(f'Service error: `{error!s}`')
         elif isinstance(error, commands.errors.CommandInvokeError):
             tb = ''.join(traceback.format_exception(
                 type(error.original), error.original,

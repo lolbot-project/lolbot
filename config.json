@@ -3,8 +3,9 @@
 	"token": "",
 	"//2": "Enter your prefix (default: ^)",
 	"prefix": "^",
-	"//3": "Enter your ID for stats, etc to work",
-	"ownerid": "",
+
+	"//3": "These are optional options you can flip",
+
 	"//4": "For bot list submissions to work",
 	"//5": "note that bot list reporting is usually disabled - to enable it change false to true.",
 	"dbotspw": false,

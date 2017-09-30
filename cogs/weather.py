@@ -1,4 +1,5 @@
 from discord.ext import commands
+import utils.errors as uerrs
 import pyowm
 
 W_CLEAR_SKY =           ':sunny:'
@@ -41,7 +42,7 @@ class Weather:
                         self.owm.weather_at_place, location)
                 obv = await wex
             except Exception as e:
-                raise ServiceError('OWM didn\'t wanna cooperate. Maybe try again later?')
+                raise uerrs.ServiceError('OWM didn\'t wanna cooperate. Maybe try again later?')
                 return
 
             w = obv.get_weather()
@@ -62,7 +63,7 @@ class Weather:
 
             await ctx.send(embed=em)
         else:
-            raise ServiceError('This instance does not have a OpenWeatherMap API key configured.')
+            raise uerrs.ServiceError('This instance does not have a OpenWeatherMap API key configured.')
             return
 
 def setup(bot):

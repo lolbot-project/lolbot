@@ -20,7 +20,7 @@ from discord.ext import commands
 import utils.errors as uerrs
 
 description = '''Just a bot :)'''
-exts = ['bots', 'donate', 'eval', 'fun', 'nekos', 'owner', 'stats', 'utility']
+exts = ['bots', 'donate', 'eval', 'fun', 'nekos', 'owner', 'stats', 'utility', 'weather']
 
 class Lul(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):

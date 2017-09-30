@@ -31,8 +31,9 @@ class DogException(PostException):
     """
     pass
 
-class ServiceError(Exception):
+class ServiceError(commands.CommandInvokeError):
     """
+    Subclass of commands.CommandInvokeError.
     Raised whenever a request to a service
     returns a failure of some sort.
     """

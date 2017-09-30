@@ -45,7 +45,6 @@ class Weather:
                 observation = await future
             except Exception as e:
                 raise uerrs.ServiceError(e)
-                return
             w = observation.get_weather()
             _wg = lambda t: w.get_temperature(t)['temp']
             _icon = w.get_weather_icon_name()

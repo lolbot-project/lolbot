@@ -53,7 +53,7 @@ class Lul(commands.AutoShardedBot):
         if isinstance(error, commands.errors.CheckFailure):
             await ctx.send(f'Permissions error: {random.choice(self.checkfail)}')
         elif isinstance(error, commands.errors.BadArgument):
-            await ctx.send(f'Bad argument error: {random.choice(self.badarg)}')
+            await ctx.send(f'Bad arg: `{random.choice(self.badarg)}`')
         elif isinstance(error, commands.errors.MissingRequiredArgument):
             await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
         elif isinstance(error, commands.errors.CommandInvokeError):

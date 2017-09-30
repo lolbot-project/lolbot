@@ -1,4 +1,5 @@
 # File for custom exceptions
+from discord.ext import commands
 
 class PostException(Exception):
     """

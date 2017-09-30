@@ -32,7 +32,7 @@ class Fun:
             httpcat_em.set_image(url=f'https://http.cat/{http_id}.jpg')
             await ctx.send(embed=httpcat_em)
         else:
-            return raise commands.BadArgument('Specified HTTP code invalid')
+            raise commands.BadArgument('Specified HTTP code invalid')
 
     @commands.command()
     async def dog(self, ctx):

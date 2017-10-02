@@ -50,7 +50,7 @@ class Weather:
             _icon = w.get_weather_icon_name()
             icon = OWM_ICONS.get(_icon, '*<no icon>*')
             status = w.get_detailed_status()
-            em = discord.Embed(title=f"Weather for '{loc}'")
+            em = discord.Embed(title=f"Weather for '{loc}'", colour=0x690E8)
             o_location = observation.get_location()
             em.add_field(name='Location', value=f'{o_location.get_name()}')
             em.add_field(name='Situation', value=f'{status} {icon}')

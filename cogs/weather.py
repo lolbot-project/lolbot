@@ -38,6 +38,7 @@ class Weather:
     @commands.command()
     @commands.cooldown(2, 5)
     async def weather(self, ctx, *, loc: str):
+        """Grabs the weather from OpenWeatherMap"""
         if self.owm:
             try:
                 future = self.loop.run_in_executor(None, \

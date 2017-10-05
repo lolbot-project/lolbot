@@ -103,3 +103,6 @@ ENV/
 # lolbot config.json
 config.json
 
+# site css and js
+site/css/
+site/js

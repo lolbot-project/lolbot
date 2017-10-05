@@ -35,3 +35,7 @@ Addendum 4b: use pm2: `pm2 start index.py --name lolbot --interpreter python3.6`
 ### Features probably never added
 - music (maybe soon? - note from 8/28/17)
 - something else (???)
+
+### Credits
+- luna (good shit)
+- slice (also good shit)

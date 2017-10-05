@@ -1,3 +1,4 @@
+# thanks luna haha
 from discord.ext import commands
 import discord
 import utils.errors as uerrs

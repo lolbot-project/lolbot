@@ -4,13 +4,12 @@
 # MIT License.
 space() {
 	echo ""
-	echo ""
 }
-if [[ "$1" -eq "--help" ]]; then
+if [ "$1" = "--help" ]; then
 	echo "lolbot web setup script v1.0"
 	echo "(c) 2017 S Stewart, MIT License"
 	echo "Arguments:"
-	echo "--full    Download unminified CSS and JS (unrecommended)"
+	echo "    --help    Shows this help message"
 	exit 0
 else
 	echo "Welcome!"
@@ -19,35 +18,34 @@ else
 	echo "Starting in a second."
 	sleep 1
 	cd site
-	mkdir css
-	mkdir js
+	mkdir css > /dev/null 2>&1
+	if [ "$?" -eq 1 ]; then
+		echo "CSS folder already exists, skipping"
+	else
+		echo "CSS folder created"
+	fi
+	mkdir js > /dev/null 2>&1
+	if [ "$?" -eq 1 ]; then
+		echo "JS folder already exists, skipping"
+	else
+		echo "JS folder created"
+	fi
 	space
-	echo "-------------------------"
 	echo "| Downloading CSS files |"
-	echo "-------------------------"
 	space
-	if [[ "$1" -eq "--full" ]]; then
-		echo "Downloading uikit.css"
-		wget -O css/uikit.css "https://cdn.jsdelivr.net/npm/uikit@3.0.0-beta.30/dist/css/uikit.css"
+	echo "Downloading uikit.min.css"
+	wget -O css/uikit.css "https://cdn.jsdelivr.net/npm/uikit@3.0.0-beta.30/dist/css/uikit.min.css" > /dev/null 2>&1
+	if [ "$?" -eq 1 ]; then
+	    echo "| CSS download error. |"
 	else
-		echo "Downloading uikit.min.css"
-		wget -O css/uikit.css "https://cdn.jsdelivr.net/npm/uikit@3.0.0-beta.30/dist/css/uikit.min.css"
-	fi
-	echo "-------------------------"
-	echo "| CSS download finished |"
-	echo "-------------------------"
+	    echo "| CSS download finished. |"
 	space
-	echo "------------------------"
 	echo "| Downloading JS files |"
-	echo "------------------------"
-	if [[ "$1" -eq "--full" ]]; then
-		echo "Downloading uikit.js"
-		wget -O js/uikit.js "https://cdn.jsdelivr.net/npm/uikit@3.0.0-beta.30/dist/js/uikit.js"
+	echo "Downloading uikit.min.js"
+	wget -O js/uikit.js "https://cdn.jsdelivr.net/npm/uikit@3.0.0-beta.30/dist/js/uikit.min.js" > /dev/null 2>&1
+	if [ "$?" -eq 1 ]; then
+	    echo "| JS download error. |"
 	else
-		echo "Downloading uikit.min.js"
-		wget -O js/uikit.js "https://cdn.jsdelivr.net/npm/uikit@3.0.0-beta.30/dist/js/uikit.min.js"
+	    echo "| JS download finished |"
 	fi
-	echo "------------------------"
-	echo "| JS download finished |"
-	echo "------------------------"
 fi

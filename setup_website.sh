@@ -6,7 +6,7 @@ space() {
 	echo ""
 	echo ""
 }
-if [ "$1" -eq "--help" ]; then
+if [[ "$1" -eq "--help" ]]; then
 	echo "lolbot web setup script v1.0"
 	echo "(c) 2017 S Stewart, MIT License"
 	echo "Arguments:"
@@ -26,7 +26,7 @@ else
 	echo "| Downloading CSS files |"
 	echo "-------------------------"
 	space
-	if [ "$1" -eq "--full" ]; then
+	if [[ "$1" -eq "--full" ]]; then
 		echo "Downloading uikit.css"
 		wget -O css/uikit.css "https://cdn.jsdelivr.net/npm/uikit@3.0.0-beta.30/dist/css/uikit.css"
 	else
@@ -40,7 +40,7 @@ else
 	echo "------------------------"
 	echo "| Downloading JS files |"
 	echo "------------------------"
-	if [ "$1" -eq "--full" ]; then
+	if [[ "$1" -eq "--full" ]]; then
 		echo "Downloading uikit.js"
 		wget -O js/uikit.js "https://cdn.jsdelivr.net/npm/uikit@3.0.0-beta.30/dist/js/uikit.js"
 	else

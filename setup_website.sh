@@ -39,6 +39,7 @@ else
 	    echo "| CSS download error. |"
 	else
 	    echo "| CSS download finished. |"
+	fi
 	space
 	echo "| Downloading JS files |"
 	echo "Downloading uikit.min.js"

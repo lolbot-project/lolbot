@@ -1,3 +1,4 @@
+#!/bin/bash
 # lolbot setup script
 # Setup the website with just a simple script run.
 # (c) 2017 S Stewart

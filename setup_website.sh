@@ -50,3 +50,4 @@ else
 	echo "------------------------"
 	echo "| JS download finished |"
 	echo "------------------------"
+fi

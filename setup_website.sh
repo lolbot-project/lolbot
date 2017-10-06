@@ -52,9 +52,16 @@ else
 	fi
 	echo "Downloading uikit-icons.min.js"
 	wget -O js/uikit-icons.min.js "https://cdn.jsdelivr.net/npm/uikit@3.0.0-beta.30/dist/js/uikit-icons.min.js" > /dev/null 2>&1
-	if [ $? -eq 1 ]; then
+	if [ "$?" -eq 1 ]; then
 	    echo "| Icons download error. |"
 	else
-	    echo "| Icons download finished."
+	    echo "| Icons download finished. |"
+	fi
+	echo "Downloading jquery.min.js"
+	wget -O js/jquery.js "https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" > /dev/null 2>&1
+	if [ "$?" -eq 1]; then
+	    echo "| JQuery download error. |"
+	else
+	    echo "| JQuery download finished. |"
 	fi
 fi

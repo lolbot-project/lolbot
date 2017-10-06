@@ -51,7 +51,7 @@ else
 	    echo "| UIKit JS download finished. |"
 	fi
 	echo "Downloading uikit-icons.min.js"
-	wget -O js/uikit-icons.min.js "https://cdn.jsdelivr.net/npm/uikit@3.0.0-beta.30/dist/js/uikit-icons.min.js" > /dev/null 2>&1
+	wget -O js/uikit-icons.js "https://cdn.jsdelivr.net/npm/uikit@3.0.0-beta.30/dist/js/uikit-icons.min.js" > /dev/null 2>&1
 	if [ "$?" -eq 1 ]; then
 	    echo "| Icons download error. |"
 	else

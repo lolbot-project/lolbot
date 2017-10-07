@@ -96,7 +96,7 @@ class Wolfram:
 
             def subpod_simplify(subpod):
                 if subpod.get('img'):
-                    return subpod['img']['src']
+                    return subpod['img']['@src']
                 return subpod['plaintext']
 
             if isinstance(pod['subpod'], dict):

@@ -1,2 +1,3 @@
 git+https://github.com/rapptz/discord.py@rewrite
 pyowm
+wolframalpha

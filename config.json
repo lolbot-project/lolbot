@@ -17,6 +17,8 @@
 	"api": true,
 	"//7": "Your OWM API key - not required",
 	"owm": "",
+	"//8": "Your Wolfram|Alpha API key - again not required",
+	"wa": "",
 	"//9": "Your weeb.sh token. If you don't have this, don't worry! It's not required",
 	"weeb": ""
 }

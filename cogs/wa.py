@@ -105,13 +105,22 @@ class Wolfram:
 
             if isinstance(pod['subpod'], dict):
                 # in this case, we only have one
-                em = discord.Embed(description=subpod_simplify(pod['subpod']), colour=0x690E8)
-                await ctx.send(embed=em)
+                if 'MSPStoreType=image' in subpod_simplify(pod['subpod']):
+                    em = discord.Embed(colour=0x690E8)
+                    em.set_image(url=subpod_simplify(pod['subpod'])
+                    await ctx.send(embed=em)
+                else:
+                    em = discord.Embed(description=subpod_simplify(pod['subpod']), colour=0x690E8)
             else:
                 # but maybe we have 2, or 3, or 4.
                 # we'll just choose the first
-                em = discord.Embed(description=subpod_simplify(pod['subpod'][0]), colour=0x690E8)
-                await ctx.send(embed=em)
+                if 'MSPStoreType=image' in subpod_simplify(pod['subpod']):
+                    em = discord.Embed(colour=0x690E8)
+                    em.set_image(url=subpod_simplify(pod['subpod']))
+                    await ctx.send(embed=em)
+                else:
+                    em = discord.Embed(description=subpod_simplify(pod['subpod'][0]), colour=0x690E8)
+                    await ctx.send(embed=em)
         else:
             raise uerrs.ServiceError('This instance does not have a'
                 'Wolfram|Alpha key set up.')

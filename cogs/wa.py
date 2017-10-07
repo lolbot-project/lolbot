@@ -101,7 +101,7 @@ class Wolfram:
 
             if isinstance(pod['subpod'], dict):
                 # in this case, we only have one
-                await ctx.send(subpod_simplify(pod['subpod'))
+                await ctx.send(subpod_simplify(pod['subpod']))
             else:
                 # but maybe we have 2, or 3, or 4.
                 # we'll just choose the first

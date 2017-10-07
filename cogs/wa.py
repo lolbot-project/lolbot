@@ -107,7 +107,7 @@ class Wolfram:
                 # in this case, we only have one
                 if 'MSPStoreType=image' in subpod_simplify(pod['subpod']):
                     em = discord.Embed(colour=0x690E8)
-                    em.set_image(url=subpod_simplify(pod['subpod'])
+                    em.set_image(url=subpod_simplify(pod['subpod']))
                     await ctx.send(embed=em)
                 else:
                     # but maybe we have 2, or 3, or 4.

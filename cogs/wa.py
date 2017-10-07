@@ -88,7 +88,7 @@ class Wolfram:
 
             if not getattr(res, 'pods', False):
                 em = discord.Embed(title='No answer', colour=0x690E8)
-                await ctx.send(embed=em)
+                return await ctx.send(embed=em)
 
             pods = list(res.pods)
 

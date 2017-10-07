@@ -15,6 +15,10 @@ RESULT_PODS = {
     'Result', 'Plot', 'Plots', 'Solution'
 }
 
+NOT_PODS = {
+    'Input', 'Input interpretation'
+}
+
 def pod_finder(pod_list):
     """Finds a probable pod."""
     pod_scores = {}
@@ -29,7 +33,7 @@ def pod_finder(pod_list):
         score = 0
 
         # meh pods
-        if pod.get('@title') in {'Input'}:
+        if pod.get('@title') in NOT_PODS:
             score -= 100
 
         if isinstance(pod['subpod'], list):

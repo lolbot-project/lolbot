@@ -94,7 +94,7 @@ class Wolfram:
 
             pod = pod_finder(pods)
 
-           def subpod_simplify(subpod):
+            def subpod_simplify(subpod):
                """simplifies stuff"""
                 if subpod.get('img'):
                     return subpod['img']['src']

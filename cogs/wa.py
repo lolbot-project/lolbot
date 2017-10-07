@@ -57,7 +57,7 @@ class Wolfram:
         self.bot = bot
         self.config = json.load(open('config.json'))
         if self.config['wa']:
-            self.wa = wolframalpha.Client(self.config.wa)
+            self.wa = wolframalpha.Client(self.config['wa'])
         else:
             self.wa = None
 

@@ -38,6 +38,9 @@ class Owner:
         """Loads an extension."""
         try:
             self.bot.load_extension('cogs.' + extension_name)
+        except ModuleNotFoundError:
+            await ctx.send(f':x: Cog {extension_name} not found.')
+            return
         except Exception:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
             return
@@ -57,6 +60,9 @@ class Owner:
         try:
             self.bot.unload_extension('cogs.' + extension_name)
             self.bot.load_extension('cogs.' + extension_name)
+        except ModuleNotFoundError:
+            await ctx.send(f':x: Cog {extension_name} not found.')
+            return
         except Exception:
             await ctx.send(f'```{traceback.format_exc()}```')
             return

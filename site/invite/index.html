@@ -36,10 +36,8 @@
 				}, function() {
 					console.log('[debug] User disagreed to policy')
 					console.log('[debug] Showing failure modal')
-					UIkit.modal.dialog('<p class="uk-modal-body">You can\'t invite lolbot without agreeing to the Privacy Policy. Sorry!</p>')
-					setTimeout(function(){
-						window.open(window.location,'_self').close()
-					}, 3000)
+					UIkit.modal.dialog('<p class="uk-modal-body">You can\'t invite lolbot without agreeing to the Privacy Policy. Sorry!</p><br/><hr/>'
+						'<i>You may now close this tab</i>')
 			})
 		}
 		</script>

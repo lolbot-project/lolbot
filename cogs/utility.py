@@ -1,3 +1,4 @@
+import asyncio
 import sys
 import time
 import json
@@ -67,6 +68,21 @@ class Etc:
                 '(' + discord.utils.oauth_url(info.id) + ')')
         invEmb.add_field(name='Official server', value=str(self.support))
         await ctx.send(embed=invEmb)
+
+    @commands.command()
+    async def version(self, ctx):
+        """Returns current version of lolbot"""
+        with ctx.typing():
+            tag = await asyncio.create_subprocess_shell('git describe --abbrev=0 --tags',
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE)
+            commit = await asyncio.create_subprocess_shell('git log --oneline --abbrev=2',
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE)
+            co, ce = map(lambda s: s.decode('utf-8'), await commit.communicate())
+            to, te = map(lambda st: st.decode('utf-8'), await tag.communicate())
+            await ctx.send(f'`**lolbot** version {to}{te}, running git-{co}{ce}')
+
 
 def setup(bot):
   bot.add_cog(Etc(bot))

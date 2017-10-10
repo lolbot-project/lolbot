@@ -92,8 +92,8 @@ class Etc:
                 pass
             e = discord.Embed(colour=0x690E8)
             e.add_field(name='Latest tag', value=f'{to}{te}')
-            e.add_field(name='Running', value=f'git-{co}{ce}')
-            e.add_footer(text='powered by git!')
+            e.add_field(name='Currently running', value=f'git-{co}{ce}')
+            e.set_footer(text='powered by git (and stuff)!')
             await ctx.send(embed=e)
 
 

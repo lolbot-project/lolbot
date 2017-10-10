@@ -7,6 +7,7 @@ from discord.ext import commands
 from random import choice as rchoice
 
 config = json.load(open('config.json'))
+GitError = 'fatal: Not a git repository (or any of the parent directories): .git'
 
 class Etc:
     def __init__(self, bot):
@@ -81,7 +82,19 @@ class Etc:
                     stderr=asyncio.subprocess.PIPE)
             co, ce = map(lambda s: s.decode('utf-8'), await commit.communicate())
             to, te = map(lambda st: st.decode('utf-8'), await tag.communicate())
-            await ctx.send(f'`**lolbot** version {to}{te}, running git-{co}{ce}`')
+            if f'{co}{ce}' == GitError:
+                co, ce = '*No commit*'
+            else:
+                pass
+            if f'{to}{te}' == GitError:
+                to, te = '*No release*'
+            else:
+                pass
+            e = discord.Embed(colour=0x690E8)
+            e.add_field(name='Latest tag', value=f'{to}{te}')
+            e.add_field(name='Running', value=f'git-{co}{ce}')
+            e.add_footer(text='powered by git!')
+            await ctx.send(embed=e)
 
 
 def setup(bot):

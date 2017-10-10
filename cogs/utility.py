@@ -81,7 +81,7 @@ class Etc:
                     stderr=asyncio.subprocess.PIPE)
             co, ce = map(lambda s: s.decode('utf-8'), await commit.communicate())
             to, te = map(lambda st: st.decode('utf-8'), await tag.communicate())
-            await ctx.send(f'`**lolbot** version {to}{te}, running git-{co}{ce}')
+            await ctx.send(f'`**lolbot** version {to}{te}, running git-{co}{ce}q')
 
 
 def setup(bot):

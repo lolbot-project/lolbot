@@ -8,6 +8,8 @@ from random import choice as rchoice
 
 config = json.load(open('config.json'))
 GitError = 'fatal: Not a git repository (or any of the parent directories): .git'
+NoCommit = '*No commit*'
+NoRelease = '"No release*'
 
 class Etc:
     def __init__(self, bot):
@@ -83,11 +85,13 @@ class Etc:
             co, ce = map(lambda s: s.decode('utf-8'), await commit.communicate())
             to, te = map(lambda st: st.decode('utf-8'), await tag.communicate())
             if GitError in f'{co}{ce}':
-                co, ce = '*No commit*'
+                co = NoCommit
+                ce = NoCommit
             else:
                 pass
             if GitError in f'{to}{te}':
-                to, te = '*No release*'
+                to = NoRelease
+                te = NoRelease
             else:
                 pass
             e = discord.Embed(colour=0x690E8)

@@ -82,11 +82,11 @@ class Etc:
                     stderr=asyncio.subprocess.PIPE)
             co, ce = map(lambda s: s.decode('utf-8'), await commit.communicate())
             to, te = map(lambda st: st.decode('utf-8'), await tag.communicate())
-            if f'{co}{ce}' == GitError:
+            if f'{co}{ce}' in GitError:
                 co, ce = '*No commit*'
             else:
                 pass
-            if f'{to}{te}' == GitError:
+            if f'{to}{te}' in GitError:
                 to, te = '*No release*'
             else:
                 pass

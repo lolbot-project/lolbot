@@ -86,17 +86,23 @@ class Etc:
             to, te = map(lambda st: st.decode('utf-8'), await tag.communicate())
             if GitError in f'{co}{ce}':
                 co = NoCommit
-                ce = NoCommit
+                ce = None
             else:
                 pass
             if GitError in f'{to}{te}':
                 to = NoRelease
-                te = NoRelease
+                te = None
             else:
                 pass
+            if ce and te == None:
+                runVal = '*no release*'
+                rVal0 = '*no tag*'
+            else:
+                runVal = co
+                rVal0 = to
             e = discord.Embed(colour=0x690E8)
-            e.add_field(name='Latest tag', value=f'{to}{te}')
-            e.add_field(name='Currently running', value=f'git-{co}{ce}')
+            e.add_field(name='Latest tag', value=rVal0)
+            e.add_field(name='Currently running', value=runVal)
             e.set_footer(text='powered by git (and stuff)!')
             await ctx.send(embed=e)
 

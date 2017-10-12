@@ -26,8 +26,8 @@ class Etc:
         d, h = divmod(h, 24)
         upEm = discord.Embed(title='Uptime', colour=0x690E8)
         startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(self.bot.init_time))
-        upEm.add_field(name='Started on', value=startedOn + '\n |')
-        upEm.add_field(name='Uptime', value=f' {d} days, {h} hours, {m} minutes and {s} seconds')
+        upEm.add_field(name='Started on', value=startedOn, inline=False)
+        upEm.add_field(name='Uptime', value=f' {d} days, {h} hours, {m} minutes and {s} seconds', inline=False)
         await ctx.send(embed=upEm)
 
     @commands.command()

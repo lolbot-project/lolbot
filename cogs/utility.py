@@ -100,6 +100,7 @@ class Etc:
             else:
                 runVal = co
                 rVal0 = to
+                rVal0.replace('"', '*')
             e = discord.Embed(colour=0x690E8)
             e.add_field(name='Latest tag', value=rVal0)
             e.add_field(name='Currently running', value=runVal)

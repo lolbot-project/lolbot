@@ -8,8 +8,8 @@ from random import choice as rchoice
 
 config = json.load(open('config.json'))
 GitError = 'fatal: Not a git repository (or any of the parent directories): .git'
-NoCommit = '*No commit*'
-NoRelease = '"No release*'
+NoCommit = '*No commit'
+NoRelease = '*No release*'
 
 class Etc:
     def __init__(self, bot):
@@ -100,7 +100,6 @@ class Etc:
             else:
                 runVal = co
                 rVal0 = to
-                rVal0.replace('"', '*')
             e = discord.Embed(colour=0x690E8)
             e.add_field(name='Latest tag', value=rVal0)
             e.add_field(name='Currently running', value=runVal)

@@ -1,22 +1,19 @@
+# -*- coding: utf-8 -*-
+
 # the lolbot core
 # (c) 2017 S Stewart under MIT License
 
-# -*- coding: utf-8 -*-
-
-# built in modules go first.
 import json
 import logging
 import random
 import time
 import traceback
-logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
-
-# import the rest
-
 import aiohttp
 import discord
 from discord.ext import commands
 import utils.errors
+
+logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 description = '''Just a bot :)'''
 exts = ['bots', 'donate', 'eval', 'fun', 'nekos', 'owner', 'stats', 'utility', 'weather', 'wa']
 
@@ -25,8 +22,6 @@ class Lul(commands.AutoShardedBot):
         super().__init__(*args, **kwargs)
         self.config = json.load(open('config.json'))
         self.session = aiohttp.ClientSession()
-        self.checkfail = ['heck off', 'You died! [REAL] [Not clickbait]',  'succ my rod', 'no u',
-        'lol no', 'me too thanks', 'are you kidding me', 'kek']
         self.badarg = ['You need to put more info than this!', 'I didn\'t understan'
         'd that.', 'Sorry, can\'t process that.',
         'Read ' + self.config['prefix'] + 'help <command> for instructions.', 'Hmm?']
@@ -42,22 +37,24 @@ class Lul(commands.AutoShardedBot):
 
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.errors.CheckFailure):
-            await ctx.send(f'Permissions error: {random.choice(self.checkfail)}')
+            await ctx.message.add_reaction(ctx.bot.get_emoji(368595774105321472))
         elif isinstance(error, commands.errors.BadArgument):
             await ctx.send(f'Bad arg: `{random.choice(self.badarg)}`')
         elif isinstance(error, commands.errors.MissingRequiredArgument):
             await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
         elif isinstance(error, utils.errors.ServiceError):
             logging.error(f'Oops! {error!s}')
-            await ctx.send(f'Service error: `{error!s}`')
+            await ctx.message.add_reaction(ctx.bot.get_emoji(368595774105321472))
+            await ctx.send(f'Service error: `{err!s}`')
         elif isinstance(error, commands.errors.CommandInvokeError):
+            await ctx.message.add_reaction(ctx.bot.get_emoji(368595774105321472))
             tb = ''.join(traceback.format_exception(
                 type(error.original), error.original,
                 error.original.__traceback__
                 ))
             logging.error('A error occured.')
             logging.error(tb)
-            await ctx.send('A error occured, sorry...')
+
 config = json.load(open('config.json'))
 bot = Lul(command_prefix=config['prefix'], description=description, pm_help=True)
 

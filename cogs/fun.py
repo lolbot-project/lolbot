@@ -82,7 +82,7 @@ class Fun:
         """Generates a picture of some bot from some text"""
         try:
             e = discord.Embed(colour=0x690E8)
-            e.set_image(url=meme)
+            e.set_image(url=f'https://robohash.org/{meme}.png')
             await ctx.send(embed=e)
         except Exception as e:
             raise utils.errors.ServiceError(f'something broke: {e!s}')

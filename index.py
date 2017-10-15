@@ -57,7 +57,7 @@ class Lul(commands.AutoShardedBot):
             logging.error(tb)
 
 config = json.load(open('config.json'))
-bot = Lul(command_prefix=config['prefix'], description=description, pm_help=True)
+bot = Lul(command_prefix=config['prefix'], description=description, pm_help=None)
 
 if __name__ == '__main__':
     for ext in exts:

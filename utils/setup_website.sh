@@ -60,8 +60,8 @@ else
 	echo "Downloading jquery.min.js"
 	wget -O js/jquery.js "https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" > /dev/null 2>&1
 	if [ "$?" -eq 1 ]; then
-	    echo "| JQuery download error. |"
+	    echo "| jQuery download error. |"
 	else
-	    echo "| JQuery download finished. |"
+	    echo "| jQuery download finished. |"
 	fi
 fi

@@ -2,6 +2,7 @@ import random
 
 import discord
 from discord.ext import commands
+import utils.errors
 
 class Fun:
     def __init__(self, bot):
@@ -73,6 +74,15 @@ class Fun:
                 await ctx.send(embed=whyEm)
             else:
                 await ctx.send(f'I wasn\'t able to fetch the sentence. (HTTP code {why.status})')
+
+    @commands.command(aliases=['rhash', 'robothash', 'rh', 'rohash'])
+    async def robohash(self, ctx, *, meme: str):
+        """Generates a picture of some bot from some text"""
+        try:
+            e = discord.Embed(colour=0x690E8)
+            e.set_image(url=meme)
+        except Exception as e:
+            raise utils.errors.ServiceError(f'something broke: {e!s}')
 
     @commands.command()
     async def k(self, ctx):

@@ -37,17 +37,17 @@ class Lul(commands.AutoShardedBot):
 
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.errors.CheckFailure):
-            await ctx.message.add_reaction(ctx.bot.get_emoji(368595774105321472))
+            await ctx.message.add_reaction(ctx.bot.get_guild(307640404071677962).get_emoji(368595774105321472))
         elif isinstance(error, commands.errors.BadArgument):
             await ctx.send(f'Bad arg: `{random.choice(self.badarg)}`')
         elif isinstance(error, commands.errors.MissingRequiredArgument):
             await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
         elif isinstance(error, utils.errors.ServiceError):
             logging.error(f'Oops! {error!s}')
-            await ctx.message.add_reaction(ctx.bot.get_emoji(368595774105321472))
+            await ctx.message.add_reaction(ctx.bot.get_guild(307640404071677962).get_emoji(368595774105321472))
             await ctx.send(f'Service error: `{error!s}`')
         elif isinstance(error, commands.errors.CommandInvokeError):
-            await ctx.message.add_reaction(ctx.bot.get_emoji(368595774105321472))
+            await ctx.message.add_reaction(ctx.bot.get_guild(307640404071677962).get_emoji(368595774105321472))
             tb = ''.join(traceback.format_exception(
                 type(error.original), error.original,
                 error.original.__traceback__

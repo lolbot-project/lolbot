@@ -83,6 +83,7 @@ class Fun:
         try:
             e = discord.Embed(colour=0x690E8)
             e.set_image(url=meme)
+            await ctx.send(embed=e)
         except Exception as e:
             raise utils.errors.ServiceError(f'something broke: {e!s}')
 

@@ -106,3 +106,6 @@ config.json
 # site css and js
 site/css/
 site/js
+
+# idea/pycharm turds
+.idea/workspace.xml

@@ -1,4 +1,5 @@
 import random
+import urllib.parse
 
 import discord
 from discord.ext import commands
@@ -82,6 +83,7 @@ class Fun:
         """Generates a picture of some bot from some text"""
         try:
             e = discord.Embed(colour=0x690E8)
+            meme = urllib.parse.quote_plus(meme)
             e.set_image(url=f'https://robohash.org/{meme}.png')
             await ctx.send(embed=e)
         except Exception as e:

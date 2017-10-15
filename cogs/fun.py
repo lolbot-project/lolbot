@@ -20,6 +20,8 @@ class Fun:
                 em = discord.Embed(name='random.cat', colour=0x690E8)
                 em.set_image(url=js['file'])
                 await ctx.send(embed=em)
+            else:
+                raise utils.errors.ServiceError(f'could not fetch cute cat :( (http {r.status})')
 
     @commands.command()
     async def httpcat(self, ctx, http_id: int):
@@ -49,7 +51,7 @@ class Fun:
                     shibeEmbed.set_image(url=shibeURL)
                     await ctx.send(embed=shibeEmbed)
             else:
-                await ctx.send(f'Something happened while fetching the picture (HTTP code {shibeGet.status})')
+                raise utils.errors.ServiceError(f'could not fetch pupper :( (http {shibeGet.status})')
 
     @commands.command()
     async def lizard(self, ctx):
@@ -61,7 +63,7 @@ class Fun:
                 lizEm.set_image(url=img['url'])
                 await ctx.send(embed=lizEm)
             else:
-                await ctx.send(f'Oops. (code {lizr.status})')
+                raise utils.errors.ServiceError(f'something went boom (http {lizr.status})')
 
     @commands.command()
     async def why(self, ctx):
@@ -73,7 +75,7 @@ class Fun:
                         description=whyJS['why'], colour=0x690E8)
                 await ctx.send(embed=whyEm)
             else:
-                await ctx.send(f'I wasn\'t able to fetch the sentence. (HTTP code {why.status})')
+                raise utils.errors.ServiceError(f'something went boom (http {why.status})')
 
     @commands.command(aliases=['rhash', 'robothash', 'rh', 'rohash'])
     async def robohash(self, ctx, *, meme: str):

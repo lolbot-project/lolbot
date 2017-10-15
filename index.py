@@ -45,7 +45,7 @@ class Lul(commands.AutoShardedBot):
         elif isinstance(error, utils.errors.ServiceError):
             logging.error(f'Oops! {error!s}')
             await ctx.message.add_reaction(ctx.bot.get_emoji(368595774105321472))
-            await ctx.send(f'Service error: `{err!s}`')
+            await ctx.send(f'Service error: `{error!s}`')
         elif isinstance(error, commands.errors.CommandInvokeError):
             await ctx.message.add_reaction(ctx.bot.get_emoji(368595774105321472))
             tb = ''.join(traceback.format_exception(

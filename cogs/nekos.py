@@ -1,6 +1,7 @@
 import discord
 import json
 from discord.ext import commands
+import utils.errors
 
 class Animemes:
     def __init__(self, bot):
@@ -20,7 +21,7 @@ class Animemes:
                 nekoEm.set_image(url=img['neko'])
                 await ctx.send(embed=nekoEm)
             else:
-                await ctx.send(f'Oops. (code {neko.status})')
+                raise utils.errors.ServiceError(f'dude rip (http {neko.status})')
 
     @commands.command()
     async def lneko(self, ctx):
@@ -33,10 +34,10 @@ class Animemes:
                     lnekoEm.set_image(url=img['neko'])
                     await ctx.send(embed=lnekoEm)
                 else:
-                    await ctx.send(f'Oops. (code {lneko.status})')
+                    raise utils.errors.ServiceError(f'dude rip (http {lneko.status})')
         else:
-            await ctx.send('You\'re not in a NSFW channel. Therefore, I cannot post a '
-                    ' lewd neko to this channel.')
+            raise utils.errors.NSFWException('you really think you can do this'
+                                             'in a non nsfw channel? lol')
 
 def setup(bot):
     bot.add_cog(Animemes(bot))

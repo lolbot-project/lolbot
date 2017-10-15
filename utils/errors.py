@@ -39,3 +39,11 @@ class ServiceError(commands.CommandInvokeError):
     returns a failure of some sort.
     """
     pass
+
+class NSFWException(commands.CheckFailure):
+    """
+    Subclass of commands.CheckFailure.
+    Raised whenever a NSFW command is not
+    executed in a NSFW channel.
+    """
+    pass

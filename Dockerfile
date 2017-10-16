@@ -16,4 +16,4 @@ RUN pip install -r requirements.txt
 ADD . /opt/lolbot
 
 # run!!!
-cmd ["python", "/opt/lolbot/index.py"]
+CMD ["python", "/opt/lolbot/index.py"]

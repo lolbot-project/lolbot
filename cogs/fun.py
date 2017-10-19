@@ -4,6 +4,7 @@ import urllib.parse
 import discord
 from discord.ext import commands
 import utils.errors
+import asyncio
 
 class Fun:
     def __init__(self, bot):
@@ -109,5 +110,40 @@ class Fun:
         str(question) + '**\nAnswer: ' + str(ans), colour=0x690E8)
         await ctx.send(embed=emb)
 
+    @commands.command(aliases=['fidget', 'fidgetspinner', 'spinner'])
+    async def spin(self, ctx):
+        """Spins a fidget spinner!
+        The spin time varies from 1 second, to 300 secs (5 mins)."""
+        spin_time = random.randint(1, 300)
+        land = await ctx.send('You spun a fidget spinner! '
+                              'Let\'s see how long it goes.')
+        await asyncio.sleep(spin_time)
+        e = discord.Embed(description=f'Your fidget spinner spun for '
+                                      f'**{spin_time}** seconds!',
+                          colour=0x690E8)
+        await land.edit(content='The results are in!', embed=e)
+
+    async def get_answer(self, ans: str):
+        if ans == 'yes':
+            return 'Yes.'
+        elif ans == 'no':
+            return 'NOPE'
+        elif ans == 'maybe':
+            return 'maaaaaaybe?'
+        else:
+            raise commands.BadArgument('internal error: invalid answer lmaoo')
+
+    @commands.command(aliases=['shouldi', 'ask'])
+    async def yesno(self, ctx, *, question: str):
+        """Why not make your decisions with a bot?"""
+        async with ctx.bot.session.get('https://yesno.wtf/api', headers=self.ua) as meme:
+            if meme.status == 200:
+                mj = await meme.json()
+                ans = await self.get_answer(mj['answer'])
+                em = discord.Embed(title=ans, colour=0x690E8)
+                em.set_image(url=mj['image'])
+                await ctx.send(embed=em)
+            else:
+                raise utils.errors.ServiceError(f'oof (http {meme.status})')
 def setup(bot):
     bot.add_cog(Fun(bot))

@@ -5,6 +5,9 @@ import discord
 from discord.ext import commands
 import utils.errors
 import asyncio
+from collections import defaultdict
+
+locks = defaultdict(asyncio.Lock)
 
 class Fun:
     def __init__(self, bot):
@@ -114,14 +117,18 @@ class Fun:
     async def spin(self, ctx):
         """Spins a fidget spinner!
         The spin time varies from 1 second, to 300 secs (5 mins)."""
-        spin_time = random.randint(1, 300)
-        land = await ctx.send('You spun a fidget spinner! '
-                              'Let\'s see how long it goes.')
-        await asyncio.sleep(spin_time)
-        e = discord.Embed(description=f'Your fidget spinner spun for '
-                                      f'**{spin_time}** seconds!',
-                          colour=0x690E8)
-        await land.edit(content='The results are in!', embed=e)
+        try:
+            await locks[ctx.author.id]
+            spin_time = random.randint(1, 300)
+            land = await ctx.send('You spun a fidget spinner! '
+                                  'Let\'s see how long it goes.')
+            await asyncio.sleep(spin_time)
+            e = discord.Embed(description=f'Your fidget spinner spun for '
+                                          f'**{spin_time}** seconds!',
+                              colour=0x690E8)
+            await land.edit(content='The results are in!', embed=e)
+        finally:
+            locks[ctx.author.id].release()
 
     async def get_answer(self, ans: str):
         if ans == 'yes':

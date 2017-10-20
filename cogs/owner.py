@@ -17,8 +17,9 @@ class Owner:
     @commands.is_owner()
     async def game(self, ctx, *, game: str):
         """Change playing status"""
+        haha = ctx.bot.config['prefix']
         try:
-            await self.bot.change_presence(game=discord.Game(name=f'{game} | {ctx.bot.config["prefix"]}help | v1.0', type=1, url='https://twitch.tv/monstercat'))
+            await self.bot.change_presence(game=discord.Game(name=f'{game} | {haha}help | v1.0', type=1, url='https://twitch.tv/monstercat'))
         except Exception:
             await ctx.send(f'```\n{traceback.format_exc()}\n```')
         else:

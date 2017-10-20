@@ -12,14 +12,13 @@ from discord.ext import commands
 class Owner:
     def __init__(self, bot):
         self.bot = bot
-        self.config = self.bot.config
 
     @commands.command(hidden=True)
     @commands.is_owner()
     async def game(self, ctx, *, game: str):
         """Change playing status"""
         try:
-            await self.bot.change_presence(game=discord.Game(name=f'{game} | {self.config.prefix}help | v1.0', type=1, url='https://twitch.tv/monstercat'))
+            await self.bot.change_presence(game=discord.Game(name=f'{game} | {ctx.bot.config["prefix"]}help | v1.0', type=1, url='https://twitch.tv/monstercat'))
         except Exception:
             await ctx.send(f'```\n{traceback.format_exc()}\n```')
         else:

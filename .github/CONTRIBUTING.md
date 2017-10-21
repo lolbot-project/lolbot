@@ -1,15 +1,13 @@
-# Contributing
+# Contributing to lolbot
+Thanks for contributing!
 
-Thank you for contributing! But first, agree on some stuff before:
+There's some things we need to go over.
 
-- Your code will be under MIT
+Here it is:
+    - Commit style: `component[subcomponent]: message`
+    - Code style: [PEP 8](https://www.python.org/dev/peps/pep-0008/)
+    - Your code is under my possession if you get it merged
+    - etc etc
 
-- Your code will be under my possession/technically mine
-
-- Code will be credited to you
-
-  Written by S - @xshotD
-  
-  Originally made on: Sun March 5th, 2017
-  
-  Rewritten on: Weds June 21st, 2017
+Thanks for reading, now go forth and make that issue/PR ;)
+    - S (@tilda)

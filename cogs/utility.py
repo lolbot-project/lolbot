@@ -25,7 +25,7 @@ class Etc:
         h, m = divmod(m, 60)
         d, h = divmod(h, 24)
         upEm = discord.Embed(title='Uptime', colour=0x690E8)
-        startedOn = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(self.bot.init_time))
+        startedOn = time.strftime('%b %d %Y %H:%M:%S', time.localtime(self.bot.init_time))
         upEm.add_field(name='Started on', value=startedOn, inline=False)
         upEm.add_field(name='Uptime', value=f' {d} days, {h} hours, {m} minutes and {s} seconds', inline=False)
         await ctx.send(embed=upEm)
@@ -105,6 +105,9 @@ class Etc:
             e.add_field(name='Currently running', value=runVal)
             e.set_footer(text='powered by git (and stuff)!')
             await ctx.send(embed=e)
+
+        @commands.command(aliases=['userinfo', 'uinfo'])
+        async def user(self, ctx, u: discord.Member):
 
 
 def setup(bot):

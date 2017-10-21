@@ -25,7 +25,7 @@ class Etc:
         h, m = divmod(m, 60)
         d, h = divmod(h, 24)
         upEm = discord.Embed(title='Uptime', colour=0x690E8)
-        startedOn = time.strftime('%b %d %Y %H:%M:%S', time.localtime(self.bot.init_time))
+        startedOn = time.strftime('%b %d, %Y %H:%M:%S', time.localtime(self.bot.init_time))
         upEm.add_field(name='Started on', value=startedOn, inline=False)
         upEm.add_field(name='Uptime', value=f' {d} days, {h} hours, {m} minutes and {s} seconds', inline=False)
         await ctx.send(embed=upEm)
@@ -72,6 +72,51 @@ class Etc:
         invEmb.add_field(name='Official server', value=str(self.support))
         await ctx.send(embed=invEmb)
 
+    async def get_status(self, u: discord.Member):
+        if u.status == discord.Status.online:
+            return 'Online'
+        elif u.status == discord.Status.idle:
+            return 'Idle'
+        elif u.status == discord.Status.dnd or discord.Status.do_not_disturb:
+            return 'Do not disturb'
+        elif u.status == discord.Status.offline:
+            return 'Offline/invisible'
+
+    async def get_join_date(self, u: discord.Member):
+        meme = u.joined_at
+        date = meme.strftime('%b %d, %Y %H:%M:%S')
+        return date
+
+    async def get_game_name(self, u: discord.Member):
+        if u.game:
+            return u.game.name
+        else:
+            return '*None*'
+
+    async def get_nick(self, u: discord.Member):
+        if u.nick:
+            return u.nick
+        else:
+            return '*None*'
+
+    @commands.command(aliases=['userinfo', 'uinfo'])
+    async def user(self, ctx, u: discord.Member):
+        try:
+            status = await self.get_status(u)
+            join_date = await self.get_join_date(u)
+            game = await self.get_game_name(u)
+            nick = await self.get_nick(u)
+        except:
+            raise commands.CommandInvokeError('oops')
+
+        e = discord.Embed(colour=0x690E8)
+        e.add_field(name='Name', value=u.name)
+        e.add_field(name='Status', value=status)
+        e.add_field(name='Joined at', value=join_date)
+        e.add_field(name='Currently playing', value=game)
+        e.add_field(name='Nickname', value=nick)
+        await ctx.send(embed=e)
+
     @commands.command()
     async def version(self, ctx):
         """Returns current version of lolbot"""
@@ -105,10 +150,6 @@ class Etc:
             e.add_field(name='Currently running', value=runVal)
             e.set_footer(text='powered by git (and stuff)!')
             await ctx.send(embed=e)
-
-        @commands.command(aliases=['userinfo', 'uinfo'])
-        async def user(self, ctx, u: discord.Member):
-
 
 def setup(bot):
   bot.add_cog(Etc(bot))

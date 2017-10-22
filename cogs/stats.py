@@ -1,5 +1,6 @@
 import json
 import logging
+import discord
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 try:
     logging.info('stats[datadog]: initalized')
@@ -122,12 +123,11 @@ class Stats:
         """
         logging.info('Joined guild "' + str(guild.name) + '" ID: ' + str(guild.id))
         welcome_channel = await self.find_channel(guild)
-        welcome_channel = bot.get_channel(welcome_channel)
-        we = discord.Embed(title='Hi, I\'m lolbot',
-                description='Hi! Thanks for adding me.'
-                'I am required to tell you that I may'
-                'collect user information such as name, ID, and etc.'
-                'Have fun!'. colour=0x690E8)
+        we = discord.Embed(title='Hello!',
+                           description='Thanks for inviting me.'
+                           'I am required to tell you that I may'
+                           'log command usage, user/channel/server IDs, and'
+                           'other information. Thanks for your understanding!', colour=0x690E8)
         await welcome_channel.send(embed=we)
         await self.post()
 

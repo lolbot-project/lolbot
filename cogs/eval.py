@@ -68,6 +68,9 @@ class Exec:
             with open(file_name, 'rb') as fp:
                 await ctx.send(file=discord.File(fp))
 
+        if 'require(\'discord.js'\')' == code:
+            await ctx.send('```py\nthis isn\'t js you dumb\n```')
+
         async def send(*args, **kwargs):
             await ctx.send(*args, **kwargs)
 

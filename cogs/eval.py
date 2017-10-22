@@ -70,6 +70,7 @@ class Exec:
 
         if 'require(\'discord.js'\')' == code:
             await ctx.send('```py\nthis isn\'t js you dumb\n```')
+            return
 
         async def send(*args, **kwargs):
             await ctx.send(*args, **kwargs)

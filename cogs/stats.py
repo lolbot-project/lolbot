@@ -103,12 +103,32 @@ class Stats:
             pass
         logging.info('poster: done')
 
+    async def find_channel( self, guild ):
+        """
+        Finds a suitable guild channel for posting the
+        welcome message. You shouldn't need to call this
+        yourself. on_guild_join calls this automatically.
+
+        Thanks FrostLuma for code!
+        """
+        for c in guild.text_channels:
+            if not c.permissions_for(guild.me).send_messages:
+                continue
+            return c
     async def on_guild_join( self, guild ):
         """
         This async function is called whenever a guild adds a lolbot instance.
         You shouldn't need to call this yourself, discord.py does this automatically.
         """
         logging.info('Joined guild "' + str(guild.name) + '" ID: ' + str(guild.id))
+        welcome_channel = await self.find_channel(guild)
+        welcome_channel = bot.get_channel(welcome_channel)
+        we = discord.Embed(title='Hi, I\'m lolbot',
+                description='Hi! Thanks for adding me.'
+                'I am required to tell you that I may'
+                'collect user information such as name, ID, and etc.'
+                'Have fun!'. colour=0x690E8)
+        await welcome_channel.send(embed=we)
         await self.post()
 
     async def on_guild_remove( self, guild ):

@@ -8,14 +8,19 @@ import logging
 import random
 import time
 import traceback
+# noinspection PyPackageRequirements
 import aiohttp
+# noinspection PyPackageRequirements
 import discord
+# noinspection PyPackageRequirements
 from discord.ext import commands
+# noinspection PyPackageRequirements
 import utils.errors
 
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 description = '''Just a bot :)'''
 exts = ['bots', 'donate', 'eval', 'fun', 'nekos', 'owner', 'stats', 'utility', 'weather', 'wa']
+
 
 class Lul(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
@@ -23,8 +28,8 @@ class Lul(commands.AutoShardedBot):
         self.config = json.load(open('config.json'))
         self.session = aiohttp.ClientSession()
         self.badarg = ['You need to put more info than this!', 'I didn\'t understan'
-        'd that.', 'Sorry, can\'t process that.',
-        'Read ' + self.config['prefix'] + 'help <command> for instructions.', 'Hmm?']
+                                                               'd that.', 'Sorry, can\'t process that.',
+                       'Read ' + self.config['prefix'] + 'help <command> for instructions.', 'Hmm?']
         # To be fair, we should record the init time after everything is ready
         self.init_time = time.time()
 
@@ -32,7 +37,8 @@ class Lul(commands.AutoShardedBot):
         logging.info('lolbot - ready')
         # note that we use " instead of ' here
         # this is a limitation of the fstring parser
-        await bot.change_presence(game=discord.Game(name=f'{self.config["prefix"]}help | v1.1', type=1, url='https://twitch.tv/monstercat'))
+        await bot.change_presence(
+            game=discord.Game(name=f'{self.config["prefix"]}help | v1.1', type=1, url='https://twitch.tv/monstercat'))
         logging.info('Playing status changed')
 
     async def on_command_error(self, ctx, error):
@@ -52,9 +58,10 @@ class Lul(commands.AutoShardedBot):
             tb = ''.join(traceback.format_exception(
                 type(error.original), error.original,
                 error.original.__traceback__
-                ))
+            ))
             logging.error('A error occured.')
             logging.error(tb)
+
 
 config = json.load(open('config.json'))
 bot = Lul(command_prefix=config['prefix'], description=description, pm_help=None)

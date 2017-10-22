@@ -1,13 +1,28 @@
 import random
 import urllib.parse
 
+# noinspection PyPackageRequirements
 import discord
+# noinspection PyPackageRequirements
 from discord.ext import commands
+# noinspection PyPackageRequirements
 import utils.errors
 import asyncio
 from collections import defaultdict
 
 locks = defaultdict(asyncio.Lock)
+
+
+async def get_answer(ans: str):
+    if ans == 'yes':
+        return 'Yes.'
+    elif ans == 'no':
+        return 'NOPE'
+    elif ans == 'maybe':
+        return 'maaaaaaybe?'
+    else:
+        raise commands.BadArgument('internal error: invalid answer lmaoo')
+
 
 class Fun:
     def __init__(self, bot):
@@ -21,7 +36,10 @@ class Fun:
             'User-Agent': self.agent['User-Agent'],
             'Accept': 'text/plain'
         }
-        self.headers = {'agent': self.agent, 'dadjoke': self.dadjoke}
+        self.headers = {
+            'agent': self.agent,
+            'dadjoke': self.dadjoke
+        }
 
     @commands.command()
     async def cat(self, ctx):
@@ -39,9 +57,9 @@ class Fun:
     async def httpcat(self, ctx, http_id: int):
         """http.cat images - ^httpcat <http code>"""
         codes = [100, 101, 200, 201, 202, 204, 206, 207, 300, 301, 302, 303, 304, 305, 307, 400,
-                401, 402, 403, 404, 405, 406, 408, 409, 410, 411, 412, 413, 414, 416, 417, 418, 420,
-                421, 422, 423, 424, 425, 426, 429, 444, 450, 451, 500, 502, 503, 504, 506, 507, 508,
-                509, 511, 599]
+                 401, 402, 403, 404, 405, 406, 408, 409, 410, 411, 412, 413, 414, 416, 417, 418, 420,
+                 421, 422, 423, 424, 425, 426, 429, 444, 450, 451, 500, 502, 503, 504, 506, 507, 508,
+                 509, 511, 599]
         if http_id in codes:
             httpcat_em = discord.Embed(name='http.cat', colour=0x690E8)
             httpcat_em.set_image(url=f'https://http.cat/{http_id}.jpg')
@@ -54,14 +72,14 @@ class Fun:
         """Random dogs, by random.dog"""
         async with self.bot.session.get('https://random.dog/woof', headers=self.headers['agent']) as shibeGet:
             if shibeGet.status == 200:
-                shibeImg = await shibeGet.text()
-                shibeURL = 'https://random.dog/' + shibeImg
-                if '.mp4' in shibeURL:
-                    await ctx.send('mp4 file: ' + shibeURL)
+                shibe_img = await shibeGet.text()
+                shibe_url = 'https://random.dog/' + shibe_img
+                if '.mp4' in shibe_url:
+                    await ctx.send('mp4 file: ' + shibe_url)
                 else:
-                    shibeEmbed = discord.Embed(colour=0x690E8)
-                    shibeEmbed.set_image(url=shibeURL)
-                    await ctx.send(embed=shibeEmbed)
+                    shibe_em = discord.Embed(colour=0x690E8)
+                    shibe_em.set_image(url=shibe_url)
+                    await ctx.send(embed=shibe_em)
             else:
                 raise utils.errors.ServiceError(f'could not fetch pupper :( (http {shibeGet.status})')
 
@@ -71,9 +89,9 @@ class Fun:
         async with self.bot.session.get('https://nekos.life/api/lizard', headers=self.headers['agent']) as lizr:
             if lizr.status == 200:
                 img = await lizr.json()
-                lizEm = discord.Embed(colour=0x690E8)
-                lizEm.set_image(url=img['url'])
-                await ctx.send(embed=lizEm)
+                liz_em = discord.Embed(colour=0x690E8)
+                liz_em.set_image(url=img['url'])
+                await ctx.send(embed=liz_em)
             else:
                 raise utils.errors.ServiceError(f'something went boom (http {lizr.status})')
 
@@ -82,10 +100,10 @@ class Fun:
         """Why _____?"""
         async with self.bot.session.get('https://nekos.life/api/why', headers=self.headers['agent']) as why:
             if why.status == 200:
-                whyJS = await why.json()
-                whyEm = discord.Embed(title=f'{ctx.author.name} wonders...',
-                        description=whyJS['why'], colour=0x690E8)
-                await ctx.send(embed=whyEm)
+                why_js = await why.json()
+                why_em = discord.Embed(title=f'{ctx.author.name} wonders...',
+                                      description=why_js['why'], colour=0x690E8)
+                await ctx.send(embed=why_js)
             else:
                 raise utils.errors.ServiceError(f'something went boom (http {why.status})')
 
@@ -113,11 +131,13 @@ class Fun:
     @commands.command(name='8ball')
     async def an8ball(self, ctx, *, question: str):
         pool = ['It is certain', 'Outlook good', 'You may rely on it', 'Ask again '
-        'later', 'Concentrate and ask again', 'Reply hazy, try again', 'My reply is '
-        'no', 'My sources say no']
+                                                                       'later', 'Concentrate and ask again',
+                'Reply hazy, try again', 'My reply is '
+                                         'no', 'My sources say no']
         ans = random.choice(pool)
         emb = discord.Embed(title='The Magic 8-ball', description='**Question: ' +
-        str(question) + '**\nAnswer: ' + str(ans), colour=0x690E8)
+                                                                  str(question) + '**\nAnswer: ' + str(ans),
+                            colour=0x690E8)
         await ctx.send(embed=emb)
 
     @commands.command(aliases=['fidget', 'fidgetspinner', 'spinner'])
@@ -137,24 +157,14 @@ class Fun:
         finally:
             locks[ctx.author.id].release()
 
-    async def get_answer(self, ans: str):
-        if ans == 'yes':
-            return 'Yes.'
-        elif ans == 'no':
-            return 'NOPE'
-        elif ans == 'maybe':
-            return 'maaaaaaybe?'
-        else:
-            raise commands.BadArgument('internal error: invalid answer lmaoo')
-
     @commands.command(aliases=['shouldi', 'ask'])
     async def yesno(self, ctx, *, question: str):
         """Why not make your decisions with a bot?"""
         async with ctx.bot.session.get('https://yesno.wtf/api', headers=self.headers['agent']) as meme:
             if meme.status == 200:
                 mj = await meme.json()
-                ans = await self.get_answer(mj['answer'])
-                em = discord.Embed(title=ans, colour=0x690E8)
+                ans = await get_answer(mj['answer'])
+                em = discord.Embed(title=ans, description=f'And the answer to {question} is this', colour=0x690E8)
                 em.set_image(url=mj['image'])
                 await ctx.send(embed=em)
             else:
@@ -169,6 +179,7 @@ class Fun:
                 await ctx.send(f'`{res}`')
             else:
                 raise utils.errors.ServiceError(f'rip dad (http {jok.status})')
+
 
 def setup(bot):
     bot.add_cog(Fun(bot))

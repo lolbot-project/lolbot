@@ -5,9 +5,12 @@ Originally made by luna for Jose, the best bot
 """
 import traceback
 import asyncio
+# noinspection PyPackageRequirements
 import discord
 
+# noinspection PyPackageRequirements
 from discord.ext import commands
+
 
 class Owner:
     def __init__(self, bot):
@@ -19,7 +22,8 @@ class Owner:
         """Change playing status"""
         haha = ctx.bot.config['prefix']
         try:
-            await self.bot.change_presence(game=discord.Game(name=f'{game} | {haha}help | v1.1', type=1, url='https://twitch.tv/monstercat'))
+            await self.bot.change_presence(
+                game=discord.Game(name=f'{game} | {haha}help | v1.1', type=1, url='https://twitch.tv/monstercat'))
         except Exception:
             await ctx.send(f'```\n{traceback.format_exc()}\n```')
         else:
@@ -34,7 +38,7 @@ class Owner:
 
     @commands.command(hidden=True)
     @commands.is_owner()
-    async def load(self, ctx, extension_name : str):
+    async def load(self, ctx, extension_name: str):
         """Loads an extension."""
         try:
             self.bot.load_extension('cogs.' + extension_name)
@@ -48,14 +52,14 @@ class Owner:
 
     @commands.command(hidden=True)
     @commands.is_owner()
-    async def unload(self, ctx, extension_name : str):
+    async def unload(self, ctx, extension_name: str):
         """Unloads an extension."""
         self.bot.unload_extension('cogs.' + extension_name)
         await ctx.send(f':ok_hand: `{extension_name}` unloaded.')
 
     @commands.command(hidden=True)
     @commands.is_owner()
-    async def reload(self, ctx, extension_name : str):
+    async def reload(self, ctx, extension_name: str):
         """Reloads an extension"""
         try:
             self.bot.unload_extension('cogs.' + extension_name)
@@ -74,9 +78,9 @@ class Owner:
         """Run stuff"""
         with ctx.typing():
             p = await asyncio.create_subprocess_shell(command,
-                stderr=asyncio.subprocess.PIPE,
-                stdout=asyncio.subprocess.PIPE,
-            )
+                                                      stderr=asyncio.subprocess.PIPE,
+                                                      stdout=asyncio.subprocess.PIPE,
+                                                      )
 
             out, err = map(lambda s: s.decode('utf-8'), await p.communicate())
 

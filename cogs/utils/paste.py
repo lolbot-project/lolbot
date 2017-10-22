@@ -2,6 +2,7 @@
 
 """ Facilities for pasting things to Hastebin. """
 
+# noinspection PyPackageRequirements
 import aiohttp
 
 HASTEBIN_ENDPOINT = 'https://hastebin.com/documents'

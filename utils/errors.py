@@ -1,5 +1,7 @@
 # File for custom exceptions
+# noinspection PyPackageRequirements
 from discord.ext import commands
+
 
 class PostException(Exception):
     """
@@ -7,6 +9,7 @@ class PostException(Exception):
     wrapper
     """
     pass
+
 
 class DBLException(PostException):
     """
@@ -16,6 +19,7 @@ class DBLException(PostException):
     """
     pass
 
+
 class DBotsException(PostException):
     """
     Subclass of PostException,
@@ -23,6 +27,7 @@ class DBotsException(PostException):
     bots.discord.pw
     """
     pass
+
 
 class DogException(PostException):
     """
@@ -32,6 +37,7 @@ class DogException(PostException):
     """
     pass
 
+
 class ServiceError(commands.CommandInvokeError):
     """
     Subclass of commands.CommandInvokeError.
@@ -39,6 +45,7 @@ class ServiceError(commands.CommandInvokeError):
     returns a failure of some sort.
     """
     pass
+
 
 class NSFWException(commands.CheckFailure):
     """

@@ -1,18 +1,21 @@
 # thanks luna haha
+# noinspection PyPackageRequirements
 from discord.ext import commands
+# noinspection PyPackageRequirements
 import discord
+# noinspection PyPackageRequirements
 import utils.errors as uerrs
 import pyowm
 
-W_CLEAR_SKY =           ':sunny:'
-W_FEW_CLOUDS =          ':white_sun_small_cloud:'
-W_SCATTERED_CLOUDS =    ':partly_sunny:'
-W_BROKEN_CLOUDS =       ':cloud:'
-W_SHOWER_RAIN =         ':cloud_rain:'
-W_RAIN =                ':cloud_rain:'
-W_THUNDERSTORM =        ':thunder_cloud_rain:'
-W_SNOW =                ':snowflake:'
-W_MIST =                ':foggy:'
+W_CLEAR_SKY = ':sunny:'
+W_FEW_CLOUDS = ':white_sun_small_cloud:'
+W_SCATTERED_CLOUDS = ':partly_sunny:'
+W_BROKEN_CLOUDS = ':cloud:'
+W_SHOWER_RAIN = ':cloud_rain:'
+W_RAIN = ':cloud_rain:'
+W_THUNDERSTORM = ':thunder_cloud_rain:'
+W_SNOW = ':snowflake:'
+W_MIST = ':foggy:'
 
 OWM_ICONS = {
     '01d': W_CLEAR_SKY,
@@ -25,6 +28,7 @@ OWM_ICONS = {
     '13d': W_SNOW,
     '50d': W_MIST,
 }
+
 
 class Weather:
     def __init__(self, bot):
@@ -42,8 +46,8 @@ class Weather:
         """Grabs the weather from OpenWeatherMap"""
         if self.owm:
             try:
-                future = self.loop.run_in_executor(None, \
-                    self.owm.weather_at_place, loc)
+                future = self.loop.run_in_executor(None,
+                                                   self.owm.weather_at_place, loc)
                 observation = await future
             except Exception as e:
                 raise uerrs.ServiceError(e)
@@ -60,6 +64,7 @@ class Weather:
             await ctx.send(embed=em)
         else:
             raise uerrs.ServiceError('This instance does not have a OpenWeatherMap API key configured.')
+
 
 def setup(bot):
     bot.add_cog(Weather(bot))

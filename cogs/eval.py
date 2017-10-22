@@ -25,10 +25,14 @@ import textwrap
 import traceback
 from contextlib import redirect_stdout
 
+# noinspection PyPackageRequirements
 import aiohttp
+# noinspection PyPackageRequirements
 import discord
+# noinspection PyPackageRequirements
 from discord.ext import commands
 
+# noinspection PyPackageRequirements
 from cogs.utils import paste
 
 log = logging.getLogger(__name__)

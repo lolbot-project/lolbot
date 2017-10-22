@@ -6,9 +6,12 @@
 
 import asyncio
 import wolframalpha
+# noinspection PyPackageRequirements
 import discord
 import json
+# noinspection PyPackageRequirements
 import utils.errors as uerrs
+# noinspection PyPackageRequirements
 from discord.ext import commands
 
 RESULT_PODS = {
@@ -18,6 +21,7 @@ RESULT_PODS = {
 NOT_PODS = {
     'Input', 'Input interpretation'
 }
+
 
 def pod_finder(pod_list):
     """Finds a probable pod."""
@@ -55,6 +59,7 @@ def pod_finder(pod_list):
     # return pod with highest score
     best_id = max(pod_scores, key=pod_scores.get)
     return discord.utils.find(lambda pod: pod['@id'] == best_id, pod_list)
+
 
 class Wolfram:
     def __init__(self, bot):
@@ -121,7 +126,7 @@ class Wolfram:
                         await ctx.send(embed=em)
         else:
             raise uerrs.ServiceError('This instance does not have a'
-                'Wolfram|Alpha key set up.')
+                                     'Wolfram|Alpha key set up.')
 
 
 def setup(bot):

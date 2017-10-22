@@ -64,10 +64,6 @@ class Exec:
     @commands.is_owner()
     async def _eval(self, ctx, *, code: str):
         """ Executes Python code. """
-
-        if "require('discord.js')" or 'require("discord.js")' in code:
-            return await ctx.send('```py\nthis isn\'t js you dumb\n```')
-
         async def upload(file_name: str):
             with open(file_name, 'rb') as fp:
                 await ctx.send(file=discord.File(fp))

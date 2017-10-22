@@ -12,21 +12,21 @@ locks = defaultdict(asyncio.Lock)
 class Fun:
     def __init__(self, bot):
         self.bot = bot
-        self.headers = None
         # Custom user agent
-        self.headers.agent = {
+        self.agent = {
             'User-Agent': 'lolbot(aiohttp/discord.py) - https://lolbot.banne.club'
         }
         # for dad jokes
-        self.headers.dadjoke = {
-            'User-Agent': self.headers.agent['User-Agent'],
+        self.dadjoke = {
+            'User-Agent': self.agent['User-Agent'],
             'Accept': 'text/plain'
         }
+        self.headers = {'agent': self.agent, 'dadjoke': self.dadjoke}
 
     @commands.command()
     async def cat(self, ctx):
         """Random cat images. Awww, so cute! Powered by random.cat"""
-        async with self.bot.session.get('https://random.cat/meow', headers=self.headers.agent) as r:
+        async with self.bot.session.get('https://random.cat/meow', headers=self.headers['agent']) as r:
             if r.status == 200:
                 js = await r.json()
                 em = discord.Embed(name='random.cat', colour=0x690E8)
@@ -52,7 +52,7 @@ class Fun:
     @commands.command()
     async def dog(self, ctx):
         """Random dogs, by random.dog"""
-        async with self.bot.session.get('https://random.dog/woof', headers=self.headers.agent) as shibeGet:
+        async with self.bot.session.get('https://random.dog/woof', headers=self.headers['agent']) as shibeGet:
             if shibeGet.status == 200:
                 shibeImg = await shibeGet.text()
                 shibeURL = 'https://random.dog/' + shibeImg
@@ -68,7 +68,7 @@ class Fun:
     @commands.command()
     async def lizard(self, ctx):
         """Shows a random lizard picture"""
-        async with self.bot.session.get('https://nekos.life/api/lizard', headers=self.headers.agent) as lizr:
+        async with self.bot.session.get('https://nekos.life/api/lizard', headers=self.headers['agent']) as lizr:
             if lizr.status == 200:
                 img = await lizr.json()
                 lizEm = discord.Embed(colour=0x690E8)
@@ -80,7 +80,7 @@ class Fun:
     @commands.command()
     async def why(self, ctx):
         """Why _____?"""
-        async with self.bot.session.get('https://nekos.life/api/why', headers=self.headers.agent) as why:
+        async with self.bot.session.get('https://nekos.life/api/why', headers=self.headers['agent']) as why:
             if why.status == 200:
                 whyJS = await why.json()
                 whyEm = discord.Embed(title=f'{ctx.author.name} wonders...',
@@ -150,7 +150,7 @@ class Fun:
     @commands.command(aliases=['shouldi', 'ask'])
     async def yesno(self, ctx, *, question: str):
         """Why not make your decisions with a bot?"""
-        async with ctx.bot.session.get('https://yesno.wtf/api', headers=self.headers.agent) as meme:
+        async with ctx.bot.session.get('https://yesno.wtf/api', headers=self.headers['agent']) as meme:
             if meme.status == 200:
                 mj = await meme.json()
                 ans = await self.get_answer(mj['answer'])
@@ -163,7 +163,7 @@ class Fun:
     @commands.command(aliases=['dadjoke', 'awdad', 'dadpls', 'shitjoke', 'badjoke'])
     async def joke(self, ctx):
         """Dad joke simulator 3017, basically"""
-        async with ctx.bot.session.get('https://icanhazdadjoke.com', headers=self.headers.dadjoke) as jok:
+        async with ctx.bot.session.get('https://icanhazdadjoke.com', headers=self.headers['dadjoke']) as jok:
             if jok.status == 200:
                 res = await jok.text()
                 await ctx.send(f'`{res}`')

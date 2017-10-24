@@ -13,17 +13,6 @@ from collections import defaultdict
 locks = defaultdict(asyncio.Lock)
 
 
-async def get_answer(ans: str):
-    if ans == 'yes':
-        return 'Yes.'
-    elif ans == 'no':
-        return 'NOPE'
-    elif ans == 'maybe':
-        return 'maaaaaaybe?'
-    else:
-        raise commands.BadArgument('internal error: invalid answer lmaoo')
-
-
 class Fun:
     def __init__(self, bot):
         self.bot = bot
@@ -153,18 +142,31 @@ class Fun:
         finally:
             locks[ctx.author.id].release()
 
+
+    async def get_answer(self, ans: str):
+        if ans == 'yes':
+            return 'Yes.'
+        elif ans == 'no':
+            return 'NOPE'
+        elif ans == 'maybe':
+            return 'maaaaaaybe?'
+        else:
+            raise commands.BadArgument('internal error: invalid answer lmaoo')
+
+
     @commands.command(aliases=['shouldi', 'ask'])
     async def yesno(self, ctx, *, question: str):
         """Why not make your decisions with a bot?"""
         async with ctx.bot.session.get('https://yesno.wtf/api', headers=self.agent) as meme:
             if meme.status == 200:
                 mj = await meme.json()
-                ans = await get_answer(mj['answer'])
+                ans = await self.get_answer(mj['answer'])
                 em = discord.Embed(title=ans, description=f'And the answer to {question} is this', colour=0x690E8)
                 em.set_image(url=mj['image'])
                 await ctx.send(embed=em)
             else:
                 raise utils.errors.ServiceError(f'oof (http {meme.status})')
+
 
     @commands.command(aliases=['dadjoke', 'awdad', 'dadpls', 'shitjoke', 'badjoke'])
     async def joke(self, ctx):

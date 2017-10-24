@@ -88,7 +88,7 @@ class Fun:
                 why_js = await why.json()
                 why_em = discord.Embed(title=f'{ctx.author.name} wonders...',
                                       description=why_js['why'], colour=0x690E8)
-                await ctx.send(embed=why_js)
+                await ctx.send(embed=why_em)
             else:
                 raise utils.errors.ServiceError(f'something went boom (http {why.status})')
 

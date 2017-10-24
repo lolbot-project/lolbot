@@ -16,11 +16,11 @@ locks = defaultdict(asyncio.Lock)
 class Fun:
     def __init__(self, bot):
         self.bot = bot
-        # Custom user agent
+
         self.agent = {
             'User-Agent': 'lolbot(aiohttp/discord.py) - https://lolbot.banne.club'
         }
-        # for dad jokes
+
         self.dadjoke = {
             'User-Agent': 'lolbot(aiohttp/discord.py) - https://lolbot.banne.club',
             'Accept': 'text/plain'

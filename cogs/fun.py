@@ -22,7 +22,7 @@ class Fun:
         }
         # for dad jokes
         self.dadjoke = {
-            'User-Agent': self.agent['User-Agent'],
+            'User-Agent': 'lolbot(aiohttp/discord.py) - https://lolbot.banne.club',
             'Accept': 'text/plain'
         }
 

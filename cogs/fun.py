@@ -190,6 +190,7 @@ class Fun:
                      'To invite this bot [click here](https://discordapp.com/oauth2/authorize'
                      '?client_id=285480424904327179&scope=bot)!')
         await lol.edit(content=None, embed=pranked)
+        del query
 
 
 

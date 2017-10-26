@@ -178,6 +178,20 @@ class Fun:
             else:
                 raise utils.errors.ServiceError(f'rip dad (http {jok.status})')
 
+    @commands.command(aliases=['ph', 'porn'])
+    @commands.is_nsfw()
+    async def pornhub(self, ctx, *, query: str):
+        """Searches for porn on pornhub"""
+        lol = await ctx.send('Searching...')
+        await asyncio.sleep(1.7)
+        pranked = discord.Embed(title='Pranked!', description='I can\'t really search PornHub. '
+                                                              'BUT, some bots do.', colour=0x690E8)
+        pranked.add_field(name='BoobBot', value='BoobBot can actually search PornHub.'
+                     'To invite this bot [click here](https://discordapp.com/oauth2/authorize'
+                     '?client_id=285480424904327179&scope=bot)!')
+        await lol.edit(content=None, embed=pranked)
+
+
 
 def setup(bot):
     bot.add_cog(Fun(bot))

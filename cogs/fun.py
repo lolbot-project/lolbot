@@ -210,6 +210,8 @@ class Fun:
         if self.bot.config['dbl'] and self.bot.config['dbotsorg']: 
             async with ctx.bot.session.post(f'https://discordbots.org/api/bots/{ctx.me.id}/votes') as v:
                 await ctx.send('under construction lol')
+        else:
+            await ctx.send('no auth')
                 
 
 

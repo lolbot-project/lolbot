@@ -204,11 +204,12 @@ class Fun:
         await lol.edit(content=None, embed=pranked)
         del query
     
-    @commands.command()
+    @commands.command(hidden=True)
     async def coolpeople(self, ctx):
         """Displays cool people"""
         if self.bot.config['dbl'] and self.bot.config['dbotsorg']: 
             async with ctx.bot.session.post(f'https://discordbots.org/api/bots/{ctx.me.id}/votes') as v:
+                await ctx.send('under construction lol')
                 
 
 

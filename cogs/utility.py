@@ -13,6 +13,11 @@ GitError = 'fatal: Not a git repository (or any of the parent directories): .git
 NoCommit = '*No commit'
 NoRelease = '*No release*'
 
+async def is_bot(u: discord.Member):
+    if u.bot:
+        return 'Yep!'
+    else:
+        return 'Nope.'
 
 async def get_nick(u: discord.Member):
     if u.nick:
@@ -113,8 +118,9 @@ class Etc:
             join_date = await get_join_date(u)
             game = await get_game_name(u)
             nick = await get_nick(u)
-        except:
-            raise commands.CommandInvokeError('oops')
+            bot = await is_bot(u)
+        except Exception as e:
+            raise commands.CommandInvokeError(f'oops: {e}')
 
         e = discord.Embed(colour=0x690E8)
         e.add_field(name='Name', value=u.name)
@@ -122,6 +128,7 @@ class Etc:
         e.add_field(name='Joined at', value=join_date)
         e.add_field(name='Currently playing', value=game)
         e.add_field(name='Nickname', value=nick)
+        e.add_field(name='Is bot', value=bot)
         await ctx.send(embed=e)
 
     @commands.command()

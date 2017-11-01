@@ -54,11 +54,23 @@ class Fun:
 
     @commands.command()
     async def dog(self, ctx):
-        """Random dogs, by random.dog"""
-        async with self.bot.session.get('https://random.dog/woof', headers=self.agent) as shibeGet:
-            if shibeGet.status == 200:
-                shibe_img = await shibeGet.text()
-                shibe_url = 'https://random.dog/' + shibe_img
+        """Random doggos just because!"""
+        def decide_source():
+            n = random.random()
+            if n < 0.5:
+                return 'https://random.dog/woof'
+            elif n > 0.5:
+                return 'https://dog.ceo/api/breeds/image/random'
+
+        async with self.bot.session.get(decide_source(), headers=self.agent) as shibe_get:
+            if shibe_get.status == 200:
+                if shibe_get.host == 'random.dog':
+                    shibe_img = await shibe_get.text()
+                    shibe_url = shibe_get.host + '/' + shibe_img
+                elif shibe_get.host == 'dog.ceo':
+                    shibe_img = await shibe_get.json()
+                    shibe_url = shibe_img['message']
+
                 if '.mp4' in shibe_url:
                     await ctx.send('mp4 file: ' + shibe_url)
                 else:
@@ -66,7 +78,7 @@ class Fun:
                     shibe_em.set_image(url=shibe_url)
                     await ctx.send(embed=shibe_em)
             else:
-                raise utils.errors.ServiceError(f'could not fetch pupper :( (http {shibeGet.status})')
+                raise utils.errors.ServiceError(f'could not fetch pupper :( (http {shibe_get.status})')
 
     @commands.command()
     async def lizard(self, ctx):
@@ -191,7 +203,13 @@ class Fun:
                      '?client_id=285480424904327179&scope=bot)!')
         await lol.edit(content=None, embed=pranked)
         del query
-
+    
+    @commands.command()
+    async def coolpeople(self, ctx):
+        """Displays cool people"""
+        if self.bot.config['dbl'] and self.bot.config['dbotsorg']: 
+            async with ctx.bot.session.post(f'https://discordbots.org/api/bots/{ctx.me.id}/votes') as v:
+                
 
 
 def setup(bot):

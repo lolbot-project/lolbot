@@ -132,9 +132,9 @@ class Stats:
         welcome_channel = await find_channel(guild)
         we = discord.Embed(title='Hello!',
                            description='Thanks for inviting me.'
-                                       'I am required to tell you that I may'
-                                       'log command usage, user/channel/server IDs, and'
-                                       'other information. Thanks for your understanding!', colour=0x690E8)
+                                       ' I am required to tell you that I may'
+                                       ' log command usage, user/channel/server IDs, and'
+                                       ' other information. Thanks for your understanding!', colour=0x690E8)
         await welcome_channel.send(embed=we)
         await self.post()
 

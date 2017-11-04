@@ -111,6 +111,10 @@ class Exec:
         # wrap the code in a function, so that we can use await
         wrapped_code = 'async def func():\n' + textwrap.indent(code, '    ')
 
+        if code == 'bot.http.token':
+            await ctx.message.add_reaction('\u2705')
+            await ctx.send("```py\n'Nice try!'\n```")
+
         try:
             exec(compile(wrapped_code, '<exec>', 'exec'), env)
         except SyntaxError as e:

@@ -24,7 +24,7 @@ class Fun:
 
         self.weebsh = {
             'User-Agent': 'lolbot(aiohttp/discord.py) - https://lolbot.banne.club',
-            'Authorization': f'Bearer {self.weeb_key}'
+            'Authorization': f'Bearer {self.weeb_key}',
             'Accept': 'application/json'
         }
 

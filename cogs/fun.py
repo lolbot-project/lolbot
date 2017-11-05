@@ -222,6 +222,7 @@ class Fun:
 
     @commands.command()
     async def sumfuk(self, ctx):
+        """U want sum fuk?"""
         if self.bot.config['weeb']:
             async with ctx.bot.session.get('https://api.weeb.sh/images/random?type=sumfuk&filetype=png', headers=self.weebsh) as s:
                 if s.status == 200:

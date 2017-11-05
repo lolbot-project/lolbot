@@ -16,9 +16,16 @@ locks = defaultdict(asyncio.Lock)
 class Fun:
     def __init__(self, bot):
         self.bot = bot
+        self.weeb_key = self.bot.config['weeb']
 
         self.agent = {
             'User-Agent': 'lolbot(aiohttp/discord.py) - https://lolbot.banne.club'
+        }
+
+        self.weebsh = {
+            'User-Agent': 'lolbot(aiohttp/discord.py) - https://lolbot.banne.club',
+            'Authorization': f'Bearer {self.weeb_key}'
+            'Accept': 'application/json'
         }
 
         self.dadjoke = {
@@ -211,7 +218,23 @@ class Fun:
             async with ctx.bot.session.post(f'https://discordbots.org/api/bots/{ctx.me.id}/votes') as v:
                 await ctx.send('under construction lol')
         else:
-            await ctx.send('no auth')
+            return await ctx.send('no auth')
+
+    @commands.command()
+    async def sumfuk():
+        if self.bot.config['weeb']:
+            async with ctx.bot.session.get('https://api.weeb.sh/images/random?type=sumfuk&filetype=png', headers=self.weebsh) as s:
+                if s.status == 200:
+                    u = discord.Embed(colour=0x690E8)
+                    m = await s.json()
+                    f = m['link']
+                    u.set_image(url=f)
+                    # k
+                    await ctx.send(embed=u) 
+                else:
+                    raise utils.errors.ServiceError(f'bird failed (http {s.status})')
+        else:
+            raise utils.errors.ServiceError('weeb.sh key is not configured')
                 
 
 

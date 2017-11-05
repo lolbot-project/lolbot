@@ -221,7 +221,7 @@ class Fun:
             return await ctx.send('no auth')
 
     @commands.command()
-    async def sumfuk():
+    async def sumfuk(self, ctx):
         if self.bot.config['weeb']:
             async with ctx.bot.session.get('https://api.weeb.sh/images/random?type=sumfuk&filetype=png', headers=self.weebsh) as s:
                 if s.status == 200:

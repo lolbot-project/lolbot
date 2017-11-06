@@ -210,11 +210,11 @@ class Fun:
                      '?client_id=285480424904327179&scope=bot)!')
         await lol.edit(content=None, embed=pranked)
         del query
-    
+
     @commands.command(hidden=True)
     async def coolpeople(self, ctx):
         """Displays cool people"""
-        if self.bot.config['dbl'] and self.bot.config['dbotsorg']: 
+        if self.bot.config['dbl'] and self.bot.config['dbotsorg']:
             async with ctx.bot.session.post(f'https://discordbots.org/api/bots/{ctx.me.id}/votes') as v:
                 await ctx.send('under construction lol')
         else:
@@ -231,7 +231,7 @@ class Fun:
                     f = m['link']
                     u.set_image(url=f)
                     # k
-                    await ctx.send(embed=u) 
+                    await ctx.send(embed=u)
                 else:
                     raise utils.errors.ServiceError(f'bird failed (http {s.status})')
         else:

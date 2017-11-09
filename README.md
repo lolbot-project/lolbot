@@ -4,6 +4,10 @@
 [![](https://img.shields.io/discord/307640404071677962.svg)](https://discord.gg/PEW4wx9) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/772/badge)](https://bestpractices.coreinfrastructure.org/projects/772)
 [![](https://img.shields.io/badge/add%20bot-official%20instance-blue.svg)](https://discordapp.com/api/oauth2/authorize?client_id=272549225454239744&scope=bot&permissions=0)
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/qb8RoW4NMbqgkKZ6FUbiKL8K/tilda/lolbot'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/qb8RoW4NMbqgkKZ6FUbiKL8K/tilda/lolbot.svg' />
+</a>
+
 # Warning
 Usually you shouldn't run a selfhost instance or clone of this bot. It requires some setup and this isn't a 1-2-3 bot. **Support will be limited. There is only so much I can do to support people. You may have to fix things yourself. Be warned.**
 

@@ -220,7 +220,7 @@ class Fun:
             async with ctx.bot.session.post(f'https://discordbots.org/api/bots/{ctx.me.id}/votes') as v:
                 await ctx.send('under construction lol')
         else:
-            return await ctx.send('no auth')
+            raise utils.errors.ServiceError('dbl key not configured, see config')
 
     @commands.command()
     async def sumfuk(self, ctx):

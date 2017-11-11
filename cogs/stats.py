@@ -2,6 +2,7 @@ import json
 import logging
 # noinspection PyPackageRequirements
 import discord
+from discord.ext import commands
 
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 try:

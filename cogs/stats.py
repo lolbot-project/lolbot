@@ -68,8 +68,9 @@ class Stats:
             if req.status == 200:
                 logging.info('poster[dbl]: done')
             else:
+                t = await req.text()
                 logging.error(f'poster[dbl]: oops (code {req.status})')
-                logging.error(f'poster[dbl]: response: {await req.text()}')
+                logging.error(f'poster[dbl]: response: {t}')
         else:
             pass
 

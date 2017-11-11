@@ -147,8 +147,8 @@ class Stats:
     @commands.is_owner()
     async def poststats(self, ctx):
         """Posts guild stats to bot lists"""
-        ok = discord.utils.find(bot.emojis, name='check')
-        not_ok = discord.utils.find(bot.emojis, name='notcheck')
+        ok = discord.utils.find(self.bot.emojis, name='check')
+        not_ok = discord.utils.find(self.bot.emojis, name='notcheck')
         land = await ctx.send('Hold on a sec...')
         logging.info('poster: forcing post')
         dbl = await ctx.send('Posting to discordbots.org...')

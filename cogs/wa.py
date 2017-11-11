@@ -64,9 +64,8 @@ def pod_finder(pod_list):
 class Wolfram:
     def __init__(self, bot):
         self.bot = bot
-        self.config = json.load(open('config.json'))
-        if self.config['wa']:
-            self.wa = wolframalpha.Client(self.config['wa'])
+        if self.bot.config['wa']:
+            self.wa = wolframalpha.Client(self.bot.config['wa'])
         else:
             self.wa = None
 

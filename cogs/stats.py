@@ -34,7 +34,6 @@ async def find_channel(guild):
 class Stats:
     def __init__(self, bot):
         self.bot = bot
-        self.config = json.load(open('config.json'))
 
     async def dogpost(self):
         """
@@ -54,9 +53,9 @@ class Stats:
         You should not have to call this yourself, post() is a wrapper and
         does it for you.
         """
-        if self.config['dbl'] != "":
+        if self.bot.config['dbl'] != "":
             headers = {
-                'Authorization': self.config['dbl'],
+                'Authorization': self.bot.config['dbl'],
                 'Content-Type': 'application/json'
             }
             data = {
@@ -82,17 +81,17 @@ class Stats:
         You should not have to call this yourself, post() is a wrapper and
         does it for you.
         """
-        if self.config['dbots'] != "":
+        if self.bot.config['dbots'] != "":
             headers = {
-                'Authorization': self.config['dbots'],
+                'Authorization': self.bot.config['dbots'],
                 'Content-Type': 'application/json'
             }
             data = {
                 'server_count': len(self.bot.guilds),
                 'shard_count': len(self.bot.shards)
             }
-            info = await self.bot.application_info()
-            req = await self.bot.session.post(f'https://bots.discord.pw/api/bots/{info.id}/stats',
+            i = await self.bot.application_info()
+            req = await self.bot.session.post(f'https://bots.discord.pw/api/bots/{i.id}/stats',
                                               data=json.dumps(data), headers=headers)
             status = req.status
             if status == 200:
@@ -107,12 +106,11 @@ class Stats:
         This async function is a wrapper for post functions.
         You shouldn't need to call this yourself, the guild events do this for you.
         """
-        logging.info('poster: starting')
-        if self.config['dbotsorg']:
+        if self.bot.config['dbotsorg']:
             await self.dblpost()
         else:
             pass
-        if self.config['dbotspw']:
+        if self.bot.config['dbotspw']:
             await self.dpwpost()
         else:
             pass
@@ -120,7 +118,6 @@ class Stats:
             await self.dogpost()
         else:
             pass
-        logging.info('poster: done')
 
     async def on_guild_join(self, guild):
         """
@@ -144,6 +141,36 @@ class Stats:
         """
         logging.info('Left ' + str(guild.name))
         await self.post()
+
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def poststats(self, ctx):
+        """Posts guild stats to bot lists"""
+        ok = discord.utils.find(bot.emojis, name='check')
+        not_ok = discord.utils.find(bot.emojis, name='notcheck')
+        land = await ctx.send('Hold on a sec...')
+        logging.info('poster: forcing post')
+        dbl = await ctx.send('Posting to discordbots.org...')
+        if self.bot.config['dbotsorg']:
+            try:
+                await self.dblpost()
+            except Exception as e:
+                await dbl.edit(content=f'<:notcheck:{not_ok.id}> Error: `\`\`\py\n{e}\n`\`\`')
+            else:
+                await dbl.edit(content=f'<:check:{ok.id}> Success.')
+        else:
+            await dbl.edit(content='No key configured, skipping discordbots.org!')
+        dpw = await ctx.send('Posting to bots.discord.pw...')
+        if self.bot.config['dbotspw']:
+            try:
+                await self.dpwpost()
+            except Exception as e:
+                await dpw.edit(content=f'<:notcheck:{not_ok.id}> Error: `\`\`\py\n{e}\n`\`\`')
+            else:
+                await dpw.edit(content=f'<:check:{ok.id}> Success.')
+        else:
+            await dpw.edit(content=f'No key configured, skipping bots.discord.pw!')
+        await land.edit(content='Posted count.')
 
 
 def setup(bot):

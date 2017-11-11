@@ -49,6 +49,8 @@ class Weather:
                 future = self.loop.run_in_executor(None,
                                                    self.owm.weather_at_place, loc)
                 observation = await future
+            except pyowm.exceptions.not_found_error.NotFoundError:
+                raise uerrs.ServiceError('Location not found')
             except Exception as e:
                 raise uerrs.ServiceError(e)
             w = observation.get_weather()

@@ -51,8 +51,6 @@ class Lul(commands.AutoShardedBot):
             await ctx.send(f'Bad arg: `{random.choice(self.badarg)}`')
         elif isinstance(error, commands.errors.MissingRequiredArgument):
             await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
-        elif isinstance(error, pyowm.exceptions.not_found_error.NotFoundError):
-            await ctx.send('I couldn\'t find that location, maybe be a bit more specific')
         elif isinstance(error, utils.errors.ServiceError):
             tb = ''.join(traceback.format_exception(
                 type(error.original), error.original,

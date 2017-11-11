@@ -63,7 +63,8 @@ class Stats:
                 'server_count': len(self.bot.guilds),
                 'shard_count': len(self.bot.shards)
             }
-            req = await self.bot.session.post(f'https://discordbots.org/api/bots/{ctx.me.id}/stats',
+            i = await self.bot.application_info()
+            req = await self.bot.session.post(f'https://discordbots.org/api/bots/{i.id}/stats',
                                               data=json.dumps(data), headers=headers)
             if req.status == 200:
                 logging.info('poster[dbl]: done')

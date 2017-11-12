@@ -43,8 +43,8 @@ class Stats:
         does it for you.
         """
         if datadog_enabled:
-            statsd.gauge('servers', len(self.bot.guilds))
-            statsd.gauge('shards', len(self.bot.shards))
+            statsd.gauge('lolbot.servers', len(self.bot.guilds))
+            statsd.gauge('lolbot.shards', len(self.bot.shards))
         else:
             pass
 
@@ -171,6 +171,7 @@ class Stats:
                 await dpw.edit(content=f'<:check:{ok.id}> Success.')
         else:
             await dpw.edit(content=f'No key configured, skipping bots.discord.pw!')
+        if datadog
         await land.edit(content='Posted count.')
 
 

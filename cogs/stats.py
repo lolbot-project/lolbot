@@ -171,7 +171,17 @@ class Stats:
                 await dpw.edit(content=f'<:check:{ok.id}> Success.')
         else:
             await dpw.edit(content=f'No key configured, skipping bots.discord.pw!')
-        if datadog
+        ddg = await ctx.send('Posting to Datadog...')
+        if datadog_enabled:
+            try:
+                await self.dogpost()
+            except Exception as e:
+                await ddg.edit(content=f'<:notcheck:{not_ok.id}> Error: `\`\`\py\n{e}\n`\`\`')
+            else:
+                await ddg.edit(content=f'<:check:{ok.id}> Success.')
+        else:
+            await ddg.edit(content='Integration disabled, skipping Datadog!')
+            
         await land.edit(content='Posted count.')
 
 

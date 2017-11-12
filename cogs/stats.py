@@ -158,7 +158,7 @@ class Stats:
             except Exception as e:
                 await dbl.edit(content=f'<:notcheck:{not_ok.id}> Error: `\`\`\py\n{e}\n`\`\`')
             else:
-                await dbl.edit(content=f'<:check:{ok.id}> Success.')
+                await dbl.edit(content=f'<:check:{ok.id}> Posted to discordbots.org.')
         else:
             await dbl.edit(content='No key configured, skipping discordbots.org!')
         dpw = await ctx.send('Posting to bots.discord.pw...')
@@ -168,7 +168,7 @@ class Stats:
             except Exception as e:
                 await dpw.edit(content=f'<:notcheck:{not_ok.id}> Error: `\`\`\py\n{e}\n`\`\`')
             else:
-                await dpw.edit(content=f'<:check:{ok.id}> Success.')
+                await dpw.edit(content=f'<:check:{ok.id}> Posted to bots.discord.pw.')
         else:
             await dpw.edit(content=f'No key configured, skipping bots.discord.pw!')
         ddg = await ctx.send('Posting to Datadog...')
@@ -178,7 +178,7 @@ class Stats:
             except Exception as e:
                 await ddg.edit(content=f'<:notcheck:{not_ok.id}> Error: `\`\`\py\n{e}\n`\`\`')
             else:
-                await ddg.edit(content=f'<:check:{ok.id}> Success.')
+                await ddg.edit(content=f'<:check:{ok.id}> Posted to Datadog.')
         else:
             await ddg.edit(content='Integration disabled, skipping Datadog!') 
         await land.edit(content='Posted count.')

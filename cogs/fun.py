@@ -237,9 +237,21 @@ class Fun:
                 else:
                     raise utils.errors.ServiceError(f'bird failed (http {s.status})')
         else:
-            raise utils.errors.ServiceError('weeb.sh key is not configured')
-                
+            raise utils.errors.ServiceError('weeb.sh key is not configured') 
 
+    @commands.command()
+    async def excuse(self, ctx):
+        """BOFH excuses from http://pages.cs.wisc.edu/~ballard/bofh/
+        BOFH = Bastard Operator from Hell.
+
+        I stole this command from lnmds, thanks luna lol
+        """
+        async with self.bot.session.get('http://pages.cs.wisc.edu'
+                                        '/~ballard/bofh/excuses') as r:
+            data = await r.text()
+            lines = data.split('\n')
+            line = random.choice(lines)
+            await ctx.send(f'The Bastard Operator from Hell says: `{line}`')
 
 def setup(bot):
     bot.add_cog(Fun(bot))

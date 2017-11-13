@@ -237,7 +237,7 @@ class Fun:
                 else:
                     raise utils.errors.ServiceError(f'bird failed (http {s.status})')
         else:
-            raise utils.errors.ServiceError('weeb.sh key is not configured') 
+            raise utils.errors.ServiceError('weeb.sh key is not configured')
 
     @commands.command(aliases=['bofh', 'techproblem'])
     async def excuse(self, ctx):

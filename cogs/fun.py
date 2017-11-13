@@ -239,7 +239,7 @@ class Fun:
         else:
             raise utils.errors.ServiceError('weeb.sh key is not configured') 
 
-    @commands.command()
+    @commands.command(aliases=['bofh', 'techproblem'])
     async def excuse(self, ctx):
         """BOFH excuses from http://pages.cs.wisc.edu/~ballard/bofh/
         BOFH = Bastard Operator from Hell.

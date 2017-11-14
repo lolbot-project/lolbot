@@ -48,6 +48,7 @@ class Owner:
         except Exception:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
             return
+        logging.info(f'owner[load]: cog {extension_name} loaded')
         await ctx.send(f':ok_hand: `{extension_name}` loaded.')
 
     @commands.command(hidden=True)
@@ -55,6 +56,7 @@ class Owner:
     async def unload(self, ctx, extension_name: str):
         """Unloads an extension."""
         self.bot.unload_extension('cogs.' + extension_name)
+        logging.info(f'owner[unload]: cog {extension_name} unloaded')
         await ctx.send(f':ok_hand: `{extension_name}` unloaded.')
 
     @commands.command(hidden=True)
@@ -70,6 +72,7 @@ class Owner:
         except Exception:
             await ctx.send(f'```{traceback.format_exc()}```')
             return
+        logging.info(f'owner[reload]: cog {extension_name} reloaded')
         await ctx.send(f':ok_hand: Reloaded `{extension_name}`')
 
     @commands.command(hidden=True)

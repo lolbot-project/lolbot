@@ -39,7 +39,7 @@ class Owner:
     @commands.command(hidden=True)
     @commands.is_owner()
     async def load(self, ctx, extension_name: str):
-        """Loads an extension."""
+        """Loads a cog"""
         try:
             self.bot.load_extension('cogs.' + extension_name)
         except ModuleNotFoundError:
@@ -54,7 +54,7 @@ class Owner:
     @commands.command(hidden=True)
     @commands.is_owner()
     async def unload(self, ctx, extension_name: str):
-        """Unloads an extension."""
+        """Unloads a cog"""
         self.bot.unload_extension('cogs.' + extension_name)
         logging.info(f'owner[unload]: cog {extension_name} unloaded')
         await ctx.send(f':ok_hand: `{extension_name}` unloaded.')
@@ -62,7 +62,7 @@ class Owner:
     @commands.command(hidden=True)
     @commands.is_owner()
     async def reload(self, ctx, extension_name: str):
-        """Reloads an extension"""
+        """Reloads a cog"""
         try:
             self.bot.unload_extension('cogs.' + extension_name)
             self.bot.load_extension('cogs.' + extension_name)

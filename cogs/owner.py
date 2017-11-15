@@ -57,7 +57,7 @@ class Owner:
         else:
             await restart_message.edit(content=':warning: pm2 not detected, invoking `shutdown` command')
             await ctx.invoke(self.bot.get_command('shutdown'))
-            
+
     @commands.command(hidden=True)
     @commands.is_owner()
     async def load(self, ctx, extension_name: str):

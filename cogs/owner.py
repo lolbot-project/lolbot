@@ -3,6 +3,7 @@ Owner stuff
 
 Originally made by luna for Jose, the best bot
 """
+import os
 import traceback
 import asyncio
 # noinspection PyPackageRequirements
@@ -11,6 +12,12 @@ import discord
 # noinspection PyPackageRequirements
 from discord.ext import commands
 
+async def run_cmd(cmd: str) -> str:
+    """Runs a subprocess and returns the output."""
+    process = await asyncio.create_subprocess_shell(
+        cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+    results = await process.communicate()
+    return "".join(x.decode("utf-8") for x in results)
 
 class Owner:
     def __init__(self, bot):
@@ -32,10 +39,25 @@ class Owner:
     @commands.command(hidden=True)
     @commands.is_owner()
     async def shutdown(self, ctx):
-        await ctx.send(":wave:")
+        """Shuts down the bot"""
         await self.bot.session.close()
         await self.bot.logout()
 
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def reboot(self, ctx):
+        """Reboots the bot.
+        Can only be used with PM2"""
+        restart_land = discord.Embed(title='Restarting', description='Please wait...')
+        restart_msg = await ctx.send(embed=restart_land)
+        pm2_id = os.environ.get['pm_id']
+        if pm2_id:
+            await run_cmd(f'pm2 restart {pm2_id}')
+            await restart_msg.edit(content='Sending message to pm2. Bye!')
+        else:
+            await restart_message.edit(content=':warning: pm2 not detected, invoking `shutdown` command')
+            await ctx.invoke(self.bot.get_command('shutdown'))
+            
     @commands.command(hidden=True)
     @commands.is_owner()
     async def load(self, ctx, extension_name: str):

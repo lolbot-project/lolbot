@@ -54,7 +54,17 @@ async def bot_uptime(init_time):
     m, s = divmod(sec, 60)
     h, m = divmod(m, 60)
     d, h = divmod(h, 24)
-    return f'{d}d{h}h{m}m{s}s'
+    fmt = f'{d}d{h}h{m}m{s}s'
+    if d is 0:
+        fmt = f'{h}h{m}m{s}s'
+    if h is 0:
+        fmt = f'{m}m{s}s'
+    if m is 0:
+        fmt = f'{s}s'
+    if s is 0:
+        fmt = '0s'
+
+    return fmt
 
 class Etc:
     def __init__(self, bot):

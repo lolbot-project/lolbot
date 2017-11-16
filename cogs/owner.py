@@ -6,6 +6,7 @@ Originally made by luna for Jose, the best bot
 import os
 import traceback
 import asyncio
+import logging
 # noinspection PyPackageRequirements
 import discord
 

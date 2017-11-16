@@ -83,7 +83,7 @@ class Etc:
         started_on = time.strftime('%b %d, %Y %H:%M:%S', time.localtime(self.bot.init_time))
         uptime_embed.add_field(name='Started on', value=started_on, inline=False)
         meme = await bot_uptime(self.bot.init_time)
-        uptime_embed.add_field(name='Uptime', value=f'{meme}', inline=False)
+        uptime_embed.add_field(name='Uptime', value=f'{meme}')
         await ctx.send(embed=uptime_embed)
 
     @commands.command()

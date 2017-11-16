@@ -49,6 +49,12 @@ async def get_status(u: discord.Member):
     elif u.status == discord.Status.offline:
         return 'Offline/invisible'
 
+async def bot_uptime(init_time):
+    sec = round(time.time() - init_time)
+    m, s = divmod(sec, 60)
+    h, m = divmod(m, 60)
+    d, h = divmod(h, 24)
+    return f'{d}d{h}h{m}m{s}s'
 
 class Etc:
     def __init__(self, bot):
@@ -59,15 +65,12 @@ class Etc:
     async def uptime(self, ctx):
         """Shows uptime of lolbot"""
         # Thanks Luna you make good code lul
-        sec = round(time.time() - self.bot.init_time)
-        m, s = divmod(sec, 60)
-        h, m = divmod(m, 60)
-        d, h = divmod(h, 24)
-        upEm = discord.Embed(title='Uptime', colour=0x690E8)
-        startedOn = time.strftime('%b %d, %Y %H:%M:%S', time.localtime(self.bot.init_time))
-        upEm.add_field(name='Started on', value=startedOn, inline=False)
-        upEm.add_field(name='Uptime', value=f' {d} days, {h} hours, {m} minutes and {s} seconds', inline=False)
-        await ctx.send(embed=upEm)
+        uptime_embed = discord.Embed(title='Uptime', colour=0x690E8)
+        started_on = time.strftime('%b %d, %Y %H:%M:%S', time.localtime(self.bot.init_time))
+        uptime_embed.add_field(name='Started on', value=started_on, inline=False)
+        meme = await bot_uptime(self.bot.init_time)
+        uptime_embed.add_field(name='Uptime', value=f'{meme}', inline=False)
+        await ctx.send(embed=uptime_embed)
 
     @commands.command()
     async def ping(self, ctx):

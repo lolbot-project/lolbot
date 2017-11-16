@@ -110,7 +110,7 @@ class Etc:
         statEmbed.add_field(name='Servers', value=f'{len(self.bot.guilds)}')
         statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',
                     'Where did the RAM go?', 'grumble grumble', 'Please hold.', 'No, just, no.',
-                    'Have you tried rebooting?', 'memework makes the dreamwork!']
+                    'Have you tried rebooting?', 'memework makes the dreamwork!', 'cool and good']
         statEmbed.set_footer(text=rchoice(statPool))
         await ctx.send(embed=statEmbed)
 

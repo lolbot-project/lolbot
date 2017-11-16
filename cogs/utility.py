@@ -49,6 +49,10 @@ async def get_status(u: discord.Member):
     elif u.status == discord.Status.offline:
         return 'Offline/invisible'
 
+async def get_python_version():
+    v = sys.version_info
+    return f'{v[0]}.{v[1]}.{v[2]}'
+
 async def bot_uptime(init_time):
     sec = round(time.time() - init_time)
     m, s = divmod(sec, 60)
@@ -105,7 +109,7 @@ class Etc:
                                                              'Python bot.', colour=0x690E8)
         statEmbed.add_field(name='Owner', value=statInfo.owner.mention + '('
                                                 + str(statInfo.owner) + ' - ID: ' + str(statInfo.owner.id) + ')')
-        statEmbed.add_field(name='Python', value=sys.version)
+        statEmbed.add_field(name='Python', value=await get_python_version())
         statEmbed.add_field(name='discord.py', value=discord.__version__)
         statEmbed.add_field(name='Servers', value=f'{len(self.bot.guilds)}')
         statEmbed.add_field(name='Uptime', value=await bot_uptime(self.bot.init_time))

@@ -51,7 +51,7 @@ class Owner:
         Can only be used with PM2"""
         restart_land = discord.Embed(title='Restarting', description='Please wait...')
         restart_msg = await ctx.send(embed=restart_land)
-        pm2_id = os.environ.get['pm_id']
+        pm2_id = os.environ.get('pm_id')
         if pm2_id:
             await run_cmd(f'pm2 restart {pm2_id}')
             await restart_msg.edit(content='Sending message to pm2. Bye!')

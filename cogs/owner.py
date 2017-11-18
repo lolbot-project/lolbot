@@ -53,8 +53,10 @@ class Owner:
         restart_msg = await ctx.send(embed=restart_land)
         pm2_id = os.environ.get('pm_id')
         if pm2_id:
+            await restart_msg.edit(content='Logging out and restarting. Bye!')
+            await self.bot.session.close()
+            await self.bot.logout
             await run_cmd(f'pm2 restart {pm2_id}')
-            await restart_msg.edit(content='Sending message to pm2. Bye!')
         else:
             await restart_message.edit(content=':warning: pm2 not detected, invoking `shutdown` command')
             await ctx.invoke(self.bot.get_command('shutdown'))

@@ -149,6 +149,10 @@ class Etc:
         e.add_field(name='Is bot', value=bot)
         await ctx.send(embed=e)
 
+    @commands.command(aliases=['inviteinfo', 'inv'])
+    async def invinfo(self, ctx, ):
+        """Returns information about a discord.gg invite"""
+        
     @commands.command()
     async def version(self, ctx):
         """Returns current version of lolbot"""

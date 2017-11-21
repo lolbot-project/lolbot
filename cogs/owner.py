@@ -28,15 +28,15 @@ class Owner:
     @commands.is_owner()
     async def game(self, ctx, *, game: str):
         """Change playing status"""
-        if ctx.invoked_subcommand is None:
+        if ctx.invoked_command is None:
             _help = discord.Embed(title='Subcommands', colour=0x690E8)
             _help.add_field(name='set', value='Sets playing state. `^game set meme`')
             _help.add_field(name='set', value='Clears playing state. `^game clear`')
             return await ctx.send(embed=_help)
 
-    @game.command()
+    @game.command(name='set')
     @commands.is_owner()
-    async def set(self, ctx, *, game: str):
+    async def _set(self, ctx, *, game: str):
         """Sets playing state"""
         try:
             await self.bot.change_presence(game=discord.Game(name=f'{game} | {ctx.bot.config["prefix"]}help | v1.2', type=1, url='https://twitch.tv/monstercat'))
@@ -45,9 +45,9 @@ class Owner:
         else:
             await ctx.send(':white_check_mark: Updated.')
 
-    @game.command()
+    @game.command(name='clear')
     @commands.is_owner()
-    async def clear(self, ctx):
+    async def _clear(self, ctx):
         """Resets playing state to normal"""
         try:
             await self.bot.change_presence(game=discord.Game(name=f'{ctx.bot.config["prefix"]}help | v1.2'))

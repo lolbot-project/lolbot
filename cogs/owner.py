@@ -55,7 +55,7 @@ class Owner:
         if pm2_id:
             await restart_msg.edit(content='Logging out and restarting. Bye!')
             await self.bot.session.close()
-            await self.bot.logout
+            await self.bot.logout()
             await run_cmd(f'pm2 restart {pm2_id}')
         else:
             await restart_message.edit(content=':warning: pm2 not detected, invoking `shutdown` command')

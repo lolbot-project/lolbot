@@ -74,8 +74,8 @@ class Owner:
             except Exception:
                 await ctx.send(f'```py\n{traceback.format_exc()}\n```')
                 return
-            logging.info(f'owner[load]: cog {extension_name} loaded')
-            await ctx.send(f':ok_hand: `{extension_name}` loaded.')
+            logging.info(f'owner[load]: cog {ext} loaded')
+            await ctx.send(f':ok_hand: `{ext}` loaded.')
 
     @commands.command(hidden=True)
     @commands.is_owner()
@@ -83,8 +83,8 @@ class Owner:
         """Unloads a cog"""
         for ext in exts:
             self.bot.unload_extension('cogs.' + ext)
-            logging.info(f'owner[unload]: cog {extension_name} unloaded')
-        await ctx.send(f':ok_hand: `{extension_name}` unloaded.')
+            logging.info(f'owner[unload]: cog {ext} unloaded')
+            await ctx.send(f':ok_hand: `{ext}` unloaded.')
 
     @commands.command(hidden=True)
     @commands.is_owner()
@@ -95,13 +95,13 @@ class Owner:
                 self.bot.unload_extension('cogs.' + ext)
                 self.bot.load_extension('cogs.' + ext)
             except ModuleNotFoundError:
-                await ctx.send(f':x: Cog `{extension_name}` not found.')
+                await ctx.send(f':x: Cog `{ext}` not found.')
                 return
             except Exception:
                 await ctx.send(f'```{traceback.format_exc()}```')
                 return
-            logging.info(f'owner[reload]: cog {extension_name} reloaded')
-            await ctx.send(f':ok_hand: Reloaded `{extension_name}`')
+            logging.info(f'owner[reload]: cog {ext} reloaded')
+            await ctx.send(f':ok_hand: Reloaded `{ext}`')
 
     @commands.command(hidden=True)
     @commands.is_owner()

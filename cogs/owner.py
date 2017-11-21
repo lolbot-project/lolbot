@@ -28,7 +28,7 @@ class Owner:
     @commands.is_owner()
     async def game(self, ctx, *, game: str):
         """Change playing status"""
-        if ctx.invoked_command is None:
+        if ctx.invoked_subcommand is None:
             _help = discord.Embed(title='Subcommands', colour=0x690E8)
             _help.add_field(name='set', value='Sets playing state. `^game set meme`')
             _help.add_field(name='set', value='Clears playing state. `^game clear`')

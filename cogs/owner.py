@@ -48,7 +48,7 @@ class Owner:
     async def _clear(self, ctx):
         """Resets playing state to normal"""
         try:
-            await self.bot.change_presence(game=discord.Game(name=f'{ctx.bot.config["prefix"]}help | v1.2'))
+            await self.bot.change_presence(game=discord.Game(name=f'{ctx.bot.config["prefix"]}help | v1.2', type=1, url='https://twitch.tv/monstercat'))
         except Exception:
             await ctx.send(f'```\n{traceback.format_exc()}```')
         else:

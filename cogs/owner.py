@@ -67,7 +67,7 @@ class Owner:
         """Loads a cog"""
         for ext in exts:
             try:
-                self.bot.load_extension('cogs.' + extension_name)
+                self.bot.load_extension('cogs.' + ext)
             except ModuleNotFoundError:
                 await ctx.send(f':x: Cog `{extension_name}` not found.')
                 return
@@ -82,7 +82,7 @@ class Owner:
     async def unload(self, ctx, *exts: str):
         """Unloads a cog"""
         for ext in exts:
-            self.bot.unload_extension('cogs.' + extension_name)
+            self.bot.unload_extension('cogs.' + ext)
             logging.info(f'owner[unload]: cog {extension_name} unloaded')
         await ctx.send(f':ok_hand: `{extension_name}` unloaded.')
 
@@ -91,8 +91,8 @@ class Owner:
     async def reload(self, ctx, *exts: str):
         """Reloads a cog"""
         try:
-            self.bot.unload_extension('cogs.' + extension_name)
-            self.bot.load_extension('cogs.' + extension_name)
+            self.bot.unload_extension('cogs.' + ext)
+            self.bot.load_extension('cogs.' + ext)
         except ModuleNotFoundError:
             await ctx.send(f':x: Cog `{extension_name}` not found.')
             return

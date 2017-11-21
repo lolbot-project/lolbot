@@ -31,7 +31,7 @@ class Owner:
         haha = ctx.bot.config['prefix']
         try:
             await self.bot.change_presence(
-                game=discord.Game(name=f'{game} | {haha}help | v1.1', type=1, url='https://twitch.tv/monstercat'))
+                game=discord.Game(name=f'{game} | {haha}help | v1.2', type=1, url='https://twitch.tv/monstercat'))
         except Exception:
             await ctx.send(f'```\n{traceback.format_exc()}\n```')
         else:

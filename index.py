@@ -40,7 +40,7 @@ class Lul(commands.AutoShardedBot):
         # note that we use " instead of ' here
         # this is a limitation of the fstring parser
         await bot.change_presence(
-            game=discord.Game(name=f'{self.config["prefix"]}help | v1.1', type=1, url='https://twitch.tv/monstercat'))
+            game=discord.Game(name=f'{self.config["prefix"]}help | v1.2', type=1, url='https://twitch.tv/monstercat'))
         logging.info('Playing status changed')
 
     async def on_command_error(self, ctx, error):

@@ -239,6 +239,17 @@ class Fun:
         else:
             raise utils.errors.ServiceError('weeb.sh key is not configured')
 
+    @commands.command(aliases=['bird', 'birdpic', 'birbpic'])
+    async def birb(self, ctx):
+        async with ctx.bot.session.get('https://random.birb.pw/tweet', headers=self.agent) as b:
+            if b.status == 200:
+                em = discord.Embed(colour=0x690E8)
+                pic = await b.text()
+                em.set_image(url=f'https://random.birb.pw/{pic}')
+                await ctx.send(embed=em)
+            else:
+                raise utils.errors.ServiceError(f'rip birb (http {b.status})')
+
     @commands.command(aliases=['bofh', 'techproblem'])
     async def excuse(self, ctx):
         """BOFH excuses from http://pages.cs.wisc.edu/~ballard/bofh/

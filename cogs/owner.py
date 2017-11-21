@@ -90,17 +90,18 @@ class Owner:
     @commands.is_owner()
     async def reload(self, ctx, *exts: str):
         """Reloads a cog"""
-        try:
-            self.bot.unload_extension('cogs.' + ext)
-            self.bot.load_extension('cogs.' + ext)
-        except ModuleNotFoundError:
-            await ctx.send(f':x: Cog `{extension_name}` not found.')
-            return
-        except Exception:
-            await ctx.send(f'```{traceback.format_exc()}```')
-            return
-        logging.info(f'owner[reload]: cog {extension_name} reloaded')
-        await ctx.send(f':ok_hand: Reloaded `{extension_name}`')
+        for ext in exts:
+            try:
+                self.bot.unload_extension('cogs.' + ext)
+                self.bot.load_extension('cogs.' + ext)
+            except ModuleNotFoundError:
+                await ctx.send(f':x: Cog `{extension_name}` not found.')
+                return
+            except Exception:
+                await ctx.send(f'```{traceback.format_exc()}```')
+                return
+            logging.info(f'owner[reload]: cog {extension_name} reloaded')
+            await ctx.send(f':ok_hand: Reloaded `{extension_name}`')
 
     @commands.command(hidden=True)
     @commands.is_owner()

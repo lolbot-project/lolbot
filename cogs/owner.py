@@ -63,30 +63,32 @@ class Owner:
 
     @commands.command(hidden=True)
     @commands.is_owner()
-    async def load(self, ctx, extension_name: str):
+    async def load(self, ctx, *exts: str):
         """Loads a cog"""
-        try:
-            self.bot.load_extension('cogs.' + extension_name)
-        except ModuleNotFoundError:
-            await ctx.send(f':x: Cog `{extension_name}` not found.')
-            return
-        except Exception:
-            await ctx.send(f'```py\n{traceback.format_exc()}\n```')
-            return
-        logging.info(f'owner[load]: cog {extension_name} loaded')
-        await ctx.send(f':ok_hand: `{extension_name}` loaded.')
+        for ext in exts:
+            try:
+                self.bot.load_extension('cogs.' + extension_name)
+            except ModuleNotFoundError:
+                await ctx.send(f':x: Cog `{extension_name}` not found.')
+                return
+            except Exception:
+                await ctx.send(f'```py\n{traceback.format_exc()}\n```')
+                return
+            logging.info(f'owner[load]: cog {extension_name} loaded')
+            await ctx.send(f':ok_hand: `{extension_name}` loaded.')
 
     @commands.command(hidden=True)
     @commands.is_owner()
-    async def unload(self, ctx, extension_name: str):
+    async def unload(self, ctx, *exts: str):
         """Unloads a cog"""
-        self.bot.unload_extension('cogs.' + extension_name)
-        logging.info(f'owner[unload]: cog {extension_name} unloaded')
+        for ext in exts:
+            self.bot.unload_extension('cogs.' + extension_name)
+            logging.info(f'owner[unload]: cog {extension_name} unloaded')
         await ctx.send(f':ok_hand: `{extension_name}` unloaded.')
 
     @commands.command(hidden=True)
     @commands.is_owner()
-    async def reload(self, ctx, extension_name: str):
+    async def reload(self, ctx, *exts: str):
         """Reloads a cog"""
         try:
             self.bot.unload_extension('cogs.' + extension_name)

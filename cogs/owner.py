@@ -26,7 +26,7 @@ class Owner:
 
     @commands.group(hidden=True)
     @commands.is_owner()
-    async def game(self, ctx, *, game: str):
+    async def game(self, ctx):
         """Change playing status"""
         if ctx.invoked_subcommand is None:
             _help = discord.Embed(title='Subcommands', colour=0x690E8)

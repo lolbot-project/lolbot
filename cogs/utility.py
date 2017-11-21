@@ -76,6 +76,16 @@ class Etc:
         self.support = 'https://discord.gg/PEW4wx9'
 
     @commands.command()
+    async def hello(self, ctx):
+        """Hey!"""
+        hi = "Heya! My name's lolbot. I am a bot designed to do stupid things."
+        hi2 = "Things I can do include cat pictures, dog pictures, Wolfram|Alpha"
+        hi3 = "and more! See `^help` for more information on me."
+        em = discord.Embed(description=hi + hi2 + hi3, colour=0x690E8)
+        em.add_field(name='Got any questions?', value=f'Join our support server: {self.support}')
+        em.add_footer(text='Created by tilda#4778')
+
+    @commands.command()
     async def uptime(self, ctx):
         """Shows uptime of lolbot"""
         # Thanks Luna you make good code lul
@@ -149,9 +159,10 @@ class Etc:
         e.add_field(name='Is bot', value=bot)
         await ctx.send(embed=e)
 
-    @commands.command(aliases=['inviteinfo', 'inv'])
-    async def invinfo(self, ctx, ):
+    @commands.command(aliases=['inviteinfo', 'inv'], hidden=True)
+    async def invinfo(self, ctx, code: str):
         """Returns information about a discord.gg invite"""
+        await ctx.send('This command is unfinished')
         
     @commands.command()
     async def version(self, ctx):

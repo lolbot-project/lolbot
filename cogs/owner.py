@@ -24,18 +24,37 @@ class Owner:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(hidden=True)
+    @commands.group(hidden=True)
     @commands.is_owner()
     async def game(self, ctx, *, game: str):
         """Change playing status"""
-        haha = ctx.bot.config['prefix']
+        if ctx.invoked_subcommand is None:
+            _help = discord.Embed(title='Subcommands', colour=0x690E8)
+            _help.add_field(name='set', value='Sets playing state. `^game set meme`')
+            _help.add_field(name='set', value='Clears playing state. `^game clear`')
+            return await ctx.send(embed=_help)
+
+    @game.command()
+    @commands.is_owner()
+    async def set(self, ctx, *, game: str):
+        """Sets playing state"""
         try:
-            await self.bot.change_presence(
-                game=discord.Game(name=f'{game} | {haha}help | v1.2', type=1, url='https://twitch.tv/monstercat'))
+            await self.bot.change_presence(game=discord.Game(name=f'{game} | {ctx.bot.config["prefix"]}help | v1.2', type=1, url='https://twitch.tv/monstercat'))
         except Exception:
             await ctx.send(f'```\n{traceback.format_exc()}\n```')
         else:
-            await ctx.send(':white_check_mark: Successfully changed game')
+            await ctx.send(':white_check_mark: Updated.')
+
+    @game.command()
+    @commands.is_owner()
+    async def clear(self, ctx):
+        """Resets playing state to normal"""
+        try:
+            await self.bot.change_presence(game=discord.Game(name=f'{ctx.bot.config["prefix"]}help | v1.2'))
+        except Exception:
+            await ctx.send(f'```\n{traceback.format_exc()}```')
+        else:
+            await ctx.send(':white_check_mark: Cleared.')
 
     @commands.command(hidden=True)
     @commands.is_owner()
@@ -49,7 +68,7 @@ class Owner:
     async def reboot(self, ctx):
         """Reboots the bot.
         Can only be used with PM2"""
-        restart_land = discord.Embed(title='Restarting', description='Please wait...')
+        restart_land = discord.Embed(title='Restarting', description='Please wait...', colour=0x690E8)
         restart_msg = await ctx.send(embed=restart_land)
         pm2_id = os.environ.get('pm_id')
         if pm2_id:

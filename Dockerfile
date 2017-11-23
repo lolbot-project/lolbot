@@ -2,7 +2,7 @@
 # lolbot dockerfile
 # licensed under MIT License
 # (c) 2017 S Stewart
-FROM alpine:latest
+FROM alpine:3.6
 
 MAINTAINER "S Stewart <iamtheworst@programmer.net>"
 

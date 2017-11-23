@@ -2,7 +2,7 @@
 # lolbot dockerfile
 # licensed under MIT License
 # (c) 2017 S Stewart
-FROM python:3
+FROM alpine:latest
 
 MAINTAINER "S Stewart <iamtheworst@programmer.net>"
 
@@ -11,6 +11,7 @@ RUN mkdir /opt/lolbot
 # do shit
 WORKDIR /opt/lolbot
 # install reqs
+RUN apk add --no-cache python3
 COPY requirements.txt /opt/lolbot
 RUN pip install -r requirements.txt
 

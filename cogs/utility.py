@@ -105,7 +105,7 @@ class Etc:
         ms = round((two - one) * 1000, 2)
         gw = round(self.bot.latency * 1000)
         meme = discord.Embed(title='Pong!', colour=0x690E8)
-        meme.add_field(name='Normal ping', value=f'**{ms}**ms')
+        meme.add_field(name='Round-trip time', value=f'**{ms}**ms')
         meme.add_field(name='Gateway ping', value=f'**{gw}**ms')
         await a.delete()
         await ctx.send(embed=meme)

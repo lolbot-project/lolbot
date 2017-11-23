@@ -1,31 +1,7 @@
-**lolbot**
+[] By checking this box, I agree that PEP8 standards were followed and that I have linted this pull request before submission
 
-**What does this PR do?**
+# Which part of project is going to be contributed to?
+<insert the part you are contributing to here>
 
-[] Major feature
-
-[] Code fix
-
-[] Typo fix
-
-[] Other
-
-**Which area are you going to work on?**
-
-[] README
-
-[] core
-
-[] cogs
-
-[] config
-
-[] other
-
-**Please acknowledge the following:**
-
-[] 2 space indents in your changes
-
-[] You have tested code before then
-
-[] This code does not conflict with recently pushed code in the repo
+# What does this pull request do?
+<insert explanation here>

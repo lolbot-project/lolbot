@@ -70,7 +70,9 @@ class Lul(commands.AutoShardedBot):
 
 
 config = json.load(open('config.json'))
-bot = Lul(command_prefix=config['prefix'], description=description, pm_help=None)
+bot = Lul(command_prefix=commands.when_mentioned_or(config['prefix']),
+          description=description,
+          pm_help=None)
 
 if __name__ == '__main__':
     for ext in exts:

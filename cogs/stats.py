@@ -130,7 +130,7 @@ class Stats:
         we = discord.Embed(title='Hello!',
                            description='Just saying, I may collect information (IDs, etc) about your server'
                            'to help my owner improve the bot. Thanks!', colour=0x690E8)
-        we.add_footer(text='Get started by typing ^hello')
+        we.set_footer(text='Get started by typing ^hello')
         await welcome_channel.send(embed=we)
         await self.post()
 

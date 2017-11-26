@@ -136,7 +136,7 @@ class Etc:
         invEmb = discord.Embed(colour=0x690E8)
         invEmb.add_field(name='Invite lolbot', value='[Click here](https://lolbot.banne.club/invite)')
         invEmb.add_field(name='Official server', value=str(self.support))
-        invEmb.add_footer(text='By inviting lolbot, you agree to the lolbot Privacy Policy')
+        invEmb.set_footer(text='By inviting lolbot, you agree to the lolbot Privacy Policy')
         await ctx.send(embed=invEmb)
 
     @commands.command(aliases=['userinfo', 'uinfo'])

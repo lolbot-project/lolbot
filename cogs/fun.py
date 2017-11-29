@@ -73,7 +73,7 @@ class Fun:
             if shibe_get.status == 200:
                 if shibe_get.host == 'random.dog':
                     shibe_img = await shibe_get.text()
-                    shibe_url = shibe_get.host + '/' + shibe_img
+                    shibe_url = 'https://random.dog/' + shibe_img
                 elif shibe_get.host == 'dog.ceo':
                     shibe_img = await shibe_get.json()
                     shibe_url = shibe_img['message']

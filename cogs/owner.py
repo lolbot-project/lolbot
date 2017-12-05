@@ -75,7 +75,7 @@ class Owner:
             await self.bot.logout()
             await run_cmd(f'pm2 restart {pm2_id}')
         else:
-            await restart_message.edit(content=':warning: pm2 not detected, invoking `shutdown` command')
+            await restart_msg.edit(content=':warning: pm2 not detected, invoking `shutdown` command')
             await ctx.invoke(self.bot.get_command('shutdown'))
 
     @commands.command(hidden=True)
@@ -86,7 +86,7 @@ class Owner:
             try:
                 self.bot.load_extension('cogs.' + ext)
             except ModuleNotFoundError:
-                await ctx.send(f':x: Cog `{extension_name}` not found.')
+                await ctx.send(f':x: Cog `{ext}` not found.')
                 return
             except Exception:
                 await ctx.send(f'```py\n{traceback.format_exc()}\n```')

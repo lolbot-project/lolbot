@@ -132,7 +132,6 @@ class Etc:
     @commands.command()
     async def invite(self, ctx):
         """Gives a invite for the bot (and also the official server)"""
-        info = await ctx.bot.application_info()
         invEmb = discord.Embed(colour=0x690E8)
         invEmb.add_field(name='Invite lolbot', value='[Click here](https://lolbot.banne.club/invite)')
         invEmb.add_field(name='Official server', value=str(self.support))

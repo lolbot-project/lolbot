@@ -8,7 +8,6 @@ import asyncio
 import wolframalpha
 # noinspection PyPackageRequirements
 import discord
-import json
 # noinspection PyPackageRequirements
 import utils.errors as uerrs
 # noinspection PyPackageRequirements

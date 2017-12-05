@@ -16,8 +16,6 @@ import discord
 from discord.ext import commands
 # noinspection PyPackageRequirements
 import utils.errors
-# noinspection PyPackageRequirements
-import pyowm.exceptions
 
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 description = '''Just a bot :)'''

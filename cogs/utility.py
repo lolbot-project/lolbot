@@ -179,7 +179,7 @@ class Etc:
     async def invinfo(self, ctx, code: str):
         """Returns information about a discord.gg invite"""
         await ctx.send('This command is unfinished')
-        
+
     @commands.command()
     async def version(self, ctx):
         """Returns current version of lolbot"""

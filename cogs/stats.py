@@ -179,7 +179,7 @@ class Stats:
             else:
                 await ddg.edit(content=f'<:check:{ok.id}> Posted to Datadog.')
         else:
-            await ddg.edit(content='Integration disabled, skipping Datadog!') 
+            await ddg.edit(content='Integration disabled, skipping Datadog!')
         await land.edit(content='Posted count.')
 
 

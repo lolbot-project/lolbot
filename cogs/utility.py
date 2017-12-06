@@ -2,6 +2,7 @@ import asyncio
 import sys
 import time
 import json
+import datetime
 # noinspection PyPackageRequirements
 import discord
 # noinspection PyPackageRequirements
@@ -13,33 +14,45 @@ GitError = 'fatal: Not a git repository (or any of the parent directories): .git
 NoCommit = '*No commit'
 NoRelease = '*No release*'
 
-async def is_bot(u: discord.Member):
+def is_bot(u: discord.Member):
     if u.bot:
         return 'Yep!'
     else:
         return 'Nope.'
 
-async def get_nick(u: discord.Member):
+def get_nick(u: discord.Member):
     if u.nick:
         return u.nick
     else:
         return '*None*'
 
 
-async def get_game_name(u: discord.Member):
+def get_game_name(u: discord.Member):
     if u.game:
         return u.game.name
     else:
         return '*None*'
 
 
-async def get_join_date(u: discord.Member):
+def get_join_date(u: discord.Member):
     meme = u.joined_at
     date = meme.strftime('%b %d, %Y %H:%M:%S')
     return date
 
+def delta_str(delta):
+   seconds = delta.total_seconds()
+   years = seconds / 60 / 60 / 24 / 365.25
+   days = seconds / 60 / 60 / 24
+   if years >= 1:
+       return f'{years:.2f} years'
+   else:
+       return f'{days:.2f} days'
+   
+def get_signup_date(u: discord.Member):
+    delta = datetime.datetime.now() - u.created_at 
+    return delta_str(delta)
 
-async def get_status(u: discord.Member):
+def get_status(u: discord.Member):
     if u.status == discord.Status.online:
         return 'Online'
     elif u.status == discord.Status.idle:
@@ -49,11 +62,13 @@ async def get_status(u: discord.Member):
     elif u.status == discord.Status.offline:
         return 'Offline/invisible'
 
-async def get_python_version():
+
+
+def get_python_version():
     v = sys.version_info
     return f'{v[0]}.{v[1]}.{v[2]}'
 
-async def bot_uptime(init_time):
+def bot_uptime(init_time):
     sec = round(time.time() - init_time)
     m, s = divmod(sec, 60)
     h, m = divmod(m, 60)
@@ -119,10 +134,10 @@ class Etc:
                                                              'Python bot.', colour=0x690E8)
         statEmbed.add_field(name='Owner', value=statInfo.owner.mention + '('
                                                 + str(statInfo.owner) + ' - ID: ' + str(statInfo.owner.id) + ')')
-        statEmbed.add_field(name='Python', value=await get_python_version())
+        statEmbed.add_field(name='Python', value=get_python_version())
         statEmbed.add_field(name='discord.py', value=discord.__version__)
         statEmbed.add_field(name='Servers', value=f'{len(self.bot.guilds)}')
-        statEmbed.add_field(name='Uptime', value=await bot_uptime(self.bot.init_time))
+        statEmbed.add_field(name='Uptime', value=bot_uptime(self.bot.init_time))
         statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',
                     'Where did the RAM go?', 'grumble grumble', 'Please hold.', 'No, just, no.',
                     'Have you tried rebooting?', 'memework makes the dreamwork!', 'cool and good']
@@ -134,18 +149,19 @@ class Etc:
         """Gives a invite for the bot (and also the official server)"""
         invEmb = discord.Embed(colour=0x690E8)
         invEmb.add_field(name='Invite lolbot', value='[Click here](https://lolbot.banne.club/invite)')
-        invEmb.add_field(name='Official server', value=str(self.support))
+        invEmb.add_field(name='Official server', value=self.support)
         invEmb.set_footer(text='By inviting lolbot, you agree to the lolbot Privacy Policy')
         await ctx.send(embed=invEmb)
 
     @commands.command(aliases=['userinfo', 'uinfo'])
     async def user(self, ctx, u: discord.Member):
         try:
-            status = await get_status(u)
-            join_date = await get_join_date(u)
-            game = await get_game_name(u)
-            nick = await get_nick(u)
-            bot = await is_bot(u)
+            status = get_status(u)
+            join_date = get_join_date(u)
+            game = get_game_name(u)
+            nick = get_nick(u)
+            bot = is_bot(u)
+            signup = get_signup_date(u)
         except Exception as e:
             raise commands.CommandInvokeError(f'oops: {e}')
 
@@ -153,6 +169,7 @@ class Etc:
         e.add_field(name='Name', value=u.name)
         e.add_field(name='Status', value=status)
         e.add_field(name='Joined at', value=join_date)
+        e.add_field(name='Joined Discord at', value=signup)
         e.add_field(name='Currently playing', value=game)
         e.add_field(name='Nickname', value=nick)
         e.add_field(name='Is bot', value=bot)

@@ -47,7 +47,7 @@ def delta_str(delta):
        return f'{years:.2f} years'
    else:
        return f'{days:.2f} days'
-   
+
 def get_signup_date(u: discord.Member):
     delta = datetime.datetime.now() - u.created_at
     return delta_str(delta)

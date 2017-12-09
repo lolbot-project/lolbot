@@ -27,10 +27,12 @@ class Animemes:
 
     @commands.command()
     async def lneko(self, ctx):
-        """Shows a random lewd neko pic"""
+        """NSFW: Shows a random lewd neko pic
+        Disable this command by putting "[lb:no_nsfw]" in your channel topic.
+        """
         if ctx.channel.is_nsfw():
             if '[lb:no_nsfw]' in ctx.channel.topic:
-                raise utils.errors.NSFWException('The server admin disabled NSFW commands.')
+                raise utils.errors.NSFWException()
             else:
                 async with self.bot.session.get('https://nekos.life/api/lewd/neko', headers=user_agent) as lneko:
                     if lneko.status == 200:

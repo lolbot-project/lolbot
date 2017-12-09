@@ -5,20 +5,17 @@ import json
 from discord.ext import commands
 # noinspection PyPackageRequirements
 import utils.errors
-
+from cogs.common import user_agent
 
 class Animemes:
     def __init__(self, bot):
         self.bot = bot
         self.config = json.load(open('config.json'))
-        self.header = {
-            'User-Agent': 'lolbot (discord.py/aiohttp)'
-        }
 
     @commands.command()
     async def neko(self, ctx):
         """Shows a random neko picture"""
-        async with self.bot.session.get('https://nekos.life/api/neko', headers=self.header) as neko:
+        async with self.bot.session.get('https://nekos.life/api/neko', headers=user_agent) as neko:
             if neko.status == 200:
                 img = await neko.json()
                 neko_em = discord.Embed(colour=0x690E8)
@@ -31,7 +28,7 @@ class Animemes:
     async def lneko(self, ctx):
         """Shows a random lewd neko pic"""
         if ctx.channel.is_nsfw():
-            async with self.bot.session.get('https://nekos.life/api/lewd/neko', headers=self.header) as lneko:
+            async with self.bot.session.get('https://nekos.life/api/lewd/neko', headers=user_agent) as lneko:
                 if lneko.status == 200:
                     img = await lneko.json()
                     # noinspection PyPep8Naming

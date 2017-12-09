@@ -7,6 +7,7 @@ import datetime
 import discord
 # noinspection PyPackageRequirements
 from discord.ext import commands
+from cogs import common
 from random import choice as rchoice
 
 config = json.load(open('config.json'))
@@ -98,7 +99,7 @@ class Etc:
         hi3 = "and more! See `^help` for more information on me."
         em = discord.Embed(description=hi + hi2 + hi3, colour=0x690E8)
         em.add_field(name='Got any questions?', value=f'Join our support server: {self.support}')
-        em.add_footer(text='Created by tilda#4778')
+        em.set_footer(text='Created by tilda#4778')
 
     @commands.command()
     async def uptime(self, ctx):
@@ -169,7 +170,7 @@ class Etc:
         e.add_field(name='Name', value=u.name)
         e.add_field(name='Status', value=status)
         e.add_field(name='Joined at', value=join_date)
-        e.add_field(name='Joined Discord at', value=signup)
+        e.add_field(name='Joined Discord', value=signup + 'ago')
         e.add_field(name='Currently playing', value=game)
         e.add_field(name='Nickname', value=nick)
         e.add_field(name='Is bot', value=bot)
@@ -184,22 +185,13 @@ class Etc:
     async def version(self, ctx):
         """Returns current version of lolbot"""
         with ctx.typing():
-            tag = await asyncio.create_subprocess_shell('git describe --abbrev=0 --tags',
-                                                        stdout=asyncio.subprocess.PIPE,
-                                                        stderr=asyncio.subprocess.PIPE)
             commit = await asyncio.create_subprocess_shell('git log --oneline --abbrev=2',
                                                            stdout=asyncio.subprocess.PIPE,
                                                            stderr=asyncio.subprocess.PIPE)
             co, ce = map(lambda s: s.decode('utf-8'), await commit.communicate())
-            to, te = map(lambda st: st.decode('utf-8'), await tag.communicate())
             if GitError in f'{co}{ce}':
                 co = NoCommit
                 ce = None
-            else:
-                pass
-            if GitError in f'{to}{te}':
-                to = NoRelease
-                te = None
             else:
                 pass
             if ce and te is None:
@@ -210,7 +202,7 @@ class Etc:
                 rVal0 = to
             e = discord.Embed(colour=0x690E8)
             e.add_field(name='Latest tag', value=rVal0)
-            e.add_field(name='Currently running', value=runVal)
+            e.add_field(name='Running version', value=common.version)
             e.set_footer(text='powered by git (and stuff)!')
             await ctx.send(embed=e)
 

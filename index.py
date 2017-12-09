@@ -3,6 +3,7 @@
 # the lolbot core
 # (c) 2017 S Stewart under MIT License
 
+from cogs import common
 import json
 import logging
 import random
@@ -38,7 +39,7 @@ class Lul(commands.AutoShardedBot):
         # note that we use " instead of ' here
         # this is a limitation of the fstring parser
         await bot.change_presence(
-            game=discord.Game(name=f'{self.config["prefix"]}help | v1.2', type=1, url='https://twitch.tv/monstercat'))
+            game=discord.Game(name=f'{self.config["prefix"]}help | v{common.version}', type=1, url='https://twitch.tv/monstercat'))
         logging.info('Playing status changed')
 
     async def on_command_error(self, ctx, error):

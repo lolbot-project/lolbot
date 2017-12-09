@@ -8,6 +8,7 @@ import discord
 # noinspection PyPackageRequirements
 from discord.ext import commands
 from cogs import common
+from cogs.owner import run_cmd
 from random import choice as rchoice
 
 config = json.load(open('config.json'))
@@ -186,23 +187,9 @@ class Etc:
     async def version(self, ctx):
         """Returns current version of lolbot"""
         with ctx.typing():
-            commit = await asyncio.create_subprocess_shell('git log --oneline --abbrev=2',
-                                                           stdout=asyncio.subprocess.PIPE,
-                                                           stderr=asyncio.subprocess.PIPE)
-            co, ce = map(lambda s: s.decode('utf-8'), await commit.communicate())
-            if GitError in f'{co}{ce}':
-                co = NoCommit
-                ce = None
-            else:
-                pass
-            if ce and te is None:
-                runVal = '*no release*'
-                rVal0 = '*no tag*'
-            else:
-                runVal = co
-                rVal0 = to
+            commit = await run_cmd('git log --oneline --abbrev=2')
             e = discord.Embed(colour=0x690E8)
-            e.add_field(name='Latest tag', value=rVal0)
+            e.add_field(name='Running commit', value=commit)
             e.add_field(name='Running version', value=common.version)
             e.set_footer(text='powered by git (and stuff)!')
             await ctx.send(embed=e)

@@ -18,6 +18,9 @@ class Fun:
     def __init__(self, bot):
         self.bot = bot
         self.weeb_key = self.bot.config['weeb']
+        self.user_agent = {
+            'User-Agent': 'lolbot/{} - https://lolbot.banne.club'.format(common.version)
+        }
         self.weebsh = {
             'Authorization': 'Bearer {}'.format(self.weeb_key),
             'Accept': 'application/json'
@@ -31,7 +34,7 @@ class Fun:
     @commands.command()
     async def cat(self, ctx):
         """Random cat images. Awww, so cute! Powered by random.cat"""
-        async with self.bot.session.get('https://random.cat/meow', headers=common.user_agent) as r:
+        async with self.bot.session.get('https://random.cat/meow', headers=self.user_agent) as r:
             if r.status == 200:
                 js = await r.json()
                 em = discord.Embed(name='random.cat', colour=0x690E8)
@@ -64,7 +67,7 @@ class Fun:
             elif n > 0.5:
                 return 'https://dog.ceo/api/breeds/image/random'
 
-        async with self.bot.session.get(decide_source(), headers=common.user_agent) as shibe_get:
+        async with self.bot.session.get(decide_source(), headers=self.user_agent) as shibe_get:
             if shibe_get.status == 200:
                 if shibe_get.host == 'random.dog':
                     shibe_img = await shibe_get.text()
@@ -85,7 +88,7 @@ class Fun:
     @commands.command()
     async def lizard(self, ctx):
         """Shows a random lizard picture"""
-        async with self.bot.session.get('https://nekos.life/api/lizard', headers=common.user_agent) as lizr:
+        async with self.bot.session.get('https://nekos.life/api/lizard', headers=self.user_agent) as lizr:
             if lizr.status == 200:
                 img = await lizr.json()
                 liz_em = discord.Embed(colour=0x690E8)
@@ -97,7 +100,7 @@ class Fun:
     @commands.command()
     async def why(self, ctx):
         """Why _____?"""
-        async with self.bot.session.get('https://nekos.life/api/why', headers=common.user_agent) as why:
+        async with self.bot.session.get('https://nekos.life/api/why', headers=self.user_agent) as why:
             if why.status == 200:
                 why_js = await why.json()
                 why_em = discord.Embed(title=f'{ctx.author.name} wonders...',
@@ -173,7 +176,7 @@ class Fun:
     @commands.command(aliases=['shouldi', 'ask'])
     async def yesno(self, ctx, *, question: str):
         """Why not make your decisions with a bot?"""
-        async with ctx.bot.session.get('https://yesno.wtf/api', headers=common.user_agent) as meme:
+        async with ctx.bot.session.get('https://yesno.wtf/api', headers=self.user_agent) as meme:
             if meme.status == 200:
                 mj = await meme.json()
                 ans = await self.get_answer(mj['answer'])

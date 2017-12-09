@@ -97,7 +97,7 @@ class Etc:
         hi = "Heya! My name's lolbot. I am a bot designed to do stupid things."
         hi2 = "Things I can do include cat pictures, dog pictures, Wolfram|Alpha"
         hi3 = "and more! See `^help` for more information on me."
-        em = discord.Embed(description=hi + hi2 + hi3, colour=0x690E8)
+        em = discord.Embed(description=f'{hi} {hi2} {hi3}', colour=0x690E8)
         em.add_field(name='Got any questions?', value=f'Join our support server: {self.support}')
         em.set_footer(text='Created by tilda#4778')
         await ctx.send(embed=em)

@@ -100,6 +100,7 @@ class Etc:
         em = discord.Embed(description=hi + hi2 + hi3, colour=0x690E8)
         em.add_field(name='Got any questions?', value=f'Join our support server: {self.support}')
         em.set_footer(text='Created by tilda#4778')
+        await ctx.send(embed=em)
 
     @commands.command()
     async def uptime(self, ctx):

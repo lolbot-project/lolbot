@@ -229,7 +229,7 @@ class Fun:
                 if s.status == 200:
                     u = discord.Embed(colour=0x690E8)
                     m = await s.json()
-                    f = m['link']
+                    f = m['url']
                     u.set_image(url=f)
                     # k
                     await ctx.send(embed=u)

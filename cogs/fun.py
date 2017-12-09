@@ -238,11 +238,11 @@ class Fun:
         else:
             raise utils.errors.ServiceError('weeb.sh key is not configured')
 
-    @commands.command(aliases=['bird', 'birdpic', 'birbpic'])
-    async def birb(self, ctx):
-        em = discord.Embed(colour=0x690E8)
-        em.set_image(url=f'https://random.birb.pw/tweet/random')
-        await ctx.send(embed=em)
+    #@commands.command(aliases=['bird', 'birdpic', 'birbpic'])
+    #async def birb(self, ctx):
+    #    em = discord.Embed(colour=0x690E8)
+    #    em.set_image(url=f'https://random.birb.pw/tweet/random')
+    #    await ctx.send(embed=em)
 
     @commands.command(aliases=['bofh', 'techproblem'])
     async def excuse(self, ctx):

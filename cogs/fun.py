@@ -19,13 +19,13 @@ class Fun:
         self.bot = bot
         self.weeb_key = self.bot.config['weeb']
         self.weebsh = {
-            'User-Agent': common.user_agent,
+            'User-Agent': common.user_agent['User-Agent'],
             'Authorization': 'Bearer {}'.format(self.weeb_key),
             'Accept': 'application/json'
         }
 
         self.dadjoke = {
-            'User-Agent': common.user_agent,
+            'User-Agent': common.user_agent['User-Agent'],
             'Accept': 'text/plain'
         }
 

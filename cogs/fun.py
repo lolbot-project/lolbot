@@ -231,6 +231,7 @@ class Fun:
                     m = await s.json()
                     f = m['url']
                     u.set_image(url=f)
+                    u.set_footer(text='Powered by weeb.sh')
                     # k
                     await ctx.send(embed=u)
                 else:

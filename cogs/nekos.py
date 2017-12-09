@@ -29,16 +29,19 @@ class Animemes:
     async def lneko(self, ctx):
         """Shows a random lewd neko pic"""
         if ctx.channel.is_nsfw():
-            async with self.bot.session.get('https://nekos.life/api/lewd/neko', headers=user_agent) as lneko:
-                if lneko.status == 200:
-                    img = await lneko.json()
-                    # noinspection PyPep8Naming
-                    lneko_em = discord.Embed(colour=0x690E8)
-                    lneko_em.set_image(url=img['neko'])
-                    await ctx.send(embed=lneko_em)
-                    neko_em.set_footer(text='Powered by nekos.life - use ^neko to get non-nsfw version')
-                else:
-                    raise utils.errors.ServiceError(f'dude rip (http {lneko.status})')
+            if '[lb:no_nsfw]' in ctx.channel.topic:
+                raise utils.errors.NSFWException('The server admin disabled NSFW commands.')
+            else:
+                async with self.bot.session.get('https://nekos.life/api/lewd/neko', headers=user_agent) as lneko:
+                    if lneko.status == 200:
+                        img = await lneko.json()
+                        # noinspection PyPep8Naming
+                        lneko_em = discord.Embed(colour=0x690E8)
+                        lneko_em.set_image(url=img['neko'])
+                        await ctx.send(embed=lneko_em)
+                        neko_em.set_footer(text='Powered by nekos.life - use ^neko to get non-nsfw version')
+                    else:
+                        raise utils.errors.ServiceError(f'dude rip (http {lneko.status})')
         else:
             raise utils.errors.NSFWException('you really think you can do this'
                                              'in a non nsfw channel? lol')

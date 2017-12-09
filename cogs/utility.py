@@ -187,7 +187,7 @@ class Etc:
     async def version(self, ctx):
         """Returns current version of lolbot"""
         with ctx.typing():
-            commit = await run_cmd('git log --oneline --abbrev=2')
+            commit = await run_cmd('git rev-parse --short HEAD')
             e = discord.Embed(colour=0x690E8)
             e.add_field(name='Running commit', value=commit)
             e.add_field(name='Running version', value=common.version)

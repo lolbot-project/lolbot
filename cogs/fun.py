@@ -9,6 +9,7 @@ from discord.ext import commands
 import utils.errors
 import asyncio
 from collections import defaultdict
+from cogs import common
 
 locks = defaultdict(asyncio.Lock)
 
@@ -17,26 +18,21 @@ class Fun:
     def __init__(self, bot):
         self.bot = bot
         self.weeb_key = self.bot.config['weeb']
-
-        self.agent = {
-            'User-Agent': 'lolbot(aiohttp/discord.py) - https://lolbot.banne.club'
-        }
-
         self.weebsh = {
-            'User-Agent': 'lolbot(aiohttp/discord.py) - https://lolbot.banne.club',
-            'Authorization': f'Bearer {self.weeb_key}',
+            'User-Agent': common.user_agent,
+            'Authorization': 'Bearer {}'.format(self.weeb_key),
             'Accept': 'application/json'
         }
 
         self.dadjoke = {
-            'User-Agent': 'lolbot(aiohttp/discord.py) - https://lolbot.banne.club',
+            'User-Agent': common.user_agent,
             'Accept': 'text/plain'
         }
 
     @commands.command()
     async def cat(self, ctx):
         """Random cat images. Awww, so cute! Powered by random.cat"""
-        async with self.bot.session.get('https://random.cat/meow', headers=self.agent) as r:
+        async with self.bot.session.get('https://random.cat/meow', headers=common.user_agent) as r:
             if r.status == 200:
                 js = await r.json()
                 em = discord.Embed(name='random.cat', colour=0x690E8)
@@ -69,7 +65,7 @@ class Fun:
             elif n > 0.5:
                 return 'https://dog.ceo/api/breeds/image/random'
 
-        async with self.bot.session.get(decide_source(), headers=self.agent) as shibe_get:
+        async with self.bot.session.get(decide_source(), headers=common.user_agent) as shibe_get:
             if shibe_get.status == 200:
                 if shibe_get.host == 'random.dog':
                     shibe_img = await shibe_get.text()
@@ -90,7 +86,7 @@ class Fun:
     @commands.command()
     async def lizard(self, ctx):
         """Shows a random lizard picture"""
-        async with self.bot.session.get('https://nekos.life/api/lizard', headers=self.agent) as lizr:
+        async with self.bot.session.get('https://nekos.life/api/lizard', headers=common.user_agent) as lizr:
             if lizr.status == 200:
                 img = await lizr.json()
                 liz_em = discord.Embed(colour=0x690E8)
@@ -102,7 +98,7 @@ class Fun:
     @commands.command()
     async def why(self, ctx):
         """Why _____?"""
-        async with self.bot.session.get('https://nekos.life/api/why', headers=self.agent) as why:
+        async with self.bot.session.get('https://nekos.life/api/why', headers=common.user_agent) as why:
             if why.status == 200:
                 why_js = await why.json()
                 why_em = discord.Embed(title=f'{ctx.author.name} wonders...',
@@ -178,7 +174,7 @@ class Fun:
     @commands.command(aliases=['shouldi', 'ask'])
     async def yesno(self, ctx, *, question: str):
         """Why not make your decisions with a bot?"""
-        async with ctx.bot.session.get('https://yesno.wtf/api', headers=self.agent) as meme:
+        async with ctx.bot.session.get('https://yesno.wtf/api', headers=common.user_agent) as meme:
             if meme.status == 200:
                 mj = await meme.json()
                 ans = await self.get_answer(mj['answer'])
@@ -242,14 +238,9 @@ class Fun:
 
     @commands.command(aliases=['bird', 'birdpic', 'birbpic'])
     async def birb(self, ctx):
-        async with ctx.bot.session.get('https://random.birb.pw/tweet', headers=self.agent) as b:
-            if b.status == 200:
-                em = discord.Embed(colour=0x690E8)
-                pic = await b.text()
-                em.set_image(url=f'https://random.birb.pw/{pic}')
-                await ctx.send(embed=em)
-            else:
-                raise utils.errors.ServiceError(f'rip birb (http {b.status})')
+        em = discord.Embed(colour=0x690E8)
+        em.set_image(url=f'https://random.birb.pw/tweet/random')
+        await ctx.send(embed=em)
 
     @commands.command(aliases=['bofh', 'techproblem'])
     async def excuse(self, ctx):

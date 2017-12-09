@@ -41,7 +41,7 @@ class Animemes:
                         lneko_em = discord.Embed(colour=0x690E8)
                         lneko_em.set_image(url=img['neko'])
                         await ctx.send(embed=lneko_em)
-                        neko_em.set_footer(text='Powered by nekos.life - use ^neko to get non-nsfw version')
+                        lneko_em.set_footer(text='Powered by nekos.life - use ^neko to get non-nsfw version')
                     else:
                         raise utils.errors.ServiceError(f'dude rip (http {lneko.status})')
         else:

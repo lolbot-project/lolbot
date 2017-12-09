@@ -24,7 +24,7 @@ class Fun:
         }
 
         self.dadjoke = {
-            'User-Agent': 'lolbot - https://lolbot.banne.club'
+            'User-Agent': 'lolbot - https://lolbot.banne.club',
             'Accept': 'text/plain'
         }
 

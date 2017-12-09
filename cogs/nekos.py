@@ -20,6 +20,7 @@ class Animemes:
                 img = await neko.json()
                 neko_em = discord.Embed(colour=0x690E8)
                 neko_em.set_image(url=img['neko'])
+                neko_em.set_footer(text='Powered by nekos.life - use ^lneko to get lewd version')
                 await ctx.send(embed=neko_em)
             else:
                 raise utils.errors.ServiceError(f'dude rip (http {neko.status})')
@@ -35,6 +36,7 @@ class Animemes:
                     lneko_em = discord.Embed(colour=0x690E8)
                     lneko_em.set_image(url=img['neko'])
                     await ctx.send(embed=lneko_em)
+                    neko_em.set_footer(text='Powered by nekos.life - use ^neko to get non-nsfw version')
                 else:
                     raise utils.errors.ServiceError(f'dude rip (http {lneko.status})')
         else:

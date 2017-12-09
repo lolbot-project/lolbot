@@ -19,13 +19,12 @@ class Fun:
         self.bot = bot
         self.weeb_key = self.bot.config['weeb']
         self.weebsh = {
-            'User-Agent': 'lolbot/{} - https://lolbot.banne.club'.format(common.version),
             'Authorization': 'Bearer {}'.format(self.weeb_key),
             'Accept': 'application/json'
         }
 
         self.dadjoke = {
-            'User-Agent': 'lolbot/{} - https://lolbot.banne.club'.format(common.version),
+            'User-Agent': 'lolbot - https://lolbot.banne.club'
             'Accept': 'text/plain'
         }
 

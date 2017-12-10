@@ -18,5 +18,7 @@
 	"//8": "Your Wolfram|Alpha API key - again not required",
 	"wa": "",
 	"//9": "Your weeb.sh token. If you don't have this, don't worry! It's not required",
-	"weeb": ""
+	"weeb": "",
+    "//10": "osu! API key. Don't have it? Obviously not required."
+    "osu": ""
 }

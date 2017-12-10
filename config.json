@@ -13,8 +13,6 @@
 	"botid": "",
 	"dbots": "",
 	"dbl": "",
-	"//6": "Enable the HTTP API for stats on the site if you're running it",
-	"api": true,
 	"//7": "Your OWM API key - not required",
 	"owm": "",
 	"//8": "Your Wolfram|Alpha API key - again not required",

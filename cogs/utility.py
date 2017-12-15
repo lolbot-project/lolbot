@@ -109,7 +109,7 @@ class Etc:
         uptime_embed = discord.Embed(title='Uptime', colour=0x690E8)
         started_on = time.strftime('%b %d, %Y %H:%M:%S', time.localtime(self.bot.init_time))
         uptime_embed.add_field(name='Started on', value=started_on, inline=False)
-        meme = await bot_uptime(self.bot.init_time)
+        meme = bot_uptime(self.bot.init_time)
         uptime_embed.add_field(name='Uptime', value=f'{meme}')
         await ctx.send(embed=uptime_embed)
 

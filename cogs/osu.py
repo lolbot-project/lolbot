@@ -56,7 +56,7 @@ class Osu:
             try:
                 user = user[0]
             except IndexError:
-                await ctx.send('User does not exist, maybe try one that does')
+                return await ctx.send('User does not exist, maybe try one that does')
         else:
             raise utils.errors.ServiceError('osu! api key not configured')
         osu_embed = discord.Embed(title=f'osu! stats for {u}', colour=0x690E8)

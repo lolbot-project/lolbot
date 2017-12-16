@@ -67,6 +67,7 @@ class Osu:
         osu_embed.add_field(name='Total SS plays', value=user.count_rank_ss)
         osu_embed.add_field(name='Total S plays', value=user.count_rank_s)
         osu_embed.add_field(name='Total A plays', value=user.count_rank_a)
+        await ctx.send(embed=osu_embed)
 
 def setup(bot):
     bot.add_cog(Osu(bot))

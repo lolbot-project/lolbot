@@ -21,6 +21,8 @@ class Osu:
             return osuapi.enums.OsuMode.taiko
         elif mode is 'mania' or 'osu!mania':
             return osuapi.enums.OsuMode.mania
+        else:
+            return 'Unknown'
         
 
     @commands.group()
@@ -32,7 +34,7 @@ class Osu:
             await ctx.send(embed=help_em)
                     
     @osu.command()
-    async def user(self, ctx, u: str, mode: osu_mode_converter(mode=mode)):
+    async def user(self, ctx, u: str, mode: str):
         """Returns information on a osu! player.
         If the player name you are searching has spaces, use quotation marks.
         e.g. ^osu user "player name with spaces"
@@ -41,6 +43,9 @@ class Osu:
         By default this command defaults to osu!standard.
         """
         if self.api:
+            mode = osu_mode_converter(mode=mode)
+            if mode == 'Unknown':
+                raise utils.errors.ServiceError('Unknown mode')
             user = await self.api.get_user(u, mode=mode)[0]
         else:
             raise utils.errors.ServiceError('osu! api key not configured')

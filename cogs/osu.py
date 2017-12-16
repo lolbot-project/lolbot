@@ -21,6 +21,7 @@ class Osu:
             return osuapi.enums.OsuMode.taiko
         elif mode is 'mania' or 'osu!mania':
             return osuapi.enums.OsuMode.mania
+        
 
     @commands.group()
     async def osu(self, ctx):
@@ -30,7 +31,7 @@ class Osu:
             help_em.add_field(name='user', value='Gets info on osu! players. `^osu user *user*`')
             await ctx.send(embed=help_em)
                     
-    @osu.group()
+    @osu.command()
     async def user(self, ctx, u: str, mode: osu_mode_converter):
         """Returns information on a osu! player.
         If the player name you are searching has spaces, use quotation marks.

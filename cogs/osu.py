@@ -62,6 +62,7 @@ class Osu:
             raise utils.errors.ServiceError('osu! api key not configured')
         osu_embed = discord.Embed(title=f'osu! stats', colour=0x690E8)
         osu_embed.set_author(name=f'{u} ({user.country})',icon_url=f'https://osu.ppy.sh/images/flags/{user.country}.png')
+        osu_embed.set_image(url=f'https://a.ppy.sh/{user.user_id}')
         osu_embed.add_field(name='User ID', value=user.user_id)
         osu_embed.add_field(name='Hits (300 score)', value=user.count300)
         osu_embed.add_field(name='Hits (100 score)', value=user.count100)

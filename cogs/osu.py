@@ -46,7 +46,8 @@ class Osu:
             mode = self.osu_mode_converter(mode=mode)
             if mode == 'Unknown':
                 raise utils.errors.ServiceError('Unknown mode')
-            user = await self.api.get_user(u, mode=mode)[0]
+            user = await self.api.get_user(u, mode=mode)
+            user = user[0]
         else:
             raise utils.errors.ServiceError('osu! api key not configured')
         osu_embed = discord.Embed(title=f'osu! stats for {u}', colour=0x690E8)

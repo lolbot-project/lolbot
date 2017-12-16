@@ -7,7 +7,8 @@ class Osu:
 
     @commands.group()
     async def osu(self, ctx):
-        await ctx.send(embed=discord.Embed(title='Commands for osu!', colour=0x690E8))
+        if ctx.invoked_subcommand is None or 'help':
+            await ctx.send(embed=discord.Embed(title='Commands for osu!', colour=0x690E8))
 
 def setup(bot):
     bot.add_cog(Osu(bot))

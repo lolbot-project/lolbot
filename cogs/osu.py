@@ -12,7 +12,7 @@ class Osu:
         else:
             self.api = None
 
-    @staticmethod
+    @classmethod
     def osu_mode_converter(self, mode=None):
         if mode is 0 or 'standard' or 'osu!standard' or 'osu!' or None:
             return osuapi.enums.OsuMode.osu

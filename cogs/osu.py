@@ -26,13 +26,13 @@ class Osu:
     @commands.group()
     async def osu(self, ctx):
         """Commands for osu!"""
-        if ctx.invoked_subcommand is None or 'help':
+        if ctx.invoked_subcommand is None:
             help_em = discord.Embed(title='Commands for osu!', colour=0x690E8)
             help_em.add_field(name='user', value='Gets info on osu! players. `^osu user *user*`')
             await ctx.send(embed=help_em)
                     
     @osu.command()
-    async def user(self, ctx, u: str, mode: osu_mode_converter):
+    async def user(self, ctx, u: str, mode: osu_mode_converter(mode=mode)):
         """Returns information on a osu! player.
         If the player name you are searching has spaces, use quotation marks.
         e.g. ^osu user "player name with spaces"
@@ -41,7 +41,7 @@ class Osu:
         By default this command defaults to osu!standard.
         """
         if self.api:
-            user = await self.api.get_user(u, mode=mode)
+            user = await self.api.get_user(u, mode=mode)[0]
         else:
             raise utils.errors.ServiceError('osu! api key not configured')
         osu_embed = discord.Embed(title=f'osu! stats for {u}', colour=0x690E8)

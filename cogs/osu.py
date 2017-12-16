@@ -13,13 +13,13 @@ class Osu:
             self.api = None
 
     def osu_mode_converter(self, mode=None):
-        if mode is 'standard' or 'osu!standard' or None:
+        if mode is 0 or 'standard' or 'osu!standard' or 'osu!' or None:
             return osuapi.enums.OsuMode.osu
-        elif mode is 'ctb' or 'catchthebeat' or 'osu!catch' or 'catch':
+        elif mode is 1 or 'ctb' or 'catchthebeat' or 'osu!catch' or 'catch':
             return osuapi.enums.OsuMode.catch
-        elif mode is 'taiko' or 'osu!taiko':
+        elif mode is 2 or 'taiko' or 'osu!taiko':
             return osuapi.enums.OsuMode.taiko
-        elif mode is 'mania' or 'osu!mania':
+        elif mode is 3 or 'mania' or 'osu!mania':
             return osuapi.enums.OsuMode.mania
         else:
             return 'Unknown'
@@ -34,13 +34,19 @@ class Osu:
             await ctx.send(embed=help_em)
                     
     @osu.command()
-    async def user(self, ctx, u: str, mode: str):
+    async def user(self, ctx, u: str, mode=None):
         """Returns information on a osu! player.
         If the player name you are searching has spaces, use quotation marks.
         e.g. ^osu user "player name with spaces"
         Special thanks to khazhyk for the library this command uses.
 
         By default this command defaults to osu!standard.
+        All modes are supported.
+        To use osu!standard, leave mode blank, or use 'standard', 'osu!standard', 'osu!' or 0.
+        To use osu!catch, use 'catch', 'osu!catch', or 1.
+        To use osu!taiko, use 'taiko', 'osu!taiko', or 2.
+        To use osu!mania, use 'mania', 'osu!mania', or 3.
+        Any other modes will return 'Unknown' error. (Service error)
         """
         if self.api:
             mode = self.osu_mode_converter(mode=mode)

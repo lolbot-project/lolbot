@@ -43,7 +43,7 @@ class Osu:
         By default this command defaults to osu!standard.
         """
         if self.api:
-            mode = osu_mode_converter(mode=mode)
+            mode = self.osu_mode_converter(mode=mode)
             if mode == 'Unknown':
                 raise utils.errors.ServiceError('Unknown mode')
             user = await self.api.get_user(u, mode=mode)[0]

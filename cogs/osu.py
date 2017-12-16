@@ -64,9 +64,9 @@ class Osu:
         osu_embed.add_field(name='Level', value=user.level)
         osu_embed.add_field(name='Total PP', value=user.pp_raw)
         osu_embed.add_field(name='Accuracy', value=user.accuracy)
-        osu_embed.add_field(name='Total SS plays', value=user.count_ss_ranks)
-        osu_embed.add_field(name='Total S plays', value=user.count_s_ranks)
-        osu_embed.add_field(name='Total A plays', value=user.count_a_ranks)
+        osu_embed.add_field(name='Total SS plays', value=user.count_rank_ss)
+        osu_embed.add_field(name='Total S plays', value=user.count_rank_s)
+        osu_embed.add_field(name='Total A plays', value=user.count_rank_a)
 
 def setup(bot):
     bot.add_cog(Osu(bot))

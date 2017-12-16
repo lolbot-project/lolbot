@@ -193,6 +193,14 @@ class Etc:
             e.set_footer(text='powered by git (and stuff)!')
             await ctx.send(embed=e)
 
+    @commands.command()
+    async def feedback(self, ctx, *, f: str):
+        with ctx.typing():
+            f_channel = bot.get_channel(ctx.bot.config['feedback'])
+            fback = discord.Embed(description=f, colour=0x690E8)
+            fback.set_author(name=str(ctx.author), icon_url=ctx.author.avatar_url)
+            await f_channel.send(embed=fback)
+            await ctx.send('Your feedback was successfully submitted.')
 
 def setup(bot):
     bot.add_cog(Etc(bot))

@@ -131,7 +131,6 @@ class Owner:
                                                       )
 
             out, err = map(lambda s: s.decode('utf-8'), await p.communicate())
-
         result = f'{out}{err}'
         await ctx.send(f"`{command}`: ```{result}```\n")
 
@@ -141,6 +140,17 @@ class Owner:
         """Lazy much? Whatever..."""
         await ctx.invoke(self.bot.get_command('shell'), command='git pull')
 
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def feedbackrespond(self, ctx, p: int, *, res: str):
+        with ctx.typing():
+            person = bot.get_user(p)
+            fbck = discord.Embed(title='Feedback response', description=res, colour=0x690E8)
+            try:
+                await person.send(f'Hello {person.name}! The author has responded to your feedback.', embed=fbck)
+            except Exception as e:
+                return await ctx.send(f'I probably got blocked. ```py\n{e}\n```')
+            await ctx.send('Successfully sent response!')
 
 def setup(bot):
     bot.add_cog(Owner(bot))

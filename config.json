@@ -3,11 +3,13 @@
 	"token": "",
 	"//2": "Enter your prefix (default: ^)",
 	"prefix": "^",
+    "//3": "Special feedback channel ID. Replace null with channel ID",
+    "feedback": null,
 
-	"//3": "These are optional options you can flip",
+    "//4": "These are optional options you can flip",
 
-	"//4": "For bot list submissions to work",
-	"//5": "note that bot list reporting is usually disabled - to enable it change false to true.",
+	"//5": "For bot list submissions to work",
+	"//6": "note that bot list reporting is usually disabled - to enable it change false to true.",
 	"dbotspw": false,
 	"dbotsorg": false,
 	"botid": "",

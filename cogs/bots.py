@@ -1,18 +1,17 @@
 import json
 # noinspection PyPackageRequirements
-from discord.ext import commands
+#from discord.ext import commands
 # noinspection PyPackageRequirements
-import discord
+#import discord
 
 
 class DBots:
     def __init__(self, bot):
         self.bot = bot
-        self.config = json.load(open('config.json'))
-        self.headers = {
-            'Authorization': self.config['dbots'],
-            'Content-Type': 'application/json'
-        }
+        #self.headers = {
+        #    'Authorization': self.config['dbots'],
+        #    'Content-Type': 'application/json'
+        #}
 
     #@commands.group()
     #async def dbots(self, ctx):

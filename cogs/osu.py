@@ -27,13 +27,14 @@ class Osu:
         """Commands for osu!"""
         if ctx.invoked_subcommand is None or 'help':
             help_em = discord.Embed(title='Commands for osu!', colour=0x690E8)
+            help_em.add_field(name='user', value='Gets info on osu! players. `^osu user *user*`')
             await ctx.send(embed=help_em)
                     
     @osu.group()
     async def user(self, ctx, u: str, mode: osu_mode_converter):
         """Returns information on a osu! player.
         If the player name you are searching has spaces, use quotation marks.
-        e.g. ^osu "player name with spaces"
+        e.g. ^osu user "player name with spaces"
         Special thanks to khazhyk for the library this command uses.
 
         By default this command defaults to osu!standard.

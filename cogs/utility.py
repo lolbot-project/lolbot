@@ -196,7 +196,7 @@ class Etc:
     @commands.command()
     async def feedback(self, ctx, *, f: str):
         with ctx.typing():
-            f_channel = bot.get_channel(ctx.bot.config['feedback'])
+            f_channel = ctx.bot.get_channel(ctx.bot.config['feedback'])
             fback = discord.Embed(description=f, colour=0x690E8)
             fback.set_author(name=str(ctx.author), icon_url=ctx.author.avatar_url)
             await f_channel.send(embed=fback)

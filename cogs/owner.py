@@ -144,7 +144,7 @@ class Owner:
     @commands.is_owner()
     async def feedbackrespond(self, ctx, p: int, *, res: str):
         with ctx.typing():
-            person = bot.get_user(p)
+            person = ctx.bot.get_user(p)
             fbck = discord.Embed(title='Feedback response', description=res, colour=0x690E8)
             try:
                 await person.send(f'Hello {person.name}! The author has responded to your feedback.', embed=fbck)

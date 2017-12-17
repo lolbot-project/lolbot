@@ -67,6 +67,14 @@ class Lul(commands.AutoShardedBot):
             logging.error('A error occured.')
             logging.error(tb)
 
+    async def on_message(self, message):
+        author_id = message.author.id
+        if message.author.bot:
+            return
+        if message.guild is not None:
+            guild_id = message.guild.id
+        ctx = await self.get_context(message)
+        await self.invoke(ctx)
 
 config = json.load(open('config.json'))
 bot = Lul(command_prefix=commands.when_mentioned_or(config['prefix']),

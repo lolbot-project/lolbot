@@ -16,3 +16,6 @@ class Packages:
             pkg_s = discord.Embed(title=f'PyPI stats for {pkg}', colour=0x690E8)
             pkg_s.add_field(name='Version', value=pjson['info']['version'])
             await ctx.send(embed=pkg)
+
+def setup(bot):
+    bot.add_cog(Packages(bot))

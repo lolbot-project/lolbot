@@ -1,4 +1,5 @@
 import discord
+from discord.ext import commands
 from cogs import common
 
 class Packages:

@@ -20,7 +20,7 @@ import utils.errors
 
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 description = '''Just a bot :)'''
-exts = ['bots', 'donate', 'eval', 'fun', 'nekos', 'owner', 'osu', 'stats', 'utility', 'weather', 'wa']
+exts = ['bots', 'donate', 'eval', 'fun', 'nekos', 'owner', 'osu', 'packages', 'stats', 'utility', 'weather', 'wa']
 
 
 class Lul(commands.AutoShardedBot):

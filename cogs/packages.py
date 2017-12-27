@@ -5,11 +5,13 @@ from cogs import common
 class Packages:
     def __init__(self, bot):
         self.bot = bot
-        
+
+    @classmethod
     def json_pkg(self, pkg):
         """Returns the URL for JSON data about a package on PyPI."""
         return f'https://pypi.python.org/pypi/{pkg}/json'
 
+    @classmethod
     def pkg_url(self, pkg):
         """Returns the URL for a package on PyPI."""
         return f'https://pypi.python.org/pypi/{pkg}'

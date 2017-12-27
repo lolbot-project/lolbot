@@ -20,7 +20,7 @@ class Packages:
             pjson = await ps.json()
             pkg_s = discord.Embed(title=pkg, colour=0x690E8)
             pkg_s.add_field(name='Version', value=pjson['info']['version'])
-            pk
+            pkg_s.add_field(name='URL', value=self.pkg_url(pkg))
             await ctx.send(embed=pkg_s)
 
 def setup(bot):

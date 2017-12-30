@@ -13,7 +13,7 @@ import discord
 # noinspection PyPackageRequirements
 from discord.ext import commands
 
-from cogs.utils import haste
+from cogs.utils import paste
 
 async def run_cmd(cmd: str) -> str:
     """Runs a subprocess and returns the output."""
@@ -129,7 +129,7 @@ class Owner:
         with ctx.typing():
             result = await run_cmd(command)
             if len(result) >= 1500:
-                paste = await haste(ctx.bot.session, result)
+                paste = await paste(ctx.bot.session, result)
                 await ctx.send(f'`{command}`: Too long for Discord! {paste}')
             else:
                 await ctx.send(f"`{command}`: ```{result}```\n")

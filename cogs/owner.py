@@ -128,7 +128,7 @@ class Owner:
         """Run stuff"""
         with ctx.typing():
             result = await run_cmd(command)
-            if len(result) is < 1500 or is 1500:
+            if len(result) >= 1500:
                 paste = await haste(ctx.bot.session, result)
                 await ctx.send(f'`{command}`: Too long for Discord! {paste}')
             else:

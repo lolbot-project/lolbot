@@ -129,7 +129,7 @@ class Owner:
         with ctx.typing():
             result = await run_cmd(command)
             if len(result) >= 1500:
-                pa = await paste(ctx.bot.session, result)
+                pa = await paste.haste(ctx.bot.session, result)
                 await ctx.send(f'`{command}`: Too long for Discord! {pa}')
             else:
                 await ctx.send(f"`{command}`: ```{result}```\n")

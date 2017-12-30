@@ -13,6 +13,8 @@ import discord
 # noinspection PyPackageRequirements
 from discord.ext import commands
 
+from cogs.utils import haste
+
 async def run_cmd(cmd: str) -> str:
     """Runs a subprocess and returns the output."""
     process = await asyncio.create_subprocess_shell(
@@ -125,14 +127,12 @@ class Owner:
     async def shell(self, ctx, *, command: str):
         """Run stuff"""
         with ctx.typing():
-            p = await asyncio.create_subprocess_shell(command,
-                                                      stderr=asyncio.subprocess.PIPE,
-                                                      stdout=asyncio.subprocess.PIPE,
-                                                      )
-
-            out, err = map(lambda s: s.decode('utf-8'), await p.communicate())
-        result = f'{out}{err}'
-        await ctx.send(f"`{command}`: ```{result}```\n")
+            result = await run_cmd(command)
+            if len(result) is < 1500 or is 1500:
+                paste = await haste(ctx.bot.session, result)
+                await ctx.send(f'`{command}`: Too long for Discord! {paste}')
+            else:
+                await ctx.send(f"`{command}`: ```{result}```\n")
 
     @commands.command(hidden=True)
     @commands.is_owner()

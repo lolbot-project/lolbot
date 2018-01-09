@@ -150,7 +150,7 @@ class Etc:
     async def invite(self, ctx):
         """Gives a invite for the bot (and also the official server)"""
         invEmb = discord.Embed(colour=0x690E8)
-        invEmb.add_field(name='Invite lolbot', value='[Click here](https://lolbot.banne.club/invite)')
+        invEmb.add_field(name='Invite lolbot', value='[Click here](https://lolbot.lmao.tf/invite)')
         invEmb.add_field(name='Official server', value=self.support)
         invEmb.set_footer(text='By inviting lolbot, you agree to the lolbot Privacy Policy')
         await ctx.send(embed=invEmb)

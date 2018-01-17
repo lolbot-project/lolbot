@@ -113,7 +113,7 @@ class Exec:
 
         if code == 'bot.http.token':
             await ctx.message.add_reaction('\u2705')
-            await ctx.send("```py\n'Nice try!'\n```")
+            return await ctx.send("```py\n'Nice try!'\n```")
 
         try:
             exec(compile(wrapped_code, '<exec>', 'exec'), env)

@@ -9,6 +9,7 @@ import logging
 import random
 import time
 import traceback
+import gc
 # noinspection PyPackageRequirements
 import aiohttp
 # noinspection PyPackageRequirements
@@ -84,10 +85,15 @@ bot = Lul(command_prefix=commands.when_mentioned_or(config['prefix']),
 if __name__ == '__main__':
     for ext in exts:
         try:
+            logging.debug(f'attempting to load {ext}')
             bot.load_extension(f'cogs.{ext}')
         except Exception:
             logging.error(f'Error while loading {ext}', exc_info=True)
         else:
             logging.info(f'Successfully loaded {ext}')
 
+logging.debug('enabling garbage collection')
+gc.enable()
+
+logging.debug('starting')
 bot.run(config['token'])

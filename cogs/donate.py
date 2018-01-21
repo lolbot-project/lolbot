@@ -13,8 +13,8 @@ class Donate:
         """Support lolbot into the future!"""
         aboutEm = discord.Embed(description='lolbot is a free service. Help me out!',
                                 colour=0x690E8)
-        aboutEm.add_field(name='Patreon', value='https://patreon.com/lold', inline=True)
-        aboutEm.add_field(name='PayPal', value='https://paypal.me/ynapw', inline=True)
+        aboutEm.add_field(name='Patreon', value='https://patreon.com/lold')
+        aboutEm.add_field(name='PayPal', value='https://paypal.me/ynapw')
         await ctx.send(embed=aboutEm)
 
 

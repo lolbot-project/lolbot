@@ -11,8 +11,7 @@ class Donate:
     @commands.command()
     async def donate(self, ctx):
         """Support lolbot into the future!"""
-        aboutEm = discord.Embed(description='lolbot is free and I want it to be, but'
-                                            ' I need donations to continue this thing.',
+        aboutEm = discord.Embed(description='lolbot is a free service. Help me out!',
                                 colour=0x690E8)
         aboutEm.add_field(name='Patreon', value='https://patreon.com/lold', inline=True)
         aboutEm.add_field(name='Ko-fi', value='https://ko-fi.com/A753OUG', inline=True)

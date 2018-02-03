@@ -30,6 +30,10 @@ class Fun:
             'User-Agent': 'lolbot - https://lolbot.banne.club',
             'Accept': 'text/plain'
         }
+        self.dbl = {
+            'User-Agent': self.user_agent,
+            'Accept': 'application/json'
+        }
 
     @commands.command()
     async def cat(self, ctx):
@@ -215,9 +219,13 @@ class Fun:
     async def coolpeople(self, ctx):
         """Displays cool people"""
         if self.bot.config['dbl'] and self.bot.config['dbotsorg']:
-            #async with ctx.bot.session.post(f'https://discordbots.org/api/bots/{ctx.me.id}/votes') as v:
-            #   await ctx.send('under construction lol')
-            await ctx.send('under construction')
+            async with ctx.bot.session.get(f'https://discordbots.org/api/bots/{ctx.me.id}/votes', headers=self.dbl) as v:
+               e = discord.Embed(title='Upvoters', description='Upvote the bot on discordbots.org to get on this list!', colour=0x690E8)
+               j = await v.json()
+               for l in j:
+                   u = []
+                   u.append(f'{l["username"]}')
+               await ctx.send(u, embed=e)
         else:
             raise utils.errors.ServiceError('dbl key not configured, see config')
 

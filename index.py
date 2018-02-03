@@ -21,7 +21,18 @@ import utils.errors
 
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 description = '''Just a bot :)'''
-exts = ['bots', 'donate', 'eval', 'fun', 'nekos', 'owner', 'osu', 'packages', 'stats', 'utility', 'weather', 'wa']
+exts = ['bots', 
+        'donate', 
+        'eval', 
+        'fun', 
+        'nekos', 
+        'owner', 
+        'osu', 
+        'packages', 
+        'stats', 
+        'utility', 
+        'weather', 
+        'wa']
 
 
 class Lul(commands.AutoShardedBot):
@@ -41,12 +52,12 @@ class Lul(commands.AutoShardedBot):
         # this is a limitation of the fstring parser
         await bot.change_presence(
             game=discord.Game(name=f'{self.config["prefix"]}help | v{common.version}', type=1, url='https://twitch.tv/monstercat'))
+        bot.emoji.fail = discord.utils.get(bot.emojis, name='notcheck')
         logging.info('Playing status changed')
 
     async def on_command_error(self, ctx, error):
-        not_ok = discord.utils.get(bot.emojis, name='notcheck')
         if isinstance(error, commands.errors.CheckFailure):
-            await ctx.message.add_reaction(not_ok)
+            await ctx.message.add_reaction(ctx.bot.emoji.fail)
         elif isinstance(error, commands.errors.BadArgument):
             await ctx.send(f'Bad arg: `{random.choice(self.badarg)}`')
         elif isinstance(error, commands.errors.MissingRequiredArgument):
@@ -57,10 +68,10 @@ class Lul(commands.AutoShardedBot):
                 error.original.__traceback__
             ))
             logging.error(f'Oops! {tb}')
-            await ctx.message.add_reaction(not_ok)
+            await ctx.message.add_reaction(ctx.bot.emoji.fail)
             await ctx.send(f'Service error: `{tb}`')
         elif isinstance(error, commands.errors.CommandInvokeError):
-            await ctx.message.add_reaction(not_ok)
+            await ctx.message.add_reaction(ctx.bot.emoji.fail)
             tb = ''.join(traceback.format_exception(
                 type(error.original), error.original,
                 error.original.__traceback__

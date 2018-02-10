@@ -183,7 +183,7 @@ class Fun:
             if meme.status == 200:
                 mj = await meme.json()
                 ans = await self.get_answer(mj['answer'])
-                em = discord.Embed(title=ans, description=f'And the answer to {question} is this', colour=0x690E8)
+                em = discord.Embed(title=ans, description=f'And the answer to "{question}" is this', colour=0x690E8)
                 em.set_image(url=mj['image'])
                 await ctx.send(embed=em)
             else:
@@ -195,7 +195,7 @@ class Fun:
         """Dad joke simulator 3017, basically"""
         async with ctx.bot.session.get('https://icanhazdadjoke.com', headers=self.dadjoke) as jok:
             if jok.status == 200:
-                res = await jok.text()
+                res = await jok.text().encode('utf-8')
                 await ctx.send(f'`{res}`')
             else:
                 raise utils.errors.ServiceError(f'rip dad (http {jok.status})')

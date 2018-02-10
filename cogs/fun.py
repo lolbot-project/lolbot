@@ -19,19 +19,18 @@ class Fun:
         self.bot = bot
         self.weeb_key = self.bot.config['weeb']
         self.user_agent = {
-            'User-Agent': 'lolbot/{} - https://lolbot.lmao.tf'.format(common.version)
+            'User-Agent': common.user_agent
         }
         self.weebsh = {
             'Authorization': 'Bearer {}'.format(self.weeb_key),
             'Accept': 'application/json'
         }
-
         self.dadjoke = {
-            'User-Agent': self.user_agent,
+            'User-Agent': self.user_agent['User-Agent'],
             'Accept': 'text/plain'
         }
         self.dbl = {
-            'User-Agent': self.user_agent,
+            'User-Agent': self.user_agent['User-Agent'],
             'Accept': 'application/json'
         }
 

@@ -196,7 +196,8 @@ class Fun:
         """Dad joke simulator 3017, basically"""
         async with ctx.bot.session.get('https://icanhazdadjoke.com', headers=self.dadjoke) as jok:
             if jok.status == 200:
-                res = await jok.text().encode('utf-8')
+                res = await jok.text()
+                res = res.encode('utf-8')
                 await ctx.send(f'`{res}`')
             else:
                 raise utils.errors.ServiceError(f'rip dad (http {jok.status})')

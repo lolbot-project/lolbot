@@ -22,15 +22,16 @@ class Fun:
             'User-Agent': common.user_agent
         }
         self.weebsh = {
+            'User-Agent': common.user_agent,
             'Authorization': 'Bearer {}'.format(self.weeb_key),
             'Accept': 'application/json'
         }
         self.dadjoke = {
-            'User-Agent': self.user_agent['User-Agent'],
+            'User-Agent': common.user_agent,
             'Accept': 'text/plain'
         }
         self.dbl = {
-            'User-Agent': self.user_agent['User-Agent'],
+            'User-Agent': common.user_agent,
             'Accept': 'application/json'
         }
 

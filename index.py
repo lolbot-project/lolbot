@@ -22,6 +22,7 @@ import utils.errors
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
 description = '''Just a bot :)'''
 exts = ['bots',
+        'common',
         'donate',
         'eval',
         'fun',

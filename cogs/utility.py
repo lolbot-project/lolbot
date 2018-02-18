@@ -195,12 +195,28 @@ class Etc:
 
     @commands.command()
     async def feedback(self, ctx, *, f: str):
+        """Have any ideas or comments? Submit them here."""
         with ctx.typing():
             f_channel = ctx.bot.get_channel(ctx.bot.config['feedback'])
             fback = discord.Embed(description=f, colour=0x690E8)
             fback.set_author(name=str(ctx.author), icon_url=ctx.author.avatar_url)
             await f_channel.send(embed=fback)
             await ctx.send('Your feedback was successfully submitted.')
+
+    @commands.command(name='clean')
+    async def clean_bot_commands(self, ctx, msgs=5: int):
+        """Cleans up chat by deleting bot messages.
+        The default deletion count is 5 messages.
+        You can delete more by specifying the number as a argument.
+        Example: ^clean 10
+        """
+        load = await ctx.send(f'{ctx.bot.emoji.load!s} Cleaning up **{msgs}** messages.')
+        async for m in ctx.channel.history():
+            for asdfdjfkjfl in range(0, msgs):
+                if m.author == ctx.me:
+                    await m.delete()
+        await load.edit(content=f'{ctx.bot.emoji.check!s} Cleaned up **{msgs}** messages.')
+
 
 def setup(bot):
     bot.add_cog(Etc(bot))

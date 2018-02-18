@@ -52,8 +52,13 @@ class Lul(commands.AutoShardedBot):
         # note that we use " instead of ' here
         # this is a limitation of the fstring parser
         await bot.change_presence(
-            game=discord.Game(name=f'{self.config["prefix"]}help | v{common.version}', type=1, url='https://twitch.tv/monstercat'))
+            game=discord.Game(name=f'{self.config["prefix"]}help | v{common.version}',
+                              type=1,
+                              url='https://twitch.tv/monstercat'))
         bot.emoji.fail = discord.utils.get(bot.emojis, name='notcheck')
+        bot.emoji.success = discord.utis.get(bot.emojis, name='check')
+        # Bad support for animated emotes.
+        bot.emoji.load = '<a:loading:393852367751086090>'
         logging.info('Playing status changed')
 
     async def on_command_error(self, ctx, error):
@@ -88,6 +93,7 @@ class Lul(commands.AutoShardedBot):
             guild_id = message.guild.id
         ctx = await self.get_context(message)
         await self.invoke(ctx)
+
 
 config = json.load(open('config.json'))
 bot = Lul(command_prefix=commands.when_mentioned_or(config['prefix']),

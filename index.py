@@ -56,9 +56,8 @@ class Lul(commands.AutoShardedBot):
                               type=1,
                               url='https://twitch.tv/monstercat'))
         bot.emoji.fail = discord.utils.get(bot.emojis, name='notcheck')
-        bot.emoji.success = discord.utis.get(bot.emojis, name='check')
-        # Bad support for animated emotes.
-        bot.emoji.load = '<a:loading:393852367751086090>'
+        bot.emoji.success = discord.utils.get(bot.emojis, name='check')
+        bot.emoji.load = discord.utils.get(bot.emojis, name='loading')
         logging.info('Playing status changed')
 
     async def on_command_error(self, ctx, error):

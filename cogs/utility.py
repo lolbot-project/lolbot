@@ -15,11 +15,13 @@ GitError = 'fatal: Not a git repository (or any of the parent directories): .git
 NoCommit = '*No commit'
 NoRelease = '*No release*'
 
+
 def is_bot(u: discord.Member):
     if u.bot:
         return 'Yep!'
     else:
         return 'Nope.'
+
 
 def get_nick(u: discord.Member):
     if u.nick:
@@ -40,18 +42,21 @@ def get_join_date(u: discord.Member):
     date = meme.strftime('%b %d, %Y %H:%M:%S')
     return date
 
+
 def delta_str(delta):
-   seconds = delta.total_seconds()
-   years = seconds / 60 / 60 / 24 / 365.25
-   days = seconds / 60 / 60 / 24
-   if years >= 1:
-       return f'{years:.2f} years'
-   else:
-       return f'{days:.2f} days'
+    seconds = delta.total_seconds()
+    years = seconds / 60 / 60 / 24 / 365.25
+    days = seconds / 60 / 60 / 24
+    if years >= 1:
+        return f'{years:.2f} years'
+    else:
+        return f'{days:.2f} days'
+
 
 def get_signup_date(u: discord.Member):
     delta = datetime.datetime.now() - u.created_at
     return delta_str(delta)
+
 
 def get_status(u: discord.Member):
     if u.status == discord.Status.online:
@@ -64,10 +69,10 @@ def get_status(u: discord.Member):
         return 'Offline/invisible'
 
 
-
 def get_python_version():
     v = sys.version_info
     return f'{v[0]}.{v[1]}.{v[2]}'
+
 
 def bot_uptime(init_time):
     sec = round(time.time() - init_time)
@@ -86,6 +91,7 @@ def bot_uptime(init_time):
 
     return fmt
 
+
 class Etc:
     def __init__(self, bot):
         self.bot = bot
@@ -98,7 +104,8 @@ class Etc:
         hi2 = "Things I can do include cat pictures, dog pictures, Wolfram|Alpha"
         hi3 = "and more! See `^help` for more information on me."
         em = discord.Embed(description=f'{hi} {hi2} {hi3}', colour=0x690E8)
-        em.add_field(name='Got any questions?', value=f'Join our support server: {self.support}')
+        em.add_field(name='Got any questions?',
+                     value=f'Join our support server: {self.support}')
         em.set_footer(text='Created by tilda#4778')
         await ctx.send(embed=em)
 
@@ -107,8 +114,10 @@ class Etc:
         """Shows uptime of lolbot"""
         # Thanks Luna you make good code lul
         uptime_embed = discord.Embed(title='Uptime', colour=0x690E8)
-        started_on = time.strftime('%b %d, %Y %H:%M:%S', time.localtime(self.bot.init_time))
-        uptime_embed.add_field(name='Started on', value=started_on, inline=False)
+        started_on = time.strftime(
+            '%b %d, %Y %H:%M:%S', time.localtime(self.bot.init_time))
+        uptime_embed.add_field(
+            name='Started on', value=started_on, inline=False)
         meme = bot_uptime(self.bot.init_time)
         uptime_embed.add_field(name='Uptime', value=f'{meme}')
         await ctx.send(embed=uptime_embed)
@@ -135,11 +144,12 @@ class Etc:
                                                              ' powered by [lolbot](https://github.com/tilda/lolbot), a fast and powerful '
                                                              'Python bot.', colour=0x690E8)
         statEmbed.add_field(name='Owner', value=statInfo.owner.mention + '('
-                                                + str(statInfo.owner) + ' - ID: ' + str(statInfo.owner.id) + ')')
+                            + str(statInfo.owner) + ' - ID: ' + str(statInfo.owner.id) + ')')
         statEmbed.add_field(name='Python', value=get_python_version())
         statEmbed.add_field(name='discord.py', value=discord.__version__)
         statEmbed.add_field(name='Servers', value=f'{len(self.bot.guilds)}')
-        statEmbed.add_field(name='Uptime', value=bot_uptime(self.bot.init_time))
+        statEmbed.add_field(
+            name='Uptime', value=bot_uptime(self.bot.init_time))
         statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',
                     'Where did the RAM go?', 'grumble grumble', 'Please hold.', 'No, just, no.',
                     'Have you tried rebooting?', 'memework makes the dreamwork!', 'cool and good']
@@ -150,9 +160,11 @@ class Etc:
     async def invite(self, ctx):
         """Gives a invite for the bot (and also the official server)"""
         invEmb = discord.Embed(colour=0x690E8)
-        invEmb.add_field(name='Invite lolbot', value='[Click here](https://lolbot.lmao.tf/invite)')
+        invEmb.add_field(name='Invite lolbot',
+                         value='[Click here](https://lolbot.lmao.tf/invite)')
         invEmb.add_field(name='Official server', value=self.support)
-        invEmb.set_footer(text='By inviting lolbot, you agree to the lolbot Privacy Policy')
+        invEmb.set_footer(
+            text='By inviting lolbot, you agree to the lolbot Privacy Policy')
         await ctx.send(embed=invEmb)
 
     @commands.command(aliases=['userinfo', 'uinfo'])
@@ -199,23 +211,27 @@ class Etc:
         with ctx.typing():
             f_channel = ctx.bot.get_channel(ctx.bot.config['feedback'])
             fback = discord.Embed(description=f, colour=0x690E8)
-            fback.set_author(name=str(ctx.author), icon_url=ctx.author.avatar_url)
+            fback.set_author(name=str(ctx.author),
+                             icon_url=ctx.author.avatar_url)
             await f_channel.send(embed=fback)
             await ctx.send('Your feedback was successfully submitted.')
 
-    @commands.command(name='clean')
-    async def clean_bot_commands(self, ctx, msgs=5: int):
-        """Cleans up chat by deleting bot messages.
-        The default deletion count is 5 messages.
-        You can delete more by specifying the number as a argument.
-        Example: ^clean 10
-        """
-        load = await ctx.send(f'{ctx.bot.emoji.load!s} Cleaning up **{msgs}** messages.')
-        async for m in ctx.channel.history():
-            for asdfdjfkjfl in range(0, msgs):
-                if m.author == ctx.me:
-                    await m.delete()
-        await load.edit(content=f'{ctx.bot.emoji.check!s} Cleaned up **{msgs}** messages.')
+    #@commands.command()
+    #async def clean(self, ctx, msgs: int=5):
+    #    """Cleans up chat by deleting bot messages.
+    #    The default deletion count is 5 messages.
+    #    You can delete more by specifying the number as a argument.
+    #    Example: ^clean 10
+    #    The limit for cleaning is 50, to avoid abuse of the Discord API.
+    #    """
+    #    load = await ctx.send(f'{ctx.bot.emoji.load!s}'
+    #                          ' Cleaning up **{msgs}** messages.')
+    #    async for m in ctx.channel.history(limit=50):
+    #        for asdfdjfkjfl in range(0, msgs):
+    #            if m.author == ctx.me:
+    #                await m.delete()
+    #    await load.edit(content=f'{ctx.bot.emoji.check!s}'
+    #                    ' Cleaned up **{msgs}** messages.')
 
 
 def setup(bot):

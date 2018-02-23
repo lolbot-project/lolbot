@@ -61,9 +61,11 @@ class Lul(commands.AutoShardedBot):
         super().__init__(*args, **kwargs)
         self.config = json.load(open('config.json'))
         self.session = aiohttp.ClientSession()
-        self.badarg = ['You need to put more info than this!', 'I didn\'t understan'
-                                                               'd that.', 'Sorry, can\'t process that.',
-                       'Read ' + self.config['prefix'] + 'help <command> for instructions.', 'Hmm?']
+        self.badarg = ['You need to put more info than this!',
+                       'I didn\'t understand that.',
+                       'Sorry, can\'t process that.',
+                       f'Read {self.config["prefix"]}help <command> for instructions.',
+                       'Hmm?']
         # To be fair, we should record the init time after everything is ready
         self.init_time = time.time()
 
@@ -105,11 +107,8 @@ class Lul(commands.AutoShardedBot):
             logging.error(tb)
 
     async def on_message(self, message):
-        author_id = message.author.id
         if message.author.bot:
             return
-        if message.guild is not None:
-            guild_id = message.guild.id
         ctx = await self.get_context(message)
         await self.invoke(ctx)
 

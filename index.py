@@ -64,7 +64,8 @@ class Lul(commands.AutoShardedBot):
         self.badarg = ['You need to put more info than this!',
                        'I didn\'t understand that.',
                        'Sorry, can\'t process that.',
-                       f'Read {self.config["prefix"]}help <command> for instructions.',
+                       f'Read {self.config["prefix"]}help <command>'
+                       ' for instructions.',
                        'Hmm?']
         # To be fair, we should record the init time after everything is ready
         self.init_time = time.time()
@@ -74,7 +75,8 @@ class Lul(commands.AutoShardedBot):
         # note that we use " instead of ' here
         # this is a limitation of the fstring parser
         await bot.change_presence(
-            game=discord.Game(name=f'{self.config["prefix"]}help | v{common.version}',
+            game=discord.Game(name=f'{self.config["prefix"]}help |'
+                              ' v{common.version}',
                               type=1,
                               url='https://twitch.tv/monstercat'))
         bot.emoji.fail = discord.utils.get(bot.emojis, name='notcheck')
@@ -85,10 +87,13 @@ class Lul(commands.AutoShardedBot):
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.errors.CheckFailure):
             await ctx.message.add_reaction(ctx.bot.emoji.fail)
+
         elif isinstance(error, commands.errors.BadArgument):
             await ctx.send(f'Bad arg: `{random.choice(self.badarg)}`')
+
         elif isinstance(error, commands.errors.MissingRequiredArgument):
             await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
+
         elif isinstance(error, utils.errors.ServiceError):
             tb = ''.join(traceback.format_exception(
                 type(error.original), error.original,
@@ -97,6 +102,7 @@ class Lul(commands.AutoShardedBot):
             logging.error(f'Oops! {tb}')
             await ctx.message.add_reaction(ctx.bot.emoji.fail)
             await ctx.send(f'Service error: `{tb}`')
+
         elif isinstance(error, commands.errors.CommandInvokeError):
             await ctx.message.add_reaction(ctx.bot.emoji.fail)
             tb = ''.join(traceback.format_exception(

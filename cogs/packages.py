@@ -25,6 +25,7 @@ import discord
 from discord.ext import commands
 from cogs import common
 
+
 class Packages:
     def __init__(self, bot):
         self.bot = bot
@@ -40,13 +41,19 @@ class Packages:
         return f'https://pypi.python.org/pypi/{pkg}'
 
     @commands.command()
-    async def pypi(self, ctx, pkg: str):
-        async with ctx.bot.session.get(self.json_pkg(pkg), headers=common.user_agent) as ps:
+    async def pypi(self,
+                   ctx,
+                   pkg: str):
+        async with ctx.bot.session.get(self.json_pkg(pkg),
+                                       headers=common.user_agent) as ps:
             pjson = await ps.json()
-            pkg_s = discord.Embed(title=pkg, colour=0x690E8)
+            pkg_s = discord.Embed(title=f'[{pkg}]({self.pkg_url(pkg)})',
+                                  colour=0x690E8)
             pkg_s.add_field(name='Version', value=pjson['info']['version'])
-            pkg_s.add_field(name='URL', value=self.pkg_url(pkg))
+            pkg_s.add_field(name='Downloads since yesterday',
+                            value=pjson['info']['downloads']['last_day'])
             await ctx.send(embed=pkg_s)
+
 
 def setup(bot):
     bot.add_cog(Packages(bot))

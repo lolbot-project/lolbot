@@ -76,7 +76,7 @@ class Lul(commands.AutoShardedBot):
         # this is a limitation of the fstring parser
         await bot.change_presence(
             game=discord.Game(name=f'{self.config["prefix"]}help |'
-                              ' v{common.version}',
+                              f' v{common.version}',
                               type=1,
                               url='https://twitch.tv/monstercat'))
         bot.emoji.fail = discord.utils.get(bot.emojis, name='notcheck')

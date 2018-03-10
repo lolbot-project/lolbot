@@ -76,8 +76,8 @@ class Lul(commands.AutoShardedBot):
         # this is a limitation of the fstring parser
         await bot.change_presence(
             activity=discord.Streaming(name=f'{self.config["prefix"]}help |'
-                              f' v{common.version}',
-                              url='https://twitch.tv/monstercat'))
+                                       f' v{common.version}',
+                                       url='https://twitch.tv/monstercat'))
         bot.emoji.fail = discord.utils.get(bot.emojis, name='notcheck')
         bot.emoji.success = discord.utils.get(bot.emojis, name='check')
         bot.emoji.load = discord.utils.get(bot.emojis, name='loading')

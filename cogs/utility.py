@@ -34,7 +34,8 @@ from cogs.owner import run_cmd
 from random import choice as rchoice
 
 config = json.load(open('config.json'))
-GitError = 'fatal: Not a git repository (or any of the parent directories): .git'
+GitError = 'fatal: Not a git repository (or any of the'
+GitError += 'parent directories): .git'
 NoCommit = '*No commit'
 NoRelease = '*No release*'
 
@@ -124,12 +125,14 @@ class Etc:
     async def hello(self, ctx):
         """Hey!"""
         hi = "Heya! My name's lolbot. I am a bot designed to do stupid things."
-        hi2 = "Things I can do include cat pictures, dog pictures, Wolfram|Alpha"
-        hi3 = "and more! See `^help` for more information on me."
-        em = discord.Embed(description=f'{hi} {hi2} {hi3}', colour=0x690E8)
+        hi2 = "Things I can do include cat pictures, dog pictures,"
+        hi3 = "Wolfram|Alpha, and more!"
+        hi4 = "See `^help` for more information on me."
+        em = discord.Embed(description=f'{hi} {hi2} {hi3} {hi4}',
+                           colour=0x690E8)
         em.add_field(name='Got any questions?',
                      value=f'Join our support server: {self.support}')
-        em.set_footer(text='Created by tilda#4778')
+        em.set_footer(text='Created by tilda#9999')
         await ctx.send(embed=em)
 
     @commands.command()
@@ -162,20 +165,26 @@ class Etc:
     @commands.command()
     async def stats(self, ctx):
         """A few stats."""
-        statInfo = await ctx.bot.application_info()
-        statEmbed = discord.Embed(title='Stats', description='This bot is'
-                                                             ' powered by [lolbot](https://github.com/tilda/lolbot), a fast and powerful '
-                                                             'Python bot.', colour=0x690E8)
-        statEmbed.add_field(name='Owner', value=statInfo.owner.mention + '('
-                            + str(statInfo.owner) + ' - ID: ' + str(statInfo.owner.id) + ')')
+        info = await ctx.bot.application_info()
+        statEmbed = discord.Embed(title='Stats',
+                                  description='''
+                                              This bot is powered by [lolbot]
+                                              (https://git.io/vxvOM), a fast
+                                               and powerful Python bot.
+                                               ''',
+                                  colour=0x690E8)
+        statEmbed.add_field(name='Owner', value=f'{info.owner!s} - ID:'
+                                                f' {info.owner.id}')
         statEmbed.add_field(name='Python', value=get_python_version())
         statEmbed.add_field(name='discord.py', value=discord.__version__)
         statEmbed.add_field(name='Servers', value=f'{len(self.bot.guilds)}')
-        statEmbed.add_field(
-            name='Uptime', value=bot_uptime(self.bot.init_time))
-        statPool = ['What have you done now?', 'Why should I do this again?', 'Oh..',
-                    'Where did the RAM go?', 'grumble grumble', 'Please hold.', 'No, just, no.',
-                    'Have you tried rebooting?', 'memework makes the dreamwork!', 'cool and good']
+        statEmbed.add_field(name='Uptime',
+                            value=bot_uptime(self.bot.init_time))
+        statPool = ['What have you done now?', 'Why should I do this again?',
+                    'Oh..', 'Where did the RAM go?', 'grumble grumble',
+                    'Please hold.', 'No, just, no.',
+                    'Have you tried rebooting?',
+                    'memework makes the dreamwork!', 'cool and good']
         statEmbed.set_footer(text=rchoice(statPool))
         await ctx.send(embed=statEmbed)
 
@@ -239,8 +248,8 @@ class Etc:
             await f_channel.send(embed=fback)
             await ctx.send('Your feedback was successfully submitted.')
 
-    #@commands.command()
-    #async def clean(self, ctx, msgs: int=5):
+    # @commands.command()
+    # async def clean(self, ctx, msgs: int=5):
     #    """Cleans up chat by deleting bot messages.
     #    The default deletion count is 5 messages.
     #    You can delete more by specifying the number as a argument.

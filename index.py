@@ -60,6 +60,18 @@ class Lul(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config = json.load(open('config.json'))
+
+        def prefix_func():
+            if self.config['prefix']:
+                return self.config['prefix']
+            else:
+                return '^'  # default
+        # Fuck you, PEP8. I hope you are happy
+        # because I will send your ass to oblivion
+        self.prefix = prefix_func()
+        self.ver = common.version
+        self.twitch = 'https://twitch.tv/monstercat'
+        self.stream = discord.Streaming
         self.session = aiohttp.ClientSession()
         self.badarg = ['You need to put more info than this!',
                        'I didn\'t understand that.',
@@ -74,10 +86,9 @@ class Lul(commands.AutoShardedBot):
         logging.info('lolbot - ready')
         # note that we use " instead of ' here
         # this is a limitation of the fstring parser
-        await bot.change_presence(
-            activity=discord.Streaming(name=f'{self.config["prefix"]}help |'
-                                       f' v{common.version}',
-                                       url='https://twitch.tv/monstercat'))
+        await bot.change_presence(activity=self.stream(name=f'''{self.prefix}help
+                                                            | v{self.ver}''',
+                                                       url=self.twitch))
         bot.emoji.fail = discord.utils.get(bot.emojis, name='notcheck')
         bot.emoji.success = discord.utils.get(bot.emojis, name='check')
         bot.emoji.load = discord.utils.get(bot.emojis, name='loading')

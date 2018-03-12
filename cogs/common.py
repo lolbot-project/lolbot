@@ -23,9 +23,11 @@ DEALINGS IN THE SOFTWARE.
 """
 # etc data
 version = '2.0'
+ua_text = 'lolbot/{} - https://lolbot.lmao.tf'.format(version)
 user_agent = {
-    'User-Agent': 'lolbot/{} - https://lolbot.lmao.tf'.format(version)
+    'User-Agent': ua_text
 }
+
 
 # Dummy class, holds data
 # This forms a "object"
@@ -35,6 +37,7 @@ user_agent = {
 # Magic!
 class Dummy:
     pass
+
 
 def setup(bot):
     # Setup a bot emote register, to store emojis for use

@@ -1,3 +1,17 @@
+import random
+import urllib.parse
+
+# noinspection PyPackageRequirements
+import discord
+# noinspection PyPackageRequirements
+from discord.ext import commands
+# noinspection PyPackageRequirements
+import utils.errors
+import asyncio
+from collections import defaultdict
+from cogs import common
+
+
 """
 The MIT License (MIT)
 
@@ -21,18 +35,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
-import random
-import urllib.parse
 
-# noinspection PyPackageRequirements
-import discord
-# noinspection PyPackageRequirements
-from discord.ext import commands
-# noinspection PyPackageRequirements
-import utils.errors
-import asyncio
-from collections import defaultdict
-from cogs import common
 
 locks = defaultdict(asyncio.Lock)
 
@@ -60,7 +63,7 @@ class Fun:
         self.bb_inv = 'https://discordapp.com/oauth2/authorize'
         self.bb_inv += '?client_id=285480424904327179&scope=bot'
 
-    @commands.command()
+    @commands.command(disabled=True)
     async def cat(self, ctx):
         """Random cat images. Awww, so cute! Powered by random.cat"""
         async with self.bot.session.get('https://random.cat/meow',

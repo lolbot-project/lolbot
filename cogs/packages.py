@@ -40,18 +40,63 @@ class Packages:
         """Returns the URL for a package on PyPI."""
         return f'https://pypi.python.org/pypi/{pkg}'
 
+    @classmethod
+    def get_platform(self, platform):
+        any_list = ['any', 'UNKNOWN', '']
+        if platform in any_list:
+            return "Wherever Python runs(?)"
+        else:
+            return platform
+
+    @classmethod
+    def return_homepage(self, home_page):
+        if home_page:
+            if 'github.com' in home_page:
+                return f'[On GitHub]({home_page})'
+            else:
+                return f'[Go to site]({home_page})'
+        else:
+            return 'None.'
+
+    @classmethod
+    def summary_ret(self, summary):
+        if summary:
+            return f'*{summary}*'
+        else:
+            return '*None.*'
+
     @commands.command()
-    async def pypi(self,
-                   ctx,
-                   pkg: str):
+    async def pypi(self, ctx, pkg: str):
         async with ctx.bot.session.get(self.json_pkg(pkg),
                                        headers=common.user_agent) as ps:
-            pjson = await ps.json()
-            pkg_s = discord.Embed(title=f'[{pkg}]({self.pkg_url(pkg)})',
+            if ps.status == 200:
+                pkj = await ps.json()
+                pkj = pkj['info']
+            elif ps.status == 404:
+                pkg_s = discord.Embed(title='Error',
+                                      description='Package does not exist',
+                                      colour=0x690E8)
+                return await ctx.send(embed=pkg_s)
+
+            pkg_s = discord.Embed(title=pkg,
+                                  description=self.summary_ret(pkj['summary']),
+                                  url=self.pkg_url(pkg),
                                   colour=0x690E8)
-            pkg_s.add_field(name='Version', value=pjson['info']['version'])
-            pkg_s.add_field(name='Downloads since yesterday',
-                            value=pjson['info']['downloads']['last_day'])
+            if pkj['home_page']:
+                pkg_s.add_field(name='Homepage/Website',
+                                value=self.return_homepage(pkj['home_page']),
+                                inline=False)
+
+            pkg_s.add_field(name='Version',
+                            value=f'[{pkj["version"]}]({pkj["release_url"]})',
+                            inline=False)
+            pkg_s.add_field(name='License',
+                            value=pkj['license'] if pkj['license'] else 'None',
+                            inline=False)
+            pkg_s.add_field(name='Platform',
+                            value=self.get_platform(pkj['platform']),
+                            inline=False)
+            pkg_s.set_footer(text=f'Created by {pkj["author"]}')
             await ctx.send(embed=pkg_s)
 
 

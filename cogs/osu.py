@@ -28,6 +28,7 @@ import osuapi.enums
 import utils.errors
 import logging
 
+
 class Osu:
     def __init__(self, bot):
         self.bot = bot
@@ -54,17 +55,18 @@ class Osu:
         try:
             self.api.close()
         except Exception:
-            logging.error('Wow, amazing! You closed the instance early. GJ.')
+            logging.error('osu[api]: Wow, amazing! '
+                          'You closed the instance early. GJ.')
         else:
             logging.info('osu[unload]: OK')
-
 
     @commands.group()
     async def osu(self, ctx):
         """Commands for osu!"""
         if ctx.invoked_subcommand is None:
             help_em = discord.Embed(title='Commands for osu!', colour=0x690E8)
-            help_em.add_field(name='user', value='Gets info on osu! players. `^osu user *user*`')
+            help_em.add_field(name='user', value='Gets info on osu! players.'
+                                                 ' `^osu user *user*`')
             await ctx.send(embed=help_em)
 
     @osu.command()
@@ -76,7 +78,8 @@ class Osu:
 
         By default this command defaults to osu!standard.
         All modes are supported.
-        To use osu!standard, leave mode blank, or use 'standard', 'osu!standard', 'osu!' or 0.
+        To use osu!standard, leave mode blank, or use 'standard',
+         'osu!standard', 'osu!' or 0.
         To use osu!catch, use 'catch', 'osu!catch', or 1.
         To use osu!taiko, use 'taiko', 'osu!taiko', or 2.
         To use osu!mania, use 'mania', 'osu!mania', or 3.
@@ -89,27 +92,32 @@ class Osu:
             user = await self.api.get_user(u, mode=mode)
             try:
                 user = user[0]
+                pp = user.pp_raw  # CHAR SAVING.
             except IndexError:
-                return await ctx.send('User does not exist, maybe try one that does')
+                return await ctx.send('User does not exist, '
+                                      'maybe try one that does')
         else:
             raise utils.errors.ServiceError('osu! api key not configured')
         osu_embed = discord.Embed(title=f'osu! stats', colour=0x690E8)
-        osu_embed.set_author(name=f'{u} ({user.country}) (uid {user.user_id})',icon_url=f'https://osu.ppy.sh/images/flags/{user.country}.png')
+        osu_embed.set_author(name=f'{u} ({user.country}'
+                                  f' #{user.pp_country_rank}) '
+                                  f'(uid {user.user_id})',
+                             icon_url='https://osu.ppy.sh/images/flags/'
+                                      f'{user.country}.png')
         osu_embed.set_thumbnail(url=f'https://a.ppy.sh/{user.user_id}')
-        osu_embed.add_field(name='Hits (300 score)', value=user.count300)
-        osu_embed.add_field(name='Hits (100 score)', value=user.count100)
-        osu_embed.add_field(name='Hits (50 score)', value=user.count50)
+        osu_embed.add_field(name='Hits (300/100/50)', value=f'{user.count300}/'
+                                                            f'{user.count100}/'
+                                                            f'{user.count50}')
         osu_embed.add_field(name='Play count', value=user.playcount)
         osu_embed.add_field(name='Ranked score', value=user.ranked_score)
         osu_embed.add_field(name='Total score', value=user.total_score)
         osu_embed.add_field(name='Global rank', value=f'#{user.pp_rank}')
-        osu_embed.add_field(name='Country rank', value=f'#{user.pp_country_rank}')
         osu_embed.add_field(name='Level', value=int(user.level))
-        osu_embed.add_field(name='Total PP', value=f'{round(user.pp_raw, 2)} PP')
+        osu_embed.add_field(name='Total PP', value=f'{round(pp, 2)} PP')
         osu_embed.add_field(name='Accuracy', value=f'{user.accuracy:.1f}%')
-        osu_embed.add_field(name='Total SS plays', value=user.count_rank_ss)
-        osu_embed.add_field(name='Total S plays', value=user.count_rank_s)
-        osu_embed.add_field(name='Total A plays', value=user.count_rank_a)
+        osu_embed.add_field(name='SS plays', value=user.count_rank_ss)
+        osu_embed.add_field(name='S plays', value=user.count_rank_s)
+        osu_embed.add_field(name='A plays', value=user.count_rank_a)
         await ctx.send(embed=osu_embed)
 
 

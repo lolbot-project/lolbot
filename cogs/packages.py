@@ -90,12 +90,15 @@ class Packages:
             pkg_s.add_field(name='Version',
                             value=f'[{pkj["version"]}]({pkj["release_url"]})',
                             inline=False)
+
             pkg_s.add_field(name='License',
                             value=pkj['license'] if pkj['license'] else 'None',
                             inline=False)
+
             pkg_s.add_field(name='Platform',
                             value=self.get_platform(pkj['platform']),
                             inline=False)
+
             pkg_s.set_footer(text=f'Created by {pkj["author"]}')
             await ctx.send(embed=pkg_s)
 

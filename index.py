@@ -66,8 +66,8 @@ class Lul(commands.AutoShardedBot):
                 return self.config['prefix']
             else:
                 return '^'  # default
-        # Fuck you, PEP8. I hope you are happy
-        # because I will send your ass to oblivion
+        # Fuck you, PEP8. I hope you are happy...
+        # because I will send your ass to oblivion...
         self.prefix = prefix_func()
         self.ver = common.version
         self.twitch = 'https://twitch.tv/monstercat'

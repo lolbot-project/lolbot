@@ -46,6 +46,7 @@ exts = ['bots',
         'donate',
         'eval',
         'fun',
+        'github'
         'nekos',
         'owner',
         'osu',

@@ -103,8 +103,8 @@ class Osu:
             raise utils.errors.ServiceError('osu! api key not configured')
         osu_embed = discord.Embed(title=f'osu! stats', colour=0x690E8)
         osu_embed.set_author(name=f'{u} ({user.country}'
-                                  f' #{user.pp_country_rank}) '
-                                  f'(uid {user.user_id})',
+                                  f' #{user.pp_country_rank}, global'
+                                  f' #{user.pp_rank})',
                              icon_url='https://osu.ppy.sh/images/flags/'
                                       f'{user.country}.png')
         osu_embed.set_thumbnail(url=f'https://a.ppy.sh/{user.user_id}')
@@ -114,7 +114,6 @@ class Osu:
         osu_embed.add_field(name='Play count', value=user.playcount)
         osu_embed.add_field(name='Ranked score', value=user.ranked_score)
         osu_embed.add_field(name='Total score', value=user.total_score)
-        osu_embed.add_field(name='Global rank', value=f'#{user.pp_rank}')
         osu_embed.add_field(name='Level', value=int(user.level))
         osu_embed.add_field(name='Total PP', value=f'{round(pp, 2)} PP')
         osu_embed.add_field(name='Accuracy', value=f'{user.accuracy:.1f}%')

@@ -93,6 +93,9 @@ class Osu:
             try:
                 user = user[0]
                 pp = user.pp_raw  # CHAR SAVING.
+                ss = user.count_rank_ss
+                s = user.count_rank_s
+                a = user.count_rank_a
             except IndexError:
                 return await ctx.send('User does not exist, '
                                       'maybe try one that does')
@@ -115,9 +118,7 @@ class Osu:
         osu_embed.add_field(name='Level', value=int(user.level))
         osu_embed.add_field(name='Total PP', value=f'{round(pp, 2)} PP')
         osu_embed.add_field(name='Accuracy', value=f'{user.accuracy:.1f}%')
-        osu_embed.add_field(name='SS plays', value=user.count_rank_ss)
-        osu_embed.add_field(name='S plays', value=user.count_rank_s)
-        osu_embed.add_field(name='A plays', value=user.count_rank_a)
+        osu_embed.add_field(name='Plays (SS/S/A)', value=f'{ss}/{s}/{a}')
         await ctx.send(embed=osu_embed)
 
 

@@ -63,10 +63,10 @@ class Fun:
         self.bb_inv = 'https://discordapp.com/oauth2/authorize'
         self.bb_inv += '?client_id=285480424904327179&scope=bot'
 
-    @commands.command(disabled=True)
+    @commands.command()
     async def cat(self, ctx):
         """Random cat images. Awww, so cute! Powered by random.cat"""
-        async with self.bot.session.get('https://random.cat/meow',
+        async with self.bot.session.get('https://aws.random.cat/meow',
                                         headers=self.user_agent) as r:
             if r.status == 200:
                 js = await r.json()

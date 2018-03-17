@@ -167,11 +167,9 @@ class Etc:
         """A few stats."""
         info = await ctx.bot.application_info()
         statEmbed = discord.Embed(title='Stats',
-                                  description='''
-                                              This bot is powered by [lolbot]
-                                              (https://git.io/vxvOM), a fast
-                                               and powerful Python bot.
-                                               ''',
+                                  description='This bot is powered by [lolbot]'
+                                              '(https://git.io/vxvOM), a fast'
+                                              'and powerful Python bot.',
                                   colour=0x690E8)
         statEmbed.add_field(name='Owner', value=f'{info.owner!s} - ID:'
                                                 f' {info.owner.id}')

@@ -1,0 +1,45 @@
+##########################################
+#     GREETINGS, FELLOW BOT PERSON!      #
+#  YOU'VE CHOSEN TO RUN THIS ONE, HUH?   #
+#  WELL, GOOD LUCK. IT TAKES SOME WORK.  #
+##########################################
+
+########################################
+#            INSTRUCTIONS              #
+#  All you should need to do to get    #
+#  this up is replace [YOUR USERNAME]  #
+#  with your username on your host.    #
+########################################
+#             PLEASE NOTE!             #
+#  You should have a virtual env in    #
+#  ~/lolbot/env with requirements      #
+#  already installed in order for      #
+#  any sort of magic (or anything)     #
+#  to start doing things.              #
+########################################
+#  Then save, and copy it over to      #
+#  systemd's user config folder        #
+#  which is located at:                #
+#  ~/.config/systemd/user/             #
+########################################
+#         STARTING AND ENABLING        #
+#  lolbot.service should now be in     #
+#  the systemd user folder. From here  #
+#  we can prepare and start the thing. #
+#  To start lolbot:                    #
+#    systemctl --user start lolbot     #
+#  To start on boot:                   #
+#    systemctl --user enable lolbot    #
+########################################
+#          THAT'S ALL, FOLKS!          #
+########################################
+
+[Unit]
+Description=lolbot Discord bot
+
+[Install]
+WantedBy=default.target
+
+[Service]
+WorkingDirectory=/home/[YOUR USERNAME]/lolbot
+ExecStart=/home/[YOUR USERNAME]/lolbot/env/bin/python index.py

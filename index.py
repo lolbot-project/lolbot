@@ -23,6 +23,7 @@ DEALINGS IN THE SOFTWARE.
 """
 # -*- coding: utf-8 -*-
 
+
 from cogs import common
 import json
 import logging
@@ -30,6 +31,7 @@ import random
 import time
 import traceback
 import gc
+import asyncio
 # noinspection PyPackageRequirements
 import aiohttp
 # noinspection PyPackageRequirements
@@ -39,7 +41,15 @@ from discord.ext import commands
 # noinspection PyPackageRequirements
 import utils.errors
 
+
 logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
+try:
+    import uvloop
+    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+except Exception:
+    logging.warning('uvloop not enabled')
+
+
 description = '''Just a bot :)'''
 exts = ['bots',
         'common',

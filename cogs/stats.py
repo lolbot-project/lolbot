@@ -151,7 +151,7 @@ class Stats:
         logging.info('Joined guild "' + str(guild.name) + '" ID: ' + str(guild.id))
         welcome_channel = await find_channel(guild)
         we = discord.Embed(title='Hello!',
-                           description='Just saying, I may collect information (IDs, etc) about your server'
+                           description='Just saying, I may collect information (IDs, etc) about your server '
                            'to help my owner improve the bot. Thanks!', colour=0x690E8)
         we.set_footer(text='Get started by typing ^hello')
         await welcome_channel.send(embed=we)

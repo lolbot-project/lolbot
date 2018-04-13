@@ -205,6 +205,20 @@ class Stats:
             await ddg.edit(content='Integration disabled, skipping Datadog!')
         await land.edit(content='Posted count.')
 
+    @commands.group()
+    @commands.is_owner()
+    async def fakeguild(self, ctx):
+        """Fakes guild events for testing."""
+        if ctx.invoked_subcommand is None:
+            await ctx.send('Available events: `join` and `leave`')
+
+    @fakeguild.command(name='join')
+    async def fakejoin(self, ctx):
+        await self.bot.dispatch('guild_join', guild=ctx.guild)
+
+    @fakeguild.command(name='leave')
+    async def fakeleave(self, ctx):
+        await self.bot.dispatch('guild_leave', guild=ctx.guild)
 
 def setup(bot):
     bot.add_cog(Stats(bot))

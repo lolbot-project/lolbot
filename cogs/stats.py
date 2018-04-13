@@ -118,7 +118,7 @@ class Stats:
             req = await self.bot.session.post(f'https://bots.discord.pw/api/bots/{i.id}/stats',
                                               data=json.dumps(data), headers=headers)
             status = req.status
-            if status == 200:
+            if status in [200, 204]:
                 logging.info('poster[dbots]: done')
             else:
                 resp = await req.text()

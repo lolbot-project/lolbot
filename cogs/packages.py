@@ -44,7 +44,7 @@ class Packages:
     def get_platform(self, platform):
         any_list = ['any', 'UNKNOWN', '']
         if platform in any_list:
-            return "Wherever Python runs(?)"
+            return "Anywhere!"
         else:
             return platform
 
@@ -78,26 +78,19 @@ class Packages:
                                       colour=0x690E8)
                 return await ctx.send(embed=pkg_s)
 
-            pkg_s = discord.Embed(title=pkg,
+            pkg_s = discord.Embed(title=f'{pkg} {pkj["version"]}',
                                   description=self.summary_ret(pkj['summary']),
                                   url=self.pkg_url(pkg),
                                   colour=0x690E8)
             if pkj['home_page']:
                 pkg_s.add_field(name='Homepage/Website',
-                                value=self.return_homepage(pkj['home_page']),
-                                inline=False)
-
-            pkg_s.add_field(name='Version',
-                            value=f'[{pkj["version"]}]({pkj["release_url"]})',
-                            inline=False)
+                                value=self.return_homepage(pkj['home_page']))
 
             pkg_s.add_field(name='License',
-                            value=pkj['license'] if pkj['license'] else 'None',
-                            inline=False)
+                            value=pkj['license'] if pkj['license'] else 'None')
 
             pkg_s.add_field(name='Platform',
-                            value=self.get_platform(pkj['platform']),
-                            inline=False)
+                            value=self.get_platform(pkj['platform']))
 
             pkg_s.set_footer(text=f'Created by {pkj["author"]}')
             await ctx.send(embed=pkg_s)

@@ -254,19 +254,6 @@ class Fun:
             else:
                 raise utils.errors.ServiceError(f'rip dad (http {jok.status})')
 
-    @commands.command(aliases=['ph', 'porn'])
-    @commands.is_nsfw()
-    async def pornhub(self, ctx, *, query: str):
-        """Searches for porn on pornhub"""
-        lol = await ctx.send('Searching...')
-        await asyncio.sleep(1.7)
-        pranked = discord.Embed(title='Not really.',
-                                description='But I do know one who searches'
-                                f'that place. [Invite BoobBot]({self.bb_inv})',
-                                colour=0x690E8)
-        await lol.edit(content=None, embed=pranked)
-        del query
-
     @commands.command(hidden=True)
     async def coolpeople(self, ctx):
         """Displays cool people"""

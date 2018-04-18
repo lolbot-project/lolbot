@@ -43,3 +43,8 @@ def setup(bot):
     # Setup a bot emote register, to store emojis for use
     # e.g. notcheck
     bot.emoji = Dummy()
+    if bot.config['beta']:
+        version = '2.0b'
+        ua_text = f'lolbot/{version} - https://lolbot.lmao.tf'
+    else:
+        pass

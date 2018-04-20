@@ -5,8 +5,8 @@
 # noinspection PyPackageRequirements
 import aiohttp
 
-HASTEBIN_ENDPOINT = 'https://hastebin.com/documents'
-HASTEBIN_FMT = 'https://hastebin.com/{}.py'
+HASTEBIN_ENDPOINT = 'https://mystb.in/documents'
+HASTEBIN_FMT = 'https://mystb.in/{}.py'
 
 
 async def haste(session: aiohttp.ClientSession, text: str) -> str:

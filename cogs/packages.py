@@ -53,6 +53,8 @@ class Packages:
         if home_page:
             if 'github.com' in home_page:
                 return f'[On GitHub]({home_page})'
+            elif 'gitlab.com' in home_page:
+                return f'[On GitLab]({home_page})'
             else:
                 return f'[Go to site]({home_page})'
         else:

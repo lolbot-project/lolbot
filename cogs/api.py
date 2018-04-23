@@ -11,7 +11,7 @@ async def no():
 
 @app.route("/api/ping")
 async def wsping():
-    return jsonify({'ws': f'{app.bot.latency}ms'})
+    return jsonify({'ws': app.bot.latency})
 
 
 @app.route("/api/stats")

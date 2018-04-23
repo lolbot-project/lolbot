@@ -98,7 +98,7 @@ class Wolfram:
         """Access Wolfram|Alpha, through lolbot"""
         if self.wa:
             if len(q) < 1:
-                raise uerrs.ServiceError('You can\'t make a query with less than 1 character...')
+                raise uerrs.ServiceError('You need to input something.')
 
             ftr = self.bot.loop.run_in_executor(None, self.wa.query, q)
             res = None

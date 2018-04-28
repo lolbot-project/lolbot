@@ -22,7 +22,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 # etc data
-version = '2.0'
+version = '3.0'
 ua_text = 'lolbot/{} - https://lolbot.lmao.tf'.format(version)
 user_agent = {
     'User-Agent': ua_text
@@ -44,7 +44,7 @@ def setup(bot):
     # e.g. notcheck
     bot.emoji = Dummy()
     if bot.config['beta']:
-        version = '2.0b'
+        version = f'{version}b'
         ua_text = f'lolbot/{version} - https://lolbot.lmao.tf'
     else:
         pass

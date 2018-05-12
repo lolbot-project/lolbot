@@ -9,6 +9,7 @@ from quart import Quart, jsonify
 app = Quart(__name__)
 app.bot = None
 
+
 # Basic shit
 @app.route("/")
 async def no():

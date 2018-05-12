@@ -44,7 +44,7 @@ def setup(bot):
     # e.g. notcheck
     bot.emoji = Dummy()
     if bot.config['beta']:
-        version = f'{version}b'
-        ua_text = f'lolbot/{version} - https://lolbot.lmao.tf'
+        version = f'{version}b' # noqa
+        ua_text = f'lolbot/{version} - https://lolbot.lmao.tf' # noqa
     else:
         pass

@@ -162,15 +162,8 @@ class Fun:
         except Exception as e:
             raise utils.errors.ServiceError(f'something broke: {e!s}')
 
-    @commands.command()
-    async def k(self, ctx):
         """k"""
         await ctx.send('k')
-
-    @commands.command()
-    async def fuck(self, ctx):
-        """fuck"""
-        await ctx.send('fuck')
 
     @commands.command(name='8ball')
     async def an8ball(self, ctx, *, question: str):
@@ -313,7 +306,7 @@ class Fun:
             data = await r.text()
             lines = data.split('\n')
             line = random.choice(lines)
-            await ctx.send(f'The Bastard Operator from Hell says: `{line}`')
+            await ctx.send(f'`{line}`')
 
 
 def setup(bot):

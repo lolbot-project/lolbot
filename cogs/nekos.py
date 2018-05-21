@@ -28,7 +28,8 @@ import json
 from discord.ext import commands
 # noinspection PyPackageRequirements
 import utils.errors
-from cogs.common import user_agent
+from cogs.utils.plainreq import get_req
+from cogs.utils.endpoints import nekos
 
 class Animemes:
     def __init__(self, bot):
@@ -37,13 +38,13 @@ class Animemes:
 
     @commands.command()
     async def neko(self, ctx):
-        """Shows a random neko picture"""
-        async with self.bot.session.get('https://nekos.life/api/neko', headers=user_agent) as neko:
+        """Shows a neko"""
+        async with get_req(ctx.bot.session, nekos.sfw) as neko:
             if neko.status == 200:
                 img = await neko.json()
                 neko_em = discord.Embed(colour=0x690E8)
                 neko_em.set_image(url=img['neko'])
-                neko_em.set_footer(text='Powered by nekos.life - use ^lneko to get lewd version')
+                neko_em.set_footer(text='source: nekos.life')
                 await ctx.send(embed=neko_em)
             else:
                 raise utils.errors.ServiceError(f'dude rip (http {neko.status})')
@@ -64,7 +65,7 @@ class Animemes:
                         lneko_em = discord.Embed(colour=0x690E8)
                         lneko_em.set_image(url=img['neko'])
                         await ctx.send(embed=lneko_em)
-                        lneko_em.set_footer(text='Powered by nekos.life - use ^neko to get non-nsfw version')
+                        lneko_em.set_footer(text='source: nekos.life')
                     else:
                         raise utils.errors.ServiceError(f'dude rip (http {lneko.status})')
         else:

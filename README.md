@@ -4,10 +4,6 @@
 [![](https://img.shields.io/discord/307640404071677962.svg)](https://discord.gg/PEW4wx9) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/772/badge)](https://bestpractices.coreinfrastructure.org/projects/772)
 [![](https://img.shields.io/badge/add%20bot-official%20instance-blue.svg)](https://discordapp.com/api/oauth2/authorize?client_id=272549225454239744&scope=bot&permissions=0)
 
-<!-- <a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/qb8RoW4NMbqgkKZ6FUbiKL8K/tilda/lolbot'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/qb8RoW4NMbqgkKZ6FUbiKL8K/tilda/lolbot.svg' />
-</a> -->
-
 # Warning
 Usually you shouldn't run a selfhost instance or clone of this bot. It requires some setup and this isn't a 1-2-3 bot. **Support will be limited. There is only so much I can do to support people. You may have to fix things yourself. Be warned.**
 
@@ -32,14 +28,9 @@ If so... here's the little guide I put together.
 3. `nano config.json` (follow the comments beginning with `//`)
 4. `python3.6 index.py` 
 
-Addendum 4a: use screen: `screen -DmS python3.6 index.py`
-
-Addendum 4b: use pm2: `pm2 start index.py --name lolbot --interpreter python3.6` (this is currently used in production)
-
-### Features probably never added
-- music (maybe soon? - note from 8/28/17)
-- something else (???)
-
+Addendum 4a: use systemd: `nano run/lolbot.service` and follow the comments _(RECOMMENDED)_
+Addendum 4b: use screen: `screen -DmS python3.6 index.py` (not recommended)
+Addendum 4c: use pm2: `pm2 start index.py --name lolbot --interpreter python3.6` (not recommended)
 ### Credits
 - luna (good shit)
 - slice (also good shit)

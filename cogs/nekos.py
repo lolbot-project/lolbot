@@ -39,7 +39,7 @@ class Animemes:
     @commands.command()
     async def neko(self, ctx):
         """Shows a neko"""
-        async with get_req(ctx.bot.session, nekos.sfw) as neko:
+        async with get_req(ctx.bot.session, nekos['sfw']) as neko:
             if neko.status == 200:
                 img = await neko.json()
                 neko_em = discord.Embed(colour=0x690E8)
@@ -58,7 +58,7 @@ class Animemes:
             if '[lb:no_nsfw]' in ctx.channel.topic:
                 raise utils.errors.NSFWException()
             else:
-                async with self.bot.session.get('https://nekos.life/api/lewd/neko', headers=user_agent) as lneko:
+                async with get_req(ctx.bot.session, nekos['nsfw']) as lneko:
                     if lneko.status == 200:
                         img = await lneko.json()
                         # noinspection PyPep8Naming

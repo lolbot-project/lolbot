@@ -37,4 +37,5 @@ async def stats(whatever):
             'shards': len(app.bot.shards)
         })
     else:
+        print(f'got: {whatever}')
         return jsonify({'error': 404})

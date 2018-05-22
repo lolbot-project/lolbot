@@ -24,18 +24,18 @@ async def wsping():
 # Stats endpoints
 @app.route("/api/stats/<whatever>")
 async def stats(whatever):
-    if whatever is 'guilds':
+    if whatever == 'guilds':
         return jsonify({'guilds': len(app.bot.guilds)})
-    elif whatever is 'shards':
+    elif whatever == 'shards':
         return jsonify({'shards': len(app.bot.shards)})
-    elif whatever is 'ready':
+    elif whatever == 'ready':
         return jsonify({'ready': app.bot.is_ready()})
-    elif whatever is 'all':
+    elif whatever == 'all':
         return jsonify({
             'ready': app.bot.is_ready(),
             'guilds': len(app.bot.guilds),
             'shards': len(app.bot.shards)
         })
     else:
-        print(f'got: {whatever}')
+        print(f'got: {whatever}, type: {type(whatever)}')
         return jsonify({'error': 404})

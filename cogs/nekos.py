@@ -64,8 +64,8 @@ class Animemes:
                         # noinspection PyPep8Naming
                         lneko_em = discord.Embed(colour=0x690E8)
                         lneko_em.set_image(url=img['neko'])
-                        await ctx.send(embed=lneko_em)
                         lneko_em.set_footer(text='source: nekos.life')
+                        await ctx.send(embed=lneko_em)
                     else:
                         raise utils.errors.ServiceError(f'dude rip (http {lneko.status})')
         else:

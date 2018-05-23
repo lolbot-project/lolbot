@@ -35,11 +35,6 @@ if [ "$1" = "--help" ]; then
 	echo "    --help    Shows this help message"
 	exit 0
 else
-	echo "Welcome!"
-	echo "This script downloads CSS and JS files"
-	echo "not included with the website."
-	echo "Starting in a second."
-	sleep 1
 	cd site
 	mkdir css > /dev/null 2>&1
 	if [ "$?" -eq 1 ]; then
@@ -71,13 +66,6 @@ else
 	    echo "| UIKit JS download error. |"
 	else
 	    echo "| UIKit JS download finished. |"
-	fi
-	echo "Downloading uikit-icons.min.js"
-	wget -O js/uikit-icons.js "https://cdn.jsdelivr.net/npm/uikit@3.0.0-beta.30/dist/js/uikit-icons.min.js" > /dev/null 2>&1
-	if [ "$?" -eq 1 ]; then
-	    echo "| Icons download error. |"
-	else
-	    echo "| Icons download finished. |"
 	fi
 	echo "Downloading jquery.min.js"
 	wget -O js/jquery.js "https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" > /dev/null 2>&1

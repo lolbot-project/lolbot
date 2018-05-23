@@ -30,7 +30,7 @@ space() {
 }
 if [ "$1" = "--help" ]; then
 	echo "lolbot web setup script v1.0"
-	echo "(c) 2017 S Stewart, MIT License"
+	echo "(c) 2018 S Stewart, MIT License"
 	echo "Arguments:"
 	echo "    --help    Shows this help message"
 	exit 0

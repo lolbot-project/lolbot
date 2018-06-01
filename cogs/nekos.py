@@ -31,6 +31,7 @@ import utils.errors
 from cogs.utils.plainreq import get_req
 from cogs.utils.endpoints import nekos
 
+
 class Animemes:
     def __init__(self, bot):
         self.bot = bot
@@ -47,7 +48,7 @@ class Animemes:
                 neko_em.set_footer(text='source: nekos.life')
                 await ctx.send(embed=neko_em)
             else:
-                raise utils.errors.ServiceError(f'dude rip (http {neko.status})')
+                raise utils.errors.ServiceError(f'non-200: {neko.status})')
 
     @commands.command()
     async def lneko(self, ctx):
@@ -67,7 +68,8 @@ class Animemes:
                         lneko_em.set_footer(text='source: nekos.life')
                         await ctx.send(embed=lneko_em)
                     else:
-                        raise utils.errors.ServiceError(f'dude rip (http {lneko.status})')
+                        st = lneko.status
+                        raise utils.errors.ServiceError(f'non-200: {st})')
         else:
             raise utils.errors.NSFWException('you really think you can do this'
                                              'in a non nsfw channel? lol')

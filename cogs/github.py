@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import cogs.utils.ghapi as gh
+from cogs.utils.plainreq import get_req
 
 
 class GitHub:
@@ -26,8 +27,8 @@ class GitHub:
         This is done to comply with GitHub's API ratelimits.
         """
 
-        async with ctx.bot.session.get(gh.build_url(f'repos/{repo}'),
-                                       headers=None) as r:
+        rurl = gh.build_url(f'repos/{repo}')
+        async with get_req(ctx.bot.session, rurl) as r:
             if r.status == 200:
                 rj = await r.json()
                 desc = rj['description']

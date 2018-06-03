@@ -23,7 +23,7 @@ DEALINGS IN THE SOFTWARE.
 """
 import discord
 from discord.ext import commands
-from cogs import common
+from cogs.utils.plainreq import get_req
 
 
 class Packages:
@@ -69,8 +69,7 @@ class Packages:
 
     @commands.command()
     async def pypi(self, ctx, pkg: str):
-        async with ctx.bot.session.get(self.json_pkg(pkg),
-                                       headers=common.user_agent) as ps:
+        async with get_req(ctx.bot.session, self.json_pkg(pkg)) as ps:
             if ps.status == 200:
                 pkj = await ps.json()
                 pkj = pkj['info']

@@ -23,7 +23,6 @@ DEALINGS IN THE SOFTWARE.
 """
 import sys
 import time
-import json
 import datetime
 # noinspection PyPackageRequirements
 import discord
@@ -33,7 +32,6 @@ from cogs import common
 from cogs.owner import run_cmd
 from random import choice as rchoice
 
-config = json.load(open('config.json'))
 GitError = 'fatal: Not a git repository (or any of the'
 GitError += 'parent directories): .git'
 NoCommit = '*No commit'
@@ -42,9 +40,9 @@ NoRelease = '*No release*'
 
 def is_bot(u: discord.Member):
     if u.bot:
-        return 'Yep!'
+        return True
     else:
-        return 'Nope.'
+        return False
 
 
 def get_nick(u: discord.Member):
@@ -209,14 +207,15 @@ class Etc:
         except Exception as e:
             raise commands.CommandInvokeError(f'oops: {e}')
 
-        e = discord.Embed(colour=0x690E8)
+        lolbot = '[BOT]' if bot else ''
+        e = discord.Embed(title=f'{u.name} {lolbot}',
+                          colour=0x690E8)
         e.add_field(name='Name', value=u.name)
         e.add_field(name='Status', value=status)
         e.add_field(name='Joined at', value=join_date)
         e.add_field(name='Joined Discord', value=signup + 'ago')
         e.add_field(name='Currently playing', value=game)
         e.add_field(name='Nickname', value=nick)
-        e.add_field(name='Is bot', value=bot)
         await ctx.send(embed=e)
 
     @commands.command(aliases=['inviteinfo', 'inv'], hidden=True)
@@ -257,7 +256,7 @@ class Etc:
     #    load = await ctx.send(f'{ctx.bot.emoji.load!s}'
     #                          ' Cleaning up **{msgs}** messages.')
     #    async for m in ctx.channel.history(limit=50):
-    #        for asdfdjfkjfl in range(0, msgs):
+    #        for asdfdjfkjfl in range(msgs):
     #            if m.author == ctx.me:
     #                await m.delete()
     #    await load.edit(content=f'{ctx.bot.emoji.check!s}'

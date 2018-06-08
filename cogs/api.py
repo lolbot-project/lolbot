@@ -30,7 +30,7 @@ async def stats(whatever):
         return jsonify({'shards': len(app.bot.shards)})
     elif whatever == 'ready':
         return jsonify({'ready': app.bot.is_ready()})
-    elif whatever == 'all':
+    elif whatever == 'all' or None:
         return jsonify({
             'ready': app.bot.is_ready(),
             'guilds': len(app.bot.guilds),

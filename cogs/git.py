@@ -10,7 +10,7 @@ class Git:
         self.ghkey = self.bot.config['github']
         self.dle = '<:download:455349673314484224>'
         self.ghauth = {
-            'Authorization': f'token {self.key}',
+            'Authorization': f'token {self.ghkey}',
             'Accept': 'application/vnd.github.mercy-preview+json'
         }
 

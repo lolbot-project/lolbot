@@ -92,4 +92,4 @@ class Git:
 
 
 def setup(bot):
-    bot.add_cog(GitHub(bot))
+    bot.add_cog(Git(bot))

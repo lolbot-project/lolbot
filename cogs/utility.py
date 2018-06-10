@@ -28,7 +28,6 @@ import datetime
 import discord
 # noinspection PyPackageRequirements
 from discord.ext import commands
-from cogs import common
 from cogs.owner import run_cmd
 from random import choice as rchoice
 
@@ -230,7 +229,7 @@ class Etc:
             commit = await run_cmd('git rev-parse --short HEAD')
             e = discord.Embed(colour=0x690E8)
             e.add_field(name='Running commit', value=commit)
-            e.add_field(name='Running version', value=common.version)
+            e.add_field(name='Running version', value=bot.version)
             e.set_footer(text='powered by git (and stuff)!')
             await ctx.send(embed=e)
 

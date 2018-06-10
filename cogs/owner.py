@@ -81,7 +81,8 @@ class Owner:
         """Resets playing state to normal"""
         try:
             a = discord.Streaming
-            g = a(name=f'{ctx.bot.config["prefix"]}help | v{common.version}',
+            p = ctx.bot.config['prefix']
+            g = a(name=f'{p}help | v{ctx.bot.version}',
                   url='https://twitch.tv/monstercat')
             await self.bot.change_presence(activity=g)
         except Exception:

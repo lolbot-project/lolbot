@@ -24,7 +24,6 @@ DEALINGS IN THE SOFTWARE.
 # -*- coding: utf-8 -*-
 
 
-from cogs import common
 import json
 import logging
 import random
@@ -79,8 +78,7 @@ class Lul(commands.AutoShardedBot):
                 return '^'  # default
         # Fuck you, PEP8. I hope you are happy...
         # because I will send your ass to oblivion...
-        self.prefix = prefix_func()
-        self.ver = common.version
+        self.pf = prefix_func()
         self.twitch = 'https://twitch.tv/monstercat'
         self.stream = discord.Streaming
         self.session = aiohttp.ClientSession()
@@ -97,9 +95,8 @@ class Lul(commands.AutoShardedBot):
         logging.info('lolbot - ready')
         # note that we use " instead of ' here
         # this is a limitation of the fstring parser
-        await bot.change_presence(activity=self.stream(name=f'''{self.prefix}help
-                                                            | v{self.ver}''',
-                                                       url=self.twitch))
+        ver = bot.version
+        await bot.change_presence(activity=self.stream(name=f'{self.pf}help | v{ver}', url=self.twitch))
         bot.emoji.fail = discord.utils.get(bot.emojis, name='notcheck')
         bot.emoji.success = discord.utils.get(bot.emojis, name='check')
         bot.emoji.load = discord.utils.get(bot.emojis, name='loading')

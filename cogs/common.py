@@ -21,13 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
-# etc data
-version = '3.0'
-ua_text = 'lolbot/{} - https://lolbot.lmao.tf'.format(version)
+
 user_agent = {
-    'User-Agent': ua_text
+    'User-Agent': 'lolbot - https://lolbot.lmao.tf'
 }
 
+# etc data
 
 # Dummy class, holds data
 # This forms a "object"
@@ -42,9 +41,11 @@ class Dummy:
 def setup(bot):
     # Setup a bot emote register, to store emojis for use
     # e.g. notcheck
+    bot.version = '3.0'
     bot.emoji = Dummy()
+    bot.ua_text = f'lolbot/{bot.version} - https://lolbot.lmao.tf'
     if bot.config['beta']:
-        version = f'{version}b' # noqa
-        ua_text = f'lolbot/{version} - https://lolbot.lmao.tf' # noqa
+        bot.version = f'{bot.version}b' # noqa
+        bot.ua_text = f'lolbot/{bot.version}b - https://lolbot.lmao.tf' # noqa
     else:
-        pass
+        bot.version = '3.0'

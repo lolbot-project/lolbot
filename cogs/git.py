@@ -3,12 +3,12 @@ from discord.ext import commands
 import cogs.utils.gitapi as api
 from cogs.utils.plainreq import get_req
 import urllib.parse
+import logging
 
 class Git:
     def __init__(self, bot):
         self.bot = bot
         #self.ghkey = self.bot.config['github']
-        self.dle = '<:download:455349673314484224>'
         #self.ghauth = {
         #    'Authorization': f'token {self.ghkey}',
         #    'Accept': 'application/vnd.github.mercy-preview+json'
@@ -40,13 +40,14 @@ class Git:
                     desc = 'No description provided.'
                 else:
                     desc = rj['description']
+                repo = repo.replace('%2F', '/')
                 stars = rj['star_count']
                 forks = rj['forks_count']
-                clone = 'git clone {rj["http_url_to_repo"]}'
+                clone = f'git clone {rj["http_url_to_repo"]}'
                 await ctx.send(embed=discord.Embed(title=f'{repo} on {instance}',
                                         description=f'*{desc}*\n'
                                         f':star: {stars} :fork_and_knife: {forks}\n'
-                                        f'{self.dle} `{clone}`',
+                                        f':arrow_down: `{clone}`',
                                         colour=0x690E8))
             elif r.status == 404:
                 await ctx.send(embed=discord.Embed(title='Oopsie woopsie!',
@@ -81,7 +82,7 @@ class Git:
                 repo_em = discord.Embed(title=f'{repo}',
                                         description=f'*{desc}*\n'
                                         f':star: {stars} :fork_and_knife: {forks}\n'
-                                        f'{self.dle} `git clone {clone}`',
+                                        f':arrow_down: `git clone {clone}`',
                                         colour=0x690E8)
                 await ctx.send(embed=repo_em)
             elif r.status == 404:

@@ -7,12 +7,12 @@ import urllib.parse
 class Git:
     def __init__(self, bot):
         self.bot = bot
-        self.ghkey = self.bot.config['github']
+        #self.ghkey = self.bot.config['github']
         self.dle = '<:download:455349673314484224>'
-        self.ghauth = {
-            'Authorization': f'token {self.ghkey}',
-            'Accept': 'application/vnd.github.mercy-preview+json'
-        }
+        #self.ghauth = {
+        #    'Authorization': f'token {self.ghkey}',
+        #    'Accept': 'application/vnd.github.mercy-preview+json'
+        #}
 
     @commands.command(aliases=['gitlab'])
     @commands.cooldown(1, 5, type=commands.BucketType.user)

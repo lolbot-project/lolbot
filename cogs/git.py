@@ -32,7 +32,7 @@ class Git:
         comply with ratelimiting.
         """
         repo = urllib.parse.quote_plus(repo)
-        rurl = api.gl_build(f'projects/{repo}')
+        rurl = api.gl_build(f'projects/{repo}', instance)
         async with get_req(ctx.bot.session, rurl) as r:
             if r.status == 200:
                 rj = await r.json()

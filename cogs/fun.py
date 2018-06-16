@@ -224,7 +224,7 @@ class Fun:
                 ans = await self.get_answer(mj['answer'])
                 em = discord.Embed(title=ans,
                                    description='And the answer to'
-                                   f'{question} is this',
+                                   f' {question} is this',
                                    colour=0x690E8)
                 em.set_image(url=mj['image'])
                 await ctx.send(embed=em)

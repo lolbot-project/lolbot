@@ -199,7 +199,7 @@ class Fun:
             text = 'You spun a fidget spinner! Let\'s see how long it goes.'
             if spin_time == 1:
                 text = 'Oops... You accidentally'
-                text += 'spun too hard.'
+                text += ' spun too hard.'
             if spin_time == 69:
                 text = 'You spun a spidget finner!'
                 text += 'Let\'s see how long it goes.'

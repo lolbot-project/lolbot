@@ -190,6 +190,9 @@ class Fun:
             await locks[ctx.author.id]
             spin_time = random.randint(1, 300)
             text = 'You spun a fidget spinner! Let\'s see how long it goes.'
+            if spin_time == 1:
+                text = 'Oops... You accidentally'
+                text += 'spun too hard.'
             if spin_time == 69:
                 text = 'You spun a spidget finner!'
                 text += 'Let\'s see how long it goes.'
@@ -198,8 +201,7 @@ class Fun:
             e = discord.Embed(description=f'Your fidget spinner spun for '
                                           f'**{spin_time}** seconds!',
                               colour=0x690E8)
-            await land.edit(content=f'{ctx.author.mention}'
-                                    f' The results are in!',
+            await land.edit(content=f'{ctx.author.mention}',
                                     embed=e)
         finally:
             locks[ctx.author.id].release()

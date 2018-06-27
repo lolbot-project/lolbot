@@ -113,7 +113,7 @@ class Fun:
                     shibe_url = shibe_img['message']
 
                 if '.mp4' in shibe_url:
-                    await ctx.send('mp4 file: ' + shibe_url)
+                    await ctx.send('video: ' + shibe_url)
                 else:
                     shibe_em = discord.Embed(colour=0x690E8)
                     shibe_em.set_image(url=shibe_url)
@@ -153,7 +153,7 @@ class Fun:
 
     @commands.command(aliases=['rhash', 'robothash', 'rh', 'rohash'])
     async def robohash(self, ctx, *, meme: str):
-        """Generates a picture of some bot from some text"""
+        """text => robot image thing"""
         try:
             e = discord.Embed(colour=0x690E8)
             meme = urllib.parse.quote_plus(meme)
@@ -271,7 +271,8 @@ class Fun:
 
     @commands.command()
     async def sumfuk(self, ctx):
-        """U want sum fuk?"""
+        """U want sum fuk?
+        (Thanks weeb.sh)"""
         if self.bot.config['weeb']:
             async with ctx.bot.session.get('https://api.weeb.sh/images/random'
                                            '?type=sumfuk&filetype=png',
@@ -298,10 +299,8 @@ class Fun:
 
     @commands.command(aliases=['bofh', 'techproblem'])
     async def excuse(self, ctx):
-        """BOFH excuses from http://pages.cs.wisc.edu/~ballard/bofh/
-        BOFH = Bastard Operator from Hell.
-
-        I stole this command from lnmds, thanks luna lol
+        """Bastard Operator from Hell excuses.
+        Source: http://pages.cs.wisc.edu/~ballard/bofh
         """
         async with self.bot.session.get('http://pages.cs.wisc.edu'
                                         '/~ballard/bofh/excuses') as r:

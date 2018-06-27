@@ -201,8 +201,7 @@ class Fun:
             e = discord.Embed(description=f'Your fidget spinner spun for '
                                           f'**{spin_time}** seconds!',
                               colour=0x690E8)
-            await land.edit(content=f'{ctx.author.mention}',
-                                    embed=e)
+            await ctx.send(f'{ctx.author.mention}', embed=e)
         finally:
             locks[ctx.author.id].release()
 

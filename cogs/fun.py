@@ -183,12 +183,19 @@ class Fun:
         await ctx.send(embed=emb)
 
     @commands.command(aliases=['fidget', 'fidgetspinner', 'spinner'])
-    async def spin(self, ctx):
+    async def spin(self, ctx, testing: int=0):
         """Spins a fidget spinner!
         The spin time varies from 1 second, to 300 secs (5 mins)."""
         try:
             await locks[ctx.author.id]
-            spin_time = random.randint(1, 300)
+            if testing is not 0:
+                o = await ctx.bot.application_info()
+                if o.owner.id == ctx.message.author.id:
+                    spin_time = testing
+                else:
+                    return await ctx.send('You are not the bot owner.')
+            else:
+                spin_time = random.randint(1, 300)
             text = 'You spun a fidget spinner! Let\'s see how long it goes.'
             if spin_time == 1:
                 text = 'Oops... You accidentally'

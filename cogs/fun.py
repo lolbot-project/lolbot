@@ -201,8 +201,7 @@ class Fun:
                 text = 'Oops... You accidentally'
                 text += ' spun too hard.'
             if spin_time == 69:
-                text = 'You spun a spidget finner!'
-                text += 'Let\'s see how long it goes.'
+                text = 'You spun a spidget finner! Let\'s see how long it goes.'
             land = await ctx.send(text)
             await asyncio.sleep(spin_time)
             e = discord.Embed(description=f'Your fidget spinner spun for '

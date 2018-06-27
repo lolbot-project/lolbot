@@ -199,7 +199,7 @@ class Fun:
                                           f'**{spin_time}** seconds!',
                               colour=0x690E8)
             await land.edit(content=f'{ctx.author.mention}'
-                                    f'The results are in!',
+                                    f' The results are in!',
                                     embed=e)
         finally:
             locks[ctx.author.id].release()

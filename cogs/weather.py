@@ -86,8 +86,8 @@ class Weather:
             status = w.get_detailed_status()
             location = observation.get_location()
             em = discord.Embed(title=f'Weather for {location.get_name()}',
+                               description=f"{icon} Currently: {status}",
                                colour=0x690E8)
-            em.add_field(name='Situation', value=f'{status} {icon}')
             em.add_field(name='Temperature', value=f'`{_wg("celsius")} °C, {_wg("fahrenheit")} °F`')
             await ctx.send(embed=em)
         else:

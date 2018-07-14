@@ -204,10 +204,17 @@ class Fun:
                 text = 'You spun a spidget finner! Let\'s see how long it goes.'
             land = await ctx.send(text)
             await asyncio.sleep(spin_time)
-            e = discord.Embed(description=f'Your fidget spinner spun for '
-                                          f'**{spin_time}** seconds!',
-                              colour=0x690E8)
-            await ctx.send(f'{ctx.author.mention}', embed=e)
+            def s_tx():
+                if spin_time == 1:
+                    return 'You spun too hard, whoops. **1 second**'
+                elif spin_time == 69:
+                    return 'Nice time, huh. **69 seconds**'
+                else:
+                    return f'Cool, you got a time of **{spin_time}** seconds.'
+
+            await land.edit(f'{ctx.author.mention}', embed=discord.Embed(
+                                                           description=s_tx(),
+                                                           colour=0x690E8))
         finally:
             locks[ctx.author.id].release()
 

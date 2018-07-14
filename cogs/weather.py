@@ -70,7 +70,8 @@ class Weather:
         if self.owm:
             try:
                 future = self.loop.run_in_executor(None,
-                                                   self.owm.weather_at_place, loc)
+                                                   self.owm.weather_at_place,
+                                                   loc)
                 observation = await future
 
             except pyowm.exceptions.not_found_error.NotFoundError:
@@ -82,14 +83,14 @@ class Weather:
             _icon = w.get_weather_icon_name()
             icon = OWM_ICONS.get(_icon, '*<no icon>*')
             status = w.get_detailed_status()
-            em = discord.Embed(title=f"Weather for '{loc}'", colour=0x690E8)
-            o_location = observation.get_location()
-            em.add_field(name='Location', value=f'{o_location.get_name()}')
+            location = observation.get_location()
+            em = discord.Embed(title=f'Weather for {location.get_name()}',
+                               colour=0x690E8)
             em.add_field(name='Situation', value=f'{status} {icon}')
             em.add_field(name='Temperature', value=f'`{_wg("celsius")} °C, {_wg("fahrenheit")} °F`')
             await ctx.send(embed=em)
         else:
-            raise uerrs.ServiceError('This instance does not have a OpenWeatherMap API key configured.')
+            raise uerrs.ServiceError('OpenWeatherMap API not configured.')
 
 
 def setup(bot):

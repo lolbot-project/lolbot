@@ -38,11 +38,7 @@ NoRelease = '*No release*'
 
 
 def is_bot(u: discord.Member):
-    if u.bot:
-        return True
-    else:
-        return False
-
+    return True if u.bot else False
 
 def get_nick(u: discord.Member):
     if u.nick:

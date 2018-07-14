@@ -55,35 +55,21 @@ class Osu:
         try:
             self.api.close()
         except Exception:
-            logging.error('osu[api]: Wow, amazing! '
-                          'You closed the instance early. GJ.')
+            logging.warning('osu[api]: early close??')
         else:
             logging.info('osu[unload]: OK')
 
-    @commands.group()
-    async def osu(self, ctx):
-        """Commands for osu!"""
-        if ctx.invoked_subcommand is None:
-            help_em = discord.Embed(title='Commands for osu!', colour=0x690E8)
-            help_em.add_field(name='user', value='Gets info on osu! players.'
-                                                 ' `^osu user *user*`')
-            await ctx.send(embed=help_em)
-
-    @osu.command()
-    async def user(self, ctx, u: str, mode=None):
-        """Returns information on a osu! player.
-        If the player name you are searching has spaces, use quotation marks.
-        e.g. ^osu user "player name with spaces"
-        Special thanks to khazhyk for the library this command uses.
-
-        By default this command defaults to osu!standard.
-        All modes are supported.
-        To use osu!standard, leave mode blank, or use 'standard',
-         'osu!standard', 'osu!' or 0.
-        To use osu!catch, use 'catch', 'osu!catch', or 1.
-        To use osu!taiko, use 'taiko', 'osu!taiko', or 2.
-        To use osu!mania, use 'mania', 'osu!mania', or 3.
-        Any other modes will return 'Unknown' error. (Service error)
+    @commands.command()
+    async def osu(self, ctx, u, mode=0):
+        """Look up osu! users.
+        If the player has spaces in their name, use quotations.
+        `^osu "Player Name"`
+        If you want different modes, you can use alternative syntax:
+        `^osu Cookiezi` (normal)
+        `^osu ExGon ctb` (Catch the Beat)
+        `^osu n1doking taiko` (Taiko)
+        `^osu jakads mania` (Mania)
+        Special thanks to khazhyk for the osuapi library.
         """
         if self.api:
             mode = self.osu_mode_converter(mode=mode)

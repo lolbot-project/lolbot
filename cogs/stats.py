@@ -165,7 +165,7 @@ class Stats:
         logging.info('Left ' + str(guild.name))
         await self.post()
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.is_owner()
     async def poststats(self, ctx):
         """Posts guild stats to bot lists"""

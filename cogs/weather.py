@@ -86,10 +86,11 @@ class Weather:
             status = w.get_detailed_status()
             location = observation.get_location()
             em = discord.Embed(title=f'Weather for {location.get_name()}',
-                               description=f'{icon} Currently: {status}'
-                                           f'{_wg("celsius")} testing Celsius',
+                               description=f'{icon} Currently: {status}\n'
+                                           f'{_wg("celsius")} °C, or '
+                                           f'{_wg("fahrenheit")} °F',
                                colour=0x690E8)
-            em.add_field(name='Temperature', value=f'`{_wg("celsius")} °C, {_wg("fahrenheit")} °F`')
+            # em.add_field(name='Temperature', value=f'`{_wg("celsius")} °C, {_wg("fahrenheit")} °F`')
             await ctx.send(embed=em)
         else:
             raise uerrs.ServiceError('OpenWeatherMap API not configured.')

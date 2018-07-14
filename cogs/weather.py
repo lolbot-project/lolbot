@@ -88,8 +88,8 @@ class Weather:
             em = discord.Embed(title=f'Weather for {location.get_name()}',
                                description=f'{icon} Currently: {status}\n'
                                            ':thermometer: Temperature:'
-                                           f'{_wg("celsius")} °C,'
-                                           f' or {_wg("fahrenheit")} °F',
+                                           f'**{_wg("celsius")}** °C / '
+                                           f' **{_wg("fahrenheit")}** °F',
                                colour=0x690E8)
             # em.add_field(name='Temperature', value=f'`{_wg("celsius")} °C, {_wg("fahrenheit")} °F`')
             await ctx.send(embed=em)

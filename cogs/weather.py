@@ -87,7 +87,7 @@ class Weather:
             location = observation.get_location()
             em = discord.Embed(title=f'Weather for {location.get_name()}',
                                description=f'{icon} Currently: {status}\n'
-                                           ':thermometer: Temperature:'
+                                           ':thermometer: Temperature: '
                                            f'**{_wg("celsius")}** °C / '
                                            f' **{_wg("fahrenheit")}** °F',
                                colour=0x690E8)

@@ -41,6 +41,7 @@ W_SNOW = ':snowflake:'
 W_MIST = ':foggy:'
 
 OWM_ICONS = {
+    '01n': W_CLEAR_SKY,
     '01d': W_CLEAR_SKY,
     '02d': W_FEW_CLOUDS,
     '03d': W_SCATTERED_CLOUDS,

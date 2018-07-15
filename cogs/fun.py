@@ -212,9 +212,9 @@ class Fun:
                 else:
                     return f'Cool, you got a time of **{spin_time}** seconds.'
 
-            await land.edit(f'{ctx.author.mention}', embed=discord.Embed(
-                                                           description=s_tx(),
-                                                           colour=0x690E8))
+            await land.edit(content=f'{ctx.author.mention}',
+                            embed=discord.Embed(description=s_tx(),
+                                                colour=0x690E8))
         finally:
             locks[ctx.author.id].release()
 

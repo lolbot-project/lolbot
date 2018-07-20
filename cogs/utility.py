@@ -113,6 +113,7 @@ class Etc:
     def __init__(self, bot):
         self.bot = bot
         self.support = 'https://discord.gg/PEW4wx9'
+        self.gitlab_url = 'https://gitlab.com/lolbot-project/lolbot'
 
     @commands.command()
     async def hello(self, ctx):
@@ -161,7 +162,7 @@ class Etc:
         info = await ctx.bot.application_info()
         statEmbed = discord.Embed(title='Stats',
                                   description='This bot is powered by [lolbot]'
-                                              '(https://git.io/vxvOM), a fast'
+                                              f'({self.gitlab_url}), a fast'
                                               ' and powerful Python bot.',
                                   colour=0x690E8)
         statEmbed.add_field(name='Owner', value=f'{info.owner!s} - ID:'

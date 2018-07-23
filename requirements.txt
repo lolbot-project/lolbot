@@ -2,5 +2,5 @@ git+https://github.com/rapptz/discord.py@rewrite
 pyowm
 wolframalpha
 osuapi
-quart
+quart==0.6.3
 Quart-CORS

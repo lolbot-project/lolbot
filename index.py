@@ -50,7 +50,8 @@ except Exception:
 
 
 description = '''Just a bot :)'''
-exts = ['bots',
+exts = ['api_launcher',
+        'bots',
         'common',
         'donate',
         'eval',

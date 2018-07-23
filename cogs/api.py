@@ -5,8 +5,10 @@ you are in the wrong place. You are looking for
 api_launcher.py.
 """
 from quart import Quart, jsonify
+from quart_cors import cors
 
 app = Quart(__name__)
+app = cors(app)
 app.bot = None
 
 

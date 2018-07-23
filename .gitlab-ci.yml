@@ -1,0 +1,9 @@
+lint:
+  image: python:3.6
+  before_script:
+    - python -V
+    - pip -V
+  script:
+    - pip install -Ur requirements.txt
+    - pip install -Ur cireqs.txt
+    - pyflakes *.py cogs cogs/utils utils/errors.py

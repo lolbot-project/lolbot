@@ -3,3 +3,4 @@ pyowm
 wolframalpha
 osuapi
 quart
+Quart-CORS

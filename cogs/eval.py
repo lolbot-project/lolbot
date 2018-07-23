@@ -144,7 +144,7 @@ class Exec:
         try:
             with redirect_stdout(stdout):
                 ret = await func()
-        except Exception as e:
+        except Exception:
             # something went wrong
             stream = stdout.getvalue()
             await ctx.send('```py\n{}{}\n```'.format(stream, traceback.format_exc()))

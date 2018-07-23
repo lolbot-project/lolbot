@@ -3,7 +3,6 @@ from discord.ext import commands
 import cogs.utils.gitapi as api
 from cogs.utils.plainreq import get_req
 import urllib.parse
-import logging
 
 class Git:
     def __init__(self, bot):

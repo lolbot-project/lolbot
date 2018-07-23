@@ -226,7 +226,7 @@ class Etc:
             commit = await run_cmd('git rev-parse --short HEAD')
             e = discord.Embed(colour=0x690E8)
             e.add_field(name='Running commit', value=commit)
-            e.add_field(name='Running version', value=bot.version)
+            e.add_field(name='Running version', value=ctx.bot.version)
             e.set_footer(text='powered by git (and stuff)!')
             await ctx.send(embed=e)
 

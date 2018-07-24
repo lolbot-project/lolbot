@@ -17,54 +17,13 @@ Have fun!
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+<link href="css/common.css" rel="stylesheet">
 <meta property="og:site_name" content="lolbot" />
 <meta property="og:description" content="lolbot is a bot made to entertain your Discord server" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:image" content="https://cdn.discordapp.com/avatars/272549225454239744/0507207c32543501fbab78ec7bb972d0.png?size=256" />
 <meta property="og:type" content="website" />
 <title>lolbot</title>
-<style>
-body {
-	text-align: center;
-	margin: 0 auto;
-	color: white;
-	font-family: 'Rubik', sans-serif;
-	font-size: 14px;
-}
-
-body, h1, h2, h3, h4, h5, small, .uk-grid-small { background-color: #2c2f33; } 
-
-#js-bot-guilds {
-  font-size: 25px;
-}
-
-.facolors-online, .facolors-offline {
-  font-size: 20px;
-}
-
-.facolors-online {
-  color: #2ecc40;
-}
-
-.facolors-offline {
-  color: #ff4136;
-}
-
-#js-bot-online {
-  font-size: 20px;
-}
-
-.inv-button:hover:before {
-  content: 'connect to discord';
-  font-size: 14px;
-}
-
-.menu-bg {
-	background-image: url('https://i.imgur.com/USzsroJ.png');
-}
-</style>
 </head>
 <body>
 <div id="page">
@@ -79,10 +38,13 @@ body, h1, h2, h3, h4, h5, small, .uk-grid-small { background-color: #2c2f33; }
   </div>
   <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
     <div class="text-sm lg:flex-grow">
-      <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-blue-lightest mr-4">
+      <a href="#" class="block mt-4 lg:inline-block lg:mt-0 font-bold text-white hover:text-blue-lightest mr-4">
+        Home
+      </a>
+      <a href="./upvote" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-blue-lightest mr-4">
         Upvote
       </a>
-      <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-blue-lightest">
+      <a href="./server" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-blue-lightest">
         Support
       </a>
     </div>
@@ -102,7 +64,6 @@ body, h1, h2, h3, h4, h5, small, .uk-grid-small { background-color: #2c2f33; }
     <div id="js-bot-guilds"><i class="fas fa-spinner fa-spin"></i></div>
      servers.
      </div>
-
   </p>
 </div>
 <br/>
@@ -111,6 +72,10 @@ body, h1, h2, h3, h4, h5, small, .uk-grid-small { background-color: #2c2f33; }
 </button></a>
 <br/>
 <br/><br/>
+<footer>
+  <p style="float:left;">made with &hearts; in texas</p>
+  <p style="float:right;"><i class="fas fa-globe"></i> | <a href="https://lmao.tf">my owner</a></p>
+</footer>
 </div>
 <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" crossorigin="anonymous"></script>
 <script src="js/guilds.js"></script><script>getInfo()</script>

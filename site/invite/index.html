@@ -2,51 +2,22 @@
 <html>
 	<head>
 		<!-- Welcome to lolbot -->
-
-		<!-- Load UIKit/JQuery -->
-		<link rel="stylesheet" href="../css/uikit.css" />
-        	<script src="../js/jquery.js"></script>
-        	<script src="../js/uikit.js"></script>
 		<title>lolbot - invite</title>
+		<link href="../css/loading.css" rel="stylesheet">
 	</head>
 	<body>
 		<style>
-			.loader {
-				/* Thanks Smashing Mag
-				   Source: https://www.smashingmagazine.com/2013/08/absolute-horizontal-vertical-centering-css/
-				*/
-				margin: auto;
-				position: absolute;
-				top: 50%; left: 50%; bottom: 0; right: 0;
-			}
-			.txt {
-				margin: 0 auto;
-				text-align: center;
+			body { background-color: #292e31; }
 		</style>
 		<script>
 			function redirect() {
 				window.location = 'https://discordapp.com/oauth2/authorize?client_id=272549225454239744&scope=bot'
 			}
-
-			function acceptPolicy() {
-				$(this).blur()
-				UIkit.modal.confirm('<i>By clicking OK, you agree to the <a href="https://gist.github.com/tilda/e99c606421ffe1aac7432549df50eb34">lolbot Privacy Policy</a>.</i>').then(function() {
-					console.log('[debug] User agreed to policy')
-					console.log('[debug] Redirecting user to invite link')
-					console.log('[debug] Bye!')
-					redirect()
-				}, function() {
-					console.log('[debug] User disagreed to policy')
-					console.log('[debug] Showing failure modal')
-					UIkit.modal.dialog('<p class="uk-modal-body">You can\'t invite lolbot without agreeing to the Privacy Policy. Sorry!</p><small class="txt">You may now close this tab.</small>')
-			})
-		}
+			setTimeout(redirect, 1500)
 		</script>
-		<div uk-spinner id="load" class="loader"></div>
-		<script>
-			$(document).ready(function (){
-				acceptPolicy()
-			})
-		</script>
+		<div class="spinner">
+			<div class="cube1"></div>
+			<div class="cube2"></div>
+		</div>
 	</body>
 </html>

@@ -31,10 +31,35 @@ body {
 	margin: 0 auto;
 	color: white;
 	font-family: 'Rubik', sans-serif;
-	font-size: 13px;
+	font-size: 14px;
 }
 
 body, h1, h2, h3, h4, h5, small, .uk-grid-small { background-color: #2c2f33; } 
+
+#js-bot-guilds {
+  font-size: 25px;
+}
+
+.facolors-online, .facolors-offline {
+  font-size: 20px;
+}
+
+.facolors-online {
+  color: #2ecc40;
+}
+
+.facolors-offline {
+  color: #ff4136;
+}
+
+#js-bot-online {
+  font-size: 20px;
+}
+
+.inv-button:hover:before {
+  content: 'connect to discord';
+  font-size: 14px;
+}
 
 .menu-bg {
 	background-image: url('https://i.imgur.com/USzsroJ.png');
@@ -43,7 +68,7 @@ body, h1, h2, h3, h4, h5, small, .uk-grid-small { background-color: #2c2f33; }
 </head>
 <body>
 <div id="page">
-<nav class="flex items-center justify-between flex-wrap menu-bg p-6">
+<nav class="flex items-center justify-between flex-wrap menu-bg p-6 align-bottom">
   <div class="flex items-center flex-no-shrink text-white mr-6">
     <span class="font-semibold text-xl tracking-tight">lolbot</span>
   </div>
@@ -70,15 +95,23 @@ body, h1, h2, h3, h4, h5, small, .uk-grid-small { background-color: #2c2f33; }
     <h1 class="text-5xl">welcome to lolbot</h1>
 </div>
 <div class="intro text-center">
-  <p>a entertaining bot for Discord, in <div id="js-bot-guilds"><b><i class="fas fa-spinner fa-spin"></i></b></div> servers.</p>
+  <div id="js-bot-online" class=""><i class="fas fa-spinner fa-spin"></i> loading</div>
+  <br/>
+  <p>
+    a entertaining bot for Discord, trusted by 
+    <div id="js-bot-guilds"><i class="fas fa-spinner fa-spin"></i></div>
+     servers.
+     </div>
+
+  </p>
 </div>
 <br/>
-<a href="/invite"><button class="w-32 h-16 bg-green hover:bg-green-light text-white text-lg font-bold py-2 px-4 border-b-4 border-green-dark hover:green rounded">
-  add to <i class="fab fa-discord"></i>
+<a href="/invite"><button class="inv-button w-48 h-16 bg-green hover:bg-green-light text-white text-lg font-bold py-2 px-4 border-b-4 border-green-dark hover:green rounded">
+  <p></p><i class="fas fa-arrow-right"></i> <i class="fab fa-discord"></i>
 </button></a>
 <br/>
 <br/><br/>
 </div>
 <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" crossorigin="anonymous"></script>
-<script src="js/guilds.js"></script><script>getGuilds()</script>
+<script src="js/guilds.js"></script><script>getInfo()</script>
 </body>

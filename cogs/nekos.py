@@ -50,30 +50,5 @@ class Animemes:
             else:
                 raise utils.errors.ServiceError(f'non-200: {neko.status})')
 
-    @commands.command()
-    async def lneko(self, ctx):
-        """NSFW: Shows a random lewd neko pic
-        Disable this command by putting "[no_nsfw]" in your channel topic.
-        """
-        if ctx.channel.is_nsfw():
-            if '[no_nsfw]' in ctx.channel.topic:
-                raise utils.errors.NSFWException()
-            else:
-                async with get_req(ctx.bot.session, nekos['nsfw']) as lneko:
-                    if lneko.status == 200:
-                        img = await lneko.json()
-                        # noinspection PyPep8Naming
-                        lneko_em = discord.Embed(colour=0x690E8)
-                        lneko_em.set_image(url=img['neko'])
-                        lneko_em.set_footer(text='source: nekos.life')
-                        await ctx.send(embed=lneko_em)
-                    else:
-                        st = lneko.status
-                        raise utils.errors.ServiceError(f'non-200: {st})')
-        else:
-            raise utils.errors.NSFWException('you really think you can do this'
-                                             'in a non nsfw channel? lol')
-
-
 def setup(bot):
     bot.add_cog(Animemes(bot))

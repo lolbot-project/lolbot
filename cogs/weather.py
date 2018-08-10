@@ -48,7 +48,7 @@ OWM_ICONS = {
     '04d': W_BROKEN_CLOUDS,
     '09d': W_SHOWER_RAIN,
     '10d': W_RAIN,
-    '11d': W_THUNDERSTORM,
+    '11n': W_THUNDERSTORM,
     '13d': W_SNOW,
     '50d': W_MIST,
 }

@@ -116,8 +116,8 @@ class Owner:
         elif if_systemd:
             await re_msg.edit(content='systemd: :wave: bye!')
             await self.bot.session.close()
+            await run_cmd('systemctl --user restart lolbot')
             await self.bot.logout()
-            await run_cmd(f'systemctl --user restart lolbot')
         else:
             await re_msg.edit(content=':warning: No supervisor; invoking'
                               ' `shutdown`')

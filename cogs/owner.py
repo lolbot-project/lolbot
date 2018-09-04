@@ -195,13 +195,13 @@ class Owner:
             fbck = discord.Embed(title='Feedback response',
                                  description=res, colour=0x690E8)
             try:
-                await person.send(f'Hello {person.name}! The owner has'
+                await person.send(f'Hello {person.name}! The owner has '
                                   'responded to your feedback.', embed=fbck)
             except Exception as e:
                 return await ctx.send(f'blocked? ```py\n{e}\n```')
             else:
-                fbck = discord.Embed(title='Owner response: {person!s}\'s'
-                                           'feedback',
+                fbck = discord.Embed(title='Owner response: {str(person)}\'s'
+                                           ' feedback',
                                      description=res, colour=0x690E8)
                 await channel.send(embed=fbck)
             await ctx.send('Successfully sent response!')

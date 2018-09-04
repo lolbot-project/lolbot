@@ -188,6 +188,10 @@ class Owner:
     async def feedbackrespond(self, ctx, p: int, *, res: str):
         with ctx.typing():
             person = ctx.bot.get_user(p)
+            try:
+                channel = ctx.bot.get_channel(ctx.bot.config['feedback'])
+            except Exception:
+                await ctx.send(':warning: Cannot find feedback channel?')
             fbck = discord.Embed(title='Feedback response',
                                  description=res, colour=0x690E8)
             try:
@@ -195,6 +199,11 @@ class Owner:
                                   'responded to your feedback.', embed=fbck)
             except Exception as e:
                 return await ctx.send(f'blocked? ```py\n{e}\n```')
+            else:
+                fbck = discord.Embed(title='Owner response: {person!s}\'s'
+                                           'feedback',
+                                     description=res, colour=0x690E8)
+                await channel.send(embed=fbck)
             await ctx.send('Successfully sent response!')
 
 

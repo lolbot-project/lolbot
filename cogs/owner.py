@@ -200,7 +200,7 @@ class Owner:
             except Exception as e:
                 return await ctx.send(f'blocked? ```py\n{e}\n```')
             else:
-                fbck = discord.Embed(title='Owner response: {str(person)}\'s'
+                fbck = discord.Embed(title=f'Owner response: {str(person)}\'s'
                                            ' feedback',
                                      description=res, colour=0x690E8)
                 await channel.send(embed=fbck)

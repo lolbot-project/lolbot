@@ -27,7 +27,7 @@ def construct(sub, dom):
     csrf += '156b8007eb7d9068c1ffba80ccea2e7b1b922545117bad'
     return {
         'csrf': csrf,
-        'subdomain': urllib.parse.quote_plus(sub),
-        'suffix[]': urllib.parse.quote_plus(dom),
+        'subdomain': sub,
+        'suffix[]': dom,
         'c': 0
     }

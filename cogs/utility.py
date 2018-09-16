@@ -30,8 +30,8 @@ import discord
 from discord.ext import commands
 from cogs.owner import run_cmd
 from random import choice as rchoice
-from cogs.utils.plainreq import get_req
 from cogs.utils import tlist
+import html
 
 GitError = 'fatal: Not a git repository (or any of the'
 GitError += 'parent directories): .git'
@@ -266,7 +266,6 @@ class Etc:
         data = tlist.construct(subdomain, tld)
         async with ctx.bot.session.post(tlist.api, headers=tlist.headers,
                                         data=data) as the:
-            print(await the.text())
             the = await the.json()
             the = the['result']
             result = the[tld]

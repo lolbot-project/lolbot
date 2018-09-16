@@ -81,7 +81,7 @@ class Lul(commands.AutoShardedBot):
         # because I will send your ass to oblivion...
         self.pf = prefix_func()
         self.twitch = 'https://twitch.tv/monstercat'
-        self.stream = discord.Streaming
+        self.str = discord.Streaming
         self.session = aiohttp.ClientSession()
         self.badarg = ['You need to put more info than this!',
                        'I didn\'t understand that.',
@@ -97,7 +97,9 @@ class Lul(commands.AutoShardedBot):
         # note that we use " instead of ' here
         # this is a limitation of the fstring parser
         ver = bot.version
-        await bot.change_presence(activity=self.stream(name=f'{self.pf}help | v{ver}', url=self.twitch))
+        await bot.change_presence(activity=self.str(name=f'{self.pf}help |'
+                                                    f' v{ver}',
+                                                    url=self.twitch))
         bot.emoji.fail = discord.utils.get(bot.emojis, name='l_fail')
         bot.emoji.success = discord.utils.get(bot.emojis, name='l_check')
         bot.emoji.load = discord.utils.get(bot.emojis, name='l_process')

@@ -132,7 +132,7 @@ class Exec:
         wrapped_code = 'async def func():\n' + textwrap.indent(code, '    ')
 
         if code == 'bot.http.token':
-            await ctx.message.add_reaction('\u2705')
+            await ctx.message.add_reaction(ctx.bot.emoji.success)
             return await ctx.send("```py\n'Nice try!'\n```")
 
         try:
@@ -153,7 +153,7 @@ class Exec:
             stream = stdout.getvalue()
 
             try:
-                await ctx.message.add_reaction('\u2705')
+                await ctx.message.add_reaction(ctx.bot.emoji.success)
             except discord.Forbidden:
                 # couldn't add the reaction, ignore
                 log.warning('Failed to add reaction to eval message, ignoring.')

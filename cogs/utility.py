@@ -30,6 +30,8 @@ import discord
 from discord.ext import commands
 from cogs.owner import run_cmd
 from random import choice as rchoice
+from cogs.utils.plainreq import get_req
+from cogs.utils import tlist
 
 GitError = 'fatal: Not a git repository (or any of the'
 GitError += 'parent directories): .git'
@@ -240,6 +242,39 @@ class Etc:
                              icon_url=ctx.author.avatar_url)
             await f_channel.send(embed=fback)
             await ctx.send('Your feedback was successfully submitted.')
+
+    @commands.command()
+    async def whois(self, ctx, domain: str):
+        """Looks up a domain using tld list.
+        Information may be limited.
+        """
+        def get_status(ctx, res):
+            if res['avail']:
+                return ctx.bot.emoji.success
+            else:
+                return ctx.bot.emoji.fail
+
+        def get_premium(res):
+            if res['premium']:
+                return ':star:'
+            else:
+                return
+
+        domain2 = domain.replace('.', ' ').split(' ')
+        subdomain = domain2[0]
+        tld = domain2[1]
+        data = tlist.construct(subdomain, tld)
+        async with ctx.bot.session.post(tlist.api, headers=tlist.headers,
+                                        data=data) as the:
+            print(await the.text())
+            the = await the.json()
+            the = the['result']
+            result = the[tld]
+            end = discord.Embed(description=f'**{domain}** '
+                                f'{get_status(ctx, result)}'
+                                f' {get_premium(result) or ""}',
+                                colour=0x690E8)
+            await ctx.send(embed=end)
 
     # @commands.command()
     # async def clean(self, ctx, msgs: int=5):

@@ -98,9 +98,9 @@ class Lul(commands.AutoShardedBot):
         # this is a limitation of the fstring parser
         ver = bot.version
         await bot.change_presence(activity=self.stream(name=f'{self.pf}help | v{ver}', url=self.twitch))
-        bot.emoji.fail = discord.utils.get(bot.emojis, name='notcheck')
-        bot.emoji.success = discord.utils.get(bot.emojis, name='check')
-        bot.emoji.load = discord.utils.get(bot.emojis, name='loading')
+        bot.emoji.fail = discord.utils.get(bot.emojis, name='l_fail')
+        bot.emoji.success = discord.utils.get(bot.emojis, name='l_check')
+        bot.emoji.load = discord.utils.get(bot.emojis, name='l_process')
         logging.info('Playing status changed')
 
     async def on_command_error(self, ctx, error):

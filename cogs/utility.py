@@ -272,7 +272,10 @@ class Etc:
             reg = pick(ohno['registrar'] or 'unknown')
             if reg == 'TLD Registrar Solutions Ltd':
                 reg = 'Internet.bs'
-            expire = ohno['expiration_date'].strftime('%Y-%m-%d %H:%m')
+            if type(ohno['expiration_date']) == list:
+                expire = ohno['expiration_date'][0].strftime('%Y-%m-%d %H:%m')
+            else:
+                expire = ohno['expiration_date'].strftime('%Y-%m-%d %H:%m')
         else:
             pass
 

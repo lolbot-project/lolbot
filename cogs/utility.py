@@ -301,7 +301,7 @@ class Etc:
                                 f'{get_status(ctx, result)}'
                                 f' {get_premium(result) or ""}',
                                 colour=0x690E8)
-            if not bypass_check():
+            if not bypass_check(result, domain):
                 async with ctx.bot.session.get(whois_api) as wdata:
                     wdata = await wdata.json()
                     wdata = wdata['WhoisRecord']

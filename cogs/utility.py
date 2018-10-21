@@ -264,13 +264,15 @@ class Etc:
         def get_premium(res):
             if res['premium']:
                 return ':star:'
-            else:
-                return
 
-        def get_registrar(data):
+        def get_comp(data):
             r = data['registrarName']
             if r.startswith('TLD Registrar Solutions Ltd'):
                 r = 'Internet.bs'
+            elif r == 'ENOM, INC.':
+                r = 'eNom'
+            elif r in ['NAMECHEAP INC', 'NameCheap, Inc.']:
+                r = 'Namecheap'
             return r
 
         def bypass_check(r, d):
@@ -290,8 +292,7 @@ class Etc:
         tld = domain2[1]
         data = tlist.construct(subdomain, tld)
         whois_api = tlist.whois_c(domain, ctx.bot.config['whois'])
-        skip_tlds = ['.tr']
-        freenom = ['.tk', '.cf', '.ga', '.ml', '.gq']
+        fuck_this = ['.tr', '.tk', '.cf', '.ga', '.ml', '.gq']
         async with ctx.bot.session.post(tlist.api, headers=tlist.headers,
                                         data=data) as the:
             the = await the.json()
@@ -311,8 +312,14 @@ class Etc:
                 except KeyError:
                     cre = wdata['registryData']['createdDate'][:10]
                     exp = wdata['registryData']['expiresDate'][:10]
-                if domain[-3:] not in skip_tlds or freenom:
-                    end.add_field(name='Registrar', value=get_registrar(wdata))
+                except KeyError:
+                    cre = wdata['registryData']['createdDateNormalized'][:10]
+                    exp = wdata['registryData']['expiresDateNormalized'][:10]
+                if domain[-3:] not in fuck_this:
+                    try:
+                        end.add_field(name='Registrar', value=get_comp(wdata))
+                    except KeyError:
+                        pass  # fuck this
                     end.add_field(name='Registered', value=cre)
                     end.add_field(name='Expiration', value=exp)
                 else:

@@ -278,9 +278,6 @@ class Etc:
         tld = domain2[1]
         data = tlist.construct(subdomain, tld)
         whois_api = tlist.whois_c(domain, ctx.bot.config['whois'])
-        async with ctx.bot.session.get(whois_api) as wdata:
-            wdata = await wdata.json()
-            wdata = wdata['WhoisRecord']
         async with ctx.bot.session.post(tlist.api, headers=tlist.headers,
                                         data=data) as the:
             the = await the.json()
@@ -290,7 +287,10 @@ class Etc:
                                 f'{get_status(ctx, result)}'
                                 f' {get_premium(result) or ""}',
                                 colour=0x690E8)
-            try:
+            if not result['avail']:
+                async with ctx.bot.session.get(whois_api) as wdata:
+                    wdata = await wdata.json()
+                    wdata = wdata['WhoisRecord']
                 try:
                     cre = wdata['createdDate'][:10]
                     exp = wdata['expiresDate'][:10]
@@ -300,8 +300,6 @@ class Etc:
                 end.add_field(name='Registrar', value=get_registrar(wdata))
                 end.add_field(name='Registered', value=cre)
                 end.add_field(name='Expiration', value=exp)
-            except Exception:
-                print(traceback.format_exc())
             await ctx.send(embed=end)
 
     # @commands.command()

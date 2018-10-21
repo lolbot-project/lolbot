@@ -280,7 +280,7 @@ class Etc:
         tld = domain2[1]
         data = tlist.construct(subdomain, tld)
         whois_api = tlist.whois_c(domain, ctx.bot.config['whois'])
-        fuck_this = ['.tr', '.tk', '.cf', '.ga', '.ml', '.gq']
+        fuck_this = ('.tr', '.tk', '.cf', '.ga', '.ml', '.gq')
         async with ctx.bot.session.post(tlist.api, headers=tlist.headers,
                                         data=data) as the:
             the = await the.json()
@@ -290,7 +290,7 @@ class Etc:
                                 f'{get_status(ctx, result)}'
                                 f' {get_premium(result) or ""}',
                                 colour=0x690E8)
-            if result['avail'] or domain in fuck_this:
+            if result['avail'] or domain.endswith(fuck_this):
                 pass
             else:
                 async with ctx.bot.session.get(whois_api) as wdata:

@@ -12,6 +12,7 @@ app = Quart(__name__)
 app = cors(app)
 app.bot = None
 
+
 # Basic shit
 @app.route('/')
 async def no():
@@ -21,6 +22,7 @@ async def no():
 @app.route('/api/ping')
 async def wsping():
     return jsonify({'ws': round(app.bot.latency, 3)})
+
 
 @app.route('/api/votes')
 async def votes():
@@ -51,6 +53,8 @@ async def votes():
         'lc_status': lc_status,
         'lc_votes': lc_votes
     })
+
+
 # Stats endpoints
 @app.route('/api/stats/<whatever>')
 async def stats(whatever):

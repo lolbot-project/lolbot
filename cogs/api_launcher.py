@@ -8,14 +8,19 @@ class WebAPILauncher:
         self.bot = bot
         self.loop = bot.loop
         app.bot = bot
+        bot.api_instance = app
         self.start_app()
 
     def start_app(self):
-        self.loop.create_task(self.loop.create_server(
+        self.bot.api_task = self.loop.create_task(self.loop.create_server(
             lambda: Server(app, self.bot.loop, create_serving_logger(
             ), '%(h)s %(r)s %(s)s %(b)s %(D)s', keep_alive_timeout=5),
             host='0.0.0.0', port=6142, ssl=None
         ))
+
+
+def __unload(bot):
+    bot.api_task.cancel()
 
 
 def setup(bot):

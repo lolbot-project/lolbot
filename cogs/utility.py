@@ -27,11 +27,11 @@ import datetime
 # noinspection PyPackageRequirements
 import discord
 # noinspection PyPackageRequirements
+import whois
 from discord.ext import commands
 from cogs.owner import run_cmd
 from random import choice as rchoice
 from cogs.utils import tlist
-import html
 
 GitError = 'fatal: Not a git repository (or any of the'
 GitError += 'parent directories): .git'
@@ -41,6 +41,7 @@ NoRelease = '*No release*'
 
 def is_bot(u: discord.Member):
     return True if u.bot else False
+
 
 def get_nick(u: discord.Member):
     if u.nick:
@@ -243,11 +244,17 @@ class Etc:
             await f_channel.send(embed=fback)
             await ctx.send('Your feedback was successfully submitted.')
 
-    @commands.command()
-    async def whois(self, ctx, domain: str):
+    @commands.command(name='whois')
+    async def _whois(self, ctx, domain: str):
         """Looks up a domain using tld list.
         Information may be limited.
         """
+        def pick(l):
+            if isinstance(l, list):
+                return l[0]
+            else:
+                return l
+
         def get_status(ctx, res):
             if res['avail']:
                 return ctx.bot.emoji.success
@@ -259,6 +266,15 @@ class Etc:
                 return ':star:'
             else:
                 return
+
+        ohno = await ctx.bot.loop.run_in_executor(None, whois.whois, domain)
+        if ohno['registrar']:
+            reg = pick(ohno['registrar'] or 'unknown')
+            if reg == 'TLD Registrar Solutions Ltd':
+                reg = 'Internet.bs'
+            expire = ohno['expiration_date'].strftime('%Y-%m-%d %H:%m')
+        else:
+            pass
 
         domain2 = domain.replace('.', ' ').split(' ')
         subdomain = domain2[0]
@@ -273,6 +289,11 @@ class Etc:
                                 f'{get_status(ctx, result)}'
                                 f' {get_premium(result) or ""}',
                                 colour=0x690E8)
+            if not result['avail']:
+                end.add_field(name='Registrar', value=reg)
+                end.add_field(name='Expiration', value=expire)
+            else:
+                pass
             await ctx.send(embed=end)
 
     # @commands.command()

@@ -4,3 +4,4 @@ wolframalpha
 osuapi
 quart==0.6.3
 Quart-CORS
+python-whois==0.6.5

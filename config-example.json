@@ -23,9 +23,10 @@
     "weeb": "",
     "//10": "osu! API key. Don't have it? Obviously not required.",
     "osu": "",
-
-    "//11": "Optional switch. Please enable the option down below",
-    "//12": "if you are running the bot for development or similar.",
+    "//11": "whoisxmlapi.com key. If you want WHOIS, this is for you.",
+    "whois": "",
+    "//12": "Optional switch. Please enable the option down below",
+    "//13": "if you are running the bot for development or similar.",
 
     "beta": false
 }

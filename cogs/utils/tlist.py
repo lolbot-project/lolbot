@@ -1,8 +1,6 @@
 """
 TLD List defined things.
 """
-import urllib.parse
-
 api = 'https://tld-list.com/xaja/dac'
 headers = {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML,'
@@ -31,3 +29,13 @@ def construct(sub, dom):
         'suffix[]': dom,
         'c': 0
     }
+
+
+def whois_c(domain, key):
+    del key
+    return f'http://127.0.0.1:5000/api/whois/{domain}'
+
+# def whois_c(domain, key):
+#    base = 'https://www.whoisxmlapi.com/whoisserver/WhoisService'
+#    base += f'?apiKey={key}&domainName={domain}&outputFormat=JSON'
+#    return base

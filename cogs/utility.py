@@ -24,10 +24,10 @@ DEALINGS IN THE SOFTWARE.
 import sys
 import time
 import datetime
+import traceback
 # noinspection PyPackageRequirements
 import discord
 # noinspection PyPackageRequirements
-import whois
 from discord.ext import commands
 from cogs.owner import run_cmd
 from random import choice as rchoice
@@ -267,22 +267,20 @@ class Etc:
             else:
                 return
 
-        ohno = await ctx.bot.loop.run_in_executor(None, whois.whois, domain)
-        if ohno['registrar']:
-            reg = pick(ohno['registrar'] or 'unknown')
-            if reg == 'TLD Registrar Solutions Ltd':
-                reg = 'Internet.bs'
-            if type(ohno['expiration_date']) == list:
-                expire = ohno['expiration_date'][0].strftime('%Y-%m-%d %H:%m')
-            else:
-                expire = ohno['expiration_date'].strftime('%Y-%m-%d %H:%m')
-        else:
-            pass
+        def get_registrar(data):
+            r = data['registrarName']
+            if r.startswith('TLD Registrar Solutions Ltd'):
+                r = 'Internet.bs'
+            return r
 
         domain2 = domain.replace('.', ' ').split(' ')
         subdomain = domain2[0]
         tld = domain2[1]
         data = tlist.construct(subdomain, tld)
+        whois_api = tlist.whois_c(domain, ctx.bot.config['whois'])
+        async with ctx.bot.session.get(whois_api) as wdata:
+            wdata = await wdata.json()
+            wdata = wdata['WhoisRecord']
         async with ctx.bot.session.post(tlist.api, headers=tlist.headers,
                                         data=data) as the:
             the = await the.json()
@@ -292,11 +290,18 @@ class Etc:
                                 f'{get_status(ctx, result)}'
                                 f' {get_premium(result) or ""}',
                                 colour=0x690E8)
-            if not result['avail']:
-                end.add_field(name='Registrar', value=reg)
-                end.add_field(name='Expiration', value=expire)
-            else:
-                pass
+            try:
+                try:
+                    cre = wdata['createdDate'][:10]
+                    exp = wdata['expiresDate'][:10]
+                except KeyError:
+                    cre = wdata['registryData']['createdDate'][:10]
+                    exp = wdata['registryData']['expiresDate'][:10]
+                end.add_field(name='Registrar', value=get_registrar(wdata))
+                end.add_field(name='Registered', value=cre)
+                end.add_field(name='Expiration', value=exp)
+            except Exception:
+                print(traceback.format_exc())
             await ctx.send(embed=end)
 
     # @commands.command()

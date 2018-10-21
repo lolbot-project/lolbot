@@ -291,6 +291,7 @@ class Etc:
         data = tlist.construct(subdomain, tld)
         whois_api = tlist.whois_c(domain, ctx.bot.config['whois'])
         skip_tlds = ['.tr']
+        freenom = ['.tk', '.cf', '.ga', '.ml', '.gq']
         async with ctx.bot.session.post(tlist.api, headers=tlist.headers,
                                         data=data) as the:
             the = await the.json()
@@ -310,12 +311,12 @@ class Etc:
                 except KeyError:
                     cre = wdata['registryData']['createdDate'][:10]
                     exp = wdata['registryData']['expiresDate'][:10]
-                if domain[-4:] not in skip_tlds:
+                if domain[-3:] not in skip_tlds or freenom:
                     end.add_field(name='Registrar', value=get_registrar(wdata))
+                    end.add_field(name='Registered', value=cre)
+                    end.add_field(name='Expiration', value=exp)
                 else:
                     pass
-                end.add_field(name='Registered', value=cre)
-                end.add_field(name='Expiration', value=exp)
             await ctx.send(embed=end)
 
     # @commands.command()

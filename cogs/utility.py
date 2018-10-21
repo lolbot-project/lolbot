@@ -275,18 +275,6 @@ class Etc:
                 r = 'Namecheap'
             return r
 
-        def bypass_check(r, d):
-            non_tlds = ['.tk',
-                        '.ga',
-                        '.ml',
-                        '.cf',
-                        '.gq']
-            if d[-4:] in non_tlds:
-                return True
-            if r['avail']:
-                return True
-            return False
-
         domain2 = domain.replace('.', ' ').split(' ')
         subdomain = domain2[0]
         tld = domain2[1]
@@ -302,7 +290,7 @@ class Etc:
                                 f'{get_status(ctx, result)}'
                                 f' {get_premium(result) or ""}',
                                 colour=0x690E8)
-            if bypass_check(result, domain):
+            if result['avail'] or domain in fuck_this:
                 pass
             else:
                 async with ctx.bot.session.get(whois_api) as wdata:

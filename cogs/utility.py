@@ -273,11 +273,24 @@ class Etc:
                 r = 'Internet.bs'
             return r
 
+        def bypass_check(r, d):
+            non_tlds = ['.tk',
+                        '.ga',
+                        '.ml',
+                        '.cf',
+                        '.gq']
+            if d[-4:] in non_tlds:
+                return True
+            if r['avail']:
+                return True
+            return False
+
         domain2 = domain.replace('.', ' ').split(' ')
         subdomain = domain2[0]
         tld = domain2[1]
         data = tlist.construct(subdomain, tld)
         whois_api = tlist.whois_c(domain, ctx.bot.config['whois'])
+        skip_tlds = ['.tr']
         async with ctx.bot.session.post(tlist.api, headers=tlist.headers,
                                         data=data) as the:
             the = await the.json()
@@ -287,7 +300,7 @@ class Etc:
                                 f'{get_status(ctx, result)}'
                                 f' {get_premium(result) or ""}',
                                 colour=0x690E8)
-            if not result['avail']:
+            if not bypass_check():
                 async with ctx.bot.session.get(whois_api) as wdata:
                     wdata = await wdata.json()
                     wdata = wdata['WhoisRecord']
@@ -297,7 +310,10 @@ class Etc:
                 except KeyError:
                     cre = wdata['registryData']['createdDate'][:10]
                     exp = wdata['registryData']['expiresDate'][:10]
-                end.add_field(name='Registrar', value=get_registrar(wdata))
+                if domain[-4:] not in skip_tlds:
+                    end.add_field(name='Registrar', value=get_registrar(wdata))
+                else:
+                    pass
                 end.add_field(name='Registered', value=cre)
                 end.add_field(name='Expiration', value=exp)
             await ctx.send(embed=end)

@@ -297,6 +297,12 @@ class Etc:
                     wdata = await wdata.json()
                     wdata = wdata['WhoisRecord']
                 try:
+                    if wdata['dataError']:
+                        await ctx.send(f'{ctx.bot.emoji.fail!s}'
+                                       ' Does not exist.')
+                except Exception:
+                    pass
+                try:
                     cre = wdata['createdDate'][:10]
                     exp = wdata['expiresDate'][:10]
                 except KeyError:
@@ -305,6 +311,8 @@ class Etc:
                 except KeyError:
                     cre = wdata['registryData']['createdDateNormalized'][:10]
                     exp = wdata['registryData']['expiresDateNormalized'][:10]
+                else:
+                    pass  # fuck this
                 if domain[-3:] not in fuck_this:
                     try:
                         end.add_field(name='Registrar', value=get_comp(wdata))

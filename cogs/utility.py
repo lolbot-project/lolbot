@@ -301,7 +301,7 @@ class Etc:
                         await ctx.send(f'{ctx.bot.emoji.fail!s}'
                                        ' Does not exist.')
                 except Exception:
-                    pass
+                    return
                 try:
                     cre = wdata['createdDate'][:10]
                     exp = wdata['expiresDate'][:10]

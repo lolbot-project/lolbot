@@ -91,7 +91,6 @@ class Weather:
                                            f'**{_wg("celsius")}** °C / '
                                            f' **{_wg("fahrenheit")}** °F',
                                colour=0x690E8)
-            # em.add_field(name='Temperature', value=f'`{_wg("celsius")} °C, {_wg("fahrenheit")} °F`')
             await ctx.send(embed=em)
         else:
             raise uerrs.ServiceError('OpenWeatherMap API not configured.')

@@ -300,6 +300,8 @@ class Etc:
                     if wdata['dataError']:
                         await ctx.send(f'{ctx.bot.emoji.fail!s}'
                                        ' Does not exist.')
+                except KeyError:
+                    pass
                 except Exception:
                     return
                 try:

@@ -25,6 +25,7 @@ import sys
 import time
 import datetime
 import traceback
+import logging
 # noinspection PyPackageRequirements
 import discord
 # noinspection PyPackageRequirements
@@ -302,8 +303,8 @@ class Etc:
                                        ' Does not exist.')
                 except KeyError:
                     pass
-                except Exception:
-                    return
+                except Exception as e:
+                    return logging.error(e)
                 try:
                     cre = wdata['createdDate'][:10]
                     exp = wdata['expiresDate'][:10]

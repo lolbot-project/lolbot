@@ -250,6 +250,8 @@ class Etc:
         """Looks up a domain using tld list.
         Information may be limited.
         """
+        from utils.errors import ServiceError
+        raise ServiceError('TLD List has blocked the server IP. Sorry!')
         def pick(l):
             if isinstance(l, list):
                 return l[0]
@@ -262,7 +264,7 @@ class Etc:
             else:
                 return ctx.bot.emoji.fail
 
-        def get_premium(res):
+        #ef get_premium(res):
             if res['premium']:
                 return ':star:'
 

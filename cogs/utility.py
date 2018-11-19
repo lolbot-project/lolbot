@@ -250,8 +250,7 @@ class Etc:
         """Looks up a domain using tld list.
         Information may be limited.
         """
-        from utils.errors import ServiceError
-        raise ServiceError('TLD List has blocked the server IP. Sorry!')
+        return await ctx.send('This command is unavailable due to TLD List blocking my IP.')
         def pick(l):
             if isinstance(l, list):
                 return l[0]

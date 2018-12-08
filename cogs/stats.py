@@ -169,7 +169,7 @@ class Stats:
     @commands.is_owner()
     async def poststats(self, ctx):
         """Posts guild stats to bot lists"""
-        land = await ctx.send(f'{bot.emoji.load} Hold on a sec...')
+        land = await ctx.send(f'{ctx.bot.emoji.load} Hold on a sec...')
         logging.info('poster: forcing post')
         dbl = await ctx.send('Posting to discordbots.org...')
         if self.bot.config['dbotsorg']:

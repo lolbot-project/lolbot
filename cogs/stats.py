@@ -111,11 +111,11 @@ class Stats:
                 'Content-Type': 'application/json'
             }
             data = {
-                'server_count': len(self.bot.guilds),
-                'shard_count': len(self.bot.shards)
+                'serverCount': len(self.bot.guilds),
+                'shardCount': len(self.bot.shards)
             }
             i = await self.bot.application_info()
-            req = await self.bot.session.post(f'https://bots.discord.pw/api/bots/{i.id}/stats',
+            req = await self.bot.session.post(f'https://discord.bots.gg/api/bots/{i.id}/stats',
                                               data=json.dumps(data), headers=headers)
             status = req.status
             if status in [200, 204]:

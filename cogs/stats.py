@@ -169,7 +169,7 @@ class Stats:
     @commands.is_owner()
     async def poststats(self, ctx):
         """Posts guild stats to bot lists"""
-        land = await ctx.send('{bot.emoji.load} Hold on a sec...')
+        land = await ctx.send(f'{bot.emoji.load} Hold on a sec...')
         logging.info('poster: forcing post')
         dbl = await ctx.send('Posting to discordbots.org...')
         if self.bot.config['dbotsorg']:
@@ -180,7 +180,7 @@ class Stats:
                                'Error: `\`\`\py\n{e}\n`\`\`')
             else:
                 await dbl.edit(content=f'{ctx.bot.emoji.success} Posted to'
-                               'discordbots.org.')
+                               ' discordbots.org.')
         else:
             await dbl.edit(content='No key configured, '
                            'skipping discordbots.org!')

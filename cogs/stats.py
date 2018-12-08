@@ -111,7 +111,7 @@ class Stats:
                 'Content-Type': 'application/json'
             }
             data = {
-                'serverCount': len(self.bot.guilds),
+                'guildCount': len(self.bot.guilds),
                 'shardCount': len(self.bot.shards)
             }
             i = await self.bot.application_info()

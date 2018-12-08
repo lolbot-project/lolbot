@@ -28,7 +28,6 @@ async def wsping():
 async def votes():
     _id = app.bot.user.id
     dbl = await app.bot.session.get(f'https://discordbots.org/api/bots/{_id}')
-    listcord = await app.bot.session.get(f'https://listcord.com/api/bot/{_id}')
     if dbl.status == 200:
         _dbl = await dbl.json()
         dbl_status = 200
@@ -38,20 +37,10 @@ async def votes():
         dbl_monthly = '0 (error)'
         dbl_total = '0 (error)'
         dbl_status = dbl.status
-    if listcord.status == 200:
-        _lc = await listcord.json()
-        lc_status = 200
-        lc_votes = _lc['votes']
-    else:
-        lc_status = listcord.status
-        lc_votes = '0 (error)'
-
     return jsonify({
         'dbl_status': dbl_status,
         'dbl_monthly': dbl_monthly,
-        'dbl_total': dbl_total,
-        'lc_status': lc_status,
-        'lc_votes': lc_votes
+        'dbl_total': dbl_total
     })
 
 

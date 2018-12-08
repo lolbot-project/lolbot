@@ -169,28 +169,29 @@ class Stats:
     @commands.is_owner()
     async def poststats(self, ctx):
         """Posts guild stats to bot lists"""
-        ok = discord.utils.get(self.bot.emojis, name='check')
-        not_ok = discord.utils.get(self.bot.emojis, name='notcheck')
-        land = await ctx.send('Hold on a sec...')
+        land = await ctx.send('{bot.emoji.load} Hold on a sec...')
         logging.info('poster: forcing post')
         dbl = await ctx.send('Posting to discordbots.org...')
         if self.bot.config['dbotsorg']:
             try:
                 await self.dblpost()
             except Exception as e:
-                await dbl.edit(content=f'<:notcheck:{not_ok.id}> Error: `\`\`\py\n{e}\n`\`\`')
+                await dbl.edit(content=f'{ctx.bot.emoji.fail}'
+                               'Error: `\`\`\py\n{e}\n`\`\`')
             else:
-                await dbl.edit(content=f'<:check:{ok.id}> Posted to discordbots.org.')
+                await dbl.edit(content=f'{ctx.bot.emoji.success} Posted to'
+                               'discordbots.org.')
         else:
-            await dbl.edit(content='No key configured, skipping discordbots.org!')
+            await dbl.edit(content='No key configured, '
+                           'skipping discordbots.org!')
         dpw = await ctx.send('Posting to bots.discord.pw...')
         if self.bot.config['dbotspw']:
             try:
                 await self.dpwpost()
             except Exception as e:
-                await dpw.edit(content=f'<:notcheck:{not_ok.id}> Error: `\`\`\py\n{e}\n`\`\`')
+                await dpw.edit(content=f'{ctx.bot.emoji.fail} Error: `\`\`\py\n{e}\n`\`\`')
             else:
-                await dpw.edit(content=f'<:check:{ok.id}> Posted to bots.discord.pw.')
+                await dpw.edit(content=f'{ctx.bot.emoji.success} Posted to discord.bots.gg.')
         else:
             await dpw.edit(content=f'No key configured, skipping bots.discord.pw!')
         ddg = await ctx.send('Posting to Datadog...')
@@ -198,9 +199,9 @@ class Stats:
             try:
                 await self.dogpost()
             except Exception as e:
-                await ddg.edit(content=f'<:notcheck:{not_ok.id}> Error: `\`\`\py\n{e}\n`\`\`')
+                await ddg.edit(content=f'{ctx.bot.emoji.fail} Error: `\`\`\py\n{e}\n`\`\`')
             else:
-                await ddg.edit(content=f'<:check:{ok.id}> Posted to Datadog.')
+                await ddg.edit(content=f'{ctx.bot.emoji.success} Posted to Datadog.')
         else:
             await ddg.edit(content='Integration disabled, skipping Datadog!')
         await land.edit(content='Posted count.')

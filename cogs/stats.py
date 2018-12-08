@@ -115,7 +115,7 @@ class Stats:
                 'shardCount': len(self.bot.shards)
             }
             i = await self.bot.application_info()
-            req = await self.bot.session.post(f'https://discord.bots.gg/api/bots/{i.id}/stats',
+            req = await self.bot.session.post(f'https://discord.bots.gg/api/v1/bots/{i.id}/stats',
                                               data=json.dumps(data), headers=headers)
             status = req.status
             if status in [200, 204]:

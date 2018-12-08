@@ -27,7 +27,10 @@ async def wsping():
 @app.route('/api/votes')
 async def votes():
     _id = app.bot.user.id
-    dbl = await app.bot.session.get(f'https://discordbots.org/api/bots/{_id}')
+    dbl = await app.bot.session.get(f'https://discordbots.org/api/bots/{_id}',
+                                    headers={
+                                        'Authorization': app.bot.config['dbl']
+                                    })
     if dbl.status == 200:
         _dbl = await dbl.json()
         dbl_status = 200

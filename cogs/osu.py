@@ -48,7 +48,7 @@ class Osu:
         elif mode is 3 or 'mania' or 'osu!mania':
             return osuapi.enums.OsuMode.mania
         else:
-            return 'Unknown'
+            return None
 
     def __unload(self):
         logging.info('osu[api]: Closing session.')
@@ -73,7 +73,7 @@ class Osu:
         """
         if self.api:
             mode = self.osu_mode_converter(mode=mode)
-            if mode == 'Unknown':
+            if mode == None:
                 raise utils.errors.ServiceError('Unknown mode')
             user = await self.api.get_user(u, mode=mode)
             try:
@@ -94,9 +94,6 @@ class Osu:
                              icon_url='https://osu.ppy.sh/images/flags/'
                                       f'{user.country}.png')
         osu_embed.set_thumbnail(url=f'https://a.ppy.sh/{user.user_id}')
-        osu_embed.add_field(name='Hits (300/100/50)', value=f'{user.count300}/'
-                                                            f'{user.count100}/'
-                                                            f'{user.count50}')
         osu_embed.add_field(name='Play count', value=user.playcount)
         osu_embed.add_field(name='Ranked score', value=user.ranked_score)
         osu_embed.add_field(name='Total score', value=user.total_score)

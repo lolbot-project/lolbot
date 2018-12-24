@@ -73,7 +73,7 @@ class Osu:
         """
         if self.api:
             mode = self.osu_mode_converter(mode=mode)
-            if mode == None:
+            if mode is None:
                 raise utils.errors.ServiceError('Unknown mode')
             user = await self.api.get_user(u, mode=mode)
             try:

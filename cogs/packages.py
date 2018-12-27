@@ -44,7 +44,7 @@ class Packages:
     def get_platform(self, platform):
         any_list = ['any', 'UNKNOWN', '']
         if platform in any_list:
-            return "Anywhere!"
+            return 'Any'
         else:
             return platform
 
@@ -62,13 +62,11 @@ class Packages:
 
     @classmethod
     def summary_ret(self, summary):
-        if summary:
-            return f'*{summary}*'
-        else:
-            return '*None.*'
+        return f'*{summary}*' if summary else '*None.*'
 
     @commands.command()
     async def pypi(self, ctx, pkg: str):
+        """Look up a package on the Python Package Index."""
         async with get_req(ctx.bot.session, self.json_pkg(pkg)) as ps:
             if ps.status == 200:
                 pkj = await ps.json()

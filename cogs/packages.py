@@ -100,6 +100,7 @@ class Packages:
 
     @commands.command()
     async def crates(self, ctx, pkg: str):
+        """Look up a crate on crates.io."""
         async with get_req(ctx.bot.session, 'https://crates.io/api/v1/'
                            f'crates/{pkg}') as ps:
             if ps.status == 200:

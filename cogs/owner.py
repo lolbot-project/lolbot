@@ -125,66 +125,6 @@ class Owner:
 
     @commands.command(hidden=True)
     @commands.is_owner()
-    async def load(self, ctx, *exts: str):
-        """Loads a cog"""
-        for ext in exts:
-            try:
-                self.bot.load_extension('cogs.' + ext)
-            except ModuleNotFoundError:
-                await ctx.send(f':x: Cog `{ext}` not found.')
-                return
-            except Exception:
-                await ctx.send(f'```py\n{traceback.format_exc()}\n```')
-                return
-            logging.info(f'owner[load]: cog {ext} loaded')
-            await ctx.send(f':ok_hand: `{ext}` loaded.')
-
-    @commands.command(hidden=True)
-    @commands.is_owner()
-    async def unload(self, ctx, *exts: str):
-        """Unloads a cog"""
-        for ext in exts:
-            self.bot.unload_extension('cogs.' + ext)
-            logging.info(f'owner[unload]: cog {ext} unloaded')
-            await ctx.send(f':ok_hand: `{ext}` unloaded.')
-
-    @commands.command(hidden=True)
-    @commands.is_owner()
-    async def reload(self, ctx, *exts: str):
-        """Reloads a cog"""
-        for ext in exts:
-            try:
-                self.bot.unload_extension('cogs.' + ext)
-                self.bot.load_extension('cogs.' + ext)
-            except ModuleNotFoundError:
-                await ctx.send(f':x: Cog `{ext}` not found.')
-                return
-            except Exception:
-                await ctx.send(f'```{traceback.format_exc()}```')
-                return
-            logging.info(f'owner[reload]: cog {ext} reloaded')
-            await ctx.send(f':ok_hand: Reloaded `{ext}`')
-
-    @commands.command(hidden=True)
-    @commands.is_owner()
-    async def shell(self, ctx, *, command: str):
-        """Run stuff"""
-        with ctx.typing():
-            result = await run_cmd(command)
-            if len(result) >= 1500:
-                pa = await paste.haste(ctx.bot.session, result)
-                await ctx.send(f'`{command}`: Too long for Discord! {pa}')
-            else:
-                await ctx.send(f"`{command}`: ```{result}```\n")
-
-    @commands.command(hidden=True)
-    @commands.is_owner()
-    async def update(self, ctx):
-        """Lazy much? Whatever..."""
-        await ctx.invoke(self.bot.get_command('shell'), command='git pull')
-
-    @commands.command(hidden=True)
-    @commands.is_owner()
     async def feedbackrespond(self, ctx, p: int, *, res: str):
         with ctx.typing():
             person = ctx.bot.get_user(p)

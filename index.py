@@ -154,9 +154,7 @@ if __name__ == '__main__':
             logging.error(f'Error while loading {ext}', exc_info=True)
         else:
             logging.info(f'Successfully loaded {ext}')
+    bot.load_extension('jishaku')
 
-logging.debug('enabling garbage collection')
 gc.enable()
-
-logging.debug('starting')
 bot.run(config['token'])

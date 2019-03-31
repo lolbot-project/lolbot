@@ -5,5 +5,5 @@ into a simple function.
 from cogs.common import user_agent
 from aiohttp import ClientSession
 
-def get_req(session: ClientSession, url: str):
-    return session.get(url, headers=user_agent)
+async def get_req(session: ClientSession, url: str):
+    return await session.get(url, headers=user_agent)

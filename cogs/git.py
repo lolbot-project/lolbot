@@ -4,7 +4,7 @@ import cogs.utils.gitapi as api
 from cogs.utils.plainreq import get_req
 import urllib.parse
 
-class Git:
+class Git(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         #self.ghkey = self.bot.config['github']

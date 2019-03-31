@@ -84,7 +84,7 @@ def pod_finder(pod_list):
     return discord.utils.find(lambda pod: pod['@id'] == best_id, pod_list)
 
 
-class Wolfram:
+class Wolfram(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         if self.bot.config['wa']:

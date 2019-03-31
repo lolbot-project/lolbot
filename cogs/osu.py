@@ -29,7 +29,7 @@ import utils.errors
 import logging
 
 
-class Osu:
+class Osu(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         if bot.config['osu']:

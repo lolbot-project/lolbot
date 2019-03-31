@@ -55,7 +55,7 @@ async def find_channel(guild):
         return c
 
 
-class Stats:
+class Stats(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

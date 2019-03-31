@@ -113,7 +113,7 @@ def bot_uptime(init_time):
     return fmt
 
 
-class Etc:
+class Etc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.support = 'https://discord.gg/PEW4wx9'

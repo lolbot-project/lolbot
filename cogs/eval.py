@@ -79,7 +79,7 @@ def format_syntax_error(e: SyntaxError) -> str:
     return '```py\n{0.text}{1:>{0.offset}}\n{2}: {0}```'.format(e, '^', type(e).__name__)
 
 
-class Exec:
+class Exec(commands.Cog):
     def __init__(self, bot, *args, **kwargs):
         self.bot = bot
         self.last_result = None

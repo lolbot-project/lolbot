@@ -26,7 +26,7 @@ from discord.ext import commands
 from cogs.utils.plainreq import get_req
 
 
-class Packages:
+class Packages(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

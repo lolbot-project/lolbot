@@ -40,7 +40,7 @@ DEALINGS IN THE SOFTWARE.
 locks = defaultdict(asyncio.Lock)
 
 
-class Fun:
+class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.weeb_key = self.bot.config['weeb']

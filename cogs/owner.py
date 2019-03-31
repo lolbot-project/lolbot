@@ -46,7 +46,7 @@ async def run_cmd(cmd: str) -> str:
     return "".join(x.decode("utf-8") for x in results)
 
 
-class Owner:
+class Owner(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

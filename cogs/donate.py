@@ -27,17 +27,15 @@ import discord
 from discord.ext import commands
 
 
-class Donate:
+class Donate(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
     async def donate(self, ctx):
         """Support lolbot into the future!"""
-        aboutEm = discord.Embed(description='lolbot is a free service. Help me out!',
+        aboutEm = discord.Embed(description='Donations are currently disabled for now.',
                                 colour=0x690E8)
-        aboutEm.add_field(name='PayPal', value='Message tilda#6729')
-        aboutEm.add_field(name='Other', value='Suggest them, I\'ll consider!')
         await ctx.send(embed=aboutEm)
 
 

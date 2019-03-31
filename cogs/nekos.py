@@ -32,7 +32,7 @@ from cogs.utils.plainreq import get_req
 from cogs.utils.endpoints import nekos
 
 
-class Animemes:
+class Animemes(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = json.load(open('config.json'))

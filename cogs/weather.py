@@ -54,7 +54,7 @@ OWM_ICONS = {
 }
 
 
-class Weather:
+class Weather(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.loop = self.bot.loop

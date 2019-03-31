@@ -22,12 +22,12 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 # noinspection PyPackageRequirements
-#from discord.ext import commands
+from discord.ext import commands
 # noinspection PyPackageRequirements
 #import discord
 
 
-class DBots:
+class DBots(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         #self.headers = {

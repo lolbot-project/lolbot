@@ -140,9 +140,11 @@ class Lul(commands.AutoShardedBot):
 
 
 config = json.load(open('config.json'))
+# pm_help=None was removed, this is the other way to do it
+help_command = commands.help.DefaultHelpCommand(dm_help=None)
 bot = Lul(command_prefix=commands.when_mentioned_or(config['prefix']),
           description=description,
-          pm_help=None)
+          help_command=None)
 
 if __name__ == '__main__':
     for ext in exts:

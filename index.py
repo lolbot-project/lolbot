@@ -155,9 +155,7 @@ if __name__ == '__main__':
             logging.error(f'Error while loading {ext}', exc_info=True)
         else:
             logging.info(f'Successfully loaded {ext}')
-    # Disabled for now. Jishaku has not updated
-    # to the latest rewrite yet.
-    # bot.load_extension('jishaku')
+    bot.load_extension('jishaku')
 
 gc.enable()
 bot.run(config['token'])

@@ -197,6 +197,7 @@ class Etc(commands.Cog):
 
     @commands.command(aliases=['userinfo', 'uinfo'])
     async def user(self, ctx, u: discord.Member):
+        """Looks up information about a user"""
         try:
             status = get_status(u)
             join_date = get_join_date(u)

@@ -32,7 +32,7 @@ class Git(commands.Cog):
         """
         repo = urllib.parse.quote_plus(repo)
         rurl = api.gl_build(f'projects/{repo}', instance)
-        async with get_req(ctx.bot.session, rurl) as r:
+        async with await get_req(ctx.bot.session, rurl) as r:
             if r.status == 200:
                 rj = await r.json()
                 if rj['description'] == '':
@@ -68,7 +68,7 @@ class Git(commands.Cog):
         """
 
         rurl = api.gh_build(f'repos/{repo}')
-        async with get_req(ctx.bot.session, rurl) as r:
+        async with await get_req(ctx.bot.session, rurl) as r:
             if r.status == 200:
                 rj = await r.json()
                 if rj['description'] == '':

@@ -144,7 +144,7 @@ config = json.load(open('config.json'))
 help_command = commands.help.DefaultHelpCommand(dm_help=None)
 bot = Lul(command_prefix=commands.when_mentioned_or(config['prefix']),
           description=description,
-          help_command=None)
+          help_command=help_command)
 
 if __name__ == '__main__':
     for ext in exts:

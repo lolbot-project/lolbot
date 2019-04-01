@@ -32,8 +32,7 @@ class Minecraft(commands.Cog):
                     with open('/tmp/lolbot-mcicon.png', 'wb') as theicon:
                         self.mcicon = True
                         epic = r['icon'].replace('data:image/png;base64,', '')
-                        yes = bytes(epic, 'utf-8')
-                        iconthing = codecs.decode(yes, 'base64')
+                        iconthing = base64.b64decode(epic) 
                         theicon.write(iconthing)
                         self.mcfile = File("/tmp/lolbot-mcicon.png", filename='icon.png')
                         e.set_thumbnail(url='attachment://icon.png')

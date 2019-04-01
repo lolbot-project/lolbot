@@ -113,3 +113,4 @@ site/js
 # parcel turds
 .cache
 dist
+.vscode/settings.json

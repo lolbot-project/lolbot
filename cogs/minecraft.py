@@ -30,13 +30,13 @@ class Minecraft(commands.Cog):
                     e.add_field(name='Plugin count', value=len(r['plugins']['names']))
                 if r.get('icon'):
                     with open('/tmp/lolbot-mcicon.png', 'wb') as theicon:
-                        self.mcicon = True
+                        mcicon = {'icon': True}
                         epic = r['icon'].replace('data:image/png;base64,', '')
                         iconthing = base64.b64decode(epic) 
                         theicon.write(iconthing)
                         self.mcfile = File("/tmp/lolbot-mcicon.png", filename='icon.png')
                         e.set_thumbnail(url='attachment://icon.png')
-                if self.mcicon:
+                if mcicon.get('icon'):
                     await ctx.send(file=self.mcfile, embed=e)
                 else:
                     await ctx.send(embed=e)

@@ -35,7 +35,7 @@ class Minecraft(commands.Cog):
                         theicon.write(iconthing)
                         self.mcfile = File("/tmp/lolbot-mcicon.png", filename='icon.png')
                         e.set_thumbnail(url='attachment://icon.png')
-                if mcicon.get('icon'):
+                if r.get('icon'):
                     await ctx.send(file=self.mcfile, embed=e)
                 else:
                     await ctx.send(embed=e)

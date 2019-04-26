@@ -30,7 +30,6 @@ class Minecraft(commands.Cog):
                     e.add_field(name='Plugin count', value=len(r['plugins']['names']))
                 if r.get('icon'):
                     with open('/tmp/lolbot-mcicon.png', 'wb') as theicon:
-                        mcicon = {'icon': True}
                         epic = r['icon'].replace('data:image/png;base64,', '')
                         iconthing = base64.b64decode(epic) 
                         theicon.write(iconthing)

@@ -21,7 +21,7 @@ async def no():
 
 @app.route('/api/ping')
 async def wsping():
-    return jsonify({'ws': round(app.bot.latency, 3)})
+    return jsonify({'ws': round(app.bot.latency * 1000, 3)})
 
 
 @app.route('/api/votes')

@@ -1,6 +1,8 @@
+wheel
 discord.py
 uvloop
 wolframalpha
 osuapi
 pyowm
 ruamel.yaml
+jishaku

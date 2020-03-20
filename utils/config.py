@@ -7,5 +7,5 @@ class Config:
         self.config = self.reader.load(file_ptr)
         file_ptr.close()
 
-    def get_config():
+    def get_config(self):
         return self.config

@@ -12,6 +12,8 @@ from utils.version import get_version
 from utils.config import Config
 import time
 import os
+import aiohttp
+import asyncio
 
 logging.basicConfig(format='(%(asctime)s) [%(levelname)s] - %(message)s')
 
@@ -19,7 +21,7 @@ try:
     import uvloop
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 except Exception:
-    logging.warning('unable to setup uvloop')
+    logging.warning('unable to setup uvloop', exc_info=True)
 
 class Lolbot(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
@@ -33,7 +35,7 @@ class Lolbot(commands.AutoShardedBot):
     async def on_ready(self):
         logging.info('lolbot has started up')
         await bot.change_presence(activity=discord.Streaming(
-            name=f'{get_prefix()}help | v{get_version()}',
+            name=f'{get_prefix(self.config)}help | v{get_version()}',
             url='https://twitch.tv/monstercat'))
         self.init_time = time.time()
 
@@ -60,7 +62,7 @@ if __name__ == '__main__':
                 logging.error(f'failed to load {ext}', exc_info=True)
             else:
                 logging.info(f'successfully loaded {ext}')
-        logging.info('loading jishaku')
-        bot.load_extension('jishaku')
+    logging.info('loading jishaku')
+    bot.load_extension('jishaku')
 
-bot.run(config['bot']['token'])
+bot.run(config['tokens']['discord'])

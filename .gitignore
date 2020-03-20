@@ -100,13 +100,6 @@ ENV/
 *~
 .*.sw*
 
-# lolbot config.json
-config.json
-
-# site css and js
-site/css/
-site/js
-
 # idea/pycharm turds
 .idea/workspace.xml
 
@@ -114,3 +107,6 @@ site/js
 .cache
 dist
 .vscode/settings.json
+
+# config
+config.yaml

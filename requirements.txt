@@ -1,8 +1,6 @@
-git+https://github.com/rapptz/discord.py@rewrite
-pyowm
+discord.py
+uvloop
 wolframalpha
 osuapi
-quart==0.6.3
-Quart-CORS
-python-whois==0.6.5
-jishaku==1.10.1.106
+pyowm
+ruamel.yaml

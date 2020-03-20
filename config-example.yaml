@@ -1,0 +1,16 @@
+bot:
+  prefix: "^"
+  feedback: 0 # channel ID for feedback
+  botlist: false # ping bot list APIs on join/leave of guilds - useless for selfhost
+api:
+  enabled: true # mostly useless for selfhosting but u can keep it on if u want
+  port: 6142
+tokens:
+  discord: "discord token" # required
+  osu: "osu api key" # osu.ppy.sh/p/api
+  owm: "openweathermap api key" # openweathermap.org, sign up to get key
+  topgg: "top.gg api key" # ur not getting this lol
+  dbots: "discord.bots.gg api key" # ur not getting this lol
+  wa: "wolframalpha api key" # products.wolframalpha.com/api, sign up to get key
+  whois: "whoisxmlapi.com api key" # whois.whoisxmlapi.com, sign up to get key
+  weeb: "weeb.sh api key" # lets just face it ur not getting this either

@@ -17,7 +17,7 @@ Requirements:
 - Various Python packages
 - A working internet connection
 - A brain
-- Some sort of Linux, probably
+- Some sort of Linux[1]
 
 
 (Note: I assume your Python 3 is the binary `python3`. Change instructions to suit your environment if needed.)
@@ -56,6 +56,8 @@ systemctl --user enable lolbot
 # ^ Make lolbot launch on system startup, optional
 systemctl --user start lolbot
 ```
+
+[1] lolbot can probably be used on Windows provided you remove uvloop from requirements, but it's definitely not recommended
 
 ### Credits
 - [luna](https://github.com/lnyaa) - Contributions & code

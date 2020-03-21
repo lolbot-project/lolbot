@@ -14,8 +14,11 @@ import time
 import os
 import aiohttp
 import asyncio
+from api.server import app as webapp
+from hypercorn.asyncio.run import Server
+import hypercorn
 
-logging.basicConfig(format='(%(asctime)s) [%(levelname)s] - %(message)s', level=20)
+logging.basicConfig(format='(%(asctime)s) [%(levelname)s] - %(message)s', level=logging.INFO)
 
 try:
     import uvloop
@@ -23,14 +26,28 @@ try:
 except Exception:
     logging.warning('unable to setup uvloop', exc_info=True)
 
+# Thanks: https://github.com/slice/dogbot/blob/master/dog/bot.py#L19
+async def _boot_hypercorn(app, config, *, loop):
+    socket = config.create_sockets()
+    server = await loop.create_server(
+        lambda: Server(app, loop, config),
+        sock=socket.insecure_sockets[0]
+    )
+    return server
+
 class Lolbot(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        try:
-            self.config = Config('config.yaml').config
-        except Exception:
-            logging.error('Loading YAML failed. Does the file exist, and is it valid?', exc_info=True)
-        self.session = aiohttp.ClientSession()
+        self.config = Config('config.yaml').config
+        self.session = aiohttp.ClientSession(loop=self.loop)
+        if self.config['api']['enabled']:
+            webapp.bot = self
+            self.webapp = webapp
+            self.http_server = None
+            self.http_server_config = hypercorn.Config.from_mapping(self.config['api'])
+            self.loop.create_task(self._boot_http_server())
+        else:
+            logging.info('api disabled, skipping http server boot')
 
     async def on_ready(self):
         logging.info('lolbot has started up')
@@ -44,6 +61,14 @@ class Lolbot(commands.AutoShardedBot):
             return
         ctx = await self.get_context(message)
         await self.invoke(ctx)
+
+    async def _boot_http_server(self):
+        try:
+            self.http_server = await _boot_hypercorn(self.webapp, self.http_server_config, loop=self.loop)
+            logging.info('http server running: %r', self.http_server)
+        except Exception:
+            logging.exception('http server creation failed')
+
 
 
 config = Config('config.yaml').config 

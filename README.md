@@ -6,6 +6,23 @@
 # lolbot
 Hi! This is the repository for lolbot, a Discord bot project
 
+## Progress on rewrite
+- [] Cogs
+    - [] fun
+    - [] git
+    - [] minecraft
+    - [] osu
+    - [] owner
+    - [] packages
+    - [] stats
+    - [] utility
+    - [] wolfram
+    - [] weather
+    - [] youtube
+- [] API
+- [x] Core
+
+
 ## Before we start
 If you do end up running this bot for yourself, please keep it to personal use only out of respect.
 

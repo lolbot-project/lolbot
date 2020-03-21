@@ -77,3 +77,10 @@ class NSFWException(commands.CheckFailure):
     executed in a NSFW channel.
     """
     pass
+
+class ConfigError(Exception):
+    """
+    Subclass of Exception.
+    Raised when there is an error in the configuration file.
+    """
+    pass

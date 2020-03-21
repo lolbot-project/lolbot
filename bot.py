@@ -15,7 +15,7 @@ import os
 import aiohttp
 import asyncio
 
-logging.basicConfig(format='(%(asctime)s) [%(levelname)s] - %(message)s')
+logging.basicConfig(format='(%(asctime)s) [%(levelname)s] - %(message)s', level=20)
 
 try:
     import uvloop
@@ -27,7 +27,7 @@ class Lolbot(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         try:
-            self.config = Config('config.yaml').get_config()
+            self.config = Config('config.yaml').config
         except Exception:
             logging.error('Loading YAML failed. Does the file exist, and is it valid?', exc_info=True)
         self.session = aiohttp.ClientSession()
@@ -46,7 +46,7 @@ class Lolbot(commands.AutoShardedBot):
         await self.invoke(ctx)
 
 
-config = Config('config.yaml').get_config() 
+config = Config('config.yaml').config 
 help_command = commands.help.DefaultHelpCommand(dm_help=None)
 bot = Lolbot(command_prefix=commands.when_mentioned_or(config['bot']['prefix']),
              description='hi im a bot', help_command=help_command)

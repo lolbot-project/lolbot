@@ -8,16 +8,11 @@ class Config:
         self._load_config()
 
     def _load_config(self):
-        try:
-            file_ptr = open(self.file, 'r')
-            config = self.reader.load(file_ptr)
-            file_ptr.close()
-            self.config = config
-        except Exception as exc:
-            raise ConfigError(exc)
-
-    def get_config(self):
-        return self.config
+        with open(self.file, 'r') as f:
+            try:
+                self.config = self.reader.load(f)
+            except Exception as exc:
+                raise ConfigError(exc)
 
     def reload_config(self):
         self._load_config()

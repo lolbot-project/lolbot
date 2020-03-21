@@ -6,3 +6,5 @@ osuapi
 pyowm
 ruamel.yaml
 jishaku
+hypercorn==0.6.0
+quart==0.8.1

@@ -8,6 +8,7 @@ Hi! This is the repository for lolbot, a Discord bot project
 
 ## Progress on rewrite
 - [] Cogs
+    - [x] common
     - [] fun
     - [] git
     - [] minecraft
@@ -30,7 +31,7 @@ If you try to submit it to bot lists anyway, I'm sure they'll find out what it r
 
 ## Running
 Requirements:
-- Python 3 + pip (3.6 minimum, latest recommended)
+- Python 3 + pip (3.7 minimum, latest recommended)
 - Various Python packages
 - A working internet connection
 - A brain

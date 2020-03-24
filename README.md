@@ -64,7 +64,7 @@ nano config.yaml
 python bot.py
 ```
 
-5. (**HIGHLY RECOMMENDED**) Install the systemd service - Make maintainence easy with the lolbot systemd file - start, stop, restart at any time!
+5. (**HIGHLY RECOMMENDED**) Install the systemd service - Make maintenance easy with the lolbot systemd file - start, stop, restart at any time!
 ```bash
 mkdir -p ~/.config/systemd/user
 cp run/lolbot.service ~/.config/systemd/user

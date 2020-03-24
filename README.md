@@ -7,20 +7,20 @@
 Hi! This is the repository for lolbot, a Discord bot project
 
 ## Progress on rewrite
-- [] Cogs
+- [ ] Cogs
     - [x] common
-    - [] fun
-    - [] git
-    - [] minecraft
-    - [] osu
-    - [] owner
-    - [] packages
-    - [] stats
-    - [] utility
-    - [] wolfram
-    - [] weather
-    - [] youtube
-- [] API (somewhat done, needs config stuff)
+    - [ ] fun
+    - [ ] git
+    - [ ] minecraft
+    - [ ] osu
+    - [ ] owner
+    - [ ] packages
+    - [ ] stats
+    - [ ] utility
+    - [ ] wolfram
+    - [ ] weather
+    - [ ] youtube
+- [ ] API (somewhat done, needs config stuff)
 - [x] Core
 
 

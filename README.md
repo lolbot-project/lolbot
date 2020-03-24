@@ -20,7 +20,7 @@ Hi! This is the repository for lolbot, a Discord bot project
     - [] wolfram
     - [] weather
     - [] youtube
-- [] API
+- [] API (somewhat done, needs config stuff)
 - [x] Core
 
 
@@ -45,7 +45,7 @@ Requirements:
 1. (**HIGHLY RECOMMENDED**) Create a virtual environment - This contains all the required packages in one directory and makes cleanup very simple if you decide to just delete this one day.
 ```bash
 python3 -m venv env
-env/bin/activate
+source env/bin/activate
 ```
 
 2. Install packages - Without these, the bot will absolutely refuse to run as they contain necessary code for connecting to Discord, etc.

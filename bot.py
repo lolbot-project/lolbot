@@ -79,14 +79,15 @@ bot = Lolbot(command_prefix=commands.when_mentioned_or(config['bot']['prefix']),
 if __name__ == '__main__':
     for blahblah, blahblahblah, exts in os.walk('ext'):
         for ext in exts:
-            try:
-                logging.info(f'attempting to load {ext}')
-                ext = ext.replace('.py', '') 
-                bot.load_extension(f'ext.{ext}')
-            except Exception:
-                logging.error(f'failed to load {ext}', exc_info=True)
-            else:
-                logging.info(f'successfully loaded {ext}')
+            if ext.endswith('.py'):
+                try:
+                    logging.info(f'attempting to load {ext}')
+                    ext = ext.replace('.py', '') 
+                    bot.load_extension(f'ext.{ext}')
+                except Exception:
+                    logging.error(f'failed to load {ext}', exc_info=True)
+                else:
+                    logging.info(f'successfully loaded {ext}')
     logging.info('loading jishaku')
     bot.load_extension('jishaku')
 

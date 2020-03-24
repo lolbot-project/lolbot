@@ -17,6 +17,7 @@ import asyncio
 from api.server import app as webapp
 from hypercorn.asyncio.run import Server
 import hypercorn
+from ext.common import user_agent
 
 logging.basicConfig(format='(%(asctime)s) [%(levelname)s] - %(message)s', level=logging.INFO)
 
@@ -39,7 +40,7 @@ class Lolbot(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config = Config('config.yaml').config
-        self.session = aiohttp.ClientSession(loop=self.loop)
+        self.session = aiohttp.ClientSession(loop=self.loop, headers={'User-Agent': user_agent})
         if self.config['api']['enabled']:
             webapp.bot = self
             self.webapp = webapp

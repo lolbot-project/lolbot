@@ -34,3 +34,31 @@ class Fun(commands.Cog):
             await ctx.send(embed=embed)
         else:
             raise commands.BadArgument('Invalid HTTP code')
+
+    @commands.command()
+    async def dog(self, ctx):
+        def decide_source():
+            n = random.random()
+            if n < 0.5:
+                return 'https://random.dog/woof'
+            elif n > 0.5:
+                return 'https://dog.ceo/api/breeds/image/random'
+
+        async with self.bot.session.get(decide_source()) as doggers:
+            if doggers.status == 200:
+                if doggers.host == 'random.dog':
+                    img = await doggers.text()
+                    url = f'https://random.dog/{img}'
+                elif doggers.host == 'dog.ceo':
+                    img = await doggers.json()
+                    url = img['message']
+                if '.mp4' in url:
+                    await ctx.send(f'video: {url}')
+                else:
+                    embed = discord.Embed(name='a dog', colour=0x690E8)
+                    embed.set_image(url=url)
+                    embed.set_footer(text=f'from {doggers.host}')
+                    await ctx.send(embed=embed)
+            else:
+                raise ServiceError(f'received http {doggers.status} from host {doggers.host}')
+

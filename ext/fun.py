@@ -10,11 +10,12 @@ locks = defaultdict(asyncio.Lock)
 
 class Fun(commands.Cog):
     def __init__(self, bot):
-    
+        self.bot = bot
+
     @commands.command()
     async def cat(self, ctx):
         """Random cat images from random.cat"""
-        async with ctx.bot.session.get('https://aws.random.cat/meow') as r:
+        async with self.bot.session.get('https://aws.random.cat/meow') as r:
             if r.status == 200:
                 json = await r.json()
                 embed = discord.Embed(title='a cat', colour=0x690E8)

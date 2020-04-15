@@ -1,10 +1,11 @@
 from ruamel.yaml import YAML
 from utils.errors import ConfigError
 
+
 class Config:
     def __init__(self, file):
         self.reader = YAML(typ='safe')
-        self.file = file # for usage in loading/reloading
+        self.file = file  # for usage in loading/reloading
         self._load_config()
 
     def _load_config(self):

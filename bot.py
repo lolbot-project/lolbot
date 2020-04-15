@@ -1,7 +1,8 @@
 """
 lolbot rewrite - (c) 2020 tilda under MIT License
 
-This module contains code needed to start the bot, including other services such as the API
+This module contains code needed to start the bot, including other services,
+such as the API
 """
 
 import discord
@@ -19,13 +20,15 @@ from hypercorn.asyncio.run import Server
 import hypercorn
 from ext.common import user_agent
 
-logging.basicConfig(format='(%(asctime)s) [%(levelname)s] - %(message)s', level=logging.INFO)
+logging.basicConfig(format='(%(asctime)s) [%(levelname)s] - %(message)s',
+                    level=logging.INFO)
 
 try:
     import uvloop
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 except Exception:
     logging.warning('unable to setup uvloop', exc_info=True)
+
 
 # Thanks: https://github.com/slice/dogbot/blob/master/dog/bot.py#L19
 async def _boot_hypercorn(app, config, *, loop):
@@ -36,11 +39,14 @@ async def _boot_hypercorn(app, config, *, loop):
     )
     return server
 
+
 class Lolbot(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config = Config('config.yaml').config
-        self.session = aiohttp.ClientSession(loop=self.loop, headers={'User-Agent': user_agent})
+        self.session = aiohttp.ClientSession(loop=self.loop, headers={
+            'User-Agent': user_agent
+        })
         if self.config['api']['enabled']:
             webapp.bot = self
             self.webapp = webapp
@@ -65,14 +71,15 @@ class Lolbot(commands.AutoShardedBot):
 
     async def _boot_http_server(self):
         try:
-            self.http_server = await _boot_hypercorn(self.webapp, self.http_server_config, loop=self.loop)
+            self.http_server = await _boot_hypercorn(self.webapp,
+                                                     self.http_server_config,
+                                                     loop=self.loop)
             logging.info('http server running: %r', self.http_server)
         except Exception:
             logging.exception('http server creation failed')
 
 
-
-config = Config('config.yaml').config 
+config = Config('config.yaml').config
 help_command = commands.help.DefaultHelpCommand(dm_help=None)
 bot = Lolbot(command_prefix=commands.when_mentioned_or(config['bot']['prefix']),
              description='hi im a bot', help_command=help_command)
@@ -83,7 +90,7 @@ if __name__ == '__main__':
             if ext.endswith('.py'):
                 try:
                     logging.info(f'attempting to load {ext}')
-                    ext = ext.replace('.py', '') 
+                    ext = ext.replace('.py', '')
                     bot.load_extension(f'ext.{ext}')
                 except Exception:
                     logging.error(f'failed to load {ext}', exc_info=True)

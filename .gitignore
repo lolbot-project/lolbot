@@ -106,7 +106,9 @@ ENV/
 # parcel turds
 .cache
 dist
-.vscode/settings.json
 
 # config
 config.yaml
+
+# vscode being a dumbass as usual
+.vscode/*

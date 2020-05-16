@@ -23,6 +23,8 @@ Hi! This is the repository for lolbot, a Discord bot project
         - [ ] sumfuk
         - [x] excuse/bofh/techproblem
     - [ ] git
+        - [ ] gl/gitlab
+        - [ ] gh/github
     - [ ] minecraft
     - [ ] osu
     - [ ] owner

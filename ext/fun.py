@@ -165,7 +165,7 @@ class Fun(commands.Cog):
         Spin time varies from 1 to 300 seconds."""
         try:
             await locks[ctx.author.id]
-            if override is not 0:
+            if override != 0:
                 thonk = await ctx.bot.application_info()
                 if thonk.owner.id == ctx.message.author.id:
                     spin_time = override

@@ -1,5 +1,6 @@
 from discord.ext import commands
 import discord
+from utils.embed import get_embed
 import asyncio
 from collections import defaultdict
 from utils.errors import ServiceError
@@ -19,7 +20,7 @@ class Fun(commands.Cog):
         async with self.bot.session.get("https://aws.random.cat/meow") as r:
             if r.status == 200:
                 json = await r.json()
-                embed = discord.Embed(title="a cat", colour=0x690E8)
+                embed = get_embed().set_title("a cat")
                 embed.set_image(url=json["file"])
                 await ctx.send(embed=embed)
             else:
@@ -83,7 +84,7 @@ class Fun(commands.Cog):
             599,
         ]
         if http_id in codes:
-            embed = discord.Embed(title="http.cat", colour=0x690E8)
+            embed = get_embed().set_title("http.cat")
             embed.set_image(url=f"https://http.cat/{http_id}.jpg")
             await ctx.send(embed=embed)
         else:

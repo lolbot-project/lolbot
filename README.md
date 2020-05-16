@@ -26,14 +26,41 @@ Hi! This is the repository for lolbot, a Discord bot project
         - [ ] gl/gitlab
         - [ ] gh/github
     - [ ] minecraft
+        - [ ] mcserver
     - [ ] osu
+        - [ ] osu
     - [ ] owner
+        - [ ] game
+            - [ ] set
+            - [ ] clear
+        - [ ] shutdown
+        - [ ] reboot
+        - [ ] feedbackrespond
     - [ ] packages
+        - [ ] pypi
+        - [ ] crates
     - [ ] stats
+        - [ ] poststats
+        - [ ] fakeguild
+            - [ ] join
+            - [ ] leave
     - [ ] utility
+        - [ ] hello
+        - [ ] uptime
+        - [ ] ping
+        - [ ] stats
+        - [ ] invite
+        - [ ] user
+        - [ ] invinfo (maybe finally finish this?)
+        - [ ] version
+        - [ ] feedback
+        - [ ] whois (rewrite this to not use tld list?)
     - [ ] wolfram
+        - [ ] wa
     - [ ] weather
+        - [ ] weather
     - [ ] youtube
+        - [ ] youtube/yt (maybe finally finish this?)
 - [ ] API (somewhat done, needs config stuff)
 - [x] Core
 

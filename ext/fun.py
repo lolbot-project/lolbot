@@ -92,7 +92,7 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def dog(self, ctx):
-        """Random dog pictures"""
+        """Random dog pictures from random.dog/dog.ceo"""
 
         def decide_source():
             n = random.random()

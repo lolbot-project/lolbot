@@ -22,9 +22,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-user_agent = {
-    'User-Agent': 'lolbot - https://lolbot.lmao.tf'
-}
+user_agent = {"User-Agent": "lolbot - https://lolbot.lmao.tf"}
 
 # etc data
 
@@ -41,11 +39,11 @@ class Dummy:
 def setup(bot):
     # Setup a bot emote register, to store emojis for use
     # e.g. notcheck
-    bot.version = '3.0'
+    bot.version = "3.0"
     bot.emoji = Dummy()
-    bot.ua_text = f'lolbot/{bot.version} - https://lolbot.lmao.tf'
-    if bot.config['beta']:
-        bot.version = f'{bot.version}b' # noqa
-        bot.ua_text = f'lolbot/{bot.version}b - https://lolbot.lmao.tf' # noqa
+    bot.ua_text = f"lolbot/{bot.version} - https://lolbot.lmao.tf"
+    if bot.config["beta"]:
+        bot.version = f"{bot.version}b"  # noqa
+        bot.ua_text = f"lolbot/{bot.version}b - https://lolbot.lmao.tf"  # noqa
     else:
-        bot.version = '3.0'
+        bot.version = "3.0"

@@ -31,106 +31,117 @@ import time
 import traceback
 import gc
 import asyncio
+
 # noinspection PyPackageRequirements
 import aiohttp
+
 # noinspection PyPackageRequirements
 import discord
+
 # noinspection PyPackageRequirements
 from discord.ext import commands
+
 # noinspection PyPackageRequirements
 import utils.errors
 
 
-logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
+logging.basicConfig(format="[%(levelname)s] - %(message)s", level=logging.INFO)
 try:
     import uvloop
+
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 except Exception:
-    logging.warning('uvloop not enabled')
+    logging.warning("uvloop not enabled")
 
 
-description = '''Just a bot :)'''
-exts = ['api_launcher',
-        'common',
-        'donate',
-        'eval',
-        'fun',
-        'git',
-        'minecraft',
-        'nekos',
-        'owner',
-        'osu',
-        'packages',
-        'stats',
-        'utility',
-        'weather',
-        'wa']
+description = """Just a bot :)"""
+exts = [
+    "api_launcher",
+    "common",
+    "donate",
+    "eval",
+    "fun",
+    "git",
+    "minecraft",
+    "nekos",
+    "owner",
+    "osu",
+    "packages",
+    "stats",
+    "utility",
+    "weather",
+    "wa",
+]
 
 
 class Lul(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.config = json.load(open('config.json'))
+        self.config = json.load(open("config.json"))
 
         def prefix_func():
-            if self.config['prefix']:
-                return self.config['prefix']
+            if self.config["prefix"]:
+                return self.config["prefix"]
             else:
-                return '^'  # default
+                return "^"  # default
+
         # Fuck you, PEP8. I hope you are happy...
         # because I will send your ass to oblivion...
         self.pf = prefix_func()
-        self.twitch = 'https://twitch.tv/monstercat'
+        self.twitch = "https://twitch.tv/monstercat"
         self.str = discord.Streaming
         self.session = aiohttp.ClientSession()
-        self.badarg = ['You need to put more info than this!',
-                       'I didn\'t understand that.',
-                       'Sorry, can\'t process that.',
-                       f'Read {self.config["prefix"]}help <command>'
-                       ' for instructions.',
-                       'Hmm?']
+        self.badarg = [
+            "You need to put more info than this!",
+            "I didn't understand that.",
+            "Sorry, can't process that.",
+            f'Read {self.config["prefix"]}help <command>' " for instructions.",
+            "Hmm?",
+        ]
         # To be fair, we should record the init time after everything is ready
         self.init_time = time.time()
 
     async def on_ready(self):
-        logging.info('lolbot - ready')
+        logging.info("lolbot - ready")
         # note that we use " instead of ' here
         # this is a limitation of the fstring parser
         ver = bot.version
-        await bot.change_presence(activity=self.str(name=f'{self.pf}help |'
-                                                    f' v{ver}',
-                                                    url=self.twitch))
-        bot.emoji.fail = discord.utils.get(bot.emojis, name='l_fail')
-        bot.emoji.success = discord.utils.get(bot.emojis, name='l_check')
-        bot.emoji.load = discord.utils.get(bot.emojis, name='l_process')
-        logging.info('Playing status changed')
+        await bot.change_presence(
+            activity=self.str(name=f"{self.pf}help |" f" v{ver}", url=self.twitch)
+        )
+        bot.emoji.fail = discord.utils.get(bot.emojis, name="l_fail")
+        bot.emoji.success = discord.utils.get(bot.emojis, name="l_check")
+        bot.emoji.load = discord.utils.get(bot.emojis, name="l_process")
+        logging.info("Playing status changed")
 
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.errors.CheckFailure):
             await ctx.message.add_reaction(ctx.bot.emoji.fail)
 
         elif isinstance(error, commands.errors.BadArgument):
-            await ctx.send(f'Bad arg: `{random.choice(self.badarg)}`')
+            await ctx.send(f"Bad arg: `{random.choice(self.badarg)}`")
 
         elif isinstance(error, commands.errors.MissingRequiredArgument):
-            await ctx.send(f'Missing argument: {random.choice(self.badarg)}')
+            await ctx.send(f"Missing argument: {random.choice(self.badarg)}")
 
         elif isinstance(error, utils.errors.ServiceError):
-            tb = ''.join(traceback.format_exception(
-                type(error.original), error.original,
-                error.original.__traceback__
-            ))
-            logging.error(f'Oops! {tb}')
+            tb = "".join(
+                traceback.format_exception(
+                    type(error.original), error.original, error.original.__traceback__
+                )
+            )
+            logging.error(f"Oops! {tb}")
             await ctx.message.add_reaction(ctx.bot.emoji.fail)
-            await ctx.send(f'Service error: `{tb}`')
+            await ctx.send(f"Service error: `{tb}`")
 
         elif isinstance(error, commands.errors.CommandInvokeError):
             await ctx.message.add_reaction(ctx.bot.emoji.fail)
-            tb = ''.join(traceback.format_exception(
-                type(error.original), error.original,
-                error.original.__traceback__
-            ))
-            logging.error('A error occured.')
+            tb = "".join(
+                traceback.format_exception(
+                    type(error.original), error.original, error.original.__traceback__
+                )
+            )
+            logging.error("A error occured.")
             logging.error(tb)
 
     async def on_message(self, message):
@@ -140,23 +151,25 @@ class Lul(commands.AutoShardedBot):
         await self.invoke(ctx)
 
 
-config = json.load(open('config.json'))
+config = json.load(open("config.json"))
 # pm_help=None was removed, this is the other way to do it
 help_command = commands.help.DefaultHelpCommand(dm_help=None)
-bot = Lul(command_prefix=commands.when_mentioned_or(config['prefix']),
-          description=description,
-          help_command=help_command)
+bot = Lul(
+    command_prefix=commands.when_mentioned_or(config["prefix"]),
+    description=description,
+    help_command=help_command,
+)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     for ext in exts:
         try:
-            logging.debug(f'attempting to load {ext}')
-            bot.load_extension(f'cogs.{ext}')
+            logging.debug(f"attempting to load {ext}")
+            bot.load_extension(f"cogs.{ext}")
         except Exception:
-            logging.error(f'Error while loading {ext}', exc_info=True)
+            logging.error(f"Error while loading {ext}", exc_info=True)
         else:
-            logging.info(f'Successfully loaded {ext}')
-    bot.load_extension('jishaku')
+            logging.info(f"Successfully loaded {ext}")
+    bot.load_extension("jishaku")
 
 gc.enable()
-bot.run(config['token'])
+bot.run(config["token"])

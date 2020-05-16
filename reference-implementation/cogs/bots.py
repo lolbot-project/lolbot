@@ -23,27 +23,28 @@ DEALINGS IN THE SOFTWARE.
 """
 # noinspection PyPackageRequirements
 from discord.ext import commands
+
 # noinspection PyPackageRequirements
-#import discord
+# import discord
 
 
 class DBots(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        #self.headers = {
+        # self.headers = {
         #    'Authorization': self.config['dbots'],
         #    'Content-Type': 'application/json'
-        #}
+        # }
 
-    #@commands.group()
-    #async def dbots(self, ctx):
+    # @commands.group()
+    # async def dbots(self, ctx):
     #    """Does stuff with bots.discord.pw"""
     #    if ctx.invoked_subcommand is None:
     #        await ctx.send('You must provide a subcommand! Subcommands:'
     #                       '  `count, info, owner, invite`')
 
-    #@dbots.command(name='owner')
-    #async def dbots_owner(self, ctx, wanted: discord.Member):
+    # @dbots.command(name='owner')
+    # async def dbots_owner(self, ctx, wanted: discord.Member):
     #    async with self.bot.session.get('https://bots.discord.pw/api/bots/' + str(wanted.id),
     #                                    headers=self.headers) as info:
     #        """Gets the owner of a bot"""
@@ -63,6 +64,7 @@ class DBots(commands.Cog):
     #                await ctx.send('That bot is not in Discord Bots!')
     #            elif info.status == 504:
     #                await ctx.send('Server timed out - this is a fault with Discord Bots. Sorry!')
+
 
 def setup(bot):
     bot.add_cog(DBots(bot))

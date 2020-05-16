@@ -23,6 +23,7 @@ DEALINGS IN THE SOFTWARE.
 """
 # noinspection PyPackageRequirements
 import discord
+
 # noinspection PyPackageRequirements
 from discord.ext import commands
 
@@ -34,8 +35,9 @@ class Donate(commands.Cog):
     @commands.command()
     async def donate(self, ctx):
         """Support lolbot into the future!"""
-        aboutEm = discord.Embed(description='Donations are currently disabled for now.',
-                                colour=0x690E8)
+        aboutEm = discord.Embed(
+            description="Donations are currently disabled for now.", colour=0x690E8
+        )
         await ctx.send(embed=aboutEm)
 
 

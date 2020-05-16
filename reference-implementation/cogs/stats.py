@@ -23,21 +23,22 @@ DEALINGS IN THE SOFTWARE.
 """
 import json
 import logging
+
 # noinspection PyPackageRequirements
 import discord
 from discord.ext import commands
 
-logging.basicConfig(format='[%(levelname)s] - %(message)s', level=logging.INFO)
+logging.basicConfig(format="[%(levelname)s] - %(message)s", level=logging.INFO)
 try:
-    logging.info('stats[datadog]: initalized')
+    logging.info("stats[datadog]: initalized")
     # noinspection PyPackageRequirements
     from datadog import statsd
 except ImportError:
-    logging.info('stats[datadog]: datadog not installed')
-    logging.info('stats[datadog]: disabling datadog')
+    logging.info("stats[datadog]: datadog not installed")
+    logging.info("stats[datadog]: disabling datadog")
     datadog_enabled = False
 else:
-    logging.info('stats[datadog]: success')
+    logging.info("stats[datadog]: success")
     datadog_enabled = True
 
 
@@ -66,8 +67,8 @@ class Stats(commands.Cog):
         does it for you.
         """
         if datadog_enabled:
-            statsd.gauge('lolbot.servers', len(self.bot.guilds))
-            statsd.gauge('lolbot.shards', len(self.bot.shards))
+            statsd.gauge("lolbot.servers", len(self.bot.guilds))
+            statsd.gauge("lolbot.shards", len(self.bot.shards))
         else:
             pass
 
@@ -77,24 +78,27 @@ class Stats(commands.Cog):
         You should not have to call this yourself, post() is a wrapper and
         does it for you.
         """
-        if self.bot.config['dbl'] != "":
+        if self.bot.config["dbl"] != "":
             headers = {
-                'Authorization': self.bot.config['dbl'],
-                'Content-Type': 'application/json'
+                "Authorization": self.bot.config["dbl"],
+                "Content-Type": "application/json",
             }
             data = {
-                'server_count': len(self.bot.guilds),
-                'shard_count': len(self.bot.shards)
+                "server_count": len(self.bot.guilds),
+                "shard_count": len(self.bot.shards),
             }
             i = await self.bot.application_info()
-            req = await self.bot.session.post(f'https://discordbots.org/api/bots/{i.id}/stats',
-                                              data=json.dumps(data), headers=headers)
+            req = await self.bot.session.post(
+                f"https://discordbots.org/api/bots/{i.id}/stats",
+                data=json.dumps(data),
+                headers=headers,
+            )
             if req.status == 200:
-                logging.info('poster[dbl]: done')
+                logging.info("poster[dbl]: done")
             else:
                 t = await req.text()
-                logging.error(f'poster[dbl]: oops (code {req.status})')
-                logging.error(f'poster[dbl]: response: {t}')
+                logging.error(f"poster[dbl]: oops (code {req.status})")
+                logging.error(f"poster[dbl]: response: {t}")
         else:
             pass
 
@@ -105,36 +109,39 @@ class Stats(commands.Cog):
         You should not have to call this yourself, post() is a wrapper and
         does it for you.
         """
-        if self.bot.config['dbots'] != "":
+        if self.bot.config["dbots"] != "":
             headers = {
-                'Authorization': self.bot.config['dbots'],
-                'Content-Type': 'application/json'
+                "Authorization": self.bot.config["dbots"],
+                "Content-Type": "application/json",
             }
             data = {
-                'guildCount': len(self.bot.guilds),
-                'shardCount': len(self.bot.shards)
+                "guildCount": len(self.bot.guilds),
+                "shardCount": len(self.bot.shards),
             }
             i = await self.bot.application_info()
-            req = await self.bot.session.post(f'https://discord.bots.gg/api/v1/bots/{i.id}/stats',
-                                              data=json.dumps(data), headers=headers)
+            req = await self.bot.session.post(
+                f"https://discord.bots.gg/api/v1/bots/{i.id}/stats",
+                data=json.dumps(data),
+                headers=headers,
+            )
             status = req.status
             if status in [200, 204]:
-                logging.info('poster[dbots]: done')
+                logging.info("poster[dbots]: done")
             else:
                 resp = await req.text()
-                logging.error(f'poster[dbots]: oops (code {status})')
-                logging.error(f'poster[dbots]: response: {resp}')
+                logging.error(f"poster[dbots]: oops (code {status})")
+                logging.error(f"poster[dbots]: response: {resp}")
 
     async def post(self):
         """
         This async function is a wrapper for post functions.
         You shouldn't need to call this yourself, the guild events do this for you.
         """
-        if self.bot.config['dbotsorg']:
+        if self.bot.config["dbotsorg"]:
             await self.dblpost()
         else:
             pass
-        if self.bot.config['dbotspw']:
+        if self.bot.config["dbotspw"]:
             await self.dpwpost()
         else:
             pass
@@ -150,10 +157,13 @@ class Stats(commands.Cog):
         """
         logging.info('Joined guild "' + str(guild.name) + '" ID: ' + str(guild.id))
         welcome_channel = await find_channel(guild)
-        we = discord.Embed(title='Hello!',
-                           description='Just saying, I may collect information (IDs, etc) about your server '
-                           'to help my owner improve the bot. Thanks!', colour=0x690E8)
-        we.set_footer(text='Get started by typing ^hello')
+        we = discord.Embed(
+            title="Hello!",
+            description="Just saying, I may collect information (IDs, etc) about your server "
+            "to help my owner improve the bot. Thanks!",
+            colour=0x690E8,
+        )
+        we.set_footer(text="Get started by typing ^hello")
         await welcome_channel.send(embed=we)
         await self.post()
 
@@ -162,64 +172,72 @@ class Stats(commands.Cog):
         This async function is called whenever a guild removes a lolbot instance (rip).
         You shouldn't need to call this yourself, discord.py does this automatically.
         """
-        logging.info('Left ' + str(guild.name))
+        logging.info("Left " + str(guild.name))
         await self.post()
 
     @commands.command()
     @commands.is_owner()
     async def poststats(self, ctx):
         """Posts guild stats to bot lists"""
-        land = await ctx.send(f'{ctx.bot.emoji.load} Hold on a sec...')
-        logging.info('poster: forcing post')
-        dbl = await ctx.send('Posting to discordbots.org...')
-        if self.bot.config['dbotsorg']:
+        land = await ctx.send(f"{ctx.bot.emoji.load} Hold on a sec...")
+        logging.info("poster: forcing post")
+        dbl = await ctx.send("Posting to discordbots.org...")
+        if self.bot.config["dbotsorg"]:
             try:
                 await self.dblpost()
             except Exception as e:
-                await dbl.edit(content=f'{ctx.bot.emoji.fail}'
-                               'Error: `\`\`\py\n{e}\n`\`\`')
+                await dbl.edit(
+                    content=f"{ctx.bot.emoji.fail}" "Error: `\`\`\py\n{e}\n`\`\`"
+                )
             else:
-                await dbl.edit(content=f'{ctx.bot.emoji.success} Posted to'
-                               ' discordbots.org.')
+                await dbl.edit(
+                    content=f"{ctx.bot.emoji.success} Posted to" " discordbots.org."
+                )
         else:
-            await dbl.edit(content='No key configured, '
-                           'skipping discordbots.org!')
-        dpw = await ctx.send('Posting to bots.discord.pw...')
-        if self.bot.config['dbotspw']:
+            await dbl.edit(content="No key configured, " "skipping discordbots.org!")
+        dpw = await ctx.send("Posting to bots.discord.pw...")
+        if self.bot.config["dbotspw"]:
             try:
                 await self.dpwpost()
             except Exception as e:
-                await dpw.edit(content=f'{ctx.bot.emoji.fail} Error: `\`\`\py\n{e}\n`\`\`')
+                await dpw.edit(
+                    content=f"{ctx.bot.emoji.fail} Error: `\`\`\py\n{e}\n`\`\`"
+                )
             else:
-                await dpw.edit(content=f'{ctx.bot.emoji.success} Posted to discord.bots.gg.')
+                await dpw.edit(
+                    content=f"{ctx.bot.emoji.success} Posted to discord.bots.gg."
+                )
         else:
-            await dpw.edit(content=f'No key configured, skipping bots.discord.pw!')
-        ddg = await ctx.send('Posting to Datadog...')
+            await dpw.edit(content=f"No key configured, skipping bots.discord.pw!")
+        ddg = await ctx.send("Posting to Datadog...")
         if datadog_enabled:
             try:
                 await self.dogpost()
             except Exception as e:
-                await ddg.edit(content=f'{ctx.bot.emoji.fail} Error: `\`\`\py\n{e}\n`\`\`')
+                await ddg.edit(
+                    content=f"{ctx.bot.emoji.fail} Error: `\`\`\py\n{e}\n`\`\`"
+                )
             else:
-                await ddg.edit(content=f'{ctx.bot.emoji.success} Posted to Datadog.')
+                await ddg.edit(content=f"{ctx.bot.emoji.success} Posted to Datadog.")
         else:
-            await ddg.edit(content='Integration disabled, skipping Datadog!')
-        await land.edit(content='Posted count.')
+            await ddg.edit(content="Integration disabled, skipping Datadog!")
+        await land.edit(content="Posted count.")
 
     @commands.group()
     @commands.is_owner()
     async def fakeguild(self, ctx):
         """Fakes guild events for testing."""
         if ctx.invoked_subcommand is None:
-            await ctx.send('Available events: `join` and `leave`')
+            await ctx.send("Available events: `join` and `leave`")
 
-    @fakeguild.command(name='join')
+    @fakeguild.command(name="join")
     async def fakejoin(self, ctx):
-        await self.bot.dispatch('guild_join', guild=ctx.guild)
+        await self.bot.dispatch("guild_join", guild=ctx.guild)
 
-    @fakeguild.command(name='leave')
+    @fakeguild.command(name="leave")
     async def fakeleave(self, ctx):
-        await self.bot.dispatch('guild_leave', guild=ctx.guild)
+        await self.bot.dispatch("guild_leave", guild=ctx.guild)
+
 
 def setup(bot):
     bot.add_cog(Stats(bot))

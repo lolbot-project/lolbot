@@ -24,33 +24,35 @@ DEALINGS IN THE SOFTWARE.
 # thanks luna haha
 # noinspection PyPackageRequirements
 from discord.ext import commands
+
 # noinspection PyPackageRequirements
 import discord
+
 # noinspection PyPackageRequirements
 import utils.errors as uerrs
 import pyowm
 
-W_CLEAR_SKY = ':sunny:'
-W_FEW_CLOUDS = ':white_sun_small_cloud:'
-W_SCATTERED_CLOUDS = ':partly_sunny:'
-W_BROKEN_CLOUDS = ':cloud:'
-W_SHOWER_RAIN = ':cloud_rain:'
-W_RAIN = ':cloud_rain:'
-W_THUNDERSTORM = ':thunder_cloud_rain:'
-W_SNOW = ':snowflake:'
-W_MIST = ':foggy:'
+W_CLEAR_SKY = ":sunny:"
+W_FEW_CLOUDS = ":white_sun_small_cloud:"
+W_SCATTERED_CLOUDS = ":partly_sunny:"
+W_BROKEN_CLOUDS = ":cloud:"
+W_SHOWER_RAIN = ":cloud_rain:"
+W_RAIN = ":cloud_rain:"
+W_THUNDERSTORM = ":thunder_cloud_rain:"
+W_SNOW = ":snowflake:"
+W_MIST = ":foggy:"
 
 OWM_ICONS = {
-    '01n': W_CLEAR_SKY,
-    '01d': W_CLEAR_SKY,
-    '02d': W_FEW_CLOUDS,
-    '03d': W_SCATTERED_CLOUDS,
-    '04n': W_BROKEN_CLOUDS,
-    '09d': W_SHOWER_RAIN,
-    '10d': W_RAIN,
-    '11n': W_THUNDERSTORM,
-    '13d': W_SNOW,
-    '50d': W_MIST,
+    "01n": W_CLEAR_SKY,
+    "01d": W_CLEAR_SKY,
+    "02d": W_FEW_CLOUDS,
+    "03d": W_SCATTERED_CLOUDS,
+    "04n": W_BROKEN_CLOUDS,
+    "09d": W_SHOWER_RAIN,
+    "10d": W_RAIN,
+    "11n": W_THUNDERSTORM,
+    "13d": W_SNOW,
+    "50d": W_MIST,
 }
 
 
@@ -59,8 +61,8 @@ class Weather(commands.Cog):
         self.bot = bot
         self.loop = self.bot.loop
         self.config = self.bot.config
-        if self.config['owm']:
-            self.owm = pyowm.OWM(self.config['owm'])
+        if self.config["owm"]:
+            self.owm = pyowm.OWM(self.config["owm"])
         else:
             self.owm = None
 
@@ -70,30 +72,30 @@ class Weather(commands.Cog):
         """Grabs the weather from OpenWeatherMap"""
         if self.owm:
             try:
-                future = self.loop.run_in_executor(None,
-                                                   self.owm.weather_at_place,
-                                                   loc)
+                future = self.loop.run_in_executor(None, self.owm.weather_at_place, loc)
                 observation = await future
 
             except pyowm.exceptions.not_found_error.NotFoundError:
-                return await ctx.send('Location not found.')
+                return await ctx.send("Location not found.")
             except Exception as e:
                 raise uerrs.ServiceError(e)
             w = observation.get_weather()
-            _wg = lambda t: w.get_temperature(t)['temp']
+            _wg = lambda t: w.get_temperature(t)["temp"]
             _icon = w.get_weather_icon_name()
-            icon = OWM_ICONS.get(_icon, '*<no icon>*')
+            icon = OWM_ICONS.get(_icon, "*<no icon>*")
             status = w.get_detailed_status()
             location = observation.get_location()
-            em = discord.Embed(title=f'Weather for {location.get_name()}',
-                               description=f'{icon} Currently: {status}\n'
-                                           ':thermometer: Temperature: '
-                                           f'**{_wg("celsius")}** °C / '
-                                           f' **{_wg("fahrenheit")}** °F',
-                               colour=0x690E8)
+            em = discord.Embed(
+                title=f"Weather for {location.get_name()}",
+                description=f"{icon} Currently: {status}\n"
+                ":thermometer: Temperature: "
+                f'**{_wg("celsius")}** °C / '
+                f' **{_wg("fahrenheit")}** °F',
+                colour=0x690E8,
+            )
             await ctx.send(embed=em)
         else:
-            raise uerrs.ServiceError('OpenWeatherMap API not configured.')
+            raise uerrs.ServiceError("OpenWeatherMap API not configured.")
 
 
 def setup(bot):

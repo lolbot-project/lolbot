@@ -47,8 +47,10 @@ from contextlib import redirect_stdout
 
 # noinspection PyPackageRequirements
 import aiohttp
+
 # noinspection PyPackageRequirements
 import discord
+
 # noinspection PyPackageRequirements
 from discord.ext import commands
 
@@ -63,20 +65,22 @@ def strip_code_markup(content: str) -> str:
     # ```py
     # code
     # ```
-    if content.startswith('```') and content.endswith('```'):
+    if content.startswith("```") and content.endswith("```"):
         # grab the lines in the middle
-        return '\n'.join(content.split('\n')[1:-1])
+        return "\n".join(content.split("\n")[1:-1])
 
     # `code`
-    return content.strip('` \n')
+    return content.strip("` \n")
 
 
 def format_syntax_error(e: SyntaxError) -> str:
     """ Formats a SyntaxError. """
     if e.text is None:
-        return '```py\n{0.__class__.__name__}: {0}\n```'.format(e)
+        return "```py\n{0.__class__.__name__}: {0}\n```".format(e)
     # display a nice arrow
-    return '```py\n{0.text}{1:>{0.offset}}\n{2}: {0}```'.format(e, '^', type(e).__name__)
+    return "```py\n{0.text}{1:>{0.offset}}\n{2}: {0}```".format(
+        e, "^", type(e).__name__
+    )
 
 
 class Exec(commands.Cog):
@@ -84,34 +88,33 @@ class Exec(commands.Cog):
         self.bot = bot
         self.last_result = None
 
-    @commands.command(name='eval', aliases=['exec', 'debug'])
+    @commands.command(name="eval", aliases=["exec", "debug"])
     @commands.is_owner()
     async def _eval(self, ctx, *, code: str):
         """ Executes Python code. """
+
         async def upload(file_name: str):
-            with open(file_name, 'rb') as fp:
+            with open(file_name, "rb") as fp:
                 await ctx.send(file=discord.File(fp))
 
         async def send(*args, **kwargs):
             await ctx.send(*args, **kwargs)
 
         env = {
-            'self': self,
-            'bot': ctx.bot,
-            'ctx': ctx,
-            'msg': ctx.message,
-            'guild': ctx.guild,
-            'channel': ctx.channel,
-            'me': ctx.message.author,
-
+            "self": self,
+            "bot": ctx.bot,
+            "ctx": ctx,
+            "msg": ctx.message,
+            "guild": ctx.guild,
+            "channel": ctx.channel,
+            "me": ctx.message.author,
             # utilities
-            '_get': discord.utils.get,
-            '_find': discord.utils.find,
-            '_upload': upload,
-            '_send': send,
-
+            "_get": discord.utils.get,
+            "_find": discord.utils.find,
+            "_upload": upload,
+            "_send": send,
             # last result
-            '_': self.last_result
+            "_": self.last_result,
         }
 
         env.update(globals())
@@ -120,34 +123,34 @@ class Exec(commands.Cog):
         code = strip_code_markup(code)
 
         # add an implicit return at the end
-        lines = code.split('\n')
-        if not lines[-1].startswith('return') and not lines[-1].startswith(' '):
-            lines[-1] = 'return ' + lines[-1]
-        code = '\n'.join(lines)
+        lines = code.split("\n")
+        if not lines[-1].startswith("return") and not lines[-1].startswith(" "):
+            lines[-1] = "return " + lines[-1]
+        code = "\n".join(lines)
 
         # simulated stdout
         stdout = io.StringIO()
 
         # wrap the code in a function, so that we can use await
-        wrapped_code = 'async def func():\n' + textwrap.indent(code, '    ')
+        wrapped_code = "async def func():\n" + textwrap.indent(code, "    ")
 
-        if code == 'bot.http.token':
+        if code == "bot.http.token":
             await ctx.message.add_reaction(ctx.bot.emoji.success)
             return await ctx.send("```py\n'Nice try!'\n```")
 
         try:
-            exec(compile(wrapped_code, '<exec>', 'exec'), env)
+            exec(compile(wrapped_code, "<exec>", "exec"), env)
         except SyntaxError as e:
             return await ctx.send(format_syntax_error(e))
 
-        func = env['func']
+        func = env["func"]
         try:
             with redirect_stdout(stdout):
                 ret = await func()
         except Exception:
             # something went wrong
             stream = stdout.getvalue()
-            await ctx.send('```py\n{}{}\n```'.format(stream, traceback.format_exc()))
+            await ctx.send("```py\n{}{}\n```".format(stream, traceback.format_exc()))
         else:
             # successful
             stream = stdout.getvalue()
@@ -156,21 +159,23 @@ class Exec(commands.Cog):
                 await ctx.message.add_reaction(ctx.bot.emoji.success)
             except discord.Forbidden:
                 # couldn't add the reaction, ignore
-                log.warning('Failed to add reaction to eval message, ignoring.')
+                log.warning("Failed to add reaction to eval message, ignoring.")
 
             try:
                 self.last_result = self.last_result if ret is None else ret
-                await ctx.send('```py\n{}{}\n```'.format(stream, repr(ret)))
+                await ctx.send("```py\n{}{}\n```".format(stream, repr(ret)))
             except discord.HTTPException:
                 # too long
                 try:
                     url = await paste.haste(ctx.bot.session, stream + repr(ret))
-                    await ctx.send('Result was too long. ' + url)
+                    await ctx.send("Result was too long. " + url)
                 except KeyError:
                     # even hastebin couldn't handle it
-                    await ctx.send('Result was too long, even for Hastebin.')
+                    await ctx.send("Result was too long, even for Hastebin.")
                 except aiohttp.ClientError:
-                    await ctx.send('Unable to send the result to Hastebin, it\'s probably down.')
+                    await ctx.send(
+                        "Unable to send the result to Hastebin, it's probably down."
+                    )
 
 
 def setup(bot):

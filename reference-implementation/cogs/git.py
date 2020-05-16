@@ -4,18 +4,19 @@ import cogs.utils.gitapi as api
 from cogs.utils.plainreq import get_req
 import urllib.parse
 
+
 class Git(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        #self.ghkey = self.bot.config['github']
-        #self.ghauth = {
+        # self.ghkey = self.bot.config['github']
+        # self.ghauth = {
         #    'Authorization': f'token {self.ghkey}',
         #    'Accept': 'application/vnd.github.mercy-preview+json'
-        #}
+        # }
 
-    @commands.command(aliases=['gitlab'])
+    @commands.command(aliases=["gitlab"])
     @commands.cooldown(1, 5, type=commands.BucketType.user)
-    async def gl(self, ctx, repo: str, instance: str='gitlab.com'):
+    async def gl(self, ctx, repo: str, instance: str = "gitlab.com"):
         """
         Grabs information about a GitLab repository.
         The syntax is written like this:
@@ -31,30 +32,37 @@ class Git(commands.Cog):
         comply with ratelimiting.
         """
         repo = urllib.parse.quote_plus(repo)
-        rurl = api.gl_build(f'projects/{repo}', instance)
+        rurl = api.gl_build(f"projects/{repo}", instance)
         async with await get_req(ctx.bot.session, rurl) as r:
             if r.status == 200:
                 rj = await r.json()
-                if rj['description'] == '':
-                    desc = 'No description provided.'
+                if rj["description"] == "":
+                    desc = "No description provided."
                 else:
-                    desc = rj['description']
-                repo = repo.replace('%2F', '/')
-                stars = rj['star_count']
-                forks = rj['forks_count']
+                    desc = rj["description"]
+                repo = repo.replace("%2F", "/")
+                stars = rj["star_count"]
+                forks = rj["forks_count"]
                 clone = f'git clone {rj["http_url_to_repo"]}'
-                await ctx.send(embed=discord.Embed(title=f'{repo} on {instance}',
-                                        description=f'*{desc}*\n'
-                                        f':star: {stars} :fork_and_knife: {forks}\n'
-                                        f':arrow_down: `{clone}`',
-                                        colour=0x690E8))
+                await ctx.send(
+                    embed=discord.Embed(
+                        title=f"{repo} on {instance}",
+                        description=f"*{desc}*\n"
+                        f":star: {stars} :fork_and_knife: {forks}\n"
+                        f":arrow_down: `{clone}`",
+                        colour=0x690E8,
+                    )
+                )
             elif r.status == 404:
-                await ctx.send(embed=discord.Embed(title='Oopsie woopsie!',
-                                                   description='That repository'
-                                                   'could not be found.',
-                                                   colour=0x690E8))
+                await ctx.send(
+                    embed=discord.Embed(
+                        title="Oopsie woopsie!",
+                        description="That repository" "could not be found.",
+                        colour=0x690E8,
+                    )
+                )
 
-    @commands.command(aliases=['github'])
+    @commands.command(aliases=["github"])
     @commands.cooldown(1, 5, type=commands.BucketType.user)
     async def gh(self, ctx, repo: str):
         """
@@ -67,27 +75,29 @@ class Git(commands.Cog):
         comply with ratelimiting.
         """
 
-        rurl = api.gh_build(f'repos/{repo}')
+        rurl = api.gh_build(f"repos/{repo}")
         async with await get_req(ctx.bot.session, rurl) as r:
             if r.status == 200:
                 rj = await r.json()
-                if rj['description'] == '':
-                    desc = 'No description provided.'
+                if rj["description"] == "":
+                    desc = "No description provided."
                 else:
-                    desc = rj['description']
-                stars = rj['stargazers_count']
-                forks = rj['forks_count']
-                clone = rj['clone_url']
-                repo_em = discord.Embed(title=f'{repo}',
-                                        description=f'*{desc}*\n'
-                                        f':star: {stars} :fork_and_knife: {forks}\n'
-                                        f':arrow_down: `git clone {clone}`',
-                                        colour=0x690E8)
+                    desc = rj["description"]
+                stars = rj["stargazers_count"]
+                forks = rj["forks_count"]
+                clone = rj["clone_url"]
+                repo_em = discord.Embed(
+                    title=f"{repo}",
+                    description=f"*{desc}*\n"
+                    f":star: {stars} :fork_and_knife: {forks}\n"
+                    f":arrow_down: `git clone {clone}`",
+                    colour=0x690E8,
+                )
                 await ctx.send(embed=repo_em)
             elif r.status == 404:
-                repo_em = discord.Embed(title='Error',
-                                        description='Repository not found.',
-                                        colour=0x690E8)
+                repo_em = discord.Embed(
+                    title="Error", description="Repository not found.", colour=0x690E8
+                )
                 await ctx.send(embed=repo_em)
 
 

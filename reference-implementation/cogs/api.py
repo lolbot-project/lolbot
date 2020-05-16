@@ -14,53 +14,53 @@ app.bot = None
 
 
 # Basic shit
-@app.route('/')
+@app.route("/")
 async def no():
-    return jsonify({'no': 'go away'})
+    return jsonify({"no": "go away"})
 
 
-@app.route('/api/ping')
+@app.route("/api/ping")
 async def wsping():
-    return jsonify({'ws': round(app.bot.latency * 1000, 3)})
+    return jsonify({"ws": round(app.bot.latency * 1000, 3)})
 
 
-@app.route('/api/votes')
+@app.route("/api/votes")
 async def votes():
     _id = app.bot.user.id
-    dbl = await app.bot.session.get(f'https://discordbots.org/api/bots/{_id}',
-                                    headers={
-                                        'Authorization': app.bot.config['dbl']
-                                    })
+    dbl = await app.bot.session.get(
+        f"https://discordbots.org/api/bots/{_id}",
+        headers={"Authorization": app.bot.config["dbl"]},
+    )
     if dbl.status == 200:
         _dbl = await dbl.json()
         dbl_status = 200
-        dbl_monthly = _dbl['monthlyPoints']
-        dbl_total = _dbl['points']
+        dbl_monthly = _dbl["monthlyPoints"]
+        dbl_total = _dbl["points"]
     else:
-        dbl_monthly = '0 (error)'
-        dbl_total = '0 (error)'
+        dbl_monthly = "0 (error)"
+        dbl_total = "0 (error)"
         dbl_status = dbl.status
-    return jsonify({
-        'dbl_status': dbl_status,
-        'dbl_monthly': dbl_monthly,
-        'dbl_total': dbl_total
-    })
+    return jsonify(
+        {"dbl_status": dbl_status, "dbl_monthly": dbl_monthly, "dbl_total": dbl_total}
+    )
 
 
 # Stats endpoints
-@app.route('/api/stats/<whatever>')
+@app.route("/api/stats/<whatever>")
 async def stats(whatever):
-    if whatever == 'guilds':
-        return jsonify({'guilds': len(app.bot.guilds)})
-    elif whatever == 'shards':
-        return jsonify({'shards': len(app.bot.shards)})
-    elif whatever == 'ready':
-        return jsonify({'ready': app.bot.is_ready()})
-    elif whatever == 'basic':
-        return jsonify({
-            'ready': app.bot.is_ready(),
-            'guilds': len(app.bot.guilds),
-            'shards': len(app.bot.shards)
-        })
+    if whatever == "guilds":
+        return jsonify({"guilds": len(app.bot.guilds)})
+    elif whatever == "shards":
+        return jsonify({"shards": len(app.bot.shards)})
+    elif whatever == "ready":
+        return jsonify({"ready": app.bot.is_ready()})
+    elif whatever == "basic":
+        return jsonify(
+            {
+                "ready": app.bot.is_ready(),
+                "guilds": len(app.bot.guilds),
+                "shards": len(app.bot.shards),
+            }
+        )
     else:
-        return jsonify({'error': 404})
+        return jsonify({"error": 404})

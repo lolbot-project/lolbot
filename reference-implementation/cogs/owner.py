@@ -3,11 +3,14 @@ import traceback
 import asyncio
 import logging
 from cogs import common
+
 # noinspection PyPackageRequirements
 import discord
+
 # noinspection PyPackageRequirements
 from discord.ext import commands
 from cogs.utils import paste
+
 """
 The MIT License (MIT)
 
@@ -41,7 +44,8 @@ Originally made by luna for Jose, the best bot
 async def run_cmd(cmd: str) -> str:
     """Runs a subprocess and returns the output."""
     process = await asyncio.create_subprocess_shell(
-        cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+        cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+    )
     results = await process.communicate()
     return "".join(x.decode("utf-8") for x in results)
 
@@ -55,40 +59,40 @@ class Owner(commands.Cog):
     async def game(self, ctx):
         """Change playing status"""
         if ctx.invoked_subcommand is None:
-            _help = discord.Embed(title='Subcommands', colour=0x690E8)
-            _help.add_field(name='set',
-                            value='Sets playing state. `^game set meme`')
-            _help.add_field(name='clear',
-                            value='Clears playing state. `^game clear`')
+            _help = discord.Embed(title="Subcommands", colour=0x690E8)
+            _help.add_field(name="set", value="Sets playing state. `^game set meme`")
+            _help.add_field(name="clear", value="Clears playing state. `^game clear`")
             return await ctx.send(embed=_help)
 
-    @game.command(name='set')
+    @game.command(name="set")
     async def _set(self, ctx, *, game: str):
         """Sets playing state"""
         try:
             a = discord.Streaming
-            g = a(name=f'{game} | {ctx.bot.config["prefix"]}help |'
-                       f' v{common.version}',
-                  url='https://twitch.tv/monstercat')
+            g = a(
+                name=f'{game} | {ctx.bot.config["prefix"]}help |' f" v{common.version}",
+                url="https://twitch.tv/monstercat",
+            )
             await self.bot.change_presence(activity=g)
         except Exception:
-            await ctx.send(f'```\n{traceback.format_exc()}\n```')
+            await ctx.send(f"```\n{traceback.format_exc()}\n```")
         else:
-            await ctx.send(':white_check_mark: Updated.')
+            await ctx.send(":white_check_mark: Updated.")
 
-    @game.command(name='clear')
+    @game.command(name="clear")
     async def _clear(self, ctx):
         """Resets playing state to normal"""
         try:
             a = discord.Streaming
-            p = ctx.bot.config['prefix']
-            g = a(name=f'{p}help | v{ctx.bot.version}',
-                  url='https://twitch.tv/monstercat')
+            p = ctx.bot.config["prefix"]
+            g = a(
+                name=f"{p}help | v{ctx.bot.version}", url="https://twitch.tv/monstercat"
+            )
             await self.bot.change_presence(activity=g)
         except Exception:
-            await ctx.send(f'```\n{traceback.format_exc()}```')
+            await ctx.send(f"```\n{traceback.format_exc()}```")
         else:
-            await ctx.send(':white_check_mark: Cleared.')
+            await ctx.send(":white_check_mark: Cleared.")
 
     @commands.command(hidden=True)
     @commands.is_owner()
@@ -102,26 +106,25 @@ class Owner(commands.Cog):
     async def reboot(self, ctx):
         """Reboots the bot.
         Can only be used with PM2 or systemd"""
-        restart_land = discord.Embed(title='Restarting',
-                                     description='Please wait...',
-                                     colour=0x690E8)
+        restart_land = discord.Embed(
+            title="Restarting", description="Please wait...", colour=0x690E8
+        )
         re_msg = await ctx.send(embed=restart_land)
-        pm2_id = os.environ.get('pm_id')
-        if_systemd = os.environ.get('systemd_supervised')
+        pm2_id = os.environ.get("pm_id")
+        if_systemd = os.environ.get("systemd_supervised")
         if pm2_id:
-            await re_msg.edit(content='pm2: :wave: bye!')
+            await re_msg.edit(content="pm2: :wave: bye!")
             await self.bot.session.close()
             await self.bot.logout()
-            await run_cmd(f'pm2 restart {pm2_id}')
+            await run_cmd(f"pm2 restart {pm2_id}")
         elif if_systemd:
-            await re_msg.edit(content='systemd: :wave: bye!')
+            await re_msg.edit(content="systemd: :wave: bye!")
             await self.bot.session.close()
-            await run_cmd('systemctl --user restart lolbot')
+            await run_cmd("systemctl --user restart lolbot")
             await self.bot.logout()
         else:
-            await re_msg.edit(content=':warning: No supervisor; invoking'
-                              ' `shutdown`')
-            await ctx.invoke(self.bot.get_command('shutdown'))
+            await re_msg.edit(content=":warning: No supervisor; invoking" " `shutdown`")
+            await ctx.invoke(self.bot.get_command("shutdown"))
 
     @commands.command(hidden=True)
     @commands.is_owner()
@@ -129,22 +132,28 @@ class Owner(commands.Cog):
         with ctx.typing():
             person = ctx.bot.get_user(p)
             try:
-                channel = ctx.bot.get_channel(ctx.bot.config['feedback'])
+                channel = ctx.bot.get_channel(ctx.bot.config["feedback"])
             except Exception:
-                await ctx.send(':warning: Cannot find feedback channel?')
-            fbck = discord.Embed(title='Feedback response',
-                                 description=res, colour=0x690E8)
+                await ctx.send(":warning: Cannot find feedback channel?")
+            fbck = discord.Embed(
+                title="Feedback response", description=res, colour=0x690E8
+            )
             try:
-                await person.send(f'Hello {person.name}! The owner has '
-                                  'responded to your feedback.', embed=fbck)
+                await person.send(
+                    f"Hello {person.name}! The owner has "
+                    "responded to your feedback.",
+                    embed=fbck,
+                )
             except Exception as e:
-                return await ctx.send(f'blocked? ```py\n{e}\n```')
+                return await ctx.send(f"blocked? ```py\n{e}\n```")
             else:
-                fbck = discord.Embed(title=f'Owner response: {str(person)}\'s'
-                                           ' feedback',
-                                     description=res, colour=0x690E8)
+                fbck = discord.Embed(
+                    title=f"Owner response: {str(person)}'s" " feedback",
+                    description=res,
+                    colour=0x690E8,
+                )
                 await channel.send(embed=fbck)
-            await ctx.send('Successfully sent response!')
+            await ctx.send("Successfully sent response!")
 
 
 def setup(bot):

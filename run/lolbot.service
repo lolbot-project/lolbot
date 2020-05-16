@@ -43,4 +43,4 @@ WantedBy=default.target
 [Service]
 Environment="systemd_supervised=1"
 WorkingDirectory=/home/[YOUR USERNAME]/lolbot
-ExecStart=/home/[YOUR USERNAME]/lolbot/env/bin/python index.py
+ExecStart=/home/[YOUR USERNAME]/lolbot/env/bin/python bot.py

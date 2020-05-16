@@ -10,6 +10,18 @@ Hi! This is the repository for lolbot, a Discord bot project
 - [ ] Cogs
     - [x] common
     - [ ] fun
+        - [x] cat
+        - [x] httpcat
+        - [x] dog
+        - [x] lizard
+        - [x] why
+        - [x] robohash
+        - [ ] 8ball
+        - [x] spin
+        - [ ] yesno
+        - [ ] joke/dadjoke/awdad/dadpls/shitjoke/badjoke
+        - [ ] sumfuk
+        - [x] excuse/bofh/techproblem
     - [ ] git
     - [ ] minecraft
     - [ ] osu

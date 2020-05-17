@@ -6,6 +6,10 @@ class Git(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @classmethod
+    def generate_description(description, stars, forks, command):
+        return f'*{description}*\n:star: {stars} :fork_and_knife: {forks}\n :arrow_down: {command}'
+
     @commands.command(aliases=["gitlab"])
     @commands.cooldown(1, 5, type=commands.BucketType.user)
     async def gl(self, ctx, repo: str, instance: str = "gitlab.com"):
@@ -35,7 +39,7 @@ class Git(commands.Cog):
                 forks = r["forks_count"]
                 cmd = f'git clone {r["http_url_to_repo"]}'
                 embed.title = f'{repo} on {instance}'
-                embed.description = f'*{desc}*\n:star: {stars} :fork_and_knife: {forks}\n:arrow_down: `{cmd}`'
+                embed.description = self.generate_description(desc, stars, forks, cmd)
                 await ctx.send(embed=embed)
             elif r.status == 404:
                 embed.title = 'Oops...'

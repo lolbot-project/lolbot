@@ -22,9 +22,9 @@ Hi! This is the repository for lolbot, a Discord bot project
         - [ ] joke/dadjoke/awdad/dadpls/shitjoke/badjoke
         - [ ] sumfuk
         - [x] excuse/bofh/techproblem
-    - [ ] git
-        - [ ] gl/gitlab
-        - [ ] gh/github
+    - [x] git
+        - [x] gl/gitlab
+        - [x] gh/github
     - [ ] minecraft
         - [ ] mcserver
     - [ ] osu

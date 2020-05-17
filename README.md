@@ -72,52 +72,37 @@ If you try to submit it to bot lists anyway, I'm sure they'll find out what it r
 
 ## Running
 Requirements:
-- Python 3 + pip (3.7 minimum, latest recommended)
+- Python 3 + pipenv (Python 3.7 minimum, latest recommended)
 - Various Python packages
 - A working internet connection
 - A brain
-- Some sort of Linux[1]
 
-
-(Note: I assume your Python 3 is the binary `python3`. Change instructions to suit your environment if needed.)
-
-(I'll also assume the associated pip install is `pip3`.)
-
-1. (**HIGHLY RECOMMENDED**) Create a virtual environment - This contains all the required packages in one directory and makes cleanup very simple if you decide to just delete this one day.
+1. Install packages - Without these, the bot will absolutely refuse to run as they contain necessary code for connecting to Discord, etc.
 ```bash
-python3 -m venv env
-source env/bin/activate
+pipenv install
 ```
 
-2. Install packages - Without these, the bot will absolutely refuse to run as they contain necessary code for connecting to Discord, etc.
-```bash
-pip3 install -Ur requirements.txt
-```
-
-3. Edit config - The example config should hold your hand through most of this stuff.
+2. Edit config - The example config should hold your hand through most of this stuff.
 ```bash
 cp config-example.yaml config.yaml
 nano config.yaml
 ```
 
-4. Try to launch the bot - Yeah, not much to say about this one.
+3. Try to launch the bot - Yeah, not much to say about this one.
 ```bash
-python bot.py
+pipenv run python bot.py
 ```
 
-5. (**HIGHLY RECOMMENDED**) Install the systemd service - Make maintenance easy with the lolbot systemd file - start, stop, restart at any time!
+4. (**HIGHLY RECOMMENDED**) Install the systemd service - Make maintenance easy with the lolbot systemd file - start, stop, restart at any time!
 ```bash
 mkdir -p ~/.config/systemd/user
 cp run/lolbot.service ~/.config/systemd/user
 loginctl enable-linger
 systemctl --user daemon-reload
-systemctl --user enable lolbot
-# ^ Make lolbot launch on system startup, optional
+systemctl --user enable lolbot # Optional: let lolbot start when your system does
 systemctl --user start lolbot
 ```
 
-[1] lolbot can probably be used on Windows provided you remove uvloop from requirements, but it's definitely not recommended
-
 ### Credits
-- [luna](https://github.com/lnyaa) - Contributions & code
+- [luna](https://github.com/lun-4) - Contributions & code
 - [slice](https://github.com/slice) - Code

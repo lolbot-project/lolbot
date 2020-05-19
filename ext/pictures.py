@@ -149,6 +149,7 @@ class Pictures(commands.Cog):
             embed = get_embed()
             meme = quote_plus(meme)
             embed.set_image(url=f'https://robohash.org/{meme}.png?set={_set}')
+            embed.set_footer(text='credit: robohash.org')
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(f'u broke it somehow: ```\n{e!s}\n```')

@@ -10,12 +10,12 @@ Hi! This is the repository for lolbot, a Discord bot project
 - [ ] Cogs
     - [x] common
     - [ ] fun
-        - [x] cat
-        - [x] httpcat
-        - [x] dog
-        - [x] lizard
+        - [x] cat [1]
+        - [x] httpcat [1]
+        - [x] dog [1]
+        - [x] lizard [1]
         - [x] why
-        - [x] robohash
+        - [x] robohash [1]
         - [ ] 8ball
         - [x] spin
         - [ ] yesno
@@ -64,6 +64,7 @@ Hi! This is the repository for lolbot, a Discord bot project
 - [ ] API (somewhat done, needs config stuff)
 - [x] Core
 
+[1] Moved into a seperate `pictures` cog to avoid making the `fun` cog/category too bloated
 
 ## Before we start
 If you do end up running this bot for yourself, please keep it to personal use only out of respect.

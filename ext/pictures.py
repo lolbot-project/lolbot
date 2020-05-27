@@ -6,11 +6,11 @@ from urllib.parse import quote_plus
 class Pictures(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.cat_quotes = [
-            "consider the following: this cat",
-            "a cat",
-            "here's a cat",
-            "have a cat"
+        self.quotes = [
+            "consider the following: this ",
+            "a ",
+            "here's a ",
+            "have a "
         ]
 
     def decide_source(self):
@@ -37,7 +37,7 @@ class Pictures(commands.Cog):
             if r.status == 200:
                 r = await r.json()
                 embed = get_embed()
-                embed.title = choice(self.cat_quotes)
+                embed.title = choice(self.quotes) + 'cat'
                 embed.set_image(url=r['file'])
                 await ctx.send(embed=embed)
             else:
@@ -122,6 +122,7 @@ class Pictures(commands.Cog):
                     return await ctx.send(f'video: {url}')
                 embed = get_embed()
                 embed.set_image(url=url)
+                embed.title = choice(self.quotes) + 'dog'
                 embed.set_footer(text=f'source: {r.host}')
                 await ctx.send(embed=embed)
             else:
@@ -134,7 +135,7 @@ class Pictures(commands.Cog):
             if r.status == 200:
                 r = await r.json()
                 embed = get_embed()
-                embed.title = 'a lizard'
+                embed.title = choice(self.quotes) + 'lizard'
                 embed.set_image(url=r['url'])
             else:
                 await ctx.send(f'nekos.life didn\'t send anything back. try again later? (http {r.status})')

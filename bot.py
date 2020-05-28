@@ -10,8 +10,10 @@ import logging
 from utils.config import Config
 import os
 import asyncio
-from api.server import app as webapp
 from core.bot import Lolbot
+from rich import traceback
+
+traceback.install()
 
 logging.basicConfig(
     format="(%(asctime)s) [%(levelname)s] - %(message)s", level=logging.INFO
@@ -19,8 +21,9 @@ logging.basicConfig(
 
 try:
     import uvloop
-
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+except ModuleNotFoundError:
+    logging.warning("Ignoring uvloop due to being on win32")
 except Exception:
     logging.warning("unable to setup uvloop", exc_info=True)
 

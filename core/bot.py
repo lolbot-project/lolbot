@@ -4,11 +4,14 @@ from utils.version import get_version
 from utils.prefix import get_prefix
 from hypercorn.asyncio.run import Server
 from discord.ext import commands
+from api.server import app as webapp
 import aiohttp
 import hypercorn.config
 import logging
 import discord
 import time
+
+
 
 # Thanks: https://github.com/slice/dogbot/blob/master/dog/bot.py#L19
 async def _boot_hypercorn(app, config, *, loop):
@@ -21,6 +24,9 @@ async def _boot_hypercorn(app, config, *, loop):
 class Lolbot(commands.AutoShardedBot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        logging.basicConfig(
+            format="(%(asctime)s) [%(levelname)s] - %(message)s", level=logging.INFO
+        )
         self.config = Config("config.yaml").config
         self.session = aiohttp.ClientSession(
             loop=self.loop, headers={"User-Agent": user_agent}

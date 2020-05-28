@@ -154,3 +154,6 @@ class Pictures(commands.Cog):
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(f'u broke it somehow: ```\n{e!s}\n```')
+
+def setup(bot):
+    bot.add_cog(Pictures(bot))

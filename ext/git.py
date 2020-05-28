@@ -76,3 +76,6 @@ class Git(commands.Cog):
                 embed.title = 'Oops...'
                 embed.description = 'That repository doesn\'t seem to exist, or is private. Are you sure you typed it correctly?'
             await ctx.send(embed=embed)
+
+def setup(bot):
+    bot.add_cog(Git(bot))

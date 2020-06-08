@@ -8,7 +8,7 @@ api:
 tokens:
   discord: "discord token" # required
   osu: "osu api key" # osu.ppy.sh/p/api
-  owm: "openweathermap api key" # openweathermap.org, sign up to get key
+  weatherbit: "weatherbit api key" # weatherbit.io, sign up to get key
   topgg: "top.gg api key" # ur not getting this lol
   dbots: "discord.bots.gg api key" # ur not getting this lol
   wa: "wolframalpha api key" # products.wolframalpha.com/api, sign up to get key

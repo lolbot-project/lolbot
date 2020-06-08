@@ -92,3 +92,12 @@ class ConfigError(Exception):
     """
 
     pass
+
+
+class WeatherException(Exception):
+    """
+    Subclass of Exception.
+    Raised when there is an error attempting to access weather data.
+    """
+
+    pass

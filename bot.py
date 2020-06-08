@@ -18,10 +18,11 @@ from rich import traceback
 redirect_logging()
 traceback.install()
 StreamHandler(stdout, level=INFO).push_application()
-log = Logger('lolbot')
+log = Logger("lolbot")
 
 try:
     import uvloop
+
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 except ModuleNotFoundError:
     log.warning("Ignoring uvloop due to being on win32")
@@ -34,7 +35,7 @@ bot = Lolbot(
     command_prefix=commands.when_mentioned_or(config["bot"]["prefix"]),
     description="hi im a bot",
     help_command=help_command,
-    logger=log
+    logger=log,
 )
 
 if __name__ == "__main__":

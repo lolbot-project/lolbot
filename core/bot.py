@@ -11,7 +11,6 @@ import discord
 import time
 
 
-
 # Thanks: https://github.com/slice/dogbot/blob/master/dog/bot.py#L19
 async def _boot_hypercorn(app, config, *, loop):
     socket = config.create_sockets()
@@ -19,6 +18,7 @@ async def _boot_hypercorn(app, config, *, loop):
         lambda: Server(app, loop, config), sock=socket.insecure_sockets[0]
     )
     return server
+
 
 class Lolbot(commands.AutoShardedBot):
     def __init__(self, logger, *args, **kwargs):

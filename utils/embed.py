@@ -1,5 +1,6 @@
 from discord import Embed
 
+
 def get_embed():
     """
     Helper for discord.Embed.

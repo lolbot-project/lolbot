@@ -7,7 +7,6 @@ from discord.ext import commands
 from api.server import app as webapp
 import aiohttp
 import hypercorn.config
-import logging
 import discord
 import time
 
@@ -22,11 +21,9 @@ async def _boot_hypercorn(app, config, *, loop):
     return server
 
 class Lolbot(commands.AutoShardedBot):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, logger, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        logging.basicConfig(
-            format="(%(asctime)s) [%(levelname)s] - %(message)s", level=logging.INFO
-        )
+        self.log = logger
         self.config = Config("config.yaml").config
         self.session = aiohttp.ClientSession(
             loop=self.loop, headers={"User-Agent": user_agent}
@@ -38,10 +35,10 @@ class Lolbot(commands.AutoShardedBot):
             self.http_server_config = hypercorn.Config.from_mapping(self.config["api"])
             self.loop.create_task(self._boot_http_server())
         else:
-            logging.info("api disabled, skipping http server boot")
+            self.log.info("api disabled, skipping http server boot")
 
     async def on_ready(self):
-        logging.info("lolbot has started up")
+        self.log.info(f"whats poppin mofos! {self.user!s}")
         await self.change_presence(
             activity=discord.Streaming(
                 name=f"{get_prefix(self.config)}help | v{get_version()}",
@@ -61,6 +58,6 @@ class Lolbot(commands.AutoShardedBot):
             self.http_server = await _boot_hypercorn(
                 self.webapp, self.http_server_config, loop=self.loop
             )
-            logging.info("http server running: %r", self.http_server)
+            self.log.info(f"http server running: {self.http_server!r}")
         except Exception:
-            logging.exception("http server creation failed")
+            self.log.exception("http server creation failed")

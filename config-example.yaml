@@ -6,13 +6,14 @@ api:
   port: 6142
 integrations:
   osu: true # osu commands
-  metaweather: true # weather command
+  openweathermap: true # weather command
   botlists: true # show server count on botlists - useless for selfhost
   wolfram: true # wolframalpha command
   whois: true # whois command
   weeb: true # weebsh stuff idk
 tokens:
   discord: "discord token" # required
+  openweathermap: "owm api key" # openweathermap.org just sign up
   osu: "osu api key" # osu.ppy.sh/p/api
   topgg: "top.gg api key" # ur not getting this lol
   dbots: "discord.bots.gg api key" # ur not getting this lol

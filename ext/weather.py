@@ -15,24 +15,24 @@ class Weather(commands.Cog):
             bot.unload_cog("Weather")
 
     def get_icon(self, status: str):
-        if status == '01d':
-            return ':sunny:'
-        elif status == '01n':
-            return ':new_moon:'
-        elif status == '02d' or '02n':
-            return ':white_sun_small_cloud:'
-        elif status == '03d' or '03n' or '04d' or '04n':
-            return ':cloud:'
-        elif status == '09d' or '09n':
-            return ':cloud_rain:'
-        elif status == '10d' or '10n':
-            return ':white_sun_rain_cloud:'
-        elif status == '11d' or '11n':
-            return ':thunder_cloud_rain:'
-        elif status == '13d' or '13n':
-            return ':cloud_snow:'
-        elif status == '50d' or '50n':
-            return ':dash:' # lol twemoji doesnt have anything for this
+        if status == "01d":
+            return ":sunny:"
+        elif status == "01n":
+            return ":new_moon:"
+        elif status == "02d" or "02n":
+            return ":white_sun_small_cloud:"
+        elif status == "03d" or "03n" or "04d" or "04n":
+            return ":cloud:"
+        elif status == "09d" or "09n":
+            return ":cloud_rain:"
+        elif status == "10d" or "10n":
+            return ":white_sun_rain_cloud:"
+        elif status == "11d" or "11n":
+            return ":thunder_cloud_rain:"
+        elif status == "13d" or "13n":
+            return ":cloud_snow:"
+        elif status == "50d" or "50n":
+            return ":dash:"  # lol twemoji doesnt have anything for this
 
     @commands.command()
     async def weather(self, ctx, *, location: str):
@@ -40,9 +40,13 @@ class Weather(commands.Cog):
             current = await self.owm.get_current(location)
         except WeatherException as e:
             if e.cod == 404:
-                return await ctx.send('City not found, perhaps try another one near it.')
+                return await ctx.send(
+                    "City not found, perhaps try another one near it."
+                )
             elif e.cod == 429:
-                return await ctx.send('Too many people are currently trying to use this command. Try again in a bit?')
+                return await ctx.send(
+                    "Too many people are currently trying to use this command. Try again in a bit?"
+                )
         embed = get_embed()
         embed.title = f'Weather for {current["city"]}'
         embed.description = (
@@ -52,6 +56,7 @@ class Weather(commands.Cog):
         embed.set_footer(text="Powered by OpenWeatherMap")
 
         await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Weather(bot))

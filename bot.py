@@ -25,7 +25,9 @@ try:
 
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 except ModuleNotFoundError:
-    log.warning("uvloop was not found. This is probably due to platform incompatibility.")
+    log.warning(
+        "uvloop was not found. This is probably due to platform incompatibility."
+    )
 except Exception:
     log.warning("unable to setup uvloop", exc_info=True)
 

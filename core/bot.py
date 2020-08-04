@@ -15,7 +15,7 @@ import time
 async def _boot_hypercorn(app, config, *, loop):
     socket = config.create_sockets()
     server = await loop.create_server(
-        lambda: Server(app, loop, config), sock=socket.insecure_sockets[0]
+        lambda: Server(app, loop, config), host="127.0.0.1", port=app.bot.config["api"]["port"] 
     )
     return server
 

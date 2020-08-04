@@ -2,7 +2,6 @@ from discord.ext import commands
 from utils.openweathermap import OpenWeatherMap
 from utils.embed import get_embed
 from utils.errors import WeatherException
-from utils.conversion import c_to_f
 
 
 class Weather(commands.Cog):

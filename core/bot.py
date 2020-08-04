@@ -28,7 +28,7 @@ class Lolbot(commands.AutoShardedBot):
         self.session = aiohttp.ClientSession(
             loop=self.loop, headers={"User-Agent": user_agent}
         )
-        self.beta = 'b' if self.config["bot"]["production"] else ''
+        self.beta = 'b' if not self.config["bot"]["production"] else ''
         if self.config["api"]["enabled"]:
             webapp.bot = self
             self.webapp = webapp

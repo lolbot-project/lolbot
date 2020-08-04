@@ -28,6 +28,7 @@ class Lolbot(commands.AutoShardedBot):
         self.session = aiohttp.ClientSession(
             loop=self.loop, headers={"User-Agent": user_agent}
         )
+        self.beta = 'b' if self.config["bot"]["production"] else ''
         if self.config["api"]["enabled"]:
             webapp.bot = self
             self.webapp = webapp
@@ -41,7 +42,7 @@ class Lolbot(commands.AutoShardedBot):
         self.log.info(f"whats poppin mofos! {self.user!s}")
         await self.change_presence(
             activity=discord.Streaming(
-                name=f"{get_prefix(self.config)}help | v{get_version()}",
+                name=f"{get_prefix(self.config)}help | v{get_version()}{self.beta}",
                 url="https://twitch.tv/monstercat",
             )
         )

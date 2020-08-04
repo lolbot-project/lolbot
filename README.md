@@ -61,7 +61,7 @@ Hi! This is the repository for lolbot, a Discord bot project
         - [ ] weather (partially done i have more i want to add)
     - [ ] youtube
         - [ ] youtube/yt (maybe finally finish this?)
-- [ ] API (somewhat done, needs config stuff)
+- [x] API
 - [x] Core
 
 [1] Moved into a seperate `pictures` cog to avoid making the `fun` cog/category too bloated

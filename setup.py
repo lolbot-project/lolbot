@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="lolbot",
-    version="4.0",
+    version=open('version.txt').read(),
     description="A fun bot",
     url="https://lolbot.lmao.tf",
     author="S Stewart",

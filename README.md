@@ -57,8 +57,8 @@ Hi! This is the repository for lolbot, a Discord bot project
         - [ ] whois (rewrite this to not use tld list?)
     - [ ] wolfram
         - [ ] wa
-    - [ ] weather
-        - [ ] weather (partially done i have more i want to add)
+    - [x] weather
+        - [x] weather
     - [ ] youtube
         - [ ] youtube/yt (maybe finally finish this?)
 - [x] API

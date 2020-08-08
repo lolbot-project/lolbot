@@ -30,6 +30,7 @@ class Lolbot(commands.AutoShardedBot):
         )
         self.beta = 'b' if not self.config["bot"]["production"] else ''
         self.version = get_version()
+        self.prefix = get_prefix(self.config)
         if self.config["api"]["enabled"]:
             webapp.bot = self
             self.webapp = webapp
@@ -43,7 +44,7 @@ class Lolbot(commands.AutoShardedBot):
         self.log.info(f"whats poppin mofos! {self.user!s}")
         await self.change_presence(
             activity=discord.Streaming(
-                name=f"{get_prefix(self.config)}help | v{self.version}{self.beta}",
+                name=f"{self.prefix}help | v{self.version}{self.beta}",
                 url="https://twitch.tv/monstercat",
             )
         )

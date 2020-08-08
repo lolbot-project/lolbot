@@ -45,7 +45,7 @@ Hi! This is the repository for lolbot, a Discord bot project
             - [ ] join
             - [ ] leave
     - [ ] utility
-        - [ ] hello
+        - [x] hello
         - [ ] uptime
         - [ ] ping
         - [ ] stats

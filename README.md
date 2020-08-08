@@ -27,7 +27,7 @@ Hi! This is the repository for lolbot, a Discord bot project
         - [x] gh/github
     - [ ] minecraft
         - [ ] mcserver
-    - [ ] osu
+    - [ ] osu (possibly up to be split into a seperate bot)
         - [ ] osu
     - [ ] owner
         - [ ] game

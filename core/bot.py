@@ -1,7 +1,7 @@
-from utils.config import Config
+from core.config import Config
 from ext.common import user_agent
-from utils.version import get_version
-from utils.prefix import get_prefix
+from core.version import get_version
+from core.prefix import get_prefix
 from hypercorn.asyncio.run import Server
 from discord.ext import commands
 from api.server import app as webapp

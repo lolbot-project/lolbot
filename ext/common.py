@@ -2,7 +2,7 @@
 data that's used a ton will be stored here
 """
 
-from utils.version import get_version
+from core.version import get_version
 
 user_agent = f"lolbot/{get_version()} - https://github.com/lolbot-project"
 

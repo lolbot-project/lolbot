@@ -9,7 +9,7 @@ from discord.ext import commands
 from logbook import Logger, StreamHandler, INFO
 from logbook.compat import redirect_logging
 from sys import stdout
-from utils.config import Config
+from core.config import Config
 import os
 import asyncio
 from core.bot import Lolbot

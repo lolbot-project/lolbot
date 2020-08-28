@@ -2,6 +2,7 @@ from core.config import Config
 from ext.common import user_agent
 from core.version import get_version
 from core.prefix import get_prefix
+from core.database import DatabaseConnection
 from hypercorn.asyncio.run import Server
 from discord.ext import commands
 from api.server import app as webapp
@@ -31,6 +32,7 @@ class Lolbot(commands.AutoShardedBot):
         self.beta = 'b' if not self.config["bot"]["production"] else ''
         self.version = get_version()
         self.prefix = get_prefix(self.config)
+        self.db = DatabaseConnection(self.config["rethink"]["host"], self.config["rethink"]["port"])
         if self.config["api"]["enabled"]:
             webapp.bot = self
             self.webapp = webapp

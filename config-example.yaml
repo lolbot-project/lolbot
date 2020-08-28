@@ -1,14 +1,17 @@
 bot:
-  prefix: "^"
-  production: false
+  prefix: ""
+  production: false # if false, version number will have "b" (beta) appended to it
   feedback: 0 # channel ID for feedback
 api:
   enabled: true # mostly useless for selfhosting but u can keep it on if u want
   port: 6142
+rethinkdb:
+  host: "localhost" # host of rethinkdb. usually localhost
+  port: 28015 # port of rethinkdb. usually 28015
 integrations:
   osu: true # osu commands
   openweathermap: true # weather command
-  botlists: true # show server count on botlists - useless for selfhost
+  botlists: false # show server count on botlists - useless for selfhost
   wolfram: true # wolframalpha command
   whois: true # whois command
   weeb: true # weebsh stuff idk

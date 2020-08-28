@@ -2,15 +2,14 @@ from core.config import Config
 from ext.common import user_agent
 from core.version import get_version
 from core.prefix import get_prefix
-from core.database import DatabaseConnection
 from hypercorn.asyncio.run import Server
 from discord.ext import commands
 from api.server import app as webapp
+from rethinkdb import RethinkDB
 import aiohttp
 import hypercorn.config
 import discord
 import time
-
 
 # Thanks: https://github.com/slice/dogbot/blob/master/dog/bot.py#L19
 async def _boot_hypercorn(app, config, *, loop):
@@ -19,6 +18,7 @@ async def _boot_hypercorn(app, config, *, loop):
         lambda: Server(app, loop, config), host="127.0.0.1", port=app.bot.config["api"]["port"] 
     )
     return server
+
 
 
 class Lolbot(commands.AutoShardedBot):
@@ -32,7 +32,13 @@ class Lolbot(commands.AutoShardedBot):
         self.beta = 'b' if not self.config["bot"]["production"] else ''
         self.version = get_version()
         self.prefix = get_prefix(self.config)
-        self.db = DatabaseConnection(self.config["rethink"]["host"], self.config["rethink"]["port"])
+        self.rethink_obj = RethinkDB()
+        self.rethink_obj.set_loop_type("asyncio")
+        self.db = None
+        if self.loop.is_running():
+            self.loop.create_task(self._connect_rethink())
+        else:
+            self.loop.run_until_complete(self._connect_rethink())
         if self.config["api"]["enabled"]:
             webapp.bot = self
             self.webapp = webapp
@@ -41,6 +47,12 @@ class Lolbot(commands.AutoShardedBot):
             self.loop.create_task(self._boot_http_server())
         else:
             self.log.info("api disabled, skipping http server boot")
+
+    async def _connect_rethink(self):
+        """
+        Returns a connection for RethinkDB.
+        """
+        self.db = await self.rethink_obj.connect(self.config["rethink"]["host"], self.config["rethink"]["port"])
 
     async def on_ready(self):
         self.log.info(f"whats poppin mofos! {self.user!s}")

@@ -5,7 +5,7 @@ bot:
 api:
   enabled: true # mostly useless for selfhosting but u can keep it on if u want
   port: 6142
-rethinkdb:
+rethink:
   host: "localhost" # host of rethinkdb. usually localhost
   port: 28015 # port of rethinkdb. usually 28015
 integrations:

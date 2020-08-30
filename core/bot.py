@@ -32,9 +32,9 @@ class Lolbot(commands.AutoShardedBot):
         self.beta = 'b' if not self.config["bot"]["production"] else ''
         self.version = get_version()
         self.prefix = get_prefix(self.config)
-        self.rethink_obj = RethinkDB()
-        self.rethink_obj.set_loop_type("asyncio")
-        self.db = None
+        self.rethink = RethinkDB()
+        self.rethink.set_loop_type("asyncio")
+        self.db_conn = None
         if self.loop.is_running():
             self.loop.create_task(self._connect_rethink())
         else:
@@ -52,7 +52,7 @@ class Lolbot(commands.AutoShardedBot):
         """
         Returns a connection for RethinkDB.
         """
-        self.db = await self.rethink_obj.connect(self.config["rethink"]["host"], self.config["rethink"]["port"])
+        self.db_conn = await self.rethink.connect(self.config["rethink"]["host"], self.config["rethink"]["port"])
 
     async def on_ready(self):
         self.log.info(f"whats poppin mofos! {self.user!s}")

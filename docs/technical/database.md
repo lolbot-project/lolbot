@@ -14,7 +14,7 @@ There is currently only one table:
 `config` (formatted):
 ```js
 {
-    id: int,
+    id: int, // Representing the "Snowflake" IDs that Discord uses.
     config: [
         {
             "property": string,

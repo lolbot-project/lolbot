@@ -2,7 +2,7 @@ from rethinkdb import RethinkDB
 from rethinkdb.errors import ReqlOpFailedError
 
 r = RethinkDB()
-tables = ["userconfig", "serverconfig"]
+tables = ["config"]
 
 conn = r.connect("localhost", 28015)
 

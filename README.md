@@ -91,7 +91,7 @@ nano config.yaml
 
 3. Try to launch the bot - Yeah, not much to say about this one.
 ```bash
-pipenv run python bot.py
+pipenv run bot
 ```
 
 4. (**HIGHLY RECOMMENDED**) Install the systemd service - Make maintenance easy with the lolbot systemd file - start, stop, restart at any time!

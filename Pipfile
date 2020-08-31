@@ -25,3 +25,4 @@ python_version = "3.8"
 
 [scripts]
 bot = "python bot.py"
+initdb = "python run/create_rethink_tables.py"

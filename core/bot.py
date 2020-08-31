@@ -52,8 +52,7 @@ class Lolbot(commands.AutoShardedBot):
         """
         Returns a connection for RethinkDB.
         """
-        self.db_conn = await self.rethink.connect(self.config["rethink"]["host"], self.config["rethink"]["port"])
-        self.db_conn.use('lolbot') # use actual db instead of "test"
+        self.db_conn = await self.rethink.connect(self.config["rethink"]["host"], self.config["rethink"]["port"], db='lolbot')
 
     async def on_ready(self):
         self.log.info(f"whats poppin mofos! {self.user!s}")

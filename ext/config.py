@@ -2,14 +2,16 @@ from discord.ext import commands
 from utils.embed import get_embed
 from rich.table import Table
 from rich.console import Console
-from os import devnull
+from io import StringIO
 
 class Config(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.rethink = bot.rethink
         self.conn = bot.db_conn
-        self.rich_console = Console(record=True, color_system=None)
+        self.rich_console = Console(record=True,
+                                    color_system=None,
+                                    file=StringIO()) # file is StringIO so we can easily access the contents
 
     @commands.group()
     async def config(self, ctx):
@@ -30,7 +32,7 @@ class Config(commands.Cog):
         async for part in parts:
             table.add_row(part["property"], part["value"])
         self.rich_console.print(table) # Required to "record" the output so we can export it to text
-        return self.rich_console.export_text()
+        return self.rich_console.file.getvalue() # Get text from StringIO
         
     @config.command(name='list')
     async def list_all_properties(self, ctx):

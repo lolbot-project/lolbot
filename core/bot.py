@@ -19,26 +19,29 @@ async def _boot_hypercorn(app, config, *, loop):
     )
     return server
 
-
+class Dummy:
+    pass
 
 class Lolbot(commands.AutoShardedBot):
     def __init__(self, logger, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.log = logger
         self.config = Config("config.yaml").config
-        self.session = aiohttp.ClientSession(
-            loop=self.loop, headers={"User-Agent": user_agent}
-        )
+        self.session = self.loop.create_task(self._create_http_session()).result()
+
         self.beta = 'b' if not self.config["bot"]["production"] else ''
         self.version = get_version()
         self.prefix = get_prefix(self.config)
+
         self.rethink = RethinkDB()
         self.rethink.set_loop_type("asyncio")
         self.db_conn = None
+
         if self.loop.is_running():
             self.loop.create_task(self._connect_rethink())
         else:
             self.loop.run_until_complete(self._connect_rethink())
+
         if self.config["api"]["enabled"]:
             webapp.bot = self
             self.webapp = webapp
@@ -48,11 +51,28 @@ class Lolbot(commands.AutoShardedBot):
         else:
             self.log.info("api disabled, skipping http server boot")
 
+        self.emoji = Dummy() # lol
+        self.emoji.fail = discord.utils.get(self.emojis, name="l_fail")
+        self.emoji.success = discord.utils.get(self.emojis, name="l_check")
+        self.emoji.load = discord.utils.get(self.emojis, name="l_process")
+
+    async def _create_http_session(self):
+        return await aiohttp.ClientSession(loop=self.loop, headers={'User-Agent': user_agent})
+
     async def _connect_rethink(self):
         """
         Returns a connection for RethinkDB.
         """
         self.db_conn = await self.rethink.connect(self.config["rethink"]["host"], self.config["rethink"]["port"], db='lolbot')
+
+    async def report_error(self, error: Exception, user: int, command: str):
+        return await self.rethink.table("errors").insert({
+            "exception": str(error),
+            "info": {
+                "id": user,
+                "command": command
+            }
+        })
 
     async def on_ready(self):
         self.log.info(f"whats poppin mofos! {self.user!s}")

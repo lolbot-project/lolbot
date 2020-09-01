@@ -1,13 +1,4 @@
-from discord import Embed as thonk
-
-class Embed(thonk):
-    def __init__(self, *args, **kwargs):
-        """
-        Helper for discord.Embed.
-
-        :returns: discord.Embed
-        """
-        self.colour = 0x690E8
+from discord import Embed
 
 def get_embed():
     """
@@ -15,4 +6,4 @@ def get_embed():
     
     :returns: discord.Embed
     """
-    return Embed()
+    return Embed(colour=0x690E8)

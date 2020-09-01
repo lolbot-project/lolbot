@@ -20,7 +20,7 @@ class Config(commands.Cog):
         If you need to set server configuration, see the serverconfig command.
         """
         if ctx.invoked_subcommand is None:
-            embed = get_embed()
+            embed = self.embed
             embed.title = 'lolbot Config'
             embed.description = f"Some lolbot commands support configuration of certain values, like usernames for certain services. If you want to learn more about lolbot's configuration system, see `{ctx.bot.prefix}help config`."
             await ctx.send(embed=embed)
@@ -42,6 +42,7 @@ class Config(commands.Cog):
         properties = await self.get_rethink_configs(ctx.message.author.id)
         table = await self.construct_table(properties)
         embed = get_embed()
+        embed.set_author(name=ctx.message.author.name + "'s config", icon_url=ctx.message.author.avatar_url)
         embed.description = f'```\n{table}\n```'
         await ctx.send(embed=embed)
 

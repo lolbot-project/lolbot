@@ -8,6 +8,11 @@ api:
 rethink:
   host: "localhost" # host of rethinkdb. usually localhost
   port: 28015 # port of rethinkdb. usually 28015
+logs:
+  commands: true # log command usages?
+  command_channel: 0 # channel ID for command logging
+  errors: true # log error IDs (document IDs from rethink) for support purposes
+  error_channel: 0 # channel ID for error logging
 integrations:
   osu: true # osu commands
   openweathermap: true # weather command

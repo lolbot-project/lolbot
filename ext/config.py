@@ -33,16 +33,41 @@ class Config(commands.Cog):
             table.add_row(part["property"], part["value"])
         self.rich_console.print(table) # Required to "record" the output so we can export it to text
         return self.rich_console.file.getvalue() # Get text from StringIO
-        
+    
+    async def get_rethink_configs(self, snowflake: int):
+        return await self.rethink.table("config").filter(self.rethink.row["id"] == snowflake).run(self.conn)
+
     @config.command(name='list')
     async def list_all_properties(self, ctx):
-        properties = await self.rethink.table("config").filter(self.rethink.row["id"] == ctx.message.author.id).run(self.conn)
+        properties = await self.get_rethink_configs(ctx.message.author.id)
         table = await self.construct_table(properties)
-        await ctx.send(f'```\n{table}\n```')
+        embed = get_embed()
+        embed.description = f'```\n{table}\n```'
+        await ctx.send(embed=embed)
 
 
     @config.command(name='set')
-    async def set_value(self, ctx, property: str, value: str):
+    async def set_value(self, ctx, property: str, value: any):
+        return
+    
+    @commands.group()
+    async def serverconfig(self, ctx):
+        """
+        Set configuration options for certain lolbot commands. Only works if you have Manage Server.
+        Need user configuration? See the config command instead.
+        """
+        if ctx.invoked_subcommand is None:
+            embed = get_embed()
+            embed.title = 'lolbot Server Config'
+            embed.description = 'Some lolbot commands may be configured server wide, for example disabling NSFW commands (even if you have an NSFW channel in your server). Setting values on the server is limited to users with Manage Server, however anyone can view the server config.'
+            await ctx.send(embed=embed)
+    
+    @serverconfig.command(name='list')
+    async def list_serverconfig(self, ctx):
+        return
+
+    @serverconfig.command(name='set')
+    async def set_serverconfig(self, ctx, property: str, value: any):
         return
 
 def setup(bot):

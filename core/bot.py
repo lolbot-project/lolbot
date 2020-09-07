@@ -6,6 +6,8 @@ from hypercorn.asyncio.run import Server
 from discord.ext import commands
 from api.server import app as webapp
 from rethinkdb import RethinkDB
+from rethinkdb.errors import ReqlDriverError
+from sys import exit
 import aiohttp
 import hypercorn.config
 import discord
@@ -27,7 +29,7 @@ class Lolbot(commands.AutoShardedBot):
         super().__init__(*args, **kwargs)
         self.log = logger
         self.config = Config("config.yaml").config
-        self.session = self.loop.create_task(self._create_http_session()).result()
+        self.session = aiohttp.ClientSession(loop=self.loop, headers={'User-Agent': user_agent})
 
         self.beta = 'b' if not self.config["bot"]["production"] else ''
         self.version = get_version()
@@ -56,14 +58,16 @@ class Lolbot(commands.AutoShardedBot):
         self.emoji.success = discord.utils.get(self.emojis, name="l_check")
         self.emoji.load = discord.utils.get(self.emojis, name="l_process")
 
-    async def _create_http_session(self):
-        return await aiohttp.ClientSession(loop=self.loop, headers={'User-Agent': user_agent})
-
     async def _connect_rethink(self):
         """
         Returns a connection for RethinkDB.
         """
-        self.db_conn = await self.rethink.connect(self.config["rethink"]["host"], self.config["rethink"]["port"], db='lolbot')
+        try:
+            self.db_conn = await self.rethink.connect(self.config["rethink"]["host"], self.config["rethink"]["port"], db='lolbot')
+        except ReqlDriverError as err:
+            self.log.critical('RethinkDB is required for lolbot to start up.')
+            self.log.critical(err)
+            exit(1)
 
     async def report_error(self, error: Exception, user: int, command: str):
         return await self.rethink.table("errors").insert({

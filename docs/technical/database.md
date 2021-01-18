@@ -4,7 +4,7 @@ lolbot uses [RethinkDB](https://rethinkdb.com) to store needed data.
 
 ## Tables
 
-There is currently only one table:
+There is currently two tables:
 
 - `config`
     - Used to store configuration for servers, and users

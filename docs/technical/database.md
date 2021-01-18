@@ -22,7 +22,7 @@ There is currently two tables:
             "property": string,
             "value": any // This can be a bool, int, string, whatever needs to be stored here
         },
-        ...
+        // ... this will go on for however many things are stored
     ]
 }
 ```

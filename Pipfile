@@ -8,7 +8,7 @@ verify_ssl = true
 [packages]
 wheel = "*"
 discord-py = "*"
-uvloop = {version = "*",sys_platform = "!= 'win32'"}
+uvloop = {version = "*", sys_platform = "!= 'win32'"}
 wolframalpha = "*"
 osuapi = "*"
 pyowm = "*"
@@ -19,9 +19,7 @@ quart = "==0.8.1"
 rich = "*"
 logbook = "*"
 rethinkdb = "*"
-
-[requires]
-python_version = "3.8"
+rstr = "*"
 
 [scripts]
 bot = "python bot.py"

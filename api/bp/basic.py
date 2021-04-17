@@ -2,7 +2,7 @@
 from quart import Blueprint, g
 from quart import jsonify as json
 
-api = Blueprint("endpoints", __name__)
+api = Blueprint(__name__)
 
 
 @api.route("/status")

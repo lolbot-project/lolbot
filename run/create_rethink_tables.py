@@ -21,3 +21,4 @@ for table in tables:
         print(f"* {table} table creation failed. Most likely already exists")
 
 print("- Done!")
+conn.close()
